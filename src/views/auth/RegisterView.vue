@@ -39,7 +39,7 @@
       <v-form fast-fail @submit.prevent>
       <v-text-field
      
-        label="Email"
+        label="First name"
       ></v-text-field>
 
       <v-text-field
@@ -47,14 +47,19 @@
         label="Last name"
       ></v-text-field>
 
-      <v-btn class="mt-2" type="submit" block>Submit</v-btn>
+      <v-text-field
+      
+      label="Email"
+    ></v-text-field>
+
+    <v-text-field
+      
+      label="Password"
+    ></v-text-field>
+
+      <v-btn class="mt-2" type="submit" block><RouterLink to="/booking">Submit</RouterLink></v-btn>
     </v-form>
-    <v-divider class="my-5">
-
-    </v-divider>
-    <h5>Dont have an account? <RouterLink to="/register">Click here to register</RouterLink>
-
-    </h5>
+    
       </v-card-text>
   </v-card>
       </v-col>
