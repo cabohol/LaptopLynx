@@ -1,0 +1,1095 @@
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import GLightbox from 'glightbox';
+import 'glightbox/dist/css/glightbox.min.css';
+
+
+// Function to open the lightbox
+const openLightbox = (index) => {
+  currentIndex.value = index;
+  const lightbox = GLightbox({
+    touchNavigation: true,
+    loop: true,
+    elements: slides.map((slide) => ({
+      href: slide.img,
+      title: 'Click to close'
+    })),
+  });
+  lightbox.open();
+};
+
+</script>
+
+
+<template>
+<v-responsive class="border rounded">
+    <v-app>
+    <v-app-bar app class="elegant-app-bar">
+      <v-toolbar-title>
+        <v-img
+          src="https://scontent.fmnl14-1.fna.fbcdn.net/v/t1.15752-9/462337933_1972891169798050_3639474823550317272_n.png?_nc_cat=106&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeFVBlqPGHmug7ujjk4_fdqnYIloCJoykQNgiWgImjKRA9kUvPCCSSCffjVmYPh6dm4GCPi5WbpMzQjdBUYeZYXj&_nc_ohc=EJdiNvxjwKQQ7kNvgGzvkmY&_nc_zt=23&_nc_ht=scontent.fmnl14-1.fna&_nc_gid=AuC2fffehralh-F2OQq5hL-&oh=03_Q7cD1QH4dYZXqLvzBF4yctp5OMzlM0yFWlJAxmtlkh_5P70wrg&oe=67314C88"  
+          alt="Logo"
+          class="lg"
+          contain
+        ></v-img>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <router-link to="/LoginView" class="login-button">
+        <v-btn text>
+          <v-icon left>mdi-login</v-icon> <!-- Login icon -->
+          Log In
+        </v-btn>
+      </router-link>
+    </v-app-bar>
+
+
+
+
+
+    <!-- Main content with Carousel -->
+    <v-main>
+      <v-container fluid class="py-4">
+        <v-carousel hide-delimiter-background height="500" cycle dark>
+          <!-- Carousel Items -->
+          <v-carousel-item
+            src="https://images.acer.com/is/image/acer/predator-laptop-helios-16-cpu-performance:KSP-with-Specs-XL"
+            cover
+          ></v-carousel-item>
+
+          <v-carousel-item
+            src="https://images.acer.com/is/image/acer/Travelmate_P6_14_Violin_MTH_KSP_1-4:KSP-with-Specs-XL"
+            cover
+          ></v-carousel-item>
+
+          <v-carousel-item
+            src="https://s13emagst.akamaized.net//products/30747/30746541/media/res_ee896a61fe1e371fa8c52397144b4865.jpg"
+            cover
+          ></v-carousel-item>
+        </v-carousel>
+      </v-container>
+
+
+
+
+     
+              
+              <!-- Logos Section -->
+              <div class="logo-scroll-container">
+                  <div class="logo-container">
+                      <img src="https://1000logos.net/wp-content/uploads/2016/09/Acer-Logo.png" alt="Brand Logo 1" class="logo" />
+                      <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Huawei_Standard_logo.svg/1008px-Huawei_Standard_logo.svg.png" alt="Brand Logo 2" class="logo" />
+                      <img src="https://logos-world.net/wp-content/uploads/2022/07/Lenovo-Symbol.png" alt="Brand Logo 3" class="logo" />
+                      <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/dell-icon.png" alt="Brand Logo 4" class="logo" />
+                      <img src="https://cdn.freebiesupply.com/images/large/2x/apple-logo-transparent.png" alt="Brand Logo 5" class="logo" />
+                      <img src="https://cdn.freebiesupply.com/images/large/2x/hewlett-packard-logo-png-transparent.png" alt="Brand Logo 6" class="logo" />
+                      <img src="https://cdn.freebiesupply.com/images/large/2x/asus-logo-black-transparent.png" alt="Brand Logo 7" class="logo" />
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/TOSHIBA_Logo.png/1200px-TOSHIBA_Logo.png" alt="Brand Logo 8" class="logo" />
+                  </div>
+              </div>
+
+
+
+              <v-container fluid>
+    <v-row justify="center" class="my-12">
+      <v-col cols="12">
+      <h2 class="section-heading">
+        <v-icon class="icon" style="font-size: 2.5rem; color: #66FCF1;">mdi-laptop</v-icon> <!-- Laptop icon -->
+        Most Rented Laptops on LaptopLynx
+      </h2>
+    </v-col>
+
+<!-- Card 1: Predator -->
+<v-col cols="12" sm="6" md="3">
+  <v-card class="mx-auto my-4 laptop-card" max-width="374">
+    <!-- Wrap image with a link -->
+    <a href="https://d1rlzxa98cyc61.cloudfront.net/catalog/product/cache/1801c418208f9607a371e61f8d9184d9/1/8/180581_2022.jpg" target="_blank">
+      <v-img
+        height="250"
+        src="https://d1rlzxa98cyc61.cloudfront.net/catalog/product/cache/1801c418208f9607a371e61f8d9184d9/1/8/180581_2022.jpg"
+        cover
+        target="_blank"></v-img>
+    </a>
+
+    <v-card-item>
+      <v-card-title>Acer Predator Helios 300</v-card-title>
+
+      <v-card-subtitle>
+        <v-icon class="fire-icon" color="error" icon="mdi-fire-circle" size="small"></v-icon>
+        <span class="me-1">Gaming Beast</span>
+      </v-card-subtitle>
+    </v-card-item>
+
+    <v-card-text>
+      <v-row class="mx-0">
+        <v-rating
+          :model-value="4.9"
+          color="amber"
+          density="compact"
+          size="small"
+          half-increments
+          readonly
+        ></v-rating>
+        <div class="text-grey ms-4">4.9 (530)</div>
+      </v-row>
+
+      <div class="my-4 text-subtitle-1">₱1,000 • Gaming Laptop</div>
+      <div>Top-tier gaming performance with powerful graphics and cooling.</div>
+    </v-card-text>
+  </v-card>
+</v-col>
+
+<!-- Card 2: Huawei -->
+<v-col cols="12" sm="6" md="3">
+  <v-card class="mx-auto my-4 laptop-card" max-width="374">
+    <!-- Wrap image with a link -->
+    <a href="https://img01.huaweifile.com/sg/ms/ph/pms/uomcdn/PH_HW_B2B2C/pms/202407/gbom/6942103123122/428_428_F6FDD46BEA57BE4A04EDB7FD59010BF6mp.png" target="_blank">
+      <v-img
+        height="250"
+        src="https://img01.huaweifile.com/sg/ms/ph/pms/uomcdn/PH_HW_B2B2C/pms/202407/gbom/6942103123122/428_428_F6FDD46BEA57BE4A04EDB7FD59010BF6mp.png"
+        cover
+      ></v-img>
+    </a>
+
+    <v-card-item>
+      <v-card-title>Huawei MateBook X Pro</v-card-title>
+
+      <v-card-subtitle>
+        <v-icon class="fire-icon" color="error" icon="mdi-fire-circle" size="small"></v-icon>
+        <span class="me-1">Premium Choice</span>
+      </v-card-subtitle>
+    </v-card-item>
+
+    <v-card-text>
+      <v-row class="mx-0">
+        <v-rating
+          :model-value="4.7"
+          color="amber"
+          density="compact"
+          size="small"
+          half-increments
+          readonly
+        ></v-rating>
+        <div class="text-grey ms-4">4.7 (415)</div>
+      </v-row>
+
+      <div class="my-4 text-subtitle-1">₱850 • Ultrabook</div>
+      <div>Stunning display and sleek design with exceptional performance.</div>
+    </v-card-text>
+  </v-card>
+</v-col>
+
+<!-- Card 3: Acer -->
+<v-col cols="12" sm="6" md="3">
+  <v-card class="mx-auto my-4 laptop-card" max-width="374">
+    <!-- Wrap image with a link -->
+    <a href="https://s3.pricemestatic.com/Large/Images/ProductImages/202104/637547186890087208_l.jpg" target="_blank">
+      <v-img
+        height="250"
+        src="https://s3.pricemestatic.com/Large/Images/ProductImages/202104/637547186890087208_l.jpg"
+        cover
+      ></v-img>
+    </a>
+
+    <v-card-item>
+      <v-card-title>Acer Swift 3</v-card-title>
+
+      <v-card-subtitle>
+        <v-icon class="fire-icon" color="error" icon="mdi-fire-circle" size="small"></v-icon>
+        <span class="me-1">Portable Power</span>
+      </v-card-subtitle>
+    </v-card-item>
+
+    <v-card-text>
+      <v-row class="mx-0">
+        <v-rating
+          :model-value="4.6"
+          color="amber"
+          density="compact"
+          size="small"
+          half-increments
+          readonly
+        ></v-rating>
+        <div class="text-grey ms-4">4.6 (275)</div>
+      </v-row>
+
+      <div class="my-4 text-subtitle-1">₱500 • Lightweight</div>
+      <div>Great performance in a slim and portable design, ideal for everyday use.</div>
+    </v-card-text>
+  </v-card>
+</v-col>
+
+<!-- Card 4: Lenovo -->
+<v-col cols="12" sm="6" md="3">
+  <v-card class="mx-auto my-4 laptop-card" max-width="374">
+    <!-- Wrap image with a link -->
+    <a href="https://m.media-amazon.com/images/I/518dIk8IYlL._AC_SL1134_.jpg" target="_blank">
+      <v-img
+        height="250"
+        src="https://m.media-amazon.com/images/I/518dIk8IYlL._AC_SL1134_.jpg"
+        cover
+      ></v-img>
+    </a>
+
+    <v-card-item>
+      <v-card-title>Lenovo Legion 5</v-card-title>
+
+      <v-card-subtitle>
+        <v-icon class="fire-icon" color="error" icon="mdi-fire-circle" size="small"></v-icon>
+        <span class="me-1">Powerhouse</span>
+      </v-card-subtitle>
+    </v-card-item>
+
+    <v-card-text>
+      <v-row class="mx-0">
+        <v-rating
+          :model-value="4.8"
+          color="amber"
+          density="compact"
+          size="small"
+          half-increments
+          readonly
+        ></v-rating>
+        <div class="text-grey ms-4">4.8 (340)</div>
+      </v-row>
+
+      <div class="my-4 text-subtitle-1">₱950 • Gaming Laptop</div>
+      <div>Great for both gaming and productivity, with high performance and a sleek design.</div>
+    </v-card-text>
+  </v-card>
+</v-col>
+    </v-row>
+  </v-container>
+
+
+
+  <v-container class="unique-deals-section" fluid>
+  <v-row justify="center">
+    <v-col cols="12" class="text-center">
+      <h2 class="unique-section-header">
+        <i class="mdi mdi-tag-outline discount-icon"></i>
+        PREMIUM DEAL JUST FOR YOU!
+      </h2>
+    </v-col>
+
+    <!-- First Unique Deal Card: First-Time Renters -->
+    <v-col cols="12" md="6">
+      <v-card class="unique-promo-card" elevation="12">
+        <v-row class="unique-promo-images" justify="center">
+          <v-col cols="6" xs="6">
+            <v-img
+              src="https://images.macrumors.com/t/ENUxq3xBCYWdt2w4W6_Q6h3z-wQ=/2500x/article-new/2023/01/Apple-MacBook-Pro-M2-Feature-Blue-Green.jpg"
+              aspect-ratio="16/9"
+              class="unique-card-img"
+            />
+          </v-col>
+          <v-col cols="6" xs="6">
+            <v-img
+              src="https://laptopmedia.com/wp-content/uploads/2020/10/huaweimatebookxpro2020featured-scaled.jpg"
+              aspect-ratio="16/9"
+              class="unique-card-img"
+            />
+          </v-col>
+        </v-row>
+        <v-card-text class="unique-card-text">
+          <p>🎉 Special Deals for First-Time Renters!</p>
+          <ul>
+            <li>💻 Enjoy premium laptops at amazing prices!</li>
+            <li>🔥 Limited-time offers with free shipping!</li>
+            <li>⚡ Perfect for studying, gaming, and more.</li>
+          </ul>
+        </v-card-text>
+      </v-card>
+    </v-col>
+
+    <!-- Second Unique Deal Card: Graduating Students -->
+    <v-col cols="12" md="6">
+      <v-card class="unique-promo-card" elevation="12">
+        <v-row class="unique-promo-images" justify="center">
+          <v-col cols="6" xs="6">
+            <v-img
+              src="https://images.anandtech.com/doci/9441/HP%20EliteBook%201020%20Folio%20Bang%20%26%20Olufsen%20Limited%20Edition_Duo%20%5B24002%5D.png"
+              aspect-ratio="16/9"
+              class="unique-card-img"
+            />
+          </v-col>
+          <v-col cols="6" xs="6">
+            <v-img
+              src="https://images.acer.com/is/image/acer/predator-laptop-triton17_x-agw-banner?$responsive$"
+              aspect-ratio="16/9"
+              class="unique-card-img"
+            />
+          </v-col>
+        </v-row>
+        <v-card-text class="unique-card-text">
+          <p>🌟 Get Ready for Your Future</p>
+          <ul>
+            <li>🚀 High-performance laptops for multitasking.</li>
+            <li>✨ Stylish designs to match your vibe.</li>
+            <li>🎓 Ideal for final year projects and job hunting.</li>
+          </ul>
+        </v-card-text>
+      </v-card>
+    </v-col>
+  </v-row>
+</v-container>
+
+
+<br>
+<br>
+
+
+<v-container fluid class="laptoplynx-container" style="background-color: #0B0C10; padding: 20px;">
+  <!-- Logo and Company Name -->
+  <v-row justify="center" align="center" class="my-3 text-center laptoplynx-logo-row">
+    <v-col cols="12" md="4" class="text-center laptoplynx-logo-col">
+      <v-row justify="center" align="center">
+        <v-img
+          src="https://scontent.fmnl14-1.fna.fbcdn.net/v/t1.15752-9/462568879_1068096351387700_3074067409424495304_n.png?_nc_cat=109&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeFucn2vC8_y2RUX7gCXtbUthrz3YobBPg2GvPdihsE-DRdRBgxt66N5RXQFb3CJS2aydhLnPUDOpdiba360L2oK&_nc_ohc=aRc3zdgk7J4Q7kNvgFaTGJg&_nc_zt=23&_nc_ht=scontent.fmnl14-1.fna&_nc_gid=A1vBvxM5mfHNWxBIwrI9TgZ&oh=03_Q7cD1QHWYn60J_Jg1D3UpKhw5ald2tbITJ15FO26uy8g8rJr3Q&oe=67314AF2"
+          alt="LaptopLynx Logo"
+          max-width="80"
+          style="transition: transform 0.3s ease-in-out;"
+          class="hover-zoom laptoplynx-logo-img"
+        ></v-img>
+        <div class="ml-2 laptoplynx-text">
+          <h4 class="mb-0 laptoplynx-company-name" style="color: #66FCF1; font-family: 'Arial', sans-serif; font-size: 24px; font-weight: bold;">
+            LaptopLynx
+          </h4>
+          <p class="laptoplynx-tagline" style="color: #E2DAD6; font-family: 'Arial', sans-serif; font-size: 14px; margin-top: 5px;">
+            Rent laptops effortlessly, wherever you go!
+          </p>
+        </div>
+      </v-row>
+    </v-col>
+  </v-row>
+
+  <!-- Divider -->
+  <v-row justify="center" class="laptoplynx-divider-row">
+    <v-col cols="12" md="12" class="laptoplynx-divider-col">
+      <v-divider color="#ffffff" class="laptoplynx-divider"></v-divider>
+    </v-col>
+  </v-row>
+
+<!-- Bottom row with terms and social media -->
+<v-row justify="center" align="center" class="mt-4 text-center laptoplynx-bottom-row">
+  <v-col cols="12" md="6" class="text-center laptoplynx-bottom-col">
+    <p class="laptoplynx-copyright" style="color: #E2DAD6; font-size: 13px;">
+      &copy; 2024 LaptopLynx. All rights reserved.
+    </p>
+  </v-col>
+</v-row>
+</v-container>
+          </v-main>
+      </v-app>
+  </v-responsive>
+</template>
+
+
+
+
+
+<style scoped>
+
+
+
+/* Medium Screens (Tablets) */
+@media (max-width: 992px) {
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+}
+
+/* Small Screens (Phones) */
+@media (max-width: 768px) {
+  .navbar-menu {
+    display: none; /* Hide menu on small screens */
+  }
+
+  .navbar-hamburger {
+    display: block; /* Show hamburger menu on small screens */
+  }
+
+  .card {
+    flex: 1 1 100%; /* 1 card per row */
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .auth-btn {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+}
+
+/* Extra Small Screens (Very Small Phones) */
+@media (max-width: 576px) {
+  .hero p {
+    font-size: 0.9rem;
+  }
+
+  .card {
+    padding: 10px;
+  }
+
+  .social-icon {
+    font-size: 1.2rem;
+  }
+}
+
+/* General Font Settings */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap');
+
+/* Font Families */
+body, .description h2, .laptop-lynx-title, .auth-btn, .get-started-btn {
+  font-family: 'Poppins', sans-serif; /* Sleek modern font for most elements */
+}
+
+.description p, .auth-btn, .get-started-btn {
+  font-family: 'Raleway', sans-serif; /* Clean and elegant font for body text */
+}
+.semi-transparent-bar {
+  background: #0B0C10; /* Semi-transparent background */
+  padding: 1%;
+}
+
+
+
+
+.auth-btn {
+  color: #66FCF1; /* Button text color */
+  margin-left: 10px; /* Space between buttons */
+}
+
+.auth-btn:hover {
+  text-decoration: underline; /* Underline effect on hover */
+}
+
+.v-icon {
+  margin-top: 8px; /* Add 5px top margin to all icons */
+}
+
+
+/* Ensure the v-main and full-screen-image fill the viewport */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* Prevent default scrolling */
+}
+
+.v-main {
+  height: 100%;
+  background: #0B0C10;
+}
+
+/* Full-Screen Background Image */
+.full-screen-image {
+  margin-top: -70px;
+  position: relative;
+  height: 100vh; /* Full height */
+  background-size: cover; /* Cover the full area */
+  background-position: center; /* Center the image */
+  background-color: #0B0C10;
+}
+
+
+
+body {
+    margin: 0; /* Remove default body margin */
+    min-height: 100vh; /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Space elements evenly */
+}
+
+
+/* Style for the description section */
+.laptop-rental-description {
+    padding: 20px; /* Padding for spacious feel */
+    backdrop-filter: blur(10px); /* Positive blur effect */
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+    width: 90%; /* Set width to a percentage for responsiveness */
+    max-width: 900px; /* Maximum width for larger screens */
+    height: auto; /* Adjust height to fit content */
+    margin: 20px auto; /* Center align the margin */
+    text-align: left; /* Align text to the left */
+    position: absolute; /* Absolute positioning for left alignment */
+    right: -20px; /* Distance from the right side */
+    bottom: -20px; /* Distance from the bottom */
+}
+
+/* Title Styles */
+.laptop-rental-description h2 {
+    font-size: 2.5rem; /* Larger title size */
+    font-weight: bold; 
+    text-align: center;
+    color: #66FCF1; /* Title color */
+    margin-bottom: 10px; /* Space below the title */
+    letter-spacing: 1.5px; /* Increased letter spacing */
+    text-transform: uppercase; /* Uppercase for modern feel */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* Shadow for text visibility */
+}
+
+/* Description Text Styles */
+.description-text {
+    font-size: 1.2rem; /* Slightly larger paragraph size */
+    color: #E0F2F1; /* Text color */
+    line-height: 1.6; /* Improved line spacing */
+    text-align: justify; /* Justify text */
+    margin-bottom: 10px; /* Space below the paragraph */
+    padding: 0 5px; /* Padding for responsive design */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Shadow for text visibility */
+}
+
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    .laptop-rental-description {
+        width: 95%; /* Slightly increase width for medium screens */
+    }
+    .laptop-rental-description h2 {
+        font-size: 2.2rem; /* Slightly smaller title on medium screens */
+    }
+    .description-text {
+        font-size: 1.1rem; /* Slightly smaller paragraph size on medium screens */
+    }
+}
+
+@media (max-width: 992px) {
+    .laptop-rental-description {
+        width: 100%; /* Full width on smaller screens */
+        right: 0; /* Remove right positioning */
+        bottom: 0; /* Adjust bottom positioning */
+        margin: 10px 0; /* Reduce margins */
+    }
+    .laptop-rental-description h2 {
+        font-size: 2rem; /* Smaller title on smaller screens */
+    }
+    .description-text {
+        font-size: 1rem; /* Smaller paragraph size on smaller screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .laptop-rental-description {
+        padding: 15px; /* Reduce padding for mobile devices */
+    }
+    .laptop-rental-description h2 {
+        font-size: 1.8rem; /* Smaller title for mobile devices */
+    }
+    .description-text {
+        font-size: 0.9rem; /* Smaller paragraph size for mobile devices */
+    }
+}
+
+@media (max-width: 576px) {
+    .laptop-rental-description {
+        padding: 10px; /* Further reduce padding for very small devices */
+    }
+    .laptop-rental-description h2 {
+        font-size: 1.6rem; /* Smaller title for very small devices */
+    }
+    .description-text {
+        font-size: 0.8rem; /* Further reduce paragraph size */
+    }
+}
+
+
+
+
+
+
+
+/* Logo Scroll Section */
+.logo-scroll-container {
+  max-height: 200px; /* Set a max height for the scrollable area */
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 20px; /* Padding around the logo section */
+  background-color: #1F2833; /* Darker semi-transparent background for contrast */
+  border-radius: 15px; /* Rounded corners */
+  margin: 20px; /* Spacing around the section */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+}
+
+/* Logos Container */
+.logo-container {
+  display: flex;
+  flex-wrap: nowrap; /* Prevent wrapping for horizontal alignment */
+  justify-content: center; /* Center logos within the container */
+}
+
+/* Individual Logo */
+.logo {
+  margin: 0 30px; /* Increased spacing between logos (adjust this value as needed) */
+  height: 60px; /* Increased uniform height for logos */
+  object-fit: contain; /* Maintain aspect ratio */
+  transition: transform 0.3s; /* Smooth transform transition for hover effect */
+}
+
+/* Logo Hover Effect */
+.logo:hover {
+  transform: scale(1.1); /* Slightly enlarge logos on hover */
+  filter: brightness(1.2); /* Brighten logos on hover */
+}
+
+.laptop-card {
+  display: flex;
+  flex-direction: column; /* Make sure content stacks vertically */
+  justify-content: space-between; /* Distribute space evenly */
+  height: 100%; /* Ensure card takes full height */
+  border: 3px solid #1F2833; /* Add a solid border with a specified color and thickness */
+  border-radius: 8px; /* Optional: Add rounded corners to the border */
+  padding: 10px; /* Optional: Add padding inside the card */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: Add a subtle shadow for depth */
+  background-color: #1F2833;
+}
+
+
+.laptop-card {
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.laptop-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  background-color: #1F2833 /* Hover background color */
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.7rem;
+  font-weight: bold;
+  color: #66FCF1;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+
+.exclusive-deals {
+  padding: 20px 0;
+}
+
+.subheading {
+  font-size: 1.2rem;
+  color: #004D40;
+}
+
+
+
+
+
+
+  /* Zoom effect for logo */
+  .hover-zoom:hover {
+    transform: scale(1.1);
+  }
+
+
+
+  /* Hover effect for social media icons */
+  .social-icon:hover {
+    background-color: #00695C; /* Bright green background on hover */
+    transform: scale(1.2); /* Slight zoom-in on hover */
+    color: #FFFFFF; /* White icon color */
+  }
+
+  /* Divider Style */
+  v-divider {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+
+
+
+
+
+
+.v-icon {
+  margin-bottom: 10px; /* Space between icon and text */
+}
+
+
+
+.fire-icon {
+  font-size: 1.5rem; /* Adjusts the size of the icon */
+  color: #ff5722; /* Sets a custom color for the fire icon */
+  margin-top: 5px;
+
+}
+
+
+
+/* Section header styling with icon */
+.unique-section-header {
+  text-align: center;
+  font-size: 2.7rem;
+  font-weight: bold;
+  color: #66FCF1;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+
+.unique-deal-icon {
+  vertical-align: middle;
+  margin-right: 15px;
+}
+
+/* Unique Deals Section */
+.unique-deals-section {
+  padding: 50px 20px;
+}
+
+/* Unique Promo Cards */
+.unique-promo-card {
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: #1F2833;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  margin-bottom: 40px;
+  padding: 15px;
+  position: relative;
+}
+
+.unique-promo-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: #66FCF1;
+}
+
+.unique-promo-card:hover {
+  transform: scale(1.05) translateY(-5px);
+}
+
+/* Unique Card Images */
+.unique-promo-images {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+/* Text Styling for Promo Cards */
+.unique-card-text p {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #C5C6C7; /* Dark teal for text */
+}
+
+.unique-card-text ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.unique-card-text li {
+  font-size: 1.1rem;
+  color: #C5C6C7;
+  margin-bottom: 8px;
+}
+
+/* Responsive behavior */
+@media screen and (max-width: 1200px) {
+  .unique-section-header {
+    font-size: 2.4rem; /* Slightly smaller font size */
+  }
+
+  .unique-promo-card {
+    padding: 12px; /* Adjust padding */
+  }
+
+  .unique-card-text p {
+    font-size: 1.1rem; /* Smaller text for medium screens */
+  }
+
+  .unique-card-text li {
+    font-size: 1rem; /* Adjust list item size */
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .unique-promo-images {
+    flex-direction: column; /* Stack images on smaller screens */
+    align-items: center; /* Center images */
+  }
+
+  .unique-promo-images img {
+    width: 80%; /* Make images responsive */
+    height: auto; /* Maintain aspect ratio */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .unique-promo-images img {
+    height: 120px; /* Specific height for small screens */
+  }
+  
+  .unique-promo-card {
+    margin-bottom: 20px; /* Less margin on smaller screens */
+  }
+
+  .unique-section-header {
+    font-size: 2rem; /* Smaller font size for smaller screens */
+  }
+
+  .unique-card-text p {
+    font-size: 1rem; /* Further decrease text size */
+  }
+
+  .unique-card-text li {
+    font-size: 0.9rem; /* Decrease list item size */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .unique-section-header {
+    font-size: 1.8rem; /* Further smaller font for very small screens */
+  }
+
+  .unique-promo-card {
+    padding: 10px; /* Reduce padding */
+  }
+
+  .unique-card-text p {
+    font-size: 0.9rem; /* Smaller paragraph size */
+  }
+}
+
+
+
+
+
+
+/* Responsive Styles for LaptopLynx */
+
+@media screen and (max-width: 1200px) {
+  .laptoplynx-company-name {
+    font-size: 22px;
+  }
+
+  .laptoplynx-tagline {
+    font-size: 13px;
+  }
+
+  .laptoplynx-logo-img {
+    max-width: 70px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .laptoplynx-company-name {
+    font-size: 20px;
+  }
+
+  .laptoplynx-tagline {
+    font-size: 12px;
+  }
+
+  .laptoplynx-logo-img {
+    max-width: 60px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .laptoplynx-company-name {
+    font-size: 18px;
+  }
+
+  .laptoplynx-tagline {
+    font-size: 11px;
+  }
+
+  .laptoplynx-logo-img {
+    max-width: 50px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .laptoplynx-company-name {
+    font-size: 16px;
+  }
+
+  .laptoplynx-tagline {
+    font-size: 10px;
+  }
+
+  .laptoplynx-logo-img {
+    max-width: 40px;
+  }
+}
+
+
+
+h2.section-title,
+.v-card-title,
+.v-card-subtitle span,
+.v-card-text,
+.v-rating,
+.text-grey,
+.text-subtitle-1 {
+  color: #C5C6C7 !important;
+}
+
+.v-icon {
+  color: #66FCF1 !important; /* This keeps the icons styled as requested */
+}
+
+
+
+.section-heading {
+  text-align: center;
+  font-size: 2.7rem;
+  font-weight: bold;
+  color: #66FCF1;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+
+
+.elegant-app-bar {
+  background-color: #0B0C10; /* Dark background for the app bar */
+  padding: 0.4%; /* Add padding for better spacing */
+}
+.login-button {
+  color: #C5C6C7; /* Light grey color for login */
+  background: none; /* Transparent background */
+  border: none; /* Remove default border */
+  border-radius: 25px; /* Rounded corners */
+  padding: 10px 20px; /* Padding for the button */
+  font-weight: bold; /* Bold text */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Pointer cursor */
+  transition: color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+  margin-right: 16px; /* Spacing between buttons */
+  position: relative; /* Positioning for the animation */
+  overflow: hidden; /* Hide overflow for pseudo-element */
+}
+
+.login-button::after {
+  content: ''; /* Empty pseudo-element */
+  position: absolute; /* Position it absolutely */
+  width: 100%; /* Cover full width */
+  height: 100%; /* Cover full height */
+  left: 0; /* Align to left */
+  top: 0; /* Align to top */
+  background-color: rgba(102, 252, 241, 0.3); /* Light blue overlay */
+  transform: translateY(-100%); /* Start off-screen */
+  transition: transform 0.3s ease; /* Smooth transition */
+  z-index: 0; /* Behind the text */
+}
+
+.login-button:hover::after {
+  transform: translateY(0); /* Slide in on hover */
+}
+
+.login-button:hover {
+  color: #66FCF1; /* Light blue color on hover */
+  transform: scale(1.05); /* Slightly grow the button */
+}
+
+.signup-button {
+  background-color: #45A29E; /* Teal color for signup */
+  color: #1F2833; /* Dark color for text */
+  border-radius: 25px; /* Rounded corners */
+  padding: 10px 20px; /* Padding for the button */
+  font-weight: bold; /* Bold text */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Pointer cursor */
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+  position: relative; /* Positioning for the animation */
+  overflow: hidden; /* Hide overflow for pseudo-element */
+}
+
+.signup-button::after {
+  content: ''; /* Empty pseudo-element */
+  position: absolute; /* Position it absolutely */
+  width: 100%; /* Cover full width */
+  height: 100%; /* Cover full height */
+  left: 0; /* Align to left */
+  top: 0; /* Align to top */
+  background-color: rgba(102, 252, 241, 0.3); /* Light blue overlay */
+  transform: translateY(-100%); /* Start off-screen */
+  transition: transform 0.3s ease; /* Smooth transition */
+  z-index: 0; /* Behind the text */
+}
+
+.signup-button:hover::after {
+  transform: translateY(0); /* Slide in on hover */
+}
+
+.signup-button:hover {
+  background-color: #66FCF1; /* Light blue on hover */
+  transform: scale(1.05); /* Slightly grow the button */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); /* Increase shadow on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .login-button, .signup-button {
+    padding: 10px 15px; /* Smaller padding on smaller screens */
+    font-size: 14px; /* Smaller font size for better fit */
+    margin-right: 10px; /* Reduced margin */
+  }
+}
+
+@media (max-width: 480px) {
+  .login-button, .signup-button {
+    width: 100%; /* Full width on mobile */
+    margin-right: 0; /* No margin on mobile */
+    margin-bottom: 10px; /* Add space between buttons */
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+  .elegant-app-bar {
+    flex-direction: column; /* Stack items vertically on smaller screens */
+    align-items: flex-start; /* Align items to the left */
+  }
+  
+  .v-toolbar-title {
+    font-size: 20px; /* Reduce font size on smaller screens */
+  }
+
+  .login-button,
+  .signup-button {
+    margin: 4px 0; /* Add spacing for stacked buttons */
+  }
+}
+
+.lg {
+    width: 190px; /* Default width */
+    margin-left: -10px; /* Adjust margin */
+    margin-top: 7px;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    .lg {
+        width: 150px; /* Reduce width for tablets and medium screens */
+        margin-left: -5px; /* Adjust margin if necessary */
+    }
+}
+
+@media (max-width: 600px) {
+    .lg {
+        width: 120px; /* Further reduce width for mobile devices */
+        margin-left: 0; /* Center the logo by removing negative margin */
+    }
+}
+
+</style>
+
