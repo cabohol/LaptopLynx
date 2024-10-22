@@ -1,6 +1,5 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
 import GLightbox from 'glightbox';
 import 'glightbox/dist/css/glightbox.min.css';
 
@@ -25,23 +24,31 @@ const openLightbox = (index) => {
 <template>
 <v-responsive class="border rounded">
     <v-app>
-    <v-app-bar app class="elegant-app-bar">
-      <v-toolbar-title>
-        <v-img
-          src="https://scontent.fmnl14-1.fna.fbcdn.net/v/t1.15752-9/462337933_1972891169798050_3639474823550317272_n.png?_nc_cat=106&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeFVBlqPGHmug7ujjk4_fdqnYIloCJoykQNgiWgImjKRA9kUvPCCSSCffjVmYPh6dm4GCPi5WbpMzQjdBUYeZYXj&_nc_ohc=EJdiNvxjwKQQ7kNvgGzvkmY&_nc_zt=23&_nc_ht=scontent.fmnl14-1.fna&_nc_gid=AuC2fffehralh-F2OQq5hL-&oh=03_Q7cD1QH4dYZXqLvzBF4yctp5OMzlM0yFWlJAxmtlkh_5P70wrg&oe=67314C88"  
-          alt="Logo"
-          class="lg"
-          contain
-        ></v-img>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <router-link to="/LoginView" class="login-button">
-        <v-btn text>
-          <v-icon left>mdi-login</v-icon> <!-- Login icon -->
-          Log In
-        </v-btn>
-      </router-link>
-    </v-app-bar>
+        <v-app-bar app class="elegant-app-bar">
+  <v-toolbar-title>
+    <v-img
+      src="https://scontent.fmnl14-1.fna.fbcdn.net/v/t1.15752-9/462337933_1972891169798050_3639474823550317272_n.png?_nc_cat=106&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeFVBlqPGHmug7ujjk4_fdqnYIloCJoykQNgiWgImjKRA9kUvPCCSSCffjVmYPh6dm4GCPi5WbpMzQjdBUYeZYXj&_nc_ohc=EJdiNvxjwKQQ7kNvgGzvkmY&_nc_zt=23&_nc_ht=scontent.fmnl14-1.fna&_nc_gid=AuC2fffehralh-F2OQq5hL-&oh=03_Q7cD1QH4dYZXqLvzBF4yctp5OMzlM0yFWlJAxmtlkh_5P70wrg&oe=67314C88"
+      alt="Logo"
+      class="lg"
+      contain
+    ></v-img>
+  </v-toolbar-title>
+
+  <!-- Spacer to push the login button to the right -->
+  <v-spacer></v-spacer>
+
+  <!-- Responsive Log In Button -->
+<v-btn
+  class="ml-3"
+  large
+  to="/LoginView"
+>
+  <v-icon left>mdi-account</v-icon> <!-- Person icon added here -->
+  Log In
+</v-btn>
+
+</v-app-bar>
+
 
 
 
@@ -68,6 +75,9 @@ const openLightbox = (index) => {
           ></v-carousel-item>
         </v-carousel>
       </v-container>
+
+
+
 
 
 
@@ -103,10 +113,10 @@ const openLightbox = (index) => {
 <v-col cols="12" sm="6" md="3">
   <v-card class="mx-auto my-4 laptop-card" max-width="374">
     <!-- Wrap image with a link -->
-    <a href="https://d1rlzxa98cyc61.cloudfront.net/catalog/product/cache/1801c418208f9607a371e61f8d9184d9/1/8/180581_2022.jpg" target="_blank">
+    <a href="https://images.acer.com/is/image/acer/predator-helios-neo-16-phn16-72-4zone-backlit-on-wallpaper-black-01-1?$Series-Component-XL$" target="_blank">
       <v-img
         height="250"
-        src="https://d1rlzxa98cyc61.cloudfront.net/catalog/product/cache/1801c418208f9607a371e61f8d9184d9/1/8/180581_2022.jpg"
+        src="https://images.acer.com/is/image/acer/predator-helios-neo-16-phn16-72-4zone-backlit-on-wallpaper-black-01-1?$Series-Component-XL$"
         cover
         target="_blank"></v-img>
     </a>
@@ -183,10 +193,10 @@ const openLightbox = (index) => {
 <v-col cols="12" sm="6" md="3">
   <v-card class="mx-auto my-4 laptop-card" max-width="374">
     <!-- Wrap image with a link -->
-    <a href="https://s3.pricemestatic.com/Large/Images/ProductImages/202104/637547186890087208_l.jpg" target="_blank">
+    <a href="https://images.acer.com/is/image/acer/acer-swift-14-ai-sf14-51-51t-with-fingerprint-with-backlit-on-wp-copilot-steam-blue-01-3?$Series-Component-XL$" target="_blank">
       <v-img
         height="250"
-        src="https://s3.pricemestatic.com/Large/Images/ProductImages/202104/637547186890087208_l.jpg"
+        src="https://images.acer.com/is/image/acer/acer-swift-14-ai-sf14-51-51t-with-fingerprint-with-backlit-on-wp-copilot-steam-blue-01-3?$Series-Component-XL$"
         cover
       ></v-img>
     </a>
@@ -223,10 +233,10 @@ const openLightbox = (index) => {
 <v-col cols="12" sm="6" md="3">
   <v-card class="mx-auto my-4 laptop-card" max-width="374">
     <!-- Wrap image with a link -->
-    <a href="https://m.media-amazon.com/images/I/518dIk8IYlL._AC_SL1134_.jpg" target="_blank">
+    <a href="https://p3-ofp.static.pub//fes/cms/2023/11/01/ceirqp6u2otqjfv9zs3b2yfheefuez779683.png" target="_blank">
       <v-img
         height="250"
-        src="https://m.media-amazon.com/images/I/518dIk8IYlL._AC_SL1134_.jpg"
+        src="https://p3-ofp.static.pub//fes/cms/2023/11/01/ceirqp6u2otqjfv9zs3b2yfheefuez779683.png"
         cover
       ></v-img>
     </a>
@@ -278,14 +288,14 @@ const openLightbox = (index) => {
         <v-row class="unique-promo-images" justify="center">
           <v-col cols="6" xs="6">
             <v-img
-              src="https://images.macrumors.com/t/ENUxq3xBCYWdt2w4W6_Q6h3z-wQ=/2500x/article-new/2023/01/Apple-MacBook-Pro-M2-Feature-Blue-Green.jpg"
+              src="https://images.acer.com/is/image/acer/TravelMate-P2-15?$Rectangular-L$"
               aspect-ratio="16/9"
               class="unique-card-img"
             />
           </v-col>
           <v-col cols="6" xs="6">
             <v-img
-              src="https://laptopmedia.com/wp-content/uploads/2020/10/huaweimatebookxpro2020featured-scaled.jpg"
+              src="https://images.acer.com/is/image/acer/acer-spin-3-sp314-55n-fingerprint-backlit-stylus-wallpaper-win11-pure-silver-08?$Series-Component-XL$"
               aspect-ratio="16/9"
               class="unique-card-img"
             />
@@ -308,14 +318,14 @@ const openLightbox = (index) => {
         <v-row class="unique-promo-images" justify="center">
           <v-col cols="6" xs="6">
             <v-img
-              src="https://images.anandtech.com/doci/9441/HP%20EliteBook%201020%20Folio%20Bang%20%26%20Olufsen%20Limited%20Edition_Duo%20%5B24002%5D.png"
+              src="https://images.acer.com/is/image/acer/ConceptD-3-Ezel_CC315-73_Bl1_Wh_04a?$Series-Component-XL$"
               aspect-ratio="16/9"
               class="unique-card-img"
             />
           </v-col>
           <v-col cols="6" xs="6">
             <v-img
-              src="https://images.acer.com/is/image/acer/predator-laptop-triton17_x-agw-banner?$responsive$"
+              src="https://images.acer.com/is/image/acer/conceptd-5-cn516-73g-cn516-73p-fingerprint-backlit-on-wallpaper-black-01?$Series-Component-XL$"
               aspect-ratio="16/9"
               class="unique-card-img"
             />
@@ -962,113 +972,64 @@ h2.section-title,
   background-color: #0B0C10; /* Dark background for the app bar */
   padding: 0.4%; /* Add padding for better spacing */
 }
-.login-button {
-  color: #C5C6C7; /* Light grey color for login */
-  background: none; /* Transparent background */
-  border: none; /* Remove default border */
-  border-radius: 25px; /* Rounded corners */
-  padding: 10px 20px; /* Padding for the button */
-  font-weight: bold; /* Bold text */
-  font-size: 16px; /* Font size */
-  cursor: pointer; /* Pointer cursor */
-  transition: color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
-  margin-right: 16px; /* Spacing between buttons */
-  position: relative; /* Positioning for the animation */
-  overflow: hidden; /* Hide overflow for pseudo-element */
+
+/* Base Button Styling */
+.v-btn {
+  position: relative;
+  overflow: hidden;
+  background-color: #1F2833; /* Dark primary background */
+  color: #C5C6C7; /* Light text color */
+  border: 2px solid #45A29E; /* Border matches the accent color */
+  border-radius: 5px;
+  padding: 10px 20px;
+  transition: background-color 0.4s ease, border-color 0.4s ease, transform 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+  display: flex; /* Use flexbox to align icon and text */
+  align-items: center; /* Center icon and text vertically */
 }
 
-.login-button::after {
-  content: ''; /* Empty pseudo-element */
-  position: absolute; /* Position it absolutely */
-  width: 100%; /* Cover full width */
-  height: 100%; /* Cover full height */
-  left: 0; /* Align to left */
-  top: 0; /* Align to top */
-  background-color: rgba(102, 252, 241, 0.3); /* Light blue overlay */
-  transform: translateY(-100%); /* Start off-screen */
-  transition: transform 0.3s ease; /* Smooth transition */
-  z-index: 0; /* Behind the text */
+/* Adjust icon size */
+.v-icon {
+  font-size: 1.2rem; /* Adjust icon size if needed */
+  margin-right: 8px; /* Space between icon and text */
 }
 
-.login-button:hover::after {
-  transform: translateY(0); /* Slide in on hover */
+/* Hover effect: Glow with accent color */
+.v-btn:hover {
+  background-color: #0B0C10; /* Slightly darker on hover */
+  border-color: #66FCF1; /* Accent color on hover */
+  transform: scale(1.05); /* Slight zoom on hover */
+  box-shadow: 0 0 15px 5px rgba(102, 252, 241, 0.5); /* Soft glow with accent color */
 }
 
-.login-button:hover {
-  color: #66FCF1; /* Light blue color on hover */
-  transform: scale(1.05); /* Slightly grow the button */
+/* Unique glowing pulse animation */
+.v-btn::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(102, 252, 241, 0.2), transparent);
+  transform: scale(0);
+  transition: transform 0.5s ease-out;
+  border-radius: 50%;
+  z-index: 0;
 }
 
-.signup-button {
-  background-color: #45A29E; /* Teal color for signup */
-  color: #1F2833; /* Dark color for text */
-  border-radius: 25px; /* Rounded corners */
-  padding: 10px 20px; /* Padding for the button */
-  font-weight: bold; /* Bold text */
-  font-size: 16px; /* Font size */
-  cursor: pointer; /* Pointer cursor */
-  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
-  position: relative; /* Positioning for the animation */
-  overflow: hidden; /* Hide overflow for pseudo-element */
+/* Animate the pulse when hovering */
+.v-btn:hover::before {
+  transform: scale(1.5); /* Pulse expands out */
 }
 
-.signup-button::after {
-  content: ''; /* Empty pseudo-element */
-  position: absolute; /* Position it absolutely */
-  width: 100%; /* Cover full width */
-  height: 100%; /* Cover full height */
-  left: 0; /* Align to left */
-  top: 0; /* Align to top */
-  background-color: rgba(102, 252, 241, 0.3); /* Light blue overlay */
-  transform: translateY(-100%); /* Start off-screen */
-  transition: transform 0.3s ease; /* Smooth transition */
-  z-index: 0; /* Behind the text */
+/* Text scaling and glow on hover */
+.v-btn:hover .v-btn__content {
+  color: #66FCF1; /* Change text to accent color on hover */
+  transform: translateY(-2px); /* Subtle upward lift */
+  text-shadow: 0 0 5px #66FCF1; /* Soft glow on the text */
+  transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
 }
 
-.signup-button:hover::after {
-  transform: translateY(0); /* Slide in on hover */
-}
-
-.signup-button:hover {
-  background-color: #66FCF1; /* Light blue on hover */
-  transform: scale(1.05); /* Slightly grow the button */
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); /* Increase shadow on hover */
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .login-button, .signup-button {
-    padding: 10px 15px; /* Smaller padding on smaller screens */
-    font-size: 14px; /* Smaller font size for better fit */
-    margin-right: 10px; /* Reduced margin */
-  }
-}
-
-@media (max-width: 480px) {
-  .login-button, .signup-button {
-    width: 100%; /* Full width on mobile */
-    margin-right: 0; /* No margin on mobile */
-    margin-bottom: 10px; /* Add space between buttons */
-  }
-}
-
-/* Responsive Styles */
-@media (max-width: 600px) {
-  .elegant-app-bar {
-    flex-direction: column; /* Stack items vertically on smaller screens */
-    align-items: flex-start; /* Align items to the left */
-  }
-  
-  .v-toolbar-title {
-    font-size: 20px; /* Reduce font size on smaller screens */
-  }
-
-  .login-button,
-  .signup-button {
-    margin: 4px 0; /* Add spacing for stacked buttons */
-  }
-}
 
 .lg {
     width: 190px; /* Default width */

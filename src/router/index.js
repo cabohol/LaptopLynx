@@ -4,6 +4,7 @@ import RegisterView from '@/views/auth/RegisterView.vue'
 import BookingView from '@/views/auth/BookingView.vue' 
 import ProfileView from '@/views/auth/ProfileView.vue' 
 import DashboardView from '@/views/auth/DashboardView.vue' 
+import ShowcasePageView from '@/views/auth/ShowcasePageView.vue'
 
 
 
@@ -14,6 +15,15 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      redirect: '/ShowcasePage', // Redirect root path to ShowcasePage
+    },
+    {
+      path: '/ShowcasePage',
+      name: 'showcasepage',
+      component: ShowcasePageView,
+    },
+    {
+      path: '/LoginView',
       name: 'login',
       component: LoginView
     },

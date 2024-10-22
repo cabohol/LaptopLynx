@@ -14,6 +14,10 @@ import * as directives from 'vuetify/directives'
 import App from './App.vue'
 import router from './router'
 
+
+import GLightbox from 'glightbox';
+import 'glightbox/dist/css/glightbox.min.css';
+
 const app = createApp(App)
 
 const vuetify = createVuetify({
