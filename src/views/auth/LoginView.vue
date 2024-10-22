@@ -39,7 +39,7 @@ function toggleConfirmPasswordVisibility() {
 
 // Sign Up function
 function onSignUp() {
-  alert(`Signing up with Email: ${email.value}, Password: ${password.value}`);
+  alert(`Signing up with Email: ${email.value}, Password: ${password.value}`);  
 }
 
 // Navigate to register
@@ -95,6 +95,8 @@ function goToRegister() {
                           @click:append="togglePasswordVisibility" 
                           append-icon-class="white--text" 
                         />
+                        
+                        <br>
                         <v-btn class="login-btn" block @click="onLogin">
                          <a href=""> <v-icon left>mdi-login</v-icon>
                         Log In</a>
@@ -102,9 +104,11 @@ function goToRegister() {
 
                       </v-card-text>
                     </v-col>
-
-                    <v-col cols="12" md="6" class="right-panel" style="margin-top: -70px;">
-              <img src="https://scontent.fmnl14-1.fna.fbcdn.net/v/t1.15752-9/462337933_1972891169798050_3639474823550317272_n.png?_nc_cat=106&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeFVBlqPGHmug7ujjk4_fdqnYIloCJoykQNgiWgImjKRA9kUvPCCSSCffjVmYPh6dm4GCPi5WbpMzQjdBUYeZYXj&_nc_ohc=EJdiNvxjwKQQ7kNvgGzvkmY&_nc_zt=23&_nc_ht=scontent.fmnl14-1.fna&_nc_gid=AuC2fffehralh-F2OQq5hL-&oh=03_Q7cD1QH4dYZXqLvzBF4yctp5OMzlM0yFWlJAxmtlkh_5P70wrg&oe=67314C88" alt="Your Logo" class="logo" />
+                    
+                   
+                    <v-col cols="12" md="6" class="right-panel">
+              <img src="https://scontent.fmnl14-1.fna.fbcdn.net/v/t1.15752-9/462337933_1972891169798050_3639474823550317272_n.png?_nc_cat=106&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeFVBlqPGHmug7ujjk4_fdqnYIloCJoykQNgiWgImjKRA9kUvPCCSSCffjVmYPh6dm4GCPi5WbpMzQjdBUYeZYXj&_nc_ohc=EJdiNvxjwKQQ7kNvgGzvkmY&_nc_zt=23&_nc_ht=scontent.fmnl14-1.fna&_nc_gid=AuC2fffehralh-F2OQq5hL-&oh=03_Q7cD1QH4dYZXqLvzBF4yctp5OMzlM0yFWlJAxmtlkh_5P70wrg&oe=67314C88" alt="Your Logo" 
+                class="logo" style="margin-top: -40px;" />
               
               <v-btn @click="step++" class="signup-btn">
                 New Here? <span class="no-underline">Create an Account</span>
@@ -117,12 +121,14 @@ function goToRegister() {
                 <!-- Sign Up Window -->
                 <v-window-item :value="2">
                   <v-row>
-                        <v-col cols="12" md="6" class="right-panel">
-                    <img src="https://scontent.fmnl14-1.fna.fbcdn.net/v/t1.15752-9/462337933_1972891169798050_3639474823550317272_n.png?_nc_cat=106&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeFVBlqPGHmug7ujjk4_fdqnYIloCJoykQNgiWgImjKRA9kUvPCCSSCffjVmYPh6dm4GCPi5WbpMzQjdBUYeZYXj&_nc_ohc=EJdiNvxjwKQQ7kNvgGzvkmY&_nc_zt=23&_nc_ht=scontent.fmnl14-1.fna&_nc_gid=AuC2fffehralh-F2OQq5hL-&oh=03_Q7cD1QH4dYZXqLvzBF4yctp5OMzlM0yFWlJAxmtlkh_5P70wrg&oe=67314C88" alt="Your Logo" class="logo mb-4" />
-                    <v-btn outlined @click="step--" class="back-to-login" style="text-decoration: none;">
+                    <v-col cols="12" md="6" class="right-panel">
+              <img src="https://scontent.fmnl14-1.fna.fbcdn.net/v/t1.15752-9/462337933_1972891169798050_3639474823550317272_n.png?_nc_cat=106&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeFVBlqPGHmug7ujjk4_fdqnYIloCJoykQNgiWgImjKRA9kUvPCCSSCffjVmYPh6dm4GCPi5WbpMzQjdBUYeZYXj&_nc_ohc=EJdiNvxjwKQQ7kNvgGzvkmY&_nc_zt=23&_nc_ht=scontent.fmnl14-1.fna&_nc_gid=AuC2fffehralh-F2OQq5hL-&oh=03_Q7cD1QH4dYZXqLvzBF4yctp5OMzlM0yFWlJAxmtlkh_5P70wrg&oe=67314C88" alt="Your Logo" 
+                class="logo"  />
+              
+                <v-btn outlined @click="step--" class="back-to-login" style="text-decoration: none;">
                       Log In to your Account
                     </v-btn>
-                  </v-col>
+            </v-col>
 
 
                     <v-col cols="12" md="6">
@@ -183,8 +189,18 @@ function goToRegister() {
                         />
 
 <!-- Social Media Sign Up Section -->
-<div class="social-signup">
-  <v-btn class="social-btn facebook-btn" @click="onFacebookSignUp">
+<!-- Social Media Sign Up Section -->
+ 
+<v-btn class="signup-btn" block @click="onSignUp">
+  <v-icon left>mdi-account-plus</v-icon>
+  Sign Up
+</v-btn>
+
+
+
+ 
+ 
+  <!-- <v-btn class="social-btn facebook-btn" @click="onFacebookSignUp">
     <v-icon left>
       mdi-facebook
     </v-icon>
@@ -195,18 +211,16 @@ function goToRegister() {
       mdi-google
     </v-icon>
     <span class="social-text">Sign in with Gmail</span>
-  </v-btn>
-</div>
+  </v-btn> -->
 
-<v-btn class="signup-btn" block @click="onSignUp">
-  <v-icon left>mdi-account-plus</v-icon>
-  Sign Up
-</v-btn>
+
+
+
 
       </v-card-text>
-    </v-col>
-  </v-row>
-</v-window-item>
+                    </v-col>
+              </v-row>
+            </v-window-item>
 
               </v-window>
             </v-card>
@@ -320,64 +334,6 @@ function goToRegister() {
 
 
 
-/* Social Signup Container */
-.social-signup {
-  margin-top: 10px;
-  display: flex;
-  justify-content: center; /* Center buttons horizontally */
-  gap: 10px; /* Space between the buttons */
-}
-
-/* Social Button Styles */
-.social-btn {
-  display: flex;
-  align-items: center; /* Center icon and text vertically */
-  padding: 8px 12px; /* Padding around the content */
-  background-color: #f0f0f0; /* Button background color */
-  color: #333; /* Text color */
-  font-weight: bold; /* Bold text */
-  border-radius: 50px; /* Fully rounded corners */
-  transition: background-color 0.3s ease;
-  border: none; /* Remove button border */
-  white-space: nowrap; /* Prevent text from wrapping */
-}
-
-/* Button Hover Effect */
-.social-btn:hover {
-  background-color: #e0e0e0;
-}
-
-/* Facebook Button Styles */
-.facebook-btn {
-  background-color: #3b5998; /* Facebook color */
-  color: white;
-}
-
-.facebook-btn:hover {
-  background-color: #2d4373;
-}
-
-/* Google Button Styles */
-.google-btn {
-  background-color: #db4437; /* Google color */
-  color: white;
-}
-
-.google-btn:hover {
-  background-color: #c13527;
-}
-
-/* Social Text Styles */
-.social-text {
-  margin-left: 8px; /* Space between icon and text */
-  font-size: 12px; /* Font size for the text */
-}
-
-/* Icon Styling */
-v-icon {
-  font-size: 20px; /* Icon size */
-}
-
 
 /* Icon styles for Log In and Sign Up buttons */
 .v-btn .v-icon {
@@ -415,6 +371,71 @@ v-icon {
 .no-underline {
   text-decoration: none;
 }
+
+.signup-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px; /* Adjust padding as needed */
+  white-space: nowrap; /* Prevent text from overflowing */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Add ellipsis for overflowed text */
+  font-size: 1rem; /* Base font size */
+}
+
+@media (max-width: 768px) {
+  .signup-btn {
+    font-size: 0.7rem; /* Adjust for tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  .signup-btn {
+    font-size: 0.8rem; /* Adjust for mobile */
+    padding: 8px 15px; /* Adjust padding for mobile */
+  }
+}
+
+@media (max-width: 400px) {
+  .signup-btn {
+    font-size: 0.7rem; /* Adjust for mobile */
+    padding: 8px 15px; /* Adjust padding for mobile */
+  }
+}
+
+
+
+.back-to-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px; /* Adjust padding as needed */
+  white-space: nowrap; /* Prevent text from overflowing */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Add ellipsis for overflowed text */
+  font-size: 1rem; /* Base font size */
+}
+
+@media (max-width: 768px) {
+  .back-to-login {
+    font-size: 0.7rem; /* Adjust for tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  .back-to-login {
+    font-size: 0.8rem; /* Adjust for mobile */
+    padding: 8px 15px; /* Adjust padding for mobile */
+  }
+}
+
+@media (max-width: 400px) {
+  .back-to-login{
+    font-size: 0.7rem; /* Adjust for mobile */
+    padding: 8px 15px; /* Adjust padding for mobile */
+  }
+}
+
 
 </style>
 
