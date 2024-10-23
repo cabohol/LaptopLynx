@@ -21,6 +21,9 @@ const openLightbox = (index) => {
 </script>
 
 
+
+
+
 <template>
 <v-responsive class="border rounded">
     <v-app>
@@ -48,11 +51,6 @@ const openLightbox = (index) => {
 </v-btn>
 
 </v-app-bar>
-
-
-
-
-
 
     <!-- Main content with Carousel -->
     <v-main>

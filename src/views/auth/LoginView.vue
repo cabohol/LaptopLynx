@@ -110,118 +110,14 @@ function goToRegister() {
               <img src="https://scontent.fmnl14-1.fna.fbcdn.net/v/t1.15752-9/462337933_1972891169798050_3639474823550317272_n.png?_nc_cat=106&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeFVBlqPGHmug7ujjk4_fdqnYIloCJoykQNgiWgImjKRA9kUvPCCSSCffjVmYPh6dm4GCPi5WbpMzQjdBUYeZYXj&_nc_ohc=EJdiNvxjwKQQ7kNvgGzvkmY&_nc_zt=23&_nc_ht=scontent.fmnl14-1.fna&_nc_gid=AuC2fffehralh-F2OQq5hL-&oh=03_Q7cD1QH4dYZXqLvzBF4yctp5OMzlM0yFWlJAxmtlkh_5P70wrg&oe=67314C88" alt="Your Logo" 
                 class="logo" style="margin-top: -40px;" />
               
-              <v-btn @click="step++" class="signup-btn">
-                New Here? <span class="no-underline">Create an Account</span>
-              </v-btn>
+                <v-btn class="signup-btn" to="/RegisterView">
+  New Here? <span class="no-underline">Create an Account</span>
+</v-btn>
+
             </v-col>
 
                   </v-row>
                 </v-window-item>
-
-                <!-- Sign Up Window -->
-                <v-window-item :value="2">
-                  <v-row>
-                    <v-col cols="12" md="6" class="right-panel">
-              <img src="https://scontent.fmnl14-1.fna.fbcdn.net/v/t1.15752-9/462337933_1972891169798050_3639474823550317272_n.png?_nc_cat=106&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeFVBlqPGHmug7ujjk4_fdqnYIloCJoykQNgiWgImjKRA9kUvPCCSSCffjVmYPh6dm4GCPi5WbpMzQjdBUYeZYXj&_nc_ohc=EJdiNvxjwKQQ7kNvgGzvkmY&_nc_zt=23&_nc_ht=scontent.fmnl14-1.fna&_nc_gid=AuC2fffehralh-F2OQq5hL-&oh=03_Q7cD1QH4dYZXqLvzBF4yctp5OMzlM0yFWlJAxmtlkh_5P70wrg&oe=67314C88" alt="Your Logo" 
-                class="logo"  />
-              
-                <v-btn outlined @click="step--" class="back-to-login" style="text-decoration: none;">
-                      Log In to your Account
-                    </v-btn>
-            </v-col>
-
-
-                    <v-col cols="12" md="6">
-                      <v-card-text class="text-center">
-                        <h4 class="form-title">Create an Account</h4>
-                        <p class="form-description">Join our community today and enjoy our services.</p>
-
-                        <v-text-field
-                          label="Name"
-                          outlined
-                          dense
-                          v-model="name"
-                          class="custom-input mt-4"
-                          append-inner-icon="mdi-account"
-                          :rules="[rules.required]"
-                        />
-                        <v-text-field
-                          label="Phone Number"
-                          outlined
-                          dense
-                          v-model="phone_number"
-                          class="custom-input"
-                          append-inner-icon="mdi-phone"
-                          :rules="[rules.required, rules.phone]" 
-                         />
-                        <v-text-field
-                          label="Email"
-                          outlined
-                          dense
-                          v-model="email"
-                          class="custom-input"
-                          append-inner-icon="mdi-email"
-                          :rules="[rules.required, rules.email]"
-                        />
-                        <v-text-field
-                          label="Password"
-                          outlined
-                          dense
-                          v-model="password"
-                          :type="passwordVisible ? 'text' : 'password'" 
-                          class="custom-input"
-                          append-inner-icon="mdi-lock"
-                          :append-icon="passwordVisible ? 'mdi-eye' : 'mdi-eye-off'" 
-                          @click:append="togglePasswordVisibility" 
-                          append-icon-class="white--text" 
-                        />
-                        <v-text-field
-                          label="Confirm Password"
-                          outlined
-                          dense
-                          v-model="confirm_password"
-                          :type="confirmPasswordVisible ? 'text' : 'password'" 
-                          class="custom-input"
-                          append-inner-icon="mdi-lock"
-                          :append-icon="confirmPasswordVisible ? 'mdi-eye' : 'mdi-eye-off'"  
-                          @click:append="toggleConfirmPasswordVisibility" 
-                          append-icon-class="white--text"
-                        />
-
-<!-- Social Media Sign Up Section -->
-<!-- Social Media Sign Up Section -->
- 
-<v-btn class="signup-btn" block @click="onSignUp">
-  <v-icon left>mdi-account-plus</v-icon>
-  Sign Up
-</v-btn>
-
-
-
- 
- 
-  <!-- <v-btn class="social-btn facebook-btn" @click="onFacebookSignUp">
-    <v-icon left>
-      mdi-facebook
-    </v-icon>
-    <span class="social-text">Sign in with Facebook</span>
-  </v-btn>
-  <v-btn class="social-btn google-btn" @click="onGoogleSignUp">
-    <v-icon left>
-      mdi-google
-    </v-icon>
-    <span class="social-text">Sign in with Gmail</span>
-  </v-btn> -->
-
-
-
-
-
-      </v-card-text>
-                    </v-col>
-              </v-row>
-            </v-window-item>
-
               </v-window>
             </v-card>
           </v-col>
