@@ -7,9 +7,6 @@ import DashboardView from '@/views/auth/DashboardView.vue'
 import ShowcasePageView from '@/views/auth/ShowcasePageView.vue'
 
 
-
-
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [

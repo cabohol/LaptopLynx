@@ -54,33 +54,17 @@ const openLightbox = (index) => {
 
     <!-- Main content with Carousel -->
     <v-main>
-      <v-container fluid class="py-4">
-        <v-carousel hide-delimiter-background height="500" cycle dark>
-          <!-- Carousel Items -->
-          <v-carousel-item
-            src="https://images.acer.com/is/image/acer/predator-laptop-helios-16-cpu-performance:KSP-with-Specs-XL"
-            cover
-          ></v-carousel-item>
-
-          <v-carousel-item
-            src="https://images.acer.com/is/image/acer/Travelmate_P6_14_Violin_MTH_KSP_1-4:KSP-with-Specs-XL"
-            cover
-          ></v-carousel-item>
-
-          <v-carousel-item
-            src="https://s13emagst.akamaized.net//products/30747/30746541/media/res_ee896a61fe1e371fa8c52397144b4865.jpg"
-            cover
-          ></v-carousel-item>
-        </v-carousel>
-      </v-container>
+      <v-parallax src="https://images.acer.com/is/image/acer/predator-laptop-helios-neo-18-code-design:KSP-with-Specs-XL" height="700" style="position: relative; overflow: hidden;" class="animated-parallax">
+  <template v-slot:default>
+    <div class="parallax-text">
+      <h1>Welcome to LaptopLynx</h1>
+      <p>Your premier destination for affordable laptop rentals.</p>
+      <p>Choose from a wide range of high-performance laptops for gaming, work, or study.</p>
+    </div>
+  </template>
+</v-parallax>
 
 
-
-
-
-
-
-     
               
               <!-- Logos Section -->
               <div class="logo-scroll-container">
@@ -95,6 +79,28 @@ const openLightbox = (index) => {
                       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/TOSHIBA_Logo.png/1200px-TOSHIBA_Logo.png" alt="Brand Logo 8" class="logo" />
                   </div>
               </div>
+
+
+
+              <v-container fluid class="py-4">
+                <v-carousel hide-delimiter-background height="500" cycle dark show-arrows="hover"  interval="2500" >
+                  <!-- Carousel Items -->
+                  <v-carousel-item
+                    src="https://images.acer.com/is/image/acer/predator-laptop-helios-16-cpu-performance:KSP-with-Specs-XL"
+                    cover
+                  ></v-carousel-item>
+
+                  <v-carousel-item
+                    src="https://images.acer.com/is/image/acer/Travelmate_P6_14_Violin_MTH_KSP_1-4:KSP-with-Specs-XL"
+                    cover
+                  ></v-carousel-item>
+
+                  <v-carousel-item
+                    src="https://s13emagst.akamaized.net//products/30747/30746541/media/res_ee896a61fe1e371fa8c52397144b4865.jpg"
+                    cover
+                  ></v-carousel-item>
+                </v-carousel>
+              </v-container>
 
 
 
@@ -115,8 +121,7 @@ const openLightbox = (index) => {
       <v-img
         height="250"
         src="https://images.acer.com/is/image/acer/predator-helios-neo-16-phn16-72-4zone-backlit-on-wallpaper-black-01-1?$Series-Component-XL$"
-        cover
-        target="_blank"></v-img>
+        cover></v-img>
     </a>
 
     <v-card-item>
@@ -128,21 +133,15 @@ const openLightbox = (index) => {
       </v-card-subtitle>
     </v-card-item>
 
-    <v-card-text>
-      <v-row class="mx-0">
-        <v-rating
-          :model-value="4.9"
-          color="amber"
-          density="compact"
-          size="small"
-          half-increments
-          readonly
-        ></v-rating>
-        <div class="text-grey ms-4">4.9 (530)</div>
-      </v-row>
-
-      <div class="my-4 text-subtitle-1">₱1,000 • Gaming Laptop</div>
+    <v-card-text  style="margin-top: -20px;">
+      <div class="my-4 text-subtitle-1">₱200 • Gaming Laptop</div>
       <div>Top-tier gaming performance with powerful graphics and cooling.</div>
+      <div class="mt-3">
+        <div class="specs-title">
+          <v-icon >mdi-format-list-bulleted</v-icon> Specs:
+        </div>
+        <div> <v-icon >mdi-chip</v-icon>Intel i7 11th Gen, NVIDIA RTX 3070, 16GB RAM, 1TB SSD, 15.6" 144Hz Display</div>
+      </div>
     </v-card-text>
   </v-card>
 </v-col>
@@ -168,21 +167,15 @@ const openLightbox = (index) => {
       </v-card-subtitle>
     </v-card-item>
 
-    <v-card-text>
-      <v-row class="mx-0">
-        <v-rating
-          :model-value="4.7"
-          color="amber"
-          density="compact"
-          size="small"
-          half-increments
-          readonly
-        ></v-rating>
-        <div class="text-grey ms-4">4.7 (415)</div>
-      </v-row>
-
-      <div class="my-4 text-subtitle-1">₱850 • Ultrabook</div>
+    <v-card-text  style="margin-top: -20px;">
+      <div class="my-4 text-subtitle-1">₱150 • Ultrabook</div>
       <div>Stunning display and sleek design with exceptional performance.</div>
+      <div class="mt-3">
+        <div class="specs-title">
+          <v-icon>mdi-format-list-bulleted</v-icon> Specs:
+        </div>
+        <div><v-icon >mdi-chip</v-icon>Intel i7 10th Gen, 16GB RAM, 512GB SSD, 13.9" 3K Touchscreen</div>
+      </div>
     </v-card-text>
   </v-card>
 </v-col>
@@ -208,21 +201,15 @@ const openLightbox = (index) => {
       </v-card-subtitle>
     </v-card-item>
 
-    <v-card-text>
-      <v-row class="mx-0">
-        <v-rating
-          :model-value="4.6"
-          color="amber"
-          density="compact"
-          size="small"
-          half-increments
-          readonly
-        ></v-rating>
-        <div class="text-grey ms-4">4.6 (275)</div>
-      </v-row>
-
-      <div class="my-4 text-subtitle-1">₱500 • Lightweight</div>
+    <v-card-text  style="margin-top: -20px;">
+      <div class="my-4 text-subtitle-1">₱150 • Lightweight</div>
       <div>Great performance in a slim and portable design, ideal for everyday use.</div>
+      <div class="mt-3">
+        <div class="specs-title">
+          <v-icon>mdi-format-list-bulleted</v-icon> Specs:
+        </div>
+        <div> <v-icon >mdi-chip</v-icon>AMD Ryzen 5, 8GB RAM, 512GB SSD, 14" Full HD Display</div>
+      </div>
     </v-card-text>
   </v-card>
 </v-col>
@@ -247,25 +234,20 @@ const openLightbox = (index) => {
         <span class="me-1">Powerhouse</span>
       </v-card-subtitle>
     </v-card-item>
-
-    <v-card-text>
-      <v-row class="mx-0">
-        <v-rating
-          :model-value="4.8"
-          color="amber"
-          density="compact"
-          size="small"
-          half-increments
-          readonly
-        ></v-rating>
-        <div class="text-grey ms-4">4.8 (340)</div>
-      </v-row>
-
-      <div class="my-4 text-subtitle-1">₱950 • Gaming Laptop</div>
+    <v-card-text style="margin-top: -20px;">
+      <div class="my-4 text-subtitle-1">₱200 • Gaming Laptop</div>
       <div>Great for both gaming and productivity, with high performance and a sleek design.</div>
+      <div class="mt-3">
+        <div class="specs-title">
+          <v-icon >mdi-format-list-bulleted</v-icon> Specs:
+        </div>
+        <div> <v-icon >mdi-chip</v-icon>AMD Ryzen 7, NVIDIA GTX 1660Ti, 16GB RAM, 512GB SSD, 15.6" Full HD Display</div>
+      </div>
     </v-card-text>
   </v-card>
 </v-col>
+
+
     </v-row>
   </v-container>
 
@@ -346,6 +328,163 @@ const openLightbox = (index) => {
 <br>
 <br>
 
+<v-row>
+  <!-- Section Title -->
+  <v-col cols="12" class="text-center">
+    <h2 class="unique-section-header">
+      <i class="mdi mdi-account-multiple-outline team-icon"></i>
+      Meet the LaptopLynx Team
+    </h2>
+    <v-divider class="my-4"></v-divider>
+  </v-col>
+
+  <!-- Card 1 -->
+  <v-col cols="12" sm="6" md="4">
+    <v-card
+      class="mx-auto text-white card-style"
+      max-width="450"
+      height="315"
+      style="background: linear-gradient(135deg, #1f2833, #0b0c10); box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); border-radius: 15px;"
+    >
+      <v-card-text class="text-h5 py-4" style="font-style: italic;">
+        "I love translating creative ideas into clean and intuitive designs. Seeing users enjoy something I've built keeps me motivated!"
+      </v-card-text>
+
+      <v-card-actions>
+        <v-list-item class="w-100">
+  <template v-slot:prepend>
+    <v-avatar
+      size="70"
+      color="#ffffff"
+      image="https://scontent.fmnl9-6.fna.fbcdn.net/v/t39.30808-1/428645010_1116196032717815_9061274676202760255_n.jpg?stp=dst-jpg_s200x200&_nc_cat=103&ccb=1-7&_nc_sid=0ecb9b&_nc_eui2=AeEqz7vd59cTCeqqT6zaTcQIW1ICeIfOrylbUgJ4h86vKZIGVnEpUmm9PSRl2PkFddBVo_Kj59KgqThzJNBlcUPC&_nc_ohc=06kom_q4GHAQ7kNvgHVZxYs&_nc_zt=24&_nc_ht=scontent.fmnl9-6.fna&_nc_gid=AU7d2oX79WYJ7T3TUGijDKr&oh=00_AYB8AR28wJt1kEAGgt4DA5vI5jQUZLOkmDuQS_yJaFckKA&oe=671E9E16"
+      style="border: 2px solid #66fcf1; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);"
+    ></v-avatar>
+  </template>
+
+  <v-list-item-content>
+    <v-list-item-title style="font-weight: bold;">Claire Anne Bohol</v-list-item-title>
+    <v-list-item-subtitle style="color: #66fcf1;">Frontend Developer</v-list-item-subtitle>
+  </v-list-item-content>
+<!-- Social Media Icons aligned to the left -->
+<v-list-item-action class="social-icons" style="display: flex; justify-content: flex-start; align-items: center; gap: 10px;">
+  <a href="https://www.facebook.com/clair.ann.940/" target="_blank" class="custom-social-btn" style="text-decoration: none; display: inline-flex; justify-content: center; align-items: center; transition: transform 0.2s ease, color 0.2s ease;">
+    <v-icon style="font-size: 35px; color: #66fcf1;">mdi-facebook</v-icon>
+  </a>
+  <a href="https://www.linkedin.com/in/claire-bohol-76a76617b/" target="_blank" class="custom-social-btn" style="text-decoration: none; display: inline-flex; justify-content: center; align-items: center; transition: transform 0.2s ease, color 0.2s ease;">
+    <v-icon style="font-size: 35px; color: #66fcf1;">mdi-linkedin</v-icon>
+  </a>
+  <a href="https://github.com/cabohol" target="_blank" class="custom-social-btn" style="text-decoration: none; display: inline-flex; justify-content: center; align-items: center; transition: transform 0.2s ease, color 0.2s ease;">
+    <v-icon style="font-size: 35px; color: #66fcf1;">mdi-github</v-icon>
+  </a>
+</v-list-item-action>
+
+</v-list-item>
+
+      </v-card-actions>
+    </v-card>
+  </v-col>
+
+  <!-- Card 2 -->
+  <v-col cols="12" sm="6" md="4">
+    <v-card
+      class="mx-auto text-white card-style"
+      max-width="450"
+      height="315"
+      style="background: linear-gradient(135deg, #1f2833, #0b0c10); box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); border-radius: 15px;"
+    >
+      <v-card-text class="text-h5 py-4" style="font-style: italic;">
+        "Solving challenges through code ignites my passion. Each project is a chance to innovate, grow, and bring ideas to life."
+      </v-card-text>
+
+      <v-card-actions>
+        <v-list-item class="w-100">
+          <template v-slot:prepend>
+            <v-avatar
+              size="70"
+              color="#ffffff"
+              image="https://scontent.fmnl9-1.fna.fbcdn.net/v/t39.30808-6/356900684_3490557554596131_5490992218168981358_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeF_UpcmPqMWY5bfnb0ifX3K-VKQh_IL_T35UpCH8gv9PVfI-odYtOKPwoStjBrjYlQdKlDyCSdekPZ55ocp4jA9&_nc_ohc=2tD6LhYH0dQQ7kNvgFCnZsn&_nc_zt=23&_nc_ht=scontent.fmnl9-1.fna&_nc_gid=AaI3ylKmFa-dRW06j1-zexj&oh=00_AYCctcfMXGGO8GRSI4Rwb7M2KhBK9a8aZDGXDTidfZpLxw&oe=671E91AF"
+              style="border: 2px solid #66fcf1; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);"
+            ></v-avatar>
+          </template>
+
+          <v-list-item-content>
+    <v-list-item-title style="font-weight: bold;">Christine Bersano</v-list-item-title>
+    <v-list-item-subtitle style="color: #66fcf1;">Frontend Developer</v-list-item-subtitle>
+  </v-list-item-content>
+<!-- Social Media Icons aligned to the left -->
+<v-list-item-action class="social-icons" style="display: flex; justify-content: flex-start; align-items: center; gap: 10px;">
+  <a href="https://www.facebook.com/profile.php?id=100009257626169" target="_blank" class="custom-social-btn" style="text-decoration: none; display: inline-flex; justify-content: center; align-items: center; transition: transform 0.2s ease, color 0.2s ease;">
+    <v-icon style="font-size: 35px; color: #66fcf1;">mdi-facebook</v-icon>
+  </a>
+  <a href="https://www.linkedin.com/in/christinebersano" target="_blank" class="custom-social-btn" style="text-decoration: none; display: inline-flex; justify-content: center; align-items: center; transition: transform 0.2s ease, color 0.2s ease;">
+    <v-icon style="font-size: 35px; color: #66fcf1;">mdi-linkedin</v-icon>
+  </a>
+  <a href="https://github.com/christinebersano" target="_blank" class="custom-social-btn" style="text-decoration: none; display: inline-flex; justify-content: center; align-items: center; transition: transform 0.2s ease, color 0.2s ease;">
+    <v-icon style="font-size: 35px; color: #66fcf1;">mdi-github</v-icon>
+  </a>
+</v-list-item-action>
+        </v-list-item>
+        
+
+      </v-card-actions>
+    </v-card>
+  </v-col>
+
+  <!-- Card 3 -->
+  <v-col cols="12" sm="6" md="4">
+    <v-card
+      class="mx-auto text-white card-style"
+      max-width="450"
+      height="315"
+      style="background: linear-gradient(135deg, #1f2833, #0b0c10); box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); border-radius: 15px;"
+    >
+      <v-card-text class="text-h5 py-4" style="font-style: italic;">
+        "As a System Analyst, I thrive on solving complex problems to boost efficiency and enhance user experience."
+      </v-card-text>
+
+      <v-card-actions>
+        <v-list-item class="w-100">
+          <template v-slot:prepend>
+            <v-avatar
+              size="70"
+              color="#ffffff"
+              image="https://scontent-mnl1-1.xx.fbcdn.net/v/t39.30808-6/286447752_3252891181661335_3341390978979218536_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeE0GJY5wqa7DOtUBC_5OInDf8WUFO_SGmV_xZQU79IaZdyAwXU4NVE4gbhVNG5nICyMgsXSRIv6F6rWIAUqNXuJ&_nc_ohc=e-1gdrsXNvAQ7kNvgHD6fZu&_nc_zt=23&_nc_ht=scontent-mnl1-1.xx&_nc_gid=AdGZAh1ocmxtgWdL7MoIuJB&oh=00_AYAyL8c5lxWGyoOm5ml3qci9lMapqdCd2gVurKWhcMhvNw&oe=671E9A68"
+              style="border: 2px solid #66fcf1; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);"
+            ></v-avatar>
+          </template>
+
+          <v-list-item-content>
+    <v-list-item-title style="font-weight: bold;">Melvin Jipos</v-list-item-title>
+    <v-list-item-subtitle style="color: #66fcf1;">System Analyst</v-list-item-subtitle>
+  </v-list-item-content>
+<!-- Social Media Icons aligned to the left -->
+<v-list-item-action class="social-icons" style="display: flex; justify-content: flex-start; align-items: center; gap: 10px;">
+  <a href="https://www.facebook.com/share/WHKhxdxiwcSx6sNC/" target="_blank" class="custom-social-btn" style="text-decoration: none; display: inline-flex; justify-content: center; align-items: center; transition: transform 0.2s ease, color 0.2s ease;">
+    <v-icon style="font-size: 35px; color: #66fcf1;">mdi-facebook</v-icon>
+  </a>
+  <a href="www.linkedin.com/in/melvin-jipos-332845334" target="_blank" class="custom-social-btn" style="text-decoration: none; display: inline-flex; justify-content: center; align-items: center; transition: transform 0.2s ease, color 0.2s ease;">
+    <v-icon style="font-size: 35px; color: #66fcf1;">mdi-linkedin</v-icon>
+  </a>
+  <a href="https://github.com/melvinjipos" target="_blank" class="custom-social-btn" style="text-decoration: none; display: inline-flex; justify-content: center; align-items: center; transition: transform 0.2s ease, color 0.2s ease;">
+    <v-icon style="font-size: 35px; color: #66fcf1;">mdi-github</v-icon>
+  </a>
+</v-list-item-action>
+        </v-list-item>
+      </v-card-actions>
+    </v-card>
+  </v-col>
+</v-row>
+
+
+
+
+
+
+
+
+
+
+  
 
 <v-container fluid class="laptoplynx-container" style="background-color: #0B0C10; padding: 20px;">
   <!-- Logo and Company Name -->
@@ -397,9 +536,6 @@ const openLightbox = (index) => {
 
 
 <style scoped>
-
-
-
 /* Medium Screens (Tablets) */
 @media (max-width: 992px) {
 
@@ -614,7 +750,6 @@ body {
 
 
 
-
 /* Logo Scroll Section */
 .logo-scroll-container {
   max-height: 200px; /* Set a max height for the scrollable area */
@@ -623,6 +758,7 @@ body {
   background-color: #1F2833; /* Darker semi-transparent background for contrast */
   border-radius: 15px; /* Rounded corners */
   margin: 20px; /* Spacing around the section */
+  margin-top: 35px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
 }
 
@@ -635,10 +771,13 @@ body {
 
 /* Individual Logo */
 .logo {
-  margin: 0 30px; /* Increased spacing between logos (adjust this value as needed) */
-  height: 60px; /* Increased uniform height for logos */
+  margin: 0 30px; /* Increased spacing between logos */
+  height: 60px; /* Uniform height for logos */
   object-fit: contain; /* Maintain aspect ratio */
   transition: transform 0.3s; /* Smooth transform transition for hover effect */
+  opacity: 0; /* Initially hidden for fade-in */
+  transform: translateY(20px); /* Slight movement for fade-in effect */
+  animation: fadeIn 1s ease-in-out forwards; /* Trigger fade-in animation */
 }
 
 /* Logo Hover Effect */
@@ -647,11 +786,50 @@ body {
   filter: brightness(1.2); /* Brighten logos on hover */
 }
 
+/* Fade-In Animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px); /* Start slightly lower */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* Move to final position */
+  }
+}
+
+/* Staggered Animation Delay for Each Logo */
+.logo:nth-child(1) {
+  animation-delay: 0.3s;
+}
+.logo:nth-child(2) {
+  animation-delay: 0.6s;
+}
+.logo:nth-child(3) {
+  animation-delay: 0.9s;
+}
+.logo:nth-child(4) {
+  animation-delay: 1.2s;
+}
+.logo:nth-child(5) {
+  animation-delay: 1.5s;
+}
+.logo:nth-child(6) {
+  animation-delay: 1.8s;
+}
+.logo:nth-child(7) {
+  animation-delay: 2.1s;
+}
+.logo:nth-child(8) {
+  animation-delay: 2.4s;
+}
+
+
 .laptop-card {
   display: flex;
   flex-direction: column; /* Make sure content stacks vertically */
   justify-content: space-between; /* Distribute space evenly */
-  height: 100%; /* Ensure card takes full height */
+  height: 95%; /* Ensure card takes full height */
   border: 3px solid #1F2833; /* Add a solid border with a specified color and thickness */
   border-radius: 8px; /* Optional: Add rounded corners to the border */
   padding: 10px; /* Optional: Add padding inside the card */
@@ -1048,6 +1226,201 @@ h2.section-title,
         width: 120px; /* Further reduce width for mobile devices */
         margin-left: 0; /* Center the logo by removing negative margin */
     }
+}
+
+
+.specs-title {
+    font-weight: bold;
+    font-size: 1.3rem; /* Adjust font size as needed */
+    margin-bottom: 0.5rem; /* Space between title and specs */
+    color: #45A29E; /* Use primary color or adjust as needed */
+}
+
+.v-card-text div {
+    font-size: 0.9rem; /* Adjust font size for specs text */
+    line-height: 1.5; /* Line height for better readability */
+    margin-bottom: 0.3rem; /* Space between specs */
+}
+
+
+
+.card-style {
+  background: linear-gradient(135deg, #1f2833, #0b0c10);
+  border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+  height: 300px; /* Default height */
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Subtle initial shadow */
+  border: 2px solid transparent; /* Initial transparent border */
+}
+
+.card-style:hover {
+  transform: translateY(-5px); /* Slight upward movement for elegance */
+  box-shadow: 0px 12px 25px rgba(0, 0, 0, 0.4); /* Deeper shadow on hover */
+  border: 2px solid #45a29e; /* Subtle border color on hover */
+  background: linear-gradient(135deg, #2a2e35, #1c1e22); /* Softer background on hover */
+}
+
+
+.avatar-style {
+  border: 2px solid #66fcf1;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+.card-subtitle {
+  color: #66fcf1;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.custom-social-btn {
+  font-size: 35px;
+  color: #66fcf1;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.custom-social-btn:hover {
+  transform: scale(1.2);
+  color: #45a29e;
+}
+
+/* Responsive Layout for Tablets and Small Screens */
+@media (max-width: 768px) {
+  .card-style {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    padding: 20px;
+  }
+
+  .text-h5 {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .custom-social-btn {
+    font-size: 28px;
+  }
+
+  .social-icons {
+    gap: 8px;
+  }
+}
+
+/* Responsive Layout for Phones */
+@media (max-width: 600px) {
+  .card-style {
+    height: auto;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .text-h5 {
+    font-size: 13px;
+    padding: 10px 8px;
+  }
+
+  .custom-social-btn {
+    font-size: 25px;
+  }
+
+  .social-icons {
+    gap: 6px;
+  }
+
+  .avatar-style {
+    size: 40px;
+  }
+}
+
+
+.animated-parallax {
+  animation: zoomIn 10s ease-in-out infinite alternate;
+  background-position: center center;
+  background-size: cover;
+}
+
+.parallax-text {
+  position: relative;
+  color: #66FCF1; /* Elegant text color */
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  animation: fadeInUp 2s ease-in-out forwards;
+  
+  /* Styling for a nicer design */
+  font-size: 1.5rem; /* Smaller font size */
+  font-weight: 500; /* Medium weight for a refined look */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Soft shadow for depth */
+  
+  /* Adding letter spacing for elegance */
+  letter-spacing: 0.5px; /* Reduced spacing for a compact look */
+  
+}
+
+/* Fade-in Animation */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px); /* Start slightly lower */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* Move to final position */
+  }
+}
+
+
+@keyframes zoomIn {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ensure responsive behavior for portrait views */
+@media screen and (max-width: 768px) {
+  .animated-parallax {
+    height: 500px; /* Adjust height for portrait views */
+    background-position: center;
+    background-size: contain; /* Contain the image within the view for portrait mode */
+  }
+
+  .parallax-text {
+    padding: 20px;
+    font-size: 1.2em; /* Adjust font size for smaller screens */
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+  
+  p {
+    font-size: 1em;
+  }
 }
 
 </style>
