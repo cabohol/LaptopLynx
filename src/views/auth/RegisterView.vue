@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+//import { useRouter } from 'vue-router';
 
 // Initialize form fields
 const name = ref(''); 
@@ -10,20 +10,24 @@ const password = ref('');
 const confirm_password = ref(''); 
 const passwordVisible = ref(false); 
 const confirmPasswordVisible = ref(false); 
+const selection = ref('renter'); // Default selection value
 
 // Step for toggling between login and signup
 const step = ref(1); 
-const router = useRouter();
+//const router = useRouter();
 
 // Validation rules
 const rules = {
   required: (value) => !!value || 'This field is required',
   phone: (value) => {
-    const phonePattern = /^[0-9]*$/; // Allow only numbers
+    const phonePattern = /^[0-9]+$/; // Allow only numbers
     return phonePattern.test(value) || 'Phone number must be numeric.';
   },
   email: (value) => {
-    return /.+@.+\..+/.test(value) || 'Email must contain @.';
+    return /.+@.+\..+/.test(value) || 'Invalid email format.';
+  },
+  passwordMatch: (value) => {
+    return value === password.value || 'Passwords do not match.';
   },
 };
 
@@ -37,16 +41,37 @@ function toggleConfirmPasswordVisibility() {
   confirmPasswordVisible.value = !confirmPasswordVisible.value;
 }
 
-// Sign Up function
+// Sign Up function with basic validation
 function onSignUp() {
-  alert(`Signing up with Email: ${email.value}, Password: ${password.value}`);  
+  if (!rules.required(name.value)) {
+    alert('Name is required.');
+    return;
+  }
+  if (!rules.email(email.value)) {
+    alert('Invalid email.');
+    return;
+  }
+  if (!rules.phone(phone_number.value)) {
+    alert('Phone number is invalid.');
+    return;
+  }
+  if (!rules.required(password.value)) {
+    alert('Password is required.');
+    return;
+  }
+  if (!rules.passwordMatch(confirm_password.value)) {
+    alert('Passwords do not match.');
+    return;
+  }
+  alert(`Signing up as ${selection.value} with Email: ${email.value}, Password: ${password.value}`);
 }
 
 // Navigate to register
-function goToRegister() {
-  router.push({ name: 'register' }); // Use the router to navigate
-}
+//function goToRegister() {
+ // router.push({ name: 'register' }); // Use the router to navigate
+//}
 </script>
+
 
 
 <template>
@@ -75,6 +100,23 @@ function goToRegister() {
                       <v-card-text class="text-center">
                         <h4 class="form-title">Create an Account</h4>
                         <p class="form-description">Join our community today and enjoy our services.</p>
+                          
+                        <br>
+                        
+                        <v-btn-toggle v-model="selection" mandatory>
+                            <v-btn 
+                              :value="'renter'" 
+                              :class="selection === 'renter' ? 'active-btn' : 'toggle-btn'">
+                              RENTER
+                            </v-btn>
+                            <v-btn 
+                              :value="'admin'" 
+                              :class="selection === 'admin' ? 'active-btn' : 'toggle-btn'">
+                              ADMIN
+                            </v-btn>
+                          </v-btn-toggle>
+
+
 
                         <v-text-field
                           label="Name"
@@ -351,6 +393,17 @@ function goToRegister() {
     padding: 8px 15px; /* Adjust padding for mobile */
   }
 }
+
+.toggle-btn {
+  color: white;
+  background-color: black;
+  transition: background-color 0.3s;
+}
+
+.active-btn {
+  background-color: #66FCF1 !important;
+}
+
 
 
 </style>
