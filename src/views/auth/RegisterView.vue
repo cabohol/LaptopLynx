@@ -1,78 +1,42 @@
 <script setup>
+import { requiredValidator, emailValidator, passwordValidator, confirmedValidator } from '@/utils/validators';
 import { ref } from 'vue';
-//import { useRouter } from 'vue-router';
 
-// Initialize form fields
-const name = ref(''); 
-const phone_number = ref(''); 
-const email = ref(''); 
-const password = ref(''); 
-const confirm_password = ref(''); 
-const passwordVisible = ref(false); 
-const confirmPasswordVisible = ref(false); 
-const selection = ref('renter'); // Default selection value
+const isPasswordVisible = ref(false);
+const isPasswordConfirmVisible = ref(false);
 
-// Step for toggling between login and signup
-const step = ref(1); 
-//const router = useRouter();
-
-// Validation rules
-const rules = {
-  required: (value) => !!value || 'This field is required',
-  phone: (value) => {
-    const phonePattern = /^[0-9]+$/; // Allow only numbers
-    return phonePattern.test(value) || 'Phone number must be numeric.';
-  },
-  email: (value) => {
-    return /.+@.+\..+/.test(value) || 'Invalid email format.';
-  },
-  passwordMatch: (value) => {
-    return value === password.value || 'Passwords do not match.';
-  },
+const formDataDefault = {
+  firstname: '',
+  lastname: '',
+  phone_number: '',
+  email: '',
+  password: '',
+  password_confirmation: '',
+  selection: '' // Added selection here to track role (Admin/Renter)
 };
 
-// Function to toggle password visibility
-function togglePasswordVisibility() {
-  passwordVisible.value = !passwordVisible.value;
-}
+const formData = ref({
+  ...formDataDefault
+});
 
-// Function to toggle confirm password visibility
-function toggleConfirmPasswordVisibility() {
-  confirmPasswordVisible.value = !confirmPasswordVisible.value;
-}
+const refVForm = ref();
 
-// Sign Up function with basic validation
-function onSignUp() {
-  if (!rules.required(name.value)) {
-    alert('Name is required.');
-    return;
-  }
-  if (!rules.email(email.value)) {
-    alert('Invalid email.');
-    return;
-  }
-  if (!rules.phone(phone_number.value)) {
-    alert('Phone number is invalid.');
-    return;
-  }
-  if (!rules.required(password.value)) {
-    alert('Password is required.');
-    return;
-  }
-  if (!rules.passwordMatch(confirm_password.value)) {
-    alert('Passwords do not match.');
-    return;
-  }
-  alert(`Signing up as ${selection.value} with Email: ${email.value}, Password: ${password.value}`);
-}
+const onFormSubmit = () => {
+  refVForm.value?.validate().then(({ valid }) => {
+    if (valid && formData.value.selection) { // Ensure role is selected
+      onSubmit();
+    } else if (!formData.value.selection) {
+      alert("Please select a role before signing up.");
+    }
+  });
+};
 
-// Navigate to register
-//function goToRegister() {
- // router.push({ name: 'register' }); // Use the router to navigate
-//}
+const onSubmit = () => {
+  const role = formData.value.selection;
+  alert(`Signing up as ${role} with email: ${formData.value.email}`);
+  // Add code here to handle registration logic, e.g., API call
+};
 </script>
-
-
 
 <template>
   <v-app>
@@ -86,115 +50,122 @@ function onSignUp() {
                 <v-window-item :value="2">
                   <v-row>
                     <v-col cols="12" md="6" class="right-panel">
-              <img src="https://scontent.fmnl14-1.fna.fbcdn.net/v/t1.15752-9/462337933_1972891169798050_3639474823550317272_n.png?_nc_cat=106&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeFVBlqPGHmug7ujjk4_fdqnYIloCJoykQNgiWgImjKRA9kUvPCCSSCffjVmYPh6dm4GCPi5WbpMzQjdBUYeZYXj&_nc_ohc=EJdiNvxjwKQQ7kNvgGzvkmY&_nc_zt=23&_nc_ht=scontent.fmnl14-1.fna&_nc_gid=AuC2fffehralh-F2OQq5hL-&oh=03_Q7cD1QH4dYZXqLvzBF4yctp5OMzlM0yFWlJAxmtlkh_5P70wrg&oe=67314C88" alt="Your Logo" 
-                class="logo"  />
-              
-                            <v-btn class="signup-btn" to="/LoginView">
-              New Here? <span class="no-underline">Create an Account</span>
-            </v-btn>
-
-            </v-col>
-
+                      <img src="https://scontent.fmnl14-1.fna.fbcdn.net/v/t1.15752-9/462337933_1972891169798050_3639474823550317272_n.png?_nc_cat=106&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeFVBlqPGHmug7ujjk4_fdqnYIloCJoykQNgiWgImjKRA9kUvPCCSSCffjVmYPh6dm4GCPi5WbpMzQjdBUYeZYXj&_nc_ohc=EJdiNvxjwKQQ7kNvgGzvkmY&_nc_zt=23&_nc_ht=scontent.fmnl14-1.fna&_nc_gid=AuC2fffehralh-F2OQq5hL-&oh=03_Q7cD1QH4dYZXqLvzBF4yctp5OMzlM0yFWlJAxmtlkh_5P70wrg&oe=67314C88" alt="Your Logo" class="logo" />
+                      <v-btn class="signup-btn" to="/LoginView">New Here? <span class="no-underline">Create an Account</span></v-btn>
+                    </v-col>
 
                     <v-col cols="12" md="6">
                       <v-card-text class="text-center">
                         <h4 class="form-title">Create an Account</h4>
                         <p class="form-description">Join our community today and enjoy our services.</p>
-                          
-                        <br>
-                        
-                        <v-btn-toggle v-model="selection" mandatory>
-                            <v-btn 
-                              :value="'renter'" 
-                              :class="selection === 'renter' ? 'active-btn' : 'toggle-btn'">
+
+                        <v-form ref="refVForm" @submit.prevent="onFormSubmit">
+                          <!-- Role Selection Toggle -->
+                           <br>
+                          <v-btn-toggle v-model="formData.selection" mandatory>
+                            <v-btn :value="'renter'" :class="formData.selection === 'renter' ? 'active-btn' : 'toggle-btn'">
                               RENTER
                             </v-btn>
-                            <v-btn 
-                              :value="'admin'" 
-                              :class="selection === 'admin' ? 'active-btn' : 'toggle-btn'">
+                            <v-btn :value="'admin'" :class="formData.selection === 'admin' ? 'active-btn' : 'toggle-btn'">
                               ADMIN
                             </v-btn>
                           </v-btn-toggle>
 
+                          <br><br>
 
+                          <v-text-field
+                            v-model="formData.firstname"
+                            label="Firstname"
+                            outlined
+                            dense
+                            class="custom-input mt-4"
+                            append-inner-icon="mdi-account"
+                            :rules="[requiredValidator]"
+                          />
 
-                        <v-text-field
-                          label="Name"
-                          outlined
-                          dense
-                          v-model="name"
-                          class="custom-input mt-4"
-                          append-inner-icon="mdi-account"
-                          :rules="[rules.required]"
-                        />
-                        <v-text-field
-                          label="Phone Number"
-                          outlined
-                          dense
-                          v-model="phone_number"
-                          class="custom-input"
-                          append-inner-icon="mdi-phone"
-                          :rules="[rules.required, rules.phone]" 
-                         />
-                        <v-text-field
-                          label="Email"
-                          outlined
-                          dense
-                          v-model="email"
-                          class="custom-input"
-                          append-inner-icon="mdi-email"
-                          :rules="[rules.required, rules.email]"
-                        />
-                        <v-text-field
-                          label="Password"
-                          outlined
-                          dense
-                          v-model="password"
-                          :type="passwordVisible ? 'text' : 'password'" 
-                          class="custom-input"
-                          append-inner-icon="mdi-lock"
-                          :append-icon="passwordVisible ? 'mdi-eye' : 'mdi-eye-off'" 
-                          @click:append="togglePasswordVisibility" 
-                          append-icon-class="white--text" 
-                        />
-                        <v-text-field
-                          label="Confirm Password"
-                          outlined
-                          dense
-                          v-model="confirm_password"
-                          :type="confirmPasswordVisible ? 'text' : 'password'" 
-                          class="custom-input"
-                          append-inner-icon="mdi-lock"
-                          :append-icon="confirmPasswordVisible ? 'mdi-eye' : 'mdi-eye-off'"  
-                          @click:append="toggleConfirmPasswordVisibility" 
-                          append-icon-class="white--text"
-                        />
-                          
-                          <v-btn class="signup-btn" block @click="onSignUp">
+                          <v-text-field
+                            v-model="formData.lastname"
+                            label="Lastname"
+                            outlined
+                            dense
+                            class="custom-input mt-4"
+                            append-inner-icon="mdi-account"
+                            :rules="[requiredValidator]"
+                          />
+
+                          <v-text-field
+                            v-model="formData.phone_number"
+                            label="Phone Number"
+                            outlined
+                            dense
+                            class="custom-input"
+                            append-inner-icon="mdi-phone"
+                            :rules="[requiredValidator]"
+                          />
+
+                          <v-text-field
+                            v-model="formData.email"
+                            label="Email"
+                            outlined
+                            dense
+                            class="custom-input"
+                            append-inner-icon="mdi-email"
+                            :rules="[requiredValidator, emailValidator]"
+                          />
+
+                          <v-text-field
+                            v-model="formData.password"
+                            label="Password"
+                            outlined
+                            dense
+                            :type="isPasswordVisible ? 'text' : 'password'"
+                            class="custom-input"
+                            append-inner-icon="mdi-lock"
+                            :append-icon="isPasswordVisible ? 'mdi-eye' : 'mdi-eye-off'" 
+                            @click:append="isPasswordVisible = !isPasswordVisible" 
+                            :rules="[requiredValidator, passwordValidator]"
+                            append-icon-class="white--text"
+                          />
+
+                          <v-text-field
+                            v-model="formData.password_confirmation"
+                            label="Confirm Password"
+                            outlined
+                            dense
+                            :type="isPasswordConfirmVisible ? 'text' : 'password'"
+                            class="custom-input"
+                            append-inner-icon="mdi-lock"
+                            :append-icon="isPasswordConfirmVisible ? 'mdi-eye' : 'mdi-eye-off'"
+                            @click:append="isPasswordConfirmVisible = !isPasswordConfirmVisible"
+                            :rules="[requiredValidator, confirmedValidator(formData.password_confirmation, formData.password)]"
+                            append-icon-class="white--text"
+                          />
+
+                          <v-btn class="signup-btn" type="submit" block>
                             <v-icon left>mdi-account-plus</v-icon>
                             Sign Up
                           </v-btn>
-
-            </v-card-text>
-                          </v-col>
-                    </v-row>
-                  </v-window-item>
-
-                    </v-window>
-                  </v-card>
-                </v-col>
-              </v-row>
+                        </v-form>
+                      </v-card-text>
+                    </v-col>
+                  </v-row>
+                </v-window-item>
+              </v-window>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-container>
-      <!-- Footer -->
-<footer class="footer">
-  <div class="footer-content">
-    © 2024 LaptopLynx Inc. All Rights Reserved. Developed by LaptopLynx Team
-  </div>
-</footer>
 
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-content">
+          © 2024 LaptopLynx Inc. All Rights Reserved. Developed by LaptopLynx Team
+        </div>
+      </footer>
     </v-main>
   </v-app>
 </template>
+
 
 
 

@@ -1,53 +1,31 @@
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { requiredValidator, emailValidator } from '@/utils/validators';
+import { ref } from 'vue'
 
-// Initialize form fields
-const name = ref(''); 
-const phone_number = ref(''); 
-const email = ref(''); 
-const password = ref(''); 
-const confirm_password = ref(''); 
-const passwordVisible = ref(false); 
-const confirmPasswordVisible = ref(false); 
+const isPasswordVisible = ref(false)
+const refVForm = ref()
 
-// Step for toggling between login and signup
-const step = ref(1); 
-const router = useRouter();
-
-// Validation rules
-const rules = {
-  required: (value) => !!value || 'This field is required',
-  phone: (value) => {
-    const phonePattern = /^[0-9]*$/; // Allow only numbers
-    return phonePattern.test(value) || 'Phone number must be numeric.';
-  },
-  email: (value) => {
-    return /.+@.+\..+/.test(value) || 'Email must contain @.';
-  },
-};
-
-// Function to toggle password visibility
-function togglePasswordVisibility() {
-  passwordVisible.value = !passwordVisible.value;
+const onFormSubmit = () =>{
+  // Validate the form
+  if (refVForm.value?.validate()) {
+    onLogin()
+  }
 }
 
-// Function to toggle confirm password visibility
-function toggleConfirmPasswordVisibility() {
-  confirmPasswordVisible.value = !confirmPasswordVisible.value;
+const onLogin = () =>{
+  //alert(formData.value.email)
 }
 
-// Sign Up function
-function onSignUp() {
-  alert(`Signing up with Email: ${email.value}, Password: ${password.value}`);  
+const formDataDefault = {
+  email: '',
+  password: '',
 }
 
-// Navigate to register
-function goToRegister() {
-  router.push({ name: 'register' }); // Use the router to navigate
-}
+const formData = ref({
+  ...formDataDefault
+})
+
 </script>
-
 
 <template>
   <v-app>
@@ -61,60 +39,55 @@ function goToRegister() {
                 <v-window-item :value="1">
                   <v-row>
                     <v-col cols="12" md="6" class="left-panel">
-                      <br>
-                      <br>
-                      <br>
+                      <br />
+                      <br />
+                      <br />
                       <v-card-text class="text-center">
                         <h4 class="form-title">Log in to LaptopLynx</h4>
                         <p class="form-description">Access your account and continue exploring our services.</p>
-
-                        <v-text-field
-                          :rules="[rules.required, rules.email]"
-                          hide-details="auto"
-                          label="Email"
-                          clearable
-                          outlined
-                          dense
-                          v-model="email"
-                          class="custom-input mt-4"
-                          append-inner-icon="mdi-email"
-                        />
-                        <v-text-field
-                          :rules="[rules.required]"
-                          hint="Enter your password to access this website"
-                          hide-details="auto"
-                          label="Password"
-                          clearable
-                          outlined
-                          dense
-                          v-model="password"
-                          :type="passwordVisible ? 'text' : 'password'" 
-                          class="custom-input"
-                          append-inner-icon="mdi-lock"
-                          :append-icon="passwordVisible ? 'mdi-eye' : 'mdi-eye-off'" 
-                          @click:append="togglePasswordVisibility" 
-                          append-icon-class="white--text" 
-                        />
+                        <v-form ref="refVForm" @submit.prevent="onFormSubmit">
+                          <v-text-field
+                            v-model="formData.email"
+                            hide-details="auto"
+                            label="Email"
+                            clearable
+                            outlined
+                            dense
+                            class="custom-input mt-4"
+                            append-inner-icon="mdi-email"
+                            :rules="[requiredValidator, emailValidator]"
+                          ></v-text-field>
+                          <v-text-field
+                            v-model="formData.password"
+                            hint="Enter your password to access this website"
+                            hide-details="auto"
+                            label="Password"
+                            clearable
+                            outlined
+                            dense
+                            :type="isPasswordVisible ? 'text' : 'password'" 
+                            class="custom-input"
+                            append-inner-icon="mdi-lock"
+                            :append-icon="isPasswordVisible ? 'mdi-eye' : 'mdi-eye-off'" 
+                            @click:append="isPasswordVisible = !isPasswordVisible" 
+                            :rules="[requiredValidator]"
+                            append-icon-class="white--text" 
+                          />
                         
-                        <br>
-                        <v-btn class="login-btn" block @click="onLogin">
-                         <a href=""> <v-icon left>mdi-login</v-icon>
-                        Log In</a>
-                        </v-btn>
-
+                          <br>
+                          <v-btn class="login-btn" type="submit" block>
+                            <v-icon left>mdi-login</v-icon> Log In
+                          </v-btn>
+                        </v-form>
                       </v-card-text>
                     </v-col>
                     
-                   
                     <v-col cols="12" md="6" class="right-panel">
-              <img src="https://scontent.fmnl14-1.fna.fbcdn.net/v/t1.15752-9/462337933_1972891169798050_3639474823550317272_n.png?_nc_cat=106&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeFVBlqPGHmug7ujjk4_fdqnYIloCJoykQNgiWgImjKRA9kUvPCCSSCffjVmYPh6dm4GCPi5WbpMzQjdBUYeZYXj&_nc_ohc=EJdiNvxjwKQQ7kNvgGzvkmY&_nc_zt=23&_nc_ht=scontent.fmnl14-1.fna&_nc_gid=AuC2fffehralh-F2OQq5hL-&oh=03_Q7cD1QH4dYZXqLvzBF4yctp5OMzlM0yFWlJAxmtlkh_5P70wrg&oe=67314C88" alt="Your Logo" 
-                class="logo" style="margin-top: -40px;" />
-              
-                <v-btn class="signup-btn" to="/RegisterView">
-  New Here? <span class="no-underline">Create an Account</span>
-</v-btn>
-
-            </v-col>
+                      <img src="https://scontent.fmnl14-1.fna.fbcdn.net/v/t1.15752-9/462337933_1972891169798050_3639474823550317272_n.png?_nc_cat=106&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeFVBlqPGHmug7ujjk4_fdqnYIloCJoykQNgiWgImjKRA9kUvPCCSSCffjVmYPh6dm4GCPi5WbpMzQjdBUYeZYXj&_nc_ohc=EJdiNvxjwKQQ7kNvgGzvkmY&_nc_zt=23&_nc_ht=scontent.fmnl14-1.fna&_nc_gid=AuC2fffehralh-F2OQq5hL-&oh=03_Q7cD1QH4dYZXqLvzBF4yctp5OMzlM0yFWlJAxmtlkh_5P70wrg&oe=67314C88" alt="Your Logo" class="logo" style="margin-top: -40px;" />
+                      <v-btn class="signup-btn" to="/RegisterView">
+                        New Here? <span class="no-underline">Create an Account</span>
+                      </v-btn>
+                    </v-col>
 
                   </v-row>
                 </v-window-item>
@@ -124,15 +97,16 @@ function goToRegister() {
         </v-row>
       </v-container>
       <!-- Footer -->
-<footer class="footer">
-  <div class="footer-content">
-    © 2024 LaptopLynx Inc. All Rights Reserved. Developed by LaptopLynx Team
-  </div>
-</footer>
+      <footer class="footer">
+        <div class="footer-content">
+          © 2024 LaptopLynx Inc. All Rights Reserved. Developed by LaptopLynx Team
+        </div>
+      </footer>
 
     </v-main>
   </v-app>
 </template>
+
 
 
 
