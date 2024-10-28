@@ -1,6 +1,9 @@
 <script setup>
 import { requiredValidator, emailValidator, passwordValidator, confirmedValidator } from '@/utils/validators';
 import { ref } from 'vue';
+import AlertNotification from '@/components/common/AlertNotification.vue';
+import { supabase, formActionDefault } from '@/utils/supabase';
+
 
 const isPasswordVisible = ref(false);
 const isPasswordConfirmVisible = ref(false);
@@ -20,10 +23,11 @@ const formData = ref({
 });
 
 const refVForm = ref();
+const formAction = ref({ ...formActionDefault });
 
 const onFormSubmit = () => {
   refVForm.value?.validate().then(({ valid }) => {
-    if (valid && formData.value.selection) { // Ensure role is selected
+    if (valid && formData.value.selection) {
       onSubmit();
     } else if (!formData.value.selection) {
       alert("Please select a role before signing up.");
@@ -31,12 +35,38 @@ const onFormSubmit = () => {
   });
 };
 
-const onSubmit = () => {
-  const role = formData.value.selection;
-  alert(`Signing up as ${role} with email: ${formData.value.email}`);
-  // Add code here to handle registration logic, e.g., API call
+const onSubmit = async () => {
+  formAction.value = { ...formActionDefault };
+  formAction.value.formProcess = true;
+
+  const { data, error } = await supabase.auth.signUp({
+    email: formData.value.email,
+    password: formData.value.password,
+    options: {
+      data: {
+        firstname: formData.value.firstname,
+        lastname: formData.value.lastname,
+        phone_number: formData.value.phone_number,
+        selection: formData.value.selection
+      }
+    }
+  });
+
+  if (error) {
+    console.error(error);
+    formAction.value.formErrorMessage = error.message;
+    formAction.value.formStatus = error.status;
+  } else if (data) {
+    console.log(data);
+    formAction.value.formSuccessMessage = 'Successfully Registered Account!';
+    // add here more actions if you want
+    refVForm.value?.reset()
+  }
+
+  formAction.value.formProcess = false;
 };
 </script>
+
 
 <template>
   <v-app>
@@ -61,6 +91,12 @@ const onSubmit = () => {
 
                         <v-form ref="refVForm" @submit.prevent="onFormSubmit">
                           <!-- Role Selection Toggle -->
+                           <br>
+                          <AlertNotification
+                           :form-success-message="formAction.formSuccessMessage" 
+                           :form-error-message="formAction.formErrorMessage"
+                            >
+                          </AlertNotification>
                            <br>
                           <v-btn-toggle v-model="formData.selection" mandatory>
                             <v-btn :value="'renter'" :class="formData.selection === 'renter' ? 'active-btn' : 'toggle-btn'">
@@ -141,8 +177,12 @@ const onSubmit = () => {
                             append-icon-class="white--text"
                           />
 
-                          <v-btn class="signup-btn" type="submit" block>
-                            <v-icon left>mdi-account-plus</v-icon>
+                          <v-btn class="signup-btn" type="submit" 
+                          block
+                          :disabled="formAction.formProcess"
+                          :loading="formAction.formProcess"
+                          >
+                          <v-icon left>mdi-account-plus</v-icon>
                             Sign Up
                           </v-btn>
                         </v-form>
