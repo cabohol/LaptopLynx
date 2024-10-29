@@ -1,8 +1,19 @@
 <script setup>
-import { requiredValidator, emailValidator, passwordValidator, confirmedValidator } from '@/utils/validators';
+import { 
+requiredValidator, 
+emailValidator, 
+passwordValidator, 
+confirmedValidator 
+} 
+from '@/utils/validators';
 import { ref } from 'vue';
 import AlertNotification from '@/components/common/AlertNotification.vue';
 import { supabase, formActionDefault } from '@/utils/supabase';
+import { useRouter } from 'vue-router'
+
+
+// Utilize pre-defined vue functions
+const router = useRouter()
 
 
 const isPasswordVisible = ref(false);
@@ -47,7 +58,9 @@ const onSubmit = async () => {
         firstname: formData.value.firstname,
         lastname: formData.value.lastname,
         phone_number: formData.value.phone_number,
-        selection: formData.value.selection
+        selection: formData.value.selection,
+        is_admin: false // Just turn to true if admin account
+        // role: 'Administrator' // If role based; just change the string based on role
       }
     }
   });
@@ -59,12 +72,17 @@ const onSubmit = async () => {
   } else if (data) {
     console.log(data);
     formAction.value.formSuccessMessage = 'Successfully Registered Account!';
-    // add here more actions if you want
-    refVForm.value?.reset()
+    // Redirect Acct to Dashboard
+    router.replace('/customerdashboard')
   }
 
-  formAction.value.formProcess = false;
-};
+
+   // Reset Form
+   refVForm.value?.reset()
+  // Turn off processing
+  formAction.value.formProcess = false
+}
+
 </script>
 
 
