@@ -1,24 +1,67 @@
-<script setup>
-import { ref, onMounted } from 'vue';
+<script>
+import { ref } from 'vue';
 import GLightbox from 'glightbox';
 import 'glightbox/dist/css/glightbox.min.css';
 
-
-// Function to open the lightbox
-const openLightbox = (index) => {
-  currentIndex.value = index;
-  const lightbox = GLightbox({
-    touchNavigation: true,
-    loop: true,
-    elements: slides.map((slide) => ({
-      href: slide.img,
-      title: 'Click to close'
-    })),
-  });
-  lightbox.open();
+export default {
+  data() {
+  return {
+    carouselItems: [
+    {
+        image: 'https://cdn.mos.cms.futurecdn.net/Ajc3ezCTN4FGz2vF4LpQn9.jpg',
+        ariaLabel: 'ROG Zephyrus G14',
+        title: 'ROG Zephyrus G14',
+        description: "Experience the ultimate blend of power and portability. With a sleek design and high-performance specs, it’s perfect for gaming and content creation on the go."
+      },
+      {
+        image: 'https://cdn.mos.cms.futurecdn.net/Ajc3ezCTN4FGz2vF4LpQn9.jpg',
+        ariaLabel: 'Dell XPS 15',
+        title: 'Dell XPS 15',
+        description: "Crafted for creators, this laptop boasts a breathtaking 4K display and powerful performance, making it ideal for design, video editing, and more."
+      },
+      {
+        image: 'https://cdn.mos.cms.futurecdn.net/Ajc3ezCTN4FGz2vF4LpQn9.jpg',
+        ariaLabel: 'Lenovo Legion 5',
+        title: 'Lenovo Legion 5',
+        description: "Unleash your gaming potential with the Legion 5. High refresh rates, robust cooling, and immersive visuals create a gaming experience like no other."
+      },
+      {
+        image: 'https://cdn.mos.cms.futurecdn.net/Ajc3ezCTN4FGz2vF4LpQn9.jpg',
+        ariaLabel: 'ASUS ROG Strix Scar 15',
+        title: 'ASUS ROG Strix Scar 15',
+        description: "Elevate your gaming experience with customizable RGB lighting and cutting-edge hardware. Designed for gamers who demand excellence in every match."
+      },
+      {
+        image: 'https://cdn.mos.cms.futurecdn.net/Ajc3ezCTN4FGz2vF4LpQn9.jpg',
+        ariaLabel: 'HP Omen 15',
+        title: 'HP Omen 15',
+        description: "Combine style and performance with the HP Omen 15. Its sleek design, powerful graphics, and immersive audio bring your games to life."
+      },
+      {
+        image: 'https://cdn.mos.cms.futurecdn.net/Ajc3ezCTN4FGz2vF4LpQn9.jpg',
+        ariaLabel: 'Acer Predator Helios 300',
+        title: 'Acer Predator Helios 300',
+        description: "Get ready for serious gaming with the Helios 300. Its competitive pricing, stunning display, and powerful internals make it a top choice for gamers."
+      }
+      ]
+    };
+  },
+  methods: {
+    openLightbox(index) {
+      const lightbox = GLightbox({
+        touchNavigation: true,
+        loop: true,
+        elements: this.carouselItems.map((item) => ({
+          href: item.image,
+          title: 'Click to close'
+        })),
+      });
+      lightbox.openAt(index);
+    }
+  }
 };
-
 </script>
+
 
 
 <template>
@@ -79,28 +122,99 @@ const openLightbox = (index) => {
 
 
 
-              <v-container fluid class="py-4">fix
-                <v-carousel hide-delimiter-background height="500" cycle dark show-arrows="hover"  interval="2500" >
-                  <!-- Carousel Items -->
-                  <v-carousel-item
-                    src="https://images.acer.com/is/image/acer/predator-laptop-helios-16-cpu-performance:KSP-with-Specs-XL"
-                    cover
-                  ></v-carousel-item>
+              <v-container id="section2" class="section__base section__kv__2 py-12" fluid>
+  <v-row align="center" class="pa-6">
+    <!-- Left Column with Image and Pause Button Overlay -->
+    <v-col cols="12" md="6">
+      <v-hover v-slot:default="{ isHovering }">
+        <v-card
+          class="pa-4 card-hover-shadow"
+          :elevation="isHovering ? 10 : 4"
+          color="#1F2833"
+          dark
+          style="border-radius: 12px; overflow: hidden;"
+        >
+          <v-img
+            src="https://www.zdnet.com/a/img/resize/145a9b73047dc4578af189133c978456b23cf368/2024/01/12/31f51986-0054-4a79-9f41-e634b4d58c49/razer-blade-16.jpg?auto=webp&fit=crop&height=1200&width=1200"
+            alt="Zephyrus G14 with accessories"
+            lazy-src="path/to/placeholder_image.jpg"
+            class="img__kv__2"
+            height="450"
+            aspect-ratio="16/9"
+            role="figure"
+          >
+          </v-img>
+        </v-card>
+      </v-hover>
+    </v-col>
 
-                  <v-carousel-item
-                    src="https://images.acer.com/is/image/acer/Travelmate_P6_14_Violin_MTH_KSP_1-4:KSP-with-Specs-XL"
-                    cover
-                  ></v-carousel-item>
+  <!-- Right Column with Content and Hardware Logos -->
+<v-col cols="12" md="6">
+  <div class="wd-content text-animate">
+    <h2 class="content-title mb-4 text-h4 font-weight-bold text--primary">
+      Discover the Ultimate Laptop Rental Experience with LaptopLynx
+    </h2>
+    <p class="content-info text-subtitle-1 text--white" style="text-align: justify;">
+      LaptopLynx is your go-to platform for powerful, high-quality laptop rentals tailored to your needs. Whether you're a professional requiring cutting-edge performance or a student looking for reliable tech on a budget, LaptopLynx has you covered. Our rental lineup includes models equipped with the latest Intel® and AMD processors, NVIDIA® graphics, and high-speed SSDs, ensuring smooth performance for any task.
+      <br /><br />
+      Our platform offers seamless booking, easy returns, and round-the-clock support, making laptop rentals convenient and accessible. Empower your work, studies, or creativity without the long-term commitment of ownership. With LaptopLynx, experience top-tier technology, whenever and wherever you need it.
+      <br /><br />
+    </p>
+    <v-divider class="my-6"></v-divider>
 
-                  <v-carousel-item
-                    src="https://s13emagst.akamaized.net//products/30747/30746541/media/res_ee896a61fe1e371fa8c52397144b4865.jpg"
-                    cover
-                  ></v-carousel-item>
-                </v-carousel>
-              </v-container>
+        <!-- Hardware Logos Section -->
+        <v-row justify="center" style="margin-top: -40px;">
+          <v-col cols="6" sm="4">
+            <v-img
+              src="https://images.seeklogo.com/logo-png/35/1/nvidia-rtx-logo-png_seeklogo-356758.png?v=638623504850000000"
+              alt="NVIDIA GeForce RTX logo"
+              class="hardware__img mb-4"
+              height="50"
+            ></v-img>
+          </v-col>
+          <v-col cols="6" sm="4">
+            <v-img
+              src="https://lifehacker.com/imagery/articles/01J2F8NRT9VGWMNNS1E1KQNHZ0/hero-image.fill.size_1248x702.v1720647076.png"
+              alt="Dolby Atmos logo"
+              class="hardware__img mb-4"
+              height="50"
+            ></v-img>
+          </v-col>
+        </v-row>
+      </div>
+    </v-col>
+  </v-row>
+</v-container>
 
 
 
+<v-container fluid class="section__4__slick section__base section__nvidia_slick" id="section4__slick">
+  <v-row>
+    <v-carousel show-arrows-on-hover height="400px" hide-delimiter-background>
+      <v-carousel-item v-for="(item, index) in carouselItems" :key="index">
+        <v-row class="d-flex justify-center">
+          <v-col cols="12" md="6" class="text-center slickTextFrame" style="padding: 8%;">
+            <div class="slickText">
+              <span class="slickNvidiaTitle">{{ item.title }}</span>
+              <span class="slickNvidiaDec">{{ item.description }}</span>
+            </div>
+          </v-col>
+          <v-col cols="12" md="6" class="text-center">
+            <v-img
+              :src="item.image"
+              :alt="item.ariaLabel"
+              class="slickImgFrame"
+            ></v-img>
+          </v-col>
+        </v-row>
+      </v-carousel-item>
+    </v-carousel>
+  </v-row>
+</v-container>
+
+
+
+  
               <v-container fluid>
     <v-row justify="center" class="my-12">
       <v-col cols="12">
@@ -473,17 +587,7 @@ const openLightbox = (index) => {
 </v-row>
 
 
-
-
-
-
-
-
-
-
-  
-
-<v-container fluid class="laptoplynx-container" style="background-color: #0B0C10; padding: 20px;">
+<v-container class="laptoplynx-container">
   <!-- Logo and Company Name -->
   <v-row justify="center" align="center" class="my-3 text-center laptoplynx-logo-row">
     <v-col cols="12" md="4" class="text-center laptoplynx-logo-col">
@@ -742,7 +846,58 @@ body {
     }
 }
 
+.section__base {
+  background: #0B0C10; /* Dark background */
+  border-radius: 12px;
+}
 
+.img__kv__2 {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.card-hover-shadow:hover .img__kv__2 {
+  transform: scale(1.05);
+}
+
+.content-title {
+  color: #C5C6C7; /* Light gray for title */
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.text-animate {
+  opacity: 0;
+  animation: fadeIn 1.2s forwards;
+}
+
+.text--primary {
+  color: #66FCF1; /* Primary accent color */
+}
+
+.text--white {
+  color: #C5C6C7; /* Soft white/gray for main content */
+}
+
+.hardware__img {
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+  width: 200px; /* Adjust the width to make it bigger */
+  height: auto; /* Maintain the aspect ratio */
+  max-width: 200%; /* Ensure it scales responsively */
+}
+
+
+.hardware__img:hover {
+  opacity: 1;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
 
 
 
@@ -1411,6 +1566,252 @@ h2.section-title,
   
   p {
     font-size: 1em;
+  }
+}
+
+
+
+/* General Carousel Styling */
+.section__4__slick {
+  position: relative;
+  overflow: hidden;
+  max-width: 95%; /* Set a maximum width for the carousel */
+  width: 90%; /* Set width to 90% of its container */
+  margin: 0 auto; /* Center the carousel */
+  padding: 4rem;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+  animation: gradientAnimation 10s ease infinite; /* Apply gradient animation */
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background: linear-gradient(45deg, #0B0C10, #1A232B, #2D2E30, #458A8E, #C5D1D2);
+    background-size: 500% 500%;
+    transform: scale(1.02);
+  }
+  25% {
+    background: linear-gradient(45deg, #101417, #21292E, #333436, #4A9B9E, #BCC4C6);
+    background-size: 500% 500%;
+    transform: scale(1.03);
+  }
+  50% {
+    background: linear-gradient(45deg, #0C1012, #1E262D, #303234, #47878A, #C5C6C7);
+    background-size: 500% 500%;
+    transform: scale(1.02);
+  }
+  75% {
+    background: linear-gradient(45deg, #0B0D0F, #1B2429, #292A2D, #468384, #ADB8BB);
+    background-size: 500% 500%;
+    transform: scale(1.01);
+  }
+  100% {
+    background: linear-gradient(45deg, #0B0C10, #1F2833, #2E2F31, #45A29E, #C5C6C7);
+    background-size: 500% 500%;
+    transform: scale(1.02);
+  }
+}
+
+.section__4__slick {
+  animation: gradientAnimation 12s ease-in-out infinite;
+  padding: 4rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+  max-width: 95%;
+  width: 90%;
+  margin: 0 auto;
+}
+
+
+
+/* Keyframes for overlay fade effect */
+@keyframes fadeOverlay {
+  0%, 100% {
+    opacity: 0.5; /* Start and end with a certain opacity */
+  }
+  50% {
+    opacity: 0.8; /* Maximum opacity in the middle of the animation */
+  }
+}
+
+
+
+/* Title Styling */
+.slickNvidiaTitle {
+  font-weight: bold;                     
+  font-size: 1.6rem;                     /* Slightly larger font size */
+  color: #66FCF1;                        /* Light cyan for contrast */
+  margin-bottom: 0.5rem;                 
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4); /* Softer shadow for depth */
+  padding: 0.5rem 1rem;                  
+  border-radius: 8px;                    
+  background-color: rgba(31, 40, 51, 0.8);  /* Dark semi-transparent background */
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+/* Optional: Add hover effect */
+.slickNvidiaTitle:hover {
+  transform: scale(1.05);                
+  background-color: rgba(102, 252, 241, 0.3); /* Light cyan on hover */
+}
+
+/* Image Zoom and Parallax on Hover */
+.zoom-on-hover {
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.zoom-on-hover:hover {
+  transform: scale(1.1) translateY(-5px);
+  box-shadow: 0px 10px 40px rgba(102, 252, 241, 0.5);
+}
+
+
+/* Text Animation Styling */
+.slickTextFrame {
+  padding: 2rem;
+  color: #C5C6C7; /* Light gray for text */
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  animation: fadeInUp 1.5s ease forwards;
+}
+
+.slickText {
+  background: rgba(20, 28, 38, 0.85); /* Darker, more opaque background */
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.4), inset 0px 0px 15px rgba(50, 70, 90, 0.6); /* Outer shadow and inner glow */
+  border: 1px solid rgba(69, 162, 158, 0.2); /* Soft, cool-tone border */
+
+  /* Gradient Border Glow */
+  position: relative;
+  overflow: hidden;
+}
+.slickText::before {
+  content: '';
+  position: absolute;
+  top: -5px; left: -5px;
+  right: -5px; bottom: -5px;
+  background: linear-gradient(135deg, rgba(69, 162, 158, 0.5), rgba(197, 198, 199, 0.4));
+  z-index: -1;
+  border-radius: 18px;
+}
+
+
+/* Fade In Animation */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Carousel Item with Gradient Border on Hover */
+.carousel-item-custom {
+  transition: all 0.8s ease;
+  border-radius: 15px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.carousel-item-custom:hover {
+  border: 2px solid #66FCF1; /* Border color matches the title */
+  box-shadow: 0px 10px 25px rgba(102, 252, 241, 0.3);
+  animation: floating 3s ease-in-out infinite;
+}
+
+/* Floating Animation */
+@keyframes floating {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Image Style */
+.carousel-item-custom img {
+  border-radius: 12px;
+}
+
+/* Small Screens (Mobile) */
+@media (max-width: 600px) {
+  #section4__slick {
+    padding: 10px;
+  }
+
+  .slickImgFrame {
+    max-height: 200px; /* Adjust image height for smaller screens */
+  }
+
+  .slickText {
+    font-size: 1rem; /* Smaller font for mobile */
+    padding: 10px;
+  }
+
+  .slickNvidiaTitle {
+    font-size: 1.3rem; /* Smaller title on mobile */
+  }
+
+  .slickNvidiaDec {
+    font-size: 0.9rem;
+  }
+}
+
+/* Medium Screens (Tablets) */
+@media (min-width: 600px) and (max-width: 960px) {
+  #section4__slick {
+    padding: 15px;
+  }
+
+  .slickImgFrame {
+    max-height: 300px; /* Larger image height for tablets */
+  }
+
+  .slickText {
+    font-size: 1.1rem;
+    padding: 12px;
+  }
+
+  .slickNvidiaTitle {
+    font-size: 1.5rem; /* Adjust title size for tablets */
+  }
+
+  .slickNvidiaDec {
+    font-size: 1rem;
+  }
+}
+
+
+
+
+.slickImgFrame {
+  border-radius: 15px; /* Rounded corners */
+  max-width: 100%; /* Ensure the image is responsive */
+  max-height: 400px; /* Adjust height to make the image larger */
+  width: auto; /* Maintain width automatically */
+  height: auto; /* Maintain aspect ratio */
+  transition: transform 0.4s ease, box-shadow 0.4s ease; /* Smooth transition for effects */
+  animation: fadeInUp 1.5s ease forwards;
+}
+
+/* Centering the image */
+.v-img {
+  display: flex; /* Use flexbox to center */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+/* Small Screens (Mobile) Adjustments */
+@media (max-width: 600px) {
+  .slickImgFrame {
+    max-height: 250px; /* Limit height for smaller screens */
+  }
+}
+
+/* Medium Screens (Tablets) Adjustments */
+@media (min-width: 600px) and (max-width: 960px) {
+  .slickImgFrame {
+    max-height: 300px; /* Adjust max-height for tablets */
   }
 }
 
