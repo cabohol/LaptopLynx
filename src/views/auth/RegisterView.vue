@@ -9,21 +9,14 @@ from '@/utils/validators';
 import { ref } from 'vue';
 import AlertNotification from '@/components/common/AlertNotification.vue';
 import { supabase, formActionDefault } from '@/utils/supabase';
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 import { useRouter } from 'vue-router'
 
 
 // Utilize pre-defined vue functions
 const router = useRouter()
-=======
 //import { useRouter } from 'vue-router';
 
 //const router = useRouter();
-
->>>>>>> a5a28ae24b433fe1a656384173c1002c3e10bc63
->>>>>>> development
 
 
 const isPasswordVisible = ref(false);
