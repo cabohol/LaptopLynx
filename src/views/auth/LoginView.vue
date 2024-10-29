@@ -16,7 +16,7 @@ const formActionDefault = {
   formProcess: false,
   formErrorMessage: '',
   formSuccessMessage: '',
-  formStatus: null,
+  formStatus: 200,
 }
 
 const formData = ref({ ...formDataDefault });
