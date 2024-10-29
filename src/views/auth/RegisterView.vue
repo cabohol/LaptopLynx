@@ -80,7 +80,8 @@ const onSubmit = async () => {
     console.log(data);
     formAction.value.formSuccessMessage = 'Successfully Registered Account!';
     // Redirect Acct to Dashboard
-    router.replace('/customerdashboard')
+    //router.replace('/customerdashboard')
+    router.replace('/LoginView')
   }
 
 
