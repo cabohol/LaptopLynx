@@ -5,6 +5,7 @@ import BookingView from '@/views/auth/BookingView.vue'
 import ProfileView from '@/views/auth/ProfileView.vue' 
 import DashboardView from '@/views/auth/DashboardView.vue' 
 import ShowcasePageView from '@/views/auth/ShowcasePageView.vue'
+import CustomerDashboard from '@/components/system/CustomerDashboard.vue'
 
 
 const router = createRouter({
@@ -43,6 +44,11 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: DashboardView
+    },
+    {
+      path: '/customerdashboard',
+      name: 'customerdashboard',
+      component: CustomerDashboard
     },
     
   ]

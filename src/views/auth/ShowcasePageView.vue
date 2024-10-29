@@ -21,9 +21,6 @@ const openLightbox = (index) => {
 </script>
 
 
-
-
-
 <template>
 <v-responsive class="border rounded">
     <v-app>
