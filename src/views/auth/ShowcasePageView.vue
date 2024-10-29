@@ -79,7 +79,7 @@ const openLightbox = (index) => {
 
 
 
-              <v-container fluid class="py-4">
+              <v-container fluid class="py-4">fix
                 <v-carousel hide-delimiter-background height="500" cycle dark show-arrows="hover"  interval="2500" >
                   <!-- Carousel Items -->
                   <v-carousel-item
@@ -1341,56 +1341,50 @@ h2.section-title,
 
 
 .animated-parallax {
-  animation: zoomIn 10s ease-in-out infinite alternate;
+  animation: flipZoomIn 12s ease-in-out infinite alternate, pulseOpacity 8s ease-in-out infinite alternate;
   background-position: center center;
   background-size: cover;
+  perspective: 1000px; /* Adds depth to the flip effect */
 }
 
 .parallax-text {
   position: relative;
-  color: #66FCF1; /* Elegant text color */
+  color: #66FCF1;
   text-align: center;
   top: 50%;
-  transform: translateY(-50%);
-  opacity: 0;
-  animation: fadeInUp 2s ease-in-out forwards;
-  
-  /* Styling for a nicer design */
-  font-size: 1.5rem; /* Smaller font size */
-  font-weight: 500; /* Medium weight for a refined look */
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Soft shadow for depth */
-  
-  /* Adding letter spacing for elegance */
-  letter-spacing: 0.5px; /* Reduced spacing for a compact look */
-  
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }
 
-/* Fade-in Animation */
-@keyframes fadeInUp {
+/* Enhanced Flip and Zoom Animation */
+@keyframes flipZoomIn {
   0% {
-    opacity: 0;
-    transform: translateY(20px); /* Start slightly lower */
+    transform: scale(1) rotateY(0deg);
+  }
+  50% {
+    transform: scale(1.05) rotateY(180deg); /* Halfway flip */
+  }
+  100% {
+    transform: scale(1.1) rotateY(360deg); /* Complete flip */
+  }
+}
+
+/* Pulse Effect for Subtle Opacity Change */
+@keyframes pulseOpacity {
+  0% {
+    opacity: 0.9;
   }
   100% {
     opacity: 1;
-    transform: translateY(0); /* Move to final position */
   }
 }
 
-
-@keyframes zoomIn {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1.1);
-  }
-}
-
+/* Smooth Fade-in-Up Animation */
 @keyframes fadeInUp {
   0% {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   100% {
     opacity: 1;
@@ -1401,14 +1395,14 @@ h2.section-title,
 /* Ensure responsive behavior for portrait views */
 @media screen and (max-width: 768px) {
   .animated-parallax {
-    height: 500px; /* Adjust height for portrait views */
+    height: 500px;
     background-position: center;
-    background-size: contain; /* Contain the image within the view for portrait mode */
+    background-size: contain;
   }
 
   .parallax-text {
     padding: 20px;
-    font-size: 1.2em; /* Adjust font size for smaller screens */
+    font-size: 1.2em;
   }
 
   h1 {
@@ -1419,6 +1413,7 @@ h2.section-title,
     font-size: 1em;
   }
 }
+
 
 </style>
 

@@ -1,10 +1,10 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { useRouter } from 'vue-router';
+//import { useRouter } from 'vue-router';
 
-const router = useRouter(); // Use the router for navigation
+//const router = useRouter(); // Use the router for navigation
 const drawer = ref(true);
-const search = ref(''); // Search bar model
+//const search = ref(''); // Search bar model
 const selectedOption = ref('*'); // Set default selected option to "All"
 
 // List of laptops for rental
@@ -167,7 +167,7 @@ const user = {
     </v-app-bar>
 
     <v-main>
-      <v-carousel hide-delimiter-background height="500" cycle dark show-arrows="hover" interval="3000">
+      <v-carousel hide-delimiter-background height="600" cycle dark show-arrows="hover" interval="3000">
         <v-carousel-item>
           <video
             width="100%"
@@ -205,7 +205,11 @@ const user = {
             playsinline
             style="object-fit: cover"
           ></video>
+          
         </v-carousel-item>
+       
+        
+      
       </v-carousel>
 
       <v-container id="portfolio" class="portfolio section" fluid>
