@@ -3,6 +3,10 @@ import { requiredValidator, emailValidator, passwordValidator, confirmedValidato
 import { ref } from 'vue';
 import AlertNotification from '@/components/common/AlertNotification.vue';
 import { supabase, formActionDefault } from '@/utils/supabase';
+//import { useRouter } from 'vue-router';
+
+//const router = useRouter();
+
 
 
 const isPasswordVisible = ref(false);
