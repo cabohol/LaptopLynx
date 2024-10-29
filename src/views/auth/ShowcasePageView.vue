@@ -79,7 +79,7 @@ const openLightbox = (index) => {
 
 
 
-              <v-container fluid class="py-4">
+              <v-container fluid class="py-4">fix
                 <v-carousel hide-delimiter-background height="500" cycle dark show-arrows="hover"  interval="2500" >
                   <!-- Carousel Items -->
                   <v-carousel-item
