@@ -1,31 +1,62 @@
 <script setup>
+import { supabase } from '@/utils/supabase';
 import { requiredValidator, emailValidator } from '@/utils/validators';
 import { ref } from 'vue'
+import AlertNotification from '@/components/common/AlertNotification.vue';
+import { useRouter } from 'vue-router';
 
-const isPasswordVisible = ref(false)
-const refVForm = ref()
-
-const onFormSubmit = () =>{
-  // Validate the form
-  if (refVForm.value?.validate()) {
-    onLogin()
-  }
-}
-
-const onLogin = () =>{
-  //alert(formData.value.email)
-}
+const router = useRouter()
 
 const formDataDefault = {
   email: '',
   password: '',
 }
 
-const formData = ref({
-  ...formDataDefault
-})
+const formActionDefault = {
+  formProcess: false,
+  formErrorMessage: '',
+  formSuccessMessage: '',
+  formStatus: null,
+}
 
+const formData = ref({ ...formDataDefault });
+const formAction = ref({ ...formActionDefault });
+const isPasswordVisible = ref(false);
+const refVForm = ref();
+
+const onFormSubmit = () => {
+  // Validate the form
+  if (refVForm.value?.validate()) {
+    onSubmit();
+  }
+}
+
+const onSubmit = async () => {
+  formAction.value = { ...formActionDefault };
+  formAction.value.formProcess = true;
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: formData.value.email,
+    password: formData.value.password
+  });
+
+  if (error) {
+    console.error(error);
+    formAction.value.formErrorMessage = error.message;
+    formAction.value.formStatus = error.status;
+  } else if (data) {
+    console.log(data);
+    formAction.value.formSuccessMessage = 'Successfully Logged Account!';
+    // Navigate to a different page, e.g., dashboard
+    router.replace('/customerdashboard'); // Change this to your desired route
+    
+  }
+  //reset form
+refVForm.value?.reset();
+  formAction.value.formProcess = false;
+};
 </script>
+
 
 <template>
   <v-app>
@@ -45,6 +76,15 @@ const formData = ref({
                       <v-card-text class="text-center">
                         <h4 class="form-title">Log in to LaptopLynx</h4>
                         <p class="form-description">Access your account and continue exploring our services.</p>
+                        
+                        <br>
+                          <AlertNotification
+                           :form-success-message="formAction.formSuccessMessage" 
+                           :form-error-message="formAction.formErrorMessage"
+                            >
+                          </AlertNotification>
+                           <br>
+                        
                         <v-form ref="refVForm" @submit.prevent="onFormSubmit">
                           <v-text-field
                             v-model="formData.email"
@@ -75,7 +115,9 @@ const formData = ref({
                           />
                         
                           <br>
-                          <v-btn class="login-btn" type="submit" block>
+                          <v-btn class="login-btn" type="submit" block
+                          :disabled="formAction.formProcess"
+                          :loading="formAction.formProcess">
                             <v-icon left>mdi-login</v-icon> Log In
                           </v-btn>
                         </v-form>
