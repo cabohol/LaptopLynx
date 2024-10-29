@@ -1,10 +1,11 @@
 <script setup>
-import { ref, computed } from 'vue';
-//import { useRouter } from 'vue-router';
+import { getAvatarText } from '@/utils/helpers';
+import { formActionDefault, supabase } from '@/utils/supabase';
+import { ref, computed, onMounted } from 'vue'; // Import onMounted here
+import { useRouter } from 'vue-router';
 
-//const router = useRouter(); // Use the router for navigation
+const router = useRouter(); // Use the router for navigation
 const drawer = ref(true);
-//const search = ref(''); // Search bar model
 const selectedOption = ref('*'); // Set default selected option to "All"
 
 // List of laptops for rental
@@ -23,8 +24,6 @@ const laptops = ref([
   { id: 12, name: 'Acer Predator Helios', specs: 'Intel i7, 32GB RAM, 1TB SSD', price: '₱200/day', bestFor: 'Gaming', image: 'https://images.acer.com/is/image/acer/predator-helios-neo-16-phn16-72-4zone-backlit-on-wallpaper-black-01-1?$Series-Component-XL$' }
 ]);
 
-
-
 // Computed property to filter laptops based on selected option
 const filteredLaptops = computed(() => {
   return selectedOption.value === '*' 
@@ -37,18 +36,57 @@ const rentLaptop = (id) => {
   alert(`You have selected Laptop ID: ${id}`);
 };
 
-// Method to handle filter change
-const onFilterChange = () => {
-  // This will trigger the computed property to update based on `selectedOption`
+//USER FUNCTIONALITY
+
+const userData = ref({
+  initials: '',
+  email: '',
+  fullname: ''
+});
+
+const formAction = ref({
+  ...formActionDefault
+});
+
+// Logout functionality
+const onLogout = async () => {
+  formAction.value = { ...formActionDefault };
+  formAction.value.formProcess = true;
+
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    console.error('Error during logout:', error);
+    return;
+  }
+  formAction.value.formProcess = false;
+  router.replace('/');
 };
 
+// Fetch user data
+const getUser = async () => {
+  const { data, error } = await supabase.auth.getUser();
+  if (error) {
+    console.error('Error fetching user data:', error);
+    return;
+  }
 
-const user = {
-  initials: 'JD',
-  fullName: 'John Doe',
-  email: 'john.doe@doe.com',
+  const metadata = data?.user?.user_metadata;
+  if (metadata) {
+    userData.value.email = metadata.email;
+    userData.value.fullname = `${metadata.firstname} ${metadata.lastname}`;
+    userData.value.initials = getAvatarText(userData.value.fullname);
+  } else {
+    console.warn('User metadata is missing');
+  }
 };
+
+// Call getUser on component mount
+onMounted(() => {
+  getUser();
+});
+
 </script>
+
 
 
 
@@ -134,7 +172,7 @@ const user = {
           color="brown"
           size="large"
         >
-          <span class="text-h5">{{ user.initials }}</span>
+          <span class="text-h5">{{ userData.initials }}</span>
         </v-avatar>
       </v-btn>
     </template>
@@ -142,11 +180,11 @@ const user = {
       <v-card-text>
         <div class="mx-auto text-center">
           <v-avatar color="brown">
-            <span class="text-h5">{{ user.initials }}</span>
+            <span class="text-h5">{{ userData.initials }}</span>
           </v-avatar>
-          <h3>{{ user.fullName }}</h3>
+          <h3>{{ userData.fullname }}</h3>
           <p class="text-caption mt-1">
-            {{ user.email }}
+            {{ userData.email }}
           </p>
           <v-divider class="my-3"></v-divider>
           <v-btn variant="text" rounded class="edit-account-btn">
@@ -154,7 +192,12 @@ const user = {
             Edit Account
           </v-btn>
           <v-divider class="my-3"></v-divider>
-          <v-btn variant="text" rounded class="logout-btn">
+          <v-btn variant="text"
+          @click = "onLogout"
+          :loading = "formAction.formProcess"
+          :disabled = "formAction.formProcess"
+           rounded class="logout-btn"
+          >
             <v-icon left>mdi-logout</v-icon> <!-- Icon for Logout -->
             Logout
           </v-btn>
