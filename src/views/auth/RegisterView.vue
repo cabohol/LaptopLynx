@@ -1,5 +1,5 @@
 <script setup>
-<<<<<<< HEAD
+
 import { 
 requiredValidator, 
 emailValidator, 
@@ -24,11 +24,9 @@ const router = useRouter()
 
 //const router = useRouter();
 
-
 const isPasswordVisible = ref(false);
 const isPasswordConfirmVisible = ref(false);
 
-=======
 import { requiredValidator, emailValidator, passwordValidator, confirmedValidator } from '@/utils/validators';
 import { ref } from 'vue';
 import AlertNotification from '@/components/common/AlertNotification.vue';
@@ -38,7 +36,6 @@ import { supabase, formActionDefault } from '@/utils/supabase';
 const isPasswordVisible = ref(false);
 const isPasswordConfirmVisible = ref(false);
 
->>>>>>> feat/supabase
 const formDataDefault = {
   firstname: '',
   lastname: '',
@@ -52,7 +49,6 @@ const formDataDefault = {
 const formData = ref({
   ...formDataDefault
 });
-<<<<<<< HEAD
 
 const refVForm = ref();
 const formAction = ref({ ...formActionDefault });
@@ -105,7 +101,6 @@ const onSubmit = async () => {
   formAction.value.formProcess = false
 }
 
-=======
 
 const refVForm = ref();
 const formAction = ref({ ...formActionDefault });
@@ -150,7 +145,6 @@ const onSubmit = async () => {
 
   formAction.value.formProcess = false;
 };
->>>>>>> feat/supabase
 </script>
 
 
