@@ -1,5 +1,4 @@
 <script setup>
-
 import { 
 requiredValidator, 
 emailValidator, 
@@ -18,20 +17,9 @@ import { useRouter } from 'vue-router'
 // Utilize pre-defined vue functions
 const router = useRouter()
 
-
-
 //import { useRouter } from 'vue-router';
 
 //const router = useRouter();
-
-const isPasswordVisible = ref(false);
-const isPasswordConfirmVisible = ref(false);
-
-import { requiredValidator, emailValidator, passwordValidator, confirmedValidator } from '@/utils/validators';
-import { ref } from 'vue';
-import AlertNotification from '@/components/common/AlertNotification.vue';
-import { supabase, formActionDefault } from '@/utils/supabase';
-
 
 const isPasswordVisible = ref(false);
 const isPasswordConfirmVisible = ref(false);
@@ -101,50 +89,6 @@ const onSubmit = async () => {
   formAction.value.formProcess = false
 }
 
-
-const refVForm = ref();
-const formAction = ref({ ...formActionDefault });
-
-const onFormSubmit = () => {
-  refVForm.value?.validate().then(({ valid }) => {
-    if (valid && formData.value.selection) {
-      onSubmit();
-    } else if (!formData.value.selection) {
-      alert("Please select a role before signing up.");
-    }
-  });
-};
-
-const onSubmit = async () => {
-  formAction.value = { ...formActionDefault };
-  formAction.value.formProcess = true;
-
-  const { data, error } = await supabase.auth.signUp({
-    email: formData.value.email,
-    password: formData.value.password,
-    options: {
-      data: {
-        firstname: formData.value.firstname,
-        lastname: formData.value.lastname,
-        phone_number: formData.value.phone_number,
-        selection: formData.value.selection
-      }
-    }
-  });
-
-  if (error) {
-    console.error(error);
-    formAction.value.formErrorMessage = error.message;
-    formAction.value.formStatus = error.status;
-  } else if (data) {
-    console.log(data);
-    formAction.value.formSuccessMessage = 'Successfully Registered Account!';
-    // add here more actions if you want
-    refVForm.value?.reset()
-  }
-
-  formAction.value.formProcess = false;
-};
 </script>
 
 
