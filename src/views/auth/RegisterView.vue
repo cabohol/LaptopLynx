@@ -1,26 +1,17 @@
 <script setup>
 import { 
-requiredValidator, 
-emailValidator, 
-passwordValidator, 
-confirmedValidator 
+  requiredValidator, 
+  emailValidator, 
+  passwordValidator, 
+  confirmedValidator 
 } 
 from '@/utils/validators';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import AlertNotification from '@/components/common/AlertNotification.vue';
 import { supabase, formActionDefault } from '@/utils/supabase';
+import { useRouter } from 'vue-router';
 
-
-import { useRouter } from 'vue-router'
-
-
-// Utilize pre-defined vue functions
-const router = useRouter()
-
-//import { useRouter } from 'vue-router';
-
-//const router = useRouter();
-
+const router = useRouter();
 const isPasswordVisible = ref(false);
 const isPasswordConfirmVisible = ref(false);
 
@@ -31,21 +22,19 @@ const formDataDefault = {
   email: '',
   password: '',
   password_confirmation: '',
-  selection: '' // Added selection here to track role (Admin/Renter)
+  role: '' // Ensure this is bound correctly in v-btn-toggle
 };
 
-const formData = ref({
-  ...formDataDefault
-});
+const formData = ref({ ...formDataDefault });
 
 const refVForm = ref();
 const formAction = ref({ ...formActionDefault });
 
 const onFormSubmit = () => {
   refVForm.value?.validate().then(({ valid }) => {
-    if (valid && formData.value.selection) {
+    if (valid && formData.value.role) {
       onSubmit();
-    } else if (!formData.value.selection) {
+    } else if (!formData.value.role) {
       alert("Please select a role before signing up.");
     }
   });
@@ -63,9 +52,8 @@ const onSubmit = async () => {
         firstname: formData.value.firstname,
         lastname: formData.value.lastname,
         phone_number: formData.value.phone_number,
-        selection: formData.value.selection,
-        is_admin: false // Just turn to true if admin account
-        // role: 'Administrator' // If role based; just change the string based on role
+        role: formData.value.role,
+        is_admin: formData.value.role === 'admin' // Set admin status based on role
       }
     }
   });
@@ -77,18 +65,16 @@ const onSubmit = async () => {
   } else if (data) {
     console.log(data);
     formAction.value.formSuccessMessage = 'Successfully Registered Account!';
-    // Redirect Acct to Dashboard
-    //router.replace('/customerdashboard')
-    router.replace('/LoginView')
+    router.replace('/LoginView');
   }
 
+  refVForm.value?.reset();
+  formAction.value.formProcess = false;
+};
 
-   // Reset Form
-   refVForm.value?.reset()
-  // Turn off processing
-  formAction.value.formProcess = false
-}
-
+watch(() => formData.value.role, (newRole) => {
+  console.log("Role updated:", newRole); // Log role updates for debugging
+});
 </script>
 
 
@@ -122,11 +108,11 @@ const onSubmit = async () => {
                             >
                           </AlertNotification>
                            <br>
-                          <v-btn-toggle v-model="formData.selection" mandatory>
-                            <v-btn :value="'renter'" :class="formData.selection === 'renter' ? 'active-btn' : 'toggle-btn'">
+                          <v-btn-toggle v-model="formData.role" mandatory>
+                            <v-btn :value="'renter'" :class="formData.role === 'renter' ? 'active-btn' : 'toggle-btn'">
                               RENTER
                             </v-btn>
-                            <v-btn :value="'admin'" :class="formData.selection === 'admin' ? 'active-btn' : 'toggle-btn'">
+                            <v-btn :value="'admin'" :class="formData.role === 'admin' ? 'active-btn' : 'toggle-btn'">
                               ADMIN
                             </v-btn>
                           </v-btn-toggle>
