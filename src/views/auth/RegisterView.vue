@@ -13,9 +13,6 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
-import { useRouter } from 'vue-router'
-
-
 const isPasswordVisible = ref(false);
 const isPasswordConfirmVisible = ref(false);
 
