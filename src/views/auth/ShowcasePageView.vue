@@ -497,6 +497,7 @@ export default {
   </v-container>
 
 
+
 <v-container fluid style="background: url('https://images.acer.com/is/image/acer/triton14_beyond%20performance?$responsive$'); background-repeat: repeat;">
   <br>
     <v-row>
@@ -780,7 +781,6 @@ export default {
 
 
 <v-container class="laptoplynx-container">
-  <!-- Logo and Company Name -->
   <v-row justify="center" align="center" class="my-3 text-center laptoplynx-logo-row">
     <v-col cols="12" md="4" class="text-center laptoplynx-logo-col">
       <v-row justify="center" align="center">
@@ -810,15 +810,26 @@ export default {
     </v-col>
   </v-row>
 
-<!-- Bottom row with terms and social media -->
-<v-row justify="center" align="center" class="mt-4 text-center laptoplynx-bottom-row">
-  <v-col cols="12" md="6" class="text-center laptoplynx-bottom-col">
-    <p class="laptoplynx-copyright" style="color: #E2DAD6; font-size: 13px;">
-      &copy; 2024 LaptopLynx. All rights reserved.
-    </p>
-  </v-col>
-</v-row>
+   <v-row justify="center" align="center" class="mt-4 text-center laptoplynx-bottom-row">
+            <v-col cols="12" md="6" class="text-center laptoplynx-bottom-col">
+                <p class="laptoplynx-copyright" style="color: #E2DAD6; font-size: 13px;">
+                    &copy; 2024 LaptopLynx. All rights reserved.
+                </p>
+                <div class="laptoplynx-social-icons">
+                    <a href="https://twitter.com/LaptopLynx" target="_blank" class="social-icon" title="Twitter">
+                        <img src="https://freepnglogo.com/images/all_img/1691832581twitter-x-icon-png.png" alt="X">
+                    </a>
+                    <a href="https://www.facebook.com/LaptopLynx" target="_blank" class="social-icon" title="Facebook">
+                        <img src="https://cdn.freebiesupply.com/logos/large/2x/facebook-logo-2019.png" alt="Facebook">
+                    </a>
+                    <a href="https://www.instagram.com/LaptopLynx" target="_blank" class="social-icon" title="Instagram">
+                        <img src="https://static.vecteezy.com/system/resources/previews/023/741/058/non_2x/instagram-logo-icon-social-media-icon-free-png.png" alt="Instagram">
+                    </a>
+                </div>
+            </v-col>
+        </v-row>
 </v-container>
+
           </v-main>
       </v-app>
   </v-responsive>
@@ -829,6 +840,30 @@ export default {
 
 
 <style scoped>
+.laptoplynx-social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.social-icon img {
+    width: 45px;
+    height: 45px;
+    padding: 8px;
+    border-radius: 50%;
+    background-color: #333;
+    transition: transform 0.4s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.social-icon img:hover {
+    transform: scale(1.3) rotate(15deg);
+    background-color: #66FCF1;
+    box-shadow: 0px 6px 12px rgba(102, 252, 241, 0.5);
+}
+
+
+
 .image-display {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
