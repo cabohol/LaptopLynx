@@ -31,30 +31,68 @@ const onFormSubmit = () => {
   }
 }
 
+// const onSubmit = async () => {
+//   formAction.value = { ...formActionDefault };
+//   formAction.value.formProcess = true;
+
+//   const { data, error } = await supabase.auth.signInWithPassword({
+//     email: formData.value.email,
+//     password: formData.value.password
+//   });
+
+//   if (error) {
+//     console.error(error);
+//     formAction.value.formErrorMessage = error.message;
+//     formAction.value.formStatus = error.status;
+//   } else if (data) {
+//     console.log(data);
+//     formAction.value.formSuccessMessage = 'Successfully Logged Account!';
+//     // Navigate to a different page, e.g., dashboard
+//     router.replace('/customerdashboard'); // Change this to your desired route
+    
+//   }
+//   //reset form
+// refVForm.value?.reset();
+//   formAction.value.formProcess = false;
+// };
+
+
+
 const onSubmit = async () => {
   formAction.value = { ...formActionDefault };
   formAction.value.formProcess = true;
 
   const { data, error } = await supabase.auth.signInWithPassword({
     email: formData.value.email,
-    password: formData.value.password
+    password: formData.value.password,
   });
 
   if (error) {
     console.error(error);
     formAction.value.formErrorMessage = error.message;
     formAction.value.formStatus = error.status;
-  } else if (data) {
-    console.log(data);
-    formAction.value.formSuccessMessage = 'Successfully Logged Account!';
-    // Navigate to a different page, e.g., dashboard
-    router.replace('/customerdashboard'); // Change this to your desired route
-    
+  } else if (data?.user) {  // Check if login succeeded
+    formAction.value.formSuccessMessage = 'Successfully Logged In!';
+
+    // Access the role directly from user metadata
+    const userRole = data.user.user_metadata.role;
+
+    // Redirect based on role
+    if (userRole === 'admin') {
+      router.replace('/dashboard');  // Route for Admins
+    } else if (userRole === 'renter') {
+      router.replace('/customerdashboard');  // Route for Renters
+    } else {
+      formAction.value.formErrorMessage = 'User role not recognized.';
+    }
   }
-  //reset form
-refVForm.value?.reset();
+
+  // Reset form and stop processing
+  refVForm.value?.reset();
   formAction.value.formProcess = false;
 };
+
+
 </script>
 
 
