@@ -5,55 +5,81 @@ import 'glightbox/dist/css/glightbox.min.css';
 
 export default {
   data() {
-  return {
-    carouselItems: [
-    {
-        image: 'https://cdn.mos.cms.futurecdn.net/Ajc3ezCTN4FGz2vF4LpQn9.jpg',
-        ariaLabel: 'ROG Zephyrus G14',
-        title: 'ROG Zephyrus G14',
-        description: "Experience the ultimate blend of power and portability. With a sleek design and high-performance specs, it’s perfect for gaming and content creation on the go."
-      },
-      {
-        image: 'https://cdn.mos.cms.futurecdn.net/Ajc3ezCTN4FGz2vF4LpQn9.jpg',
-        ariaLabel: 'Dell XPS 15',
-        title: 'Dell XPS 15',
-        description: "Crafted for creators, this laptop boasts a breathtaking 4K display and powerful performance, making it ideal for design, video editing, and more."
-      },
-      {
-        image: 'https://cdn.mos.cms.futurecdn.net/Ajc3ezCTN4FGz2vF4LpQn9.jpg',
-        ariaLabel: 'Lenovo Legion 5',
-        title: 'Lenovo Legion 5',
-        description: "Unleash your gaming potential with the Legion 5. High refresh rates, robust cooling, and immersive visuals create a gaming experience like no other."
-      },
-      {
-        image: 'https://cdn.mos.cms.futurecdn.net/Ajc3ezCTN4FGz2vF4LpQn9.jpg',
-        ariaLabel: 'ASUS ROG Strix Scar 15',
-        title: 'ASUS ROG Strix Scar 15',
-        description: "Elevate your gaming experience with customizable RGB lighting and cutting-edge hardware. Designed for gamers who demand excellence in every match."
-      },
-      {
-        image: 'https://cdn.mos.cms.futurecdn.net/Ajc3ezCTN4FGz2vF4LpQn9.jpg',
-        ariaLabel: 'HP Omen 15',
-        title: 'HP Omen 15',
-        description: "Combine style and performance with the HP Omen 15. Its sleek design, powerful graphics, and immersive audio bring your games to life."
-      },
-      {
-        image: 'https://cdn.mos.cms.futurecdn.net/Ajc3ezCTN4FGz2vF4LpQn9.jpg',
-        ariaLabel: 'Acer Predator Helios 300',
-        title: 'Acer Predator Helios 300',
-        description: "Get ready for serious gaming with the Helios 300. Its competitive pricing, stunning display, and powerful internals make it a top choice for gamers."
-      }
+    return {
+      currentImage: 'https://images.acer.com/is/image/acer/swift3_sf31459_wp_fp-bl_silver_01_l-2?$Visual-Filter-XL$',
+      images: [
+        {
+          src: 'https://images.acer.com/is/image/acer/swift3_sf31459_wp_fp-bl_silver_01_l-2?$Visual-Filter-XL$',
+          thumbnail: 'https://images.acer.com/is/image/acer/swift3_sf31459_wp_fp-bl_silver_01_l-2?$Visual-Filter-XL$',
+          caption: 'Acer Swift 3 - Silver',
+        },
+        {
+          src: 'https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/xps-notebooks/xps-13-9315/pdp/laptop-xps-13-9315-pdp-mod03-bl.psd?wid=950&hei=781&fmt=png-alpha&qlt=100%2c0&op_usm=1.75%2c0.3%2c2%2c0&resMode=sharp2&pscan=auto&fit=constrain%2c1&align=0%2c0',
+          thumbnail: 'https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/xps-notebooks/xps-13-9315/pdp/laptop-xps-13-9315-pdp-mod03-bl.psd?wid=950&hei=781&fmt=png-alpha&qlt=100%2c0&op_usm=1.75%2c0.3%2c2%2c0&resMode=sharp2&pscan=auto&fit=constrain%2c1&align=0%2c0',
+          caption: 'Dell XPS 13 - Silver',
+        },
+        {
+          src: 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c08984340.png',
+          thumbnail: 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c08984340.png',
+          caption: 'HP Spectre x360 - Space blue',
+        },
+        {
+          src: 'https://images.acer.com/is/image/acer/nitro-17-an17-72-4zone-backlit-on-wallpaper-black-01-1?$Visual-Filter-XL$',
+          thumbnail: 'https://images.acer.com/is/image/acer/nitro-17-an17-72-4zone-backlit-on-wallpaper-black-01-1?$Visual-Filter-XL$',
+          caption: 'Nitro 17 Intel - Black',
+        },
+      ],
+      carouselItems: [
+        {
+          image: 'https://rog.asus.com/media/1578096205427.jpg',
+          ariaLabel: 'ROG Zephyrus G14',
+          title: 'ROG Zephyrus G14',
+          description: "Experience the ultimate blend of power and portability. With a sleek design and high-performance specs, it’s perfect for gaming and content creation on the go."
+        },
+        {
+          image: 'https://m.media-amazon.com/images/I/61XuP8qrI+L._AC_SL1500_.jpg',
+          ariaLabel: 'Dell XPS 15',
+          title: 'Dell XPS 15',
+          description: "Crafted for creators, this laptop boasts a breathtaking 4K display and powerful performance, making it ideal for design, video editing, and more."
+        },
+        {
+          image: 'https://www.notebookcheck.net/uploads/tx_nbc2/4zu3_Lenovo_Legion_5_17IMH05.jpg',
+          ariaLabel: 'Lenovo Legion 5',
+          title: 'Lenovo Legion 5',
+          description: "Unleash your gaming potential with the Legion 5. High refresh rates, robust cooling, and immersive visuals create a gaming experience like no other."
+        },
+        {
+          image: 'https://laptopmedia.com/wp-content/uploads/2021/04/asusrogstrixscar15g533featured.jpg',
+          ariaLabel: 'ASUS ROG Strix Scar 15',
+          title: 'ASUS ROG Strix Scar 15',
+          description: "Elevate your gaming experience with customizable RGB lighting and cutting-edge hardware. Designed for gamers who demand excellence in every match."
+        },
+        {
+          image: 'https://www.pcworld.com/wp-content/uploads/2023/04/hp_omen_15_hero-100759572-orig.jpg?quality=50&strip=all',
+          ariaLabel: 'HP Omen 15',
+          title: 'HP Omen 15',
+          description: "Combine style and performance with the HP Omen 15. Its sleek design, powerful graphics, and immersive audio bring your games to life."
+        },
+        {
+          image: 'https://rukminim2.flixcart.com/image/1000/1000/cms-rpd-img/8e4cdf0afad140d5958311d3517fa1cd_1836129d93f_image.jpeg?q=90',
+          ariaLabel: 'Acer Predator Helios 300',
+          title: 'Acer Predator Helios 300',
+          description: "Get ready for serious gaming with the Helios 300. Its competitive pricing, stunning display, and powerful internals make it a top choice for gamers."
+        }
       ]
     };
   },
   methods: {
+    selectImage(image) {
+      this.currentImage = image;
+    },
     openLightbox(index) {
       const lightbox = GLightbox({
         touchNavigation: true,
         loop: true,
         elements: this.carouselItems.map((item) => ({
           href: item.image,
-          title: 'Click to close'
+          title: item.title
         })),
       });
       lightbox.openAt(index);
@@ -61,6 +87,7 @@ export default {
   }
 };
 </script>
+
 
 
 
@@ -185,41 +212,12 @@ export default {
     </v-col>
   </v-row>
 </v-container>
-
-
-
-<v-container fluid class="section__4__slick section__base section__nvidia_slick" id="section4__slick">
-  <v-row>
-    <v-carousel show-arrows-on-hover height="400px" hide-delimiter-background>
-      <v-carousel-item v-for="(item, index) in carouselItems" :key="index">
-        <v-row class="d-flex justify-center">
-          <v-col cols="12" md="6" class="text-center slickTextFrame" style="padding: 8%;">
-            <div class="slickText">
-              <span class="slickNvidiaTitle">{{ item.title }}</span>
-              <span class="slickNvidiaDec">{{ item.description }}</span>
-            </div>
-          </v-col>
-          <v-col cols="12" md="6" class="text-center">
-            <v-img
-              :src="item.image"
-              :alt="item.ariaLabel"
-              class="slickImgFrame"
-            ></v-img>
-          </v-col>
-        </v-row>
-      </v-carousel-item>
-    </v-carousel>
-  </v-row>
-</v-container>
-
-
-
   
               <v-container fluid>
     <v-row justify="center" class="my-12">
       <v-col cols="12">
       <h2 class="section-heading">
-        <v-icon class="icon" style="font-size: 2.5rem; color: #66FCF1;">mdi-laptop</v-icon> <!-- Laptop icon -->
+        <v-icon class="icon" style="font-size: 2.5rem; color: #66FCF1;">mdi-laptop</v-icon> 
         Most Rented Laptops on LaptopLynx
       </h2>
     </v-col>
@@ -245,7 +243,7 @@ export default {
     </v-card-item>
 
     <v-card-text  style="margin-top: -20px;">
-      <div class="my-4 text-subtitle-1">₱200 • Gaming Laptop</div>
+      <div class="my-4 text-subtitle-1">₱200 • Best For: Gaming, Coding, Projects</div>
       <div>Top-tier gaming performance with powerful graphics and cooling.</div>
       <div class="mt-3">
         <div class="specs-title">
@@ -279,7 +277,7 @@ export default {
     </v-card-item>
 
     <v-card-text  style="margin-top: -20px;">
-      <div class="my-4 text-subtitle-1">₱150 • Ultrabook</div>
+      <div class="my-4 text-subtitle-1">₱150 • Best For: Gaming, Coding, Projects</div>
       <div>Stunning display and sleek design with exceptional performance.</div>
       <div class="mt-3">
         <div class="specs-title">
@@ -313,7 +311,7 @@ export default {
     </v-card-item>
 
     <v-card-text  style="margin-top: -20px;">
-      <div class="my-4 text-subtitle-1">₱150 • Lightweight</div>
+      <div class="my-4 text-subtitle-1">₱150 • Best For: Gaming, Coding, Projects</div>
       <div>Great performance in a slim and portable design, ideal for everyday use.</div>
       <div class="mt-3">
         <div class="specs-title">
@@ -346,7 +344,7 @@ export default {
       </v-card-subtitle>
     </v-card-item>
     <v-card-text style="margin-top: -20px;">
-      <div class="my-4 text-subtitle-1">₱200 • Gaming Laptop</div>
+      <div class="my-4 text-subtitle-1">₱200 • Best For: Gaming, Coding, Projects</div>
       <div>Great for both gaming and productivity, with high performance and a sleek design.</div>
       <div class="mt-3">
         <div class="specs-title">
@@ -358,10 +356,177 @@ export default {
   </v-card>
 </v-col>
 
+<!-- Card 5: Acer Nitro 5 -->
+<v-col cols="12" sm="6" md="3">
+  <v-card class="mx-auto my-4 laptop-card" max-width="374">
+    <!-- Wrap image with a link -->
+    <a href="https://images.acer.com/is/image/acer/Nitro5-AN515-58-wallpaper-rgbkb-light-on-Black-01?$Series-Component-XL$" target="_blank">
+      <v-img
+        height="250"
+        src="https://images.acer.com/is/image/acer/Nitro5-AN515-58-wallpaper-rgbkb-light-on-Black-01?$Series-Component-XL$"
+        cover
+      ></v-img>
+    </a>
+
+    <v-card-item>
+      <v-card-title>Acer Nitro 5</v-card-title>
+
+      <v-card-subtitle>
+        <v-icon class="fire-icon" color="error" icon="mdi-fire-circle" size="small"></v-icon>
+        <span class="me-1">Budget Gamer</span>
+      </v-card-subtitle>
+    </v-card-item>
+
+    <v-card-text style="margin-top: -20px;">
+      <div class="my-4 text-subtitle-1">₱180 • Best For: Gaming, Coding, Projects</div>
+      <div>Affordable gaming with good performance and smooth visuals.</div>
+      <div class="mt-3">
+        <div class="specs-title">
+          <v-icon>mdi-format-list-bulleted</v-icon> Specs:
+        </div>
+        <div><v-icon>mdi-chip</v-icon>Intel i5 10th Gen, NVIDIA GTX 1650, 8GB RAM, 512GB SSD, 15.6" Full HD Display</div>
+      </div>
+    </v-card-text>
+  </v-card>
+</v-col>
+
+<!-- Card 6: MSI GS66 Stealth -->
+<v-col cols="12" sm="6" md="3">
+  <v-card class="mx-auto my-4 laptop-card" max-width="374">
+    <!-- Wrap image with a link -->
+    <a href="https://asset.msi.com/resize/image/global/product/product_164730247617039c3f1bd7445f8f53e96cd736bf7d.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png" target="_blank">
+      <v-img
+        height="250"
+        src="https://asset.msi.com/resize/image/global/product/product_164730247617039c3f1bd7445f8f53e96cd736bf7d.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png"
+        cover
+      ></v-img>
+    </a>
+
+    <v-card-item>
+      <v-card-title>MSI GS66 Stealth</v-card-title>
+
+      <v-card-subtitle>
+        <v-icon class="fire-icon" color="error" icon="mdi-fire-circle" size="small"></v-icon>
+        <span class="me-1">Sleek Performance</span>
+      </v-card-subtitle>
+    </v-card-item>
+
+    <v-card-text style="margin-top: -20px;">
+      <div class="my-4 text-subtitle-1">₱150 • Best For: Gaming, Coding, Projects</div>
+      <div>Powerful hardware with a stylish and slim design.</div>
+      <div class="mt-3">
+        <div class="specs-title">
+          <v-icon>mdi-format-list-bulleted</v-icon> Specs:
+        </div>
+        <div><v-icon>mdi-chip</v-icon>Intel i7 10th Gen, NVIDIA RTX 2080, 16GB RAM, 1TB SSD, 15.6" 240Hz Display</div>
+      </div>
+    </v-card-text>
+  </v-card>
+</v-col>
+
+<!-- Card 7: Asus ROG Zephyrus G14 -->
+<v-col cols="12" sm="6" md="3">
+  <v-card class="mx-auto my-4 laptop-card" max-width="374">
+    <!-- Wrap image with a link -->
+    <a href="https://dlcdnwebimgs.asus.com/gain/1991CB0A-20ED-4A95-AD18-88B850288B49" target="_blank">
+      <v-img
+        margin-top="10px"
+        height="250"
+        src="https://dlcdnwebimgs.asus.com/gain/1991CB0A-20ED-4A95-AD18-88B850288B49"
+        cover
+      ></v-img>
+    </a>
+
+    <v-card-item>
+      <v-card-title>Asus ROG Zephyrus G14</v-card-title>
+
+      <v-card-subtitle>
+        <v-icon class="fire-icon" color="error" icon="mdi-fire-circle" size="small"></v-icon>
+        <span class="me-1">Compact Powerhouse</span>
+      </v-card-subtitle>
+    </v-card-item>
+
+    <v-card-text style="margin-top: -20px;">
+      <div class="my-4 text-subtitle-1">₱180 • Best For: Gaming, Coding, Projects</div>
+      <div>Compact design with impressive gaming power and great display.</div>
+      <div class="mt-3">
+        <div class="specs-title">
+          <v-icon>mdi-format-list-bulleted</v-icon> Specs:
+        </div>
+        <div><v-icon>mdi-chip</v-icon>AMD Ryzen 9, NVIDIA RTX 2060, 16GB RAM, 1TB SSD, 14" QHD Display</div>
+      </div>
+    </v-card-text>
+  </v-card>
+</v-col>
+
+<!-- Card 8: Razer Blade 15 -->
+<v-col cols="12" sm="6" md="3">
+  <v-card class="mx-auto my-4 laptop-card" max-width="374">
+    <!-- Wrap image with a link -->
+    <a href="https://dl.razerzone.com/src/2630/2630-1-en-v2.png" target="_blank">
+      <v-img
+        height="250"
+        src="https://dl.razerzone.com/src/2630/2630-1-en-v2.png"
+        cover
+      ></v-img>
+    </a>
+
+    <v-card-item>
+      <v-card-title>Razer Blade 15</v-card-title>
+
+      <v-card-subtitle>
+        <v-icon class="fire-icon" color="error" icon="mdi-fire-circle" size="small"></v-icon>
+        <span class="me-1">Premium Gaming</span>
+      </v-card-subtitle>
+    </v-card-item>
+
+    <v-card-text style="margin-top: -20px;">
+      <div class="my-4 text-subtitle-1">₱180 • Best For: Gaming, Coding, Projects</div>
+      <div>High-end build with excellent gaming and display quality.</div>
+      <div class="mt-3">
+        <div class="specs-title">
+          <v-icon>mdi-format-list-bulleted</v-icon> Specs:
+        </div>
+        <div><v-icon>mdi-chip</v-icon>Intel i7 10th Gen, NVIDIA RTX 2070, 16GB RAM, 512GB SSD, 15.6" 144Hz Display</div>
+      </div>
+    </v-card-text>
+  </v-card>
+</v-col>
 
     </v-row>
   </v-container>
 
+
+
+<v-container fluid style="background: url('https://images.acer.com/is/image/acer/triton14_beyond%20performance?$responsive$'); background-repeat: repeat;">
+  <br>
+    <v-row>
+      <v-col cols="12" md="8" class="d-flex justify-center align-center">
+        <v-img
+          :src="currentImage"
+          alt="Zephyrus G14 Display Image"
+          max-width="100%"
+          max-height="400px"
+          class="image-display"
+        ></v-img>
+      </v-col>
+
+      <v-col cols="12" md="4" class="d-flex flex-column align-center">
+        <div class="buttons-container">
+    <button
+        v-for="(image, index) in images"
+        :key="index"
+        @click="selectImage(image.src)"
+        class="grid-button"
+    >
+        <img :src="image.thumbnail" alt="Image thumbnail" class="thumbnail-image" />
+        <div class="button-caption">{{ image.caption }}</div>
+    </button>
+       </div>
+      </v-col>
+    </v-row>
+    <br>
+  </v-container>
 
 
   <v-container class="unique-deals-section" fluid>
@@ -434,6 +599,34 @@ export default {
     </v-col>
   </v-row>
 </v-container>
+
+
+<v-container fluid class="section__4__slick section__base section__nvidia_slick" id="section4__slick">
+  <v-row>
+    <v-carousel hide-delimiter-background height="400" cycle dark show-arrows="hover" interval="3500">
+      <v-carousel-item v-for="(item, index) in carouselItems" :key="index">
+        <v-row class="d-flex justify-center">
+          <v-col cols="12" md="6" class="text-center slickTextFrame" style="padding: 8%;">
+            <div class="slickText">
+              <span class="slickNvidiaTitle">{{ item.title }}</span>
+              <span class="slickNvidiaDec">{{ item.description }}</span>
+            </div>
+          </v-col>
+          <v-col cols="12" md="6" class="text-center">
+            <v-img
+              :src="item.image"
+              :alt="item.ariaLabel"
+              height="400"
+              class="slickImgFrame"
+            ></v-img>
+          </v-col>
+        </v-row>
+      </v-carousel-item>
+    </v-carousel>
+  </v-row>
+</v-container>
+
+
 
 
 <br>
@@ -588,7 +781,6 @@ export default {
 
 
 <v-container class="laptoplynx-container">
-  <!-- Logo and Company Name -->
   <v-row justify="center" align="center" class="my-3 text-center laptoplynx-logo-row">
     <v-col cols="12" md="4" class="text-center laptoplynx-logo-col">
       <v-row justify="center" align="center">
@@ -618,15 +810,26 @@ export default {
     </v-col>
   </v-row>
 
-<!-- Bottom row with terms and social media -->
-<v-row justify="center" align="center" class="mt-4 text-center laptoplynx-bottom-row">
-  <v-col cols="12" md="6" class="text-center laptoplynx-bottom-col">
-    <p class="laptoplynx-copyright" style="color: #E2DAD6; font-size: 13px;">
-      &copy; 2024 LaptopLynx. All rights reserved.
-    </p>
-  </v-col>
-</v-row>
+   <v-row justify="center" align="center" class="mt-4 text-center laptoplynx-bottom-row">
+            <v-col cols="12" md="6" class="text-center laptoplynx-bottom-col">
+                <p class="laptoplynx-copyright" style="color: #E2DAD6; font-size: 13px;">
+                    &copy; 2024 LaptopLynx. All rights reserved.
+                </p>
+                <div class="laptoplynx-social-icons">
+                    <a href="https://twitter.com/LaptopLynx" target="_blank" class="social-icon" title="Twitter">
+                        <img src="https://freepnglogo.com/images/all_img/1691832581twitter-x-icon-png.png" alt="X">
+                    </a>
+                    <a href="https://www.facebook.com/LaptopLynx" target="_blank" class="social-icon" title="Facebook">
+                        <img src="https://cdn.freebiesupply.com/logos/large/2x/facebook-logo-2019.png" alt="Facebook">
+                    </a>
+                    <a href="https://www.instagram.com/LaptopLynx" target="_blank" class="social-icon" title="Instagram">
+                        <img src="https://static.vecteezy.com/system/resources/previews/023/741/058/non_2x/instagram-logo-icon-social-media-icon-free-png.png" alt="Instagram">
+                    </a>
+                </div>
+            </v-col>
+        </v-row>
 </v-container>
+
           </v-main>
       </v-app>
   </v-responsive>
@@ -637,6 +840,115 @@ export default {
 
 
 <style scoped>
+.laptoplynx-social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.social-icon img {
+    width: 45px;
+    height: 45px;
+    padding: 8px;
+    border-radius: 50%;
+    background-color: #333;
+    transition: transform 0.4s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.social-icon img:hover {
+    transform: scale(1.3) rotate(15deg);
+    background-color: #66FCF1;
+    box-shadow: 0px 6px 12px rgba(102, 252, 241, 0.5);
+}
+
+
+
+.image-display {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-display:hover {
+    transform: scale(1.05);
+}
+
+.buttons-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+    padding: 10px;
+    width: 100%;
+}
+
+.grid-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(11, 12, 16, 0.75);
+    border: 1px solid rgba(102, 252, 241, 0.85);
+    border-radius: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+    padding: 9px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.grid-button:hover {
+    background-color: rgba(16, 20, 23, 0.65);
+    transform: translateY(-3px);
+}
+
+.thumbnail-image {
+    border-radius: 10px;
+    max-height: 100px;
+    transition: transform 0.3s ease;
+    width: 70%;
+}
+
+.thumbnail-image:hover {
+    transform: scale(1.05);
+}
+
+.button-caption {
+    font-size: 1rem;
+    padding: 0.5rem;
+    color: rgba(102, 252, 241, 1);
+    font-weight: lighter;
+    background-color: rgba(26, 35, 43, 0.85);
+    border-radius: 0 0 10px 10px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .buttons-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .buttons-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .grid-button {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+  .image-display {
+    max-height: 250px;
+  }
+
+  .image-button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+
 /* Medium Screens (Tablets) */
 @media (max-width: 992px) {
 
@@ -1787,9 +2099,8 @@ h2.section-title,
 .slickImgFrame {
   border-radius: 15px; /* Rounded corners */
   max-width: 100%; /* Ensure the image is responsive */
-  max-height: 400px; /* Adjust height to make the image larger */
+  max-height: 350px; /* Adjust height to make the image larger */
   width: auto; /* Maintain width automatically */
-  height: auto; /* Maintain aspect ratio */
   transition: transform 0.4s ease, box-shadow 0.4s ease; /* Smooth transition for effects */
   animation: fadeInUp 1.5s ease forwards;
 }
