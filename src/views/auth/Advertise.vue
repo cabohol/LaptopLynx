@@ -35,7 +35,6 @@ export default {
 </script>
 
 
-
 <template>
   <v-app class="full-screen cyber-theme">
     <v-container v-if="!dialog" fluid fill-height>
@@ -51,6 +50,10 @@ export default {
               class="animated-hologram"
               @load="scheduleNextGif"
             />
+            <!-- Display saying only when currentGifIndex is 1 -->
+            <p v-if="!displayText && currentGifIndex === 1" class="laptop-saying">
+              "Empower your potential with the perfect laptop, your gateway to innovation and creativity."
+            </p>
           </div>
 
           <div v-if="displayText" class="laptoplynx-text">
@@ -85,7 +88,20 @@ export default {
 
 
 
+
+
 <style scoped>
+.laptop-saying {
+  text-align: center; 
+  color: #66FCF1; 
+  margin-top: 20px; 
+  font-weight: bold; 
+  font-size: 1.5em; 
+  padding: 15px; 
+  border-left: 4px solid #66FCF1;
+  font-style: italic; 
+}
+
 .full-screen {
   background-color: #000;
   overflow: hidden;
