@@ -1,3 +1,60 @@
+<script setup>
+import { formActionDefault, supabase } from '@/utils/supabase';
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+
+const drawer = ref(false);
+const router = useRouter();
+
+// Admin data for displaying logged-in user information
+const admin = ref({
+  fullname: '',
+  email: '',
+  avatar: 'https://randomuser.me/api/portraits/men/85.jpg', // Default avatar if none provided
+});
+
+const formAction = ref({
+  ...formActionDefault
+});
+
+// Function to retrieve admin data
+const getAdminData = async () => {
+  const { data, error } = await supabase.auth.getUser();
+  if (error) {
+    console.error('Error fetching user data:', error);
+    return;
+  }
+
+  const user = data?.user;
+  if (user) {
+    admin.value.email = user.email;
+    const metadata = user.user_metadata;
+    admin.value.fullname = `${metadata?.firstname || ''} ${metadata?.lastname || ''}`.trim();
+    admin.value.avatar = metadata?.avatar || admin.value.avatar; // Use avatar from metadata if available
+  }
+};
+
+// Fetch admin data when the component is mounted
+onMounted(() => {
+  getAdminData();
+});
+
+// Logout functionality
+const onLogout = async () => {
+  formAction.value = { ...formActionDefault };
+  formAction.value.formProcess = true;
+
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    console.error('Error during logout:', error);
+    formAction.value.formProcess = false;
+    return;
+  }
+  formAction.value.formProcess = false;
+  router.replace('/LoginView');
+};
+</script>
+
 <template>
   <v-app id="inspire">
     <!-- App Bar -->
@@ -41,13 +98,16 @@
       <v-divider style="color: bisque;"></v-divider>
 
       <v-list density="compact" nav>
-        <v-list-item prepend-icon="mdi-view-dashboard" title="Dashboard" value="myfiles"></v-list-item>
+        <v-list-item prepend-icon="mdi-view-dashboard" title="Dashboard" value="dashboard"></v-list-item>
         <v-list-item
   prepend-icon="mdi-account"
   title="Profile"
   :to="{ name: 'profile' }" 
 ></v-list-item>
-        <v-list-item prepend-icon="mdi-logout" title="Log out" value="starred"></v-list-item>
+        <v-list-item prepend-icon="mdi-logout" title="Log out" value="logout"
+        @click = "onLogout"
+          :loading = "formAction.formProcess"
+          :disabled = "formAction.formProcess"></v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -74,9 +134,9 @@
     </thead>
     <tbody>
       <tr v-for="item in laptops" :key="item.model">
-        <td class="text-center">{{ item.fullname }}</td>
-        <td class="text-center">{{ item.ratePerDay }}</td>
-        <td class="text-center">{{ item.model }}</td>
+        <td class="text-center"></td>
+        <td class="text-center"></td>
+        <td class="text-center"></td>
         <td class="text-center">
           <v-btn class="mx-2" color="green" @click="accept(item)">Accept</v-btn>
           <v-btn class="mx-2" color="red" @click="reject(item)">Reject</v-btn>
@@ -102,22 +162,22 @@
                   size="x-small"
                 >
                 <div>
-              <strong>Time:{{ appointment.time }}</strong> <!-- Time displayed here -->
+              <strong>Time:</strong> <!-- Time displayed here -->
             </div>
 
                   <!-- Appointment details on the right -->
                   <div class="mb-4">
                     <div>
-                      <strong>Renter: </strong>{{ appointment.renter }}
+                      <strong>Renter: </strong>
                     </div>
                     <div>
-                      <strong>Date: </strong>{{ appointment.date }}
+                      <strong>Date: </strong>
                     </div>
                     <div>
-                      <strong>Laptop Model: </strong>{{ appointment.laptopModel }}
+                      <strong>Laptop Model: </strong>
                     </div>
                     <div>
-                      <strong>Meet-up: </strong>{{ appointment.meetUp }}
+                      <strong>Meet-up: </strong>
                     </div>
                   </div>
                 </v-timeline-item>
@@ -136,53 +196,9 @@
   </v-app>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      admin: {
-        fullname: 'Melvin Jipos',
-        email: 'melvinjipos@gmail.com',
-        avatar: 'https://randomuser.me/api/portraits/women/85.jpg',
-      },
-      laptops: [
-        {
-          fullname: 'John Doe',
-          ratePerDay: 500,
-          model: 'Dell XPS 13',
-        },
-      ],
-      appointments: [
-        {
-          time: '09:00 AM',
-          renter: 'Mark Oldman',
-          date: '2024-10-16',
-          laptopModel: 'MacBook Pro',
-          meetUp: 'CSU (Hiraya Hall)',
-        },
-        // ... other appointments
-      ],
-    };
-  },
-  methods: {
-    logout() {
-      console.log("User logged out");
-    },
-    accept(item) {
-      console.log(`Accepted ${item.fullname}'s laptop rental: ${item.model}`);
-    },
-    reject(item) {
-      console.log(`Rejected ${item.fullname}'s laptop rental: ${item.model}`);
-    },
-  },
-};
-</script>
 
-<script setup>
-import { ref } from 'vue';
 
-const drawer = ref(false);
-</script>
+
 
 <style scoped>
 /* App Bar and Drawer Background Color */
