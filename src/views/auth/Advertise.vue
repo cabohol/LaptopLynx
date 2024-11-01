@@ -87,9 +87,6 @@ export default {
 
 
 
-
-
-
 <style scoped>
 .laptop-saying {
   text-align: center; 
@@ -316,4 +313,35 @@ export default {
 }
 
 
+@media (max-width: 768px) {
+  .animated-hologram {
+    width: 90%; 
+  }
+
+  .laptoplynx-text h1 {
+    font-size: 6vw; 
+  }
+
+  .laptoplynx-text p {
+    font-size: 4vw;
+  }
+
+  .loading-title {
+    font-size: 4vw; 
+  }
+}
+
+@media (max-width: 480px) {
+  .laptop-saying {
+    font-size: 1.2em; 
+    padding: 10px;
+  }
+
+  .loading-title {
+    font-size: 5vw; 
+  }
+  .animated-hologram {
+    margin-top: 50px !important; 
+  }
+}
 </style>
