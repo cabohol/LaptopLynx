@@ -54,7 +54,7 @@ const onSubmit = async () => {
         lastname: formData.value.lastname,
         phone_number: formData.value.phone_number,
         role: formData.value.role,
-        //is_admin: formData.value.role === 'admin' // Set admin status based on role
+        is_admin: false //formData.value.role === 'admin' // Set admin status based on role
       }
     }
   });
@@ -76,7 +76,55 @@ const onSubmit = async () => {
 watch(() => formData.value.role, (newRole) => {
   console.log("Role updated:", newRole); // Log role updates for debugging
 });
+
+
+// IF HUMANA NAKA REG AND ADMIN
+
+// const onSubmit = async () => {
+//   formAction.value = { ...formActionDefault };
+//   formAction.value.formProcess = true;
+
+//   // Allow only non-admin roles to register
+//   if (formData.value.role === 'admin') {
+//     alert("Unauthorized role selection. Only authorized personnel can register as admin.");
+//     formAction.value.formProcess = false;
+//     return;
+//   }
+
+//   const { data, error } = await supabase.auth.signUp({
+//     email: formData.value.email,
+//     password: formData.value.password,
+//     options: {
+//       data: {
+//         firstname: formData.value.firstname,
+//         lastname: formData.value.lastname,
+//         phone_number: formData.value.phone_number,
+//         role: formData.value.role,
+//         is_admin: false // Always set is_admin to false in the registration flow
+//       }
+//     }
+//   });
+
+//   if (error) {
+//     console.error(error);
+//     formAction.value.formErrorMessage = error.message;
+//     formAction.value.formStatus = error.status;
+//   } else if (data) {
+//     console.log(data);
+//     formAction.value.formSuccessMessage = 'Successfully Registered Account!';
+//     router.replace('/LoginView');
+//   }
+
+//   refVForm.value?.reset();
+//   formAction.value.formProcess = false;
+// };
+
+
 </script>
+
+
+
+
 
 
 <template>
