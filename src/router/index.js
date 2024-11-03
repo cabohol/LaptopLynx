@@ -9,7 +9,6 @@ import CustomerDashboard from '@/components/system/CustomerDashboard.vue'
 import Advertise from '@/views/auth/Advertise.vue'
 import ForbiddenView from '@/views/error/ForbiddenView.vue'
 import NotFoundView from '@/views/error/NotFoundView.vue'
-import { isAuthenticated } from '@/utils/supabase'
 
 
 const router = createRouter({
@@ -83,22 +82,22 @@ const router = createRouter({
 
 
 
-router.beforeEach (async (to) => {
+// router.beforeEach (async (to) => {
 
-  const isLoggedIn = await isAuthenticated()
+//   const isLoggedIn = await isAuthenticated()
 
-  const isAdmin = userMetadata.is_Admin === true
+//   const isAdmin = userMetadata.is_Admin === true
 
-  if (to.name === 'showcasepage') {
-    return isLoggedIn ? {name: 'customerdashboard'} : {name: 'login'}
-  }
+//   if (to.name === 'showcasepage') {
+//     return isLoggedIn ? {name: 'customerdashboard'} : {name: 'login'}
+//   }
 
-  if(isLoggedIn && (to.name === 'login' || to.name === 'register')){
-    return {name : 'board'}
-  }
+//   if(isLoggedIn && (to.name === 'login' || to.name === 'register')){
+//     return {name : 'board'}
+//   }
 
-  if (isLoggedIn && !isAdmin)
+//   if (isLoggedIn && !isAdmin)
   
-})
+// })
 
 export default router
