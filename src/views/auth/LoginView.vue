@@ -193,8 +193,8 @@ const onSubmit = async () => {
 <style scoped>
 .main-container {
   background: linear-gradient(135deg, #0B0C10, #1F2833, #45A29E, #66FCF1, #C5C6C7);
-  background-size: 300% 300%; /* Enlarged for more noticeable movement */
-  animation: oceanGradient 6s ease infinite; /* Faster animation for more dynamic effect */
+  background-size: 300% 300%; 
+  animation: oceanGradient 6s ease infinite; 
   min-height: 100vh;
   padding: 40px 0;
 }
@@ -216,10 +216,59 @@ const onSubmit = async () => {
   margin-top: 30px;
 }
 
-.custom-card {
+/* .custom-card {
   border-radius: 16px;
   padding: 30px;
   background-color: #1F2833;
+} */
+
+
+.custom-card {
+  border-radius: 16px;
+  padding: 30px;
+  background: linear-gradient(145deg, #1F2833, #212d3a);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  transform: scale(0.98);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.5s ease;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease forwards;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.custom-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top left, rgba(102, 252, 241, 0.1), transparent);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+
+.custom-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 12px 24px rgba(102, 252, 241, 0.4);
+  background: linear-gradient(145deg, #1a222d, #1F2833);
+}
+
+.custom-card:hover::before {
+  opacity: 0.4;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .left-panel {
@@ -236,7 +285,7 @@ const onSubmit = async () => {
   justify-content: center;
 }
 
-.form-title {
+/* .form-title {
   font-family: 'Poppins', sans-serif;
   font-size: 26px;
   font-weight: bold;
@@ -247,6 +296,28 @@ const onSubmit = async () => {
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
   color: #C5C6C7;
+} */
+
+.form-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #66FCF1;
+  letter-spacing: 1.2px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid rgba(102, 252, 241, 0.4);
+}
+
+
+.form-description {
+  font-family: 'Poppins', sans-serif;
+  font-size: 17px;
+  color: #FFFFFF;
+  margin-top: 10px;
+  line-height: 1.8;
+  padding-left: 10px;
+  letter-spacing: 0.4px;
 }
 
 .custom-input {
@@ -255,7 +326,7 @@ const onSubmit = async () => {
 }
 .login-btn, .signup-btn, .back-to-login {
   margin-top: 20px;
-  background: linear-gradient(135deg, #66FCF1 0%, #45A29E 100%); /* Gradient background */
+  background: linear-gradient(135deg, #66FCF1 0%, #45A29E 100%); 
   color: #0B0C10;
   text-transform: none;
   font-weight: bold;
@@ -264,13 +335,13 @@ const onSubmit = async () => {
 }
 
 .login-btn:hover, .signup-btn:hover, .back-to-login:hover {
-  background: linear-gradient(135deg, #45A29E 0%, #66FCF1 100%); /* Reverse gradient on hover */
+  background: linear-gradient(135deg, #45A29E 0%, #66FCF1 100%); 
 }
 
 
 
 .footer {
-  color: #0B0C10; /* Use your accent color or any color that contrasts */
+  color: #0B0C10; 
   text-align: center;
   padding: 20px;
   position: relative;
@@ -279,43 +350,40 @@ const onSubmit = async () => {
 }
 
 .footer-content {
-  font-size: 14px; /* Adjust the font size as needed */
+  font-size: 14px; 
 }
 
 
-
-
-/* Icon styles for Log In and Sign Up buttons */
 .v-btn .v-icon {
-  margin-right: 8px; /* Space between icon and text */
-  font-size: 20px; /* Adjust icon size */
-  transition: transform 0.2s ease; /* Add transition for hover effect */
+  margin-right: 8px;
+  font-size: 20px; 
+  transition: transform 0.2s ease; 
 }
 
 .login-btn .v-icon:hover,
 .signup-btn .v-icon:hover {
-  transform: scale(1.1); /* Slightly enlarge the icon on hover */
+  transform: scale(1.1);
 }
 
 
 
 .logo {
-  animation: floatLogo 3s ease-in-out infinite; /* Smooth float effect */
+  animation: floatLogo 3s ease-in-out infinite;
 }
 
 @keyframes floatLogo {
   0%, 100% {
-    transform: translateY(0); /* Start and end at original position */
+    transform: translateY(0);
   }
   50% {
-    transform: translateY(-10px); /* Float upwards */
+    transform: translateY(-10px); 
   }
 }
 
 
 .login-btn a {
   text-decoration: none;
-  color: inherit; /* Ensures the anchor text adopts the button's text color */
+  color: inherit; 
 }
 
 .no-underline {
@@ -326,30 +394,30 @@ const onSubmit = async () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 20px; /* Adjust padding as needed */
-  white-space: nowrap; /* Prevent text from overflowing */
-  overflow: hidden; /* Hide overflow */
-  text-overflow: ellipsis; /* Add ellipsis for overflowed text */
-  font-size: 1rem; /* Base font size */
+  padding: 10px 20px; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  font-size: 1rem;
 }
 
 @media (max-width: 768px) {
   .signup-btn {
-    font-size: 0.7rem; /* Adjust for tablets */
+    font-size: 0.7rem;
   }
 }
 
 @media (max-width: 480px) {
   .signup-btn {
-    font-size: 0.8rem; /* Adjust for mobile */
-    padding: 8px 15px; /* Adjust padding for mobile */
+    font-size: 0.8rem;
+    padding: 8px 15px; 
   }
 }
 
 @media (max-width: 400px) {
   .signup-btn {
-    font-size: 0.7rem; /* Adjust for mobile */
-    padding: 8px 15px; /* Adjust padding for mobile */
+    font-size: 0.7rem;
+    padding: 8px 15px;
   }
 }
 
@@ -359,30 +427,30 @@ const onSubmit = async () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 20px; /* Adjust padding as needed */
-  white-space: nowrap; /* Prevent text from overflowing */
-  overflow: hidden; /* Hide overflow */
-  text-overflow: ellipsis; /* Add ellipsis for overflowed text */
-  font-size: 1rem; /* Base font size */
+  padding: 10px 20px; 
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  font-size: 1rem; 
 }
 
 @media (max-width: 768px) {
   .back-to-login {
-    font-size: 0.7rem; /* Adjust for tablets */
+    font-size: 0.7rem;
   }
 }
 
 @media (max-width: 480px) {
   .back-to-login {
-    font-size: 0.8rem; /* Adjust for mobile */
-    padding: 8px 15px; /* Adjust padding for mobile */
+    font-size: 0.8rem;
+    padding: 8px 15px; 
   }
 }
 
 @media (max-width: 400px) {
   .back-to-login{
-    font-size: 0.7rem; /* Adjust for mobile */
-    padding: 8px 15px; /* Adjust padding for mobile */
+    font-size: 0.7rem; 
+    padding: 8px 15px; 
   }
 }
 

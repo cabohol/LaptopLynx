@@ -1212,57 +1212,69 @@ body {
 }
 
 
-
-
-/* Logo Scroll Section */
 .logo-scroll-container {
-  max-height: 200px; /* Set a max height for the scrollable area */
-  overflow-y: auto; /* Enable vertical scrolling */
-  padding: 20px; /* Padding around the logo section */
-  background-color: #1F2833; /* Darker semi-transparent background for contrast */
-  border-radius: 15px; /* Rounded corners */
-  margin: 20px; /* Spacing around the section */
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 25px;
+  background-color: rgba(31, 40, 51, 0.85);
+  border-radius: 20px;
+  margin: 20px;
   margin-top: 35px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px); 
+  border: 1px solid rgba(255, 255, 255, 0.1); 
+  transition: background-color 0.3s ease;
 }
 
-/* Logos Container */
+.logo-scroll-container:hover {
+  background-color: rgba(31, 40, 51, 1); 
+}
+
 .logo-container {
   display: flex;
-  flex-wrap: nowrap; /* Prevent wrapping for horizontal alignment */
-  justify-content: center; /* Center logos within the container */
+  flex-wrap: nowrap;
+  justify-content: center;
+  animation: move 10s linear infinite; 
 }
 
-/* Individual Logo */
+@keyframes move {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px); 
+  }
+  100% {
+    transform: translateX(0); 
+  }
+}
+
 .logo {
-  margin: 0 30px; /* Increased spacing between logos */
-  height: 60px; /* Uniform height for logos */
-  object-fit: contain; /* Maintain aspect ratio */
-  transition: transform 0.3s; /* Smooth transform transition for hover effect */
-  opacity: 0; /* Initially hidden for fade-in */
-  transform: translateY(20px); /* Slight movement for fade-in effect */
-  animation: fadeIn 1s ease-in-out forwards; /* Trigger fade-in animation */
+  margin: 0 35px;
+  height: 60px;
+  object-fit: contain;
+  transition: transform 0.4s ease, filter 0.4s ease; 
+  opacity: 0;
+  transform: translateY(30px); 
+  animation: fadeIn 1.2s ease-in-out forwards;
 }
 
-/* Logo Hover Effect */
 .logo:hover {
-  transform: scale(1.1); /* Slightly enlarge logos on hover */
-  filter: brightness(1.2); /* Brighten logos on hover */
+  transform: scale(1.15) rotate(3deg); 
+  filter: brightness(1.3) drop-shadow(0px 4px 8px rgba(102, 252, 241, 0.5)); 
 }
 
-/* Fade-In Animation */
 @keyframes fadeIn {
   0% {
     opacity: 0;
-    transform: translateY(20px); /* Start slightly lower */
+    transform: translateY(30px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0); /* Move to final position */
+    transform: translateY(0);
   }
 }
 
-/* Staggered Animation Delay for Each Logo */
 .logo:nth-child(1) {
   animation-delay: 0.3s;
 }
@@ -1289,15 +1301,17 @@ body {
 }
 
 
+
+
 .laptop-card {
   display: flex;
-  flex-direction: column; /* Make sure content stacks vertically */
-  justify-content: space-between; /* Distribute space evenly */
-  height: 95%; /* Ensure card takes full height */
-  border: 3px solid #1F2833; /* Add a solid border with a specified color and thickness */
-  border-radius: 8px; /* Optional: Add rounded corners to the border */
-  padding: 10px; /* Optional: Add padding inside the card */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: Add a subtle shadow for depth */
+  flex-direction: column; 
+  justify-content: space-between; 
+  height: 95%; 
+  border: 3px solid #1F2833; 
+  border-radius: 8px; 
+  padding: 10px; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
   background-color: #1F2833;
 }
 
@@ -1309,7 +1323,7 @@ body {
 .laptop-card:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  background-color: #1F2833 /* Hover background color */
+  background-color: #1F2833 
 }
 
 .section-title {
@@ -1332,22 +1346,15 @@ body {
 }
 
 
-
-
-
-
-  /* Zoom effect for logo */
   .hover-zoom:hover {
     transform: scale(1.1);
   }
 
 
-
-  /* Hover effect for social media icons */
   .social-icon:hover {
-    background-color: #00695C; /* Bright green background on hover */
-    transform: scale(1.2); /* Slight zoom-in on hover */
-    color: #FFFFFF; /* White icon color */
+    background-color: #00695C; 
+    transform: scale(1.2); 
+    color: #FFFFFF; 
   }
 
   /* Divider Style */
@@ -1358,19 +1365,15 @@ body {
 
 
 
-
-
-
-
 .v-icon {
-  margin-bottom: 10px; /* Space between icon and text */
+  margin-bottom: 10px; 
 }
 
 
 
 .fire-icon {
-  font-size: 1.5rem; /* Adjusts the size of the icon */
-  color: #ff5722; /* Sets a custom color for the fire icon */
+  font-size: 1.5rem;
+  color: #ff5722;
   margin-top: 5px;
 
 }

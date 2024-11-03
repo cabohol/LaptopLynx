@@ -6,6 +6,7 @@ import ProfileView from '@/views/auth/ProfileView.vue'
 import DashboardView from '@/views/auth/DashboardView.vue' 
 import ShowcasePageView from '@/views/auth/ShowcasePageView.vue'
 import CustomerDashboard from '@/components/system/CustomerDashboard.vue'
+import Advertise from '@/views/auth/Advertise.vue'
 
 
 const router = createRouter({
@@ -13,7 +14,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/ShowcasePage', // Redirect root path to ShowcasePage
+      redirect: '/Advertise',
     },
     {
       path: '/ShowcasePage',
@@ -49,6 +50,11 @@ const router = createRouter({
       path: '/customerdashboard',
       name: 'customerdashboard',
       component: CustomerDashboard
+    },
+    {
+      path: '/advertise',
+      name: 'advertise',
+      component: Advertise
     },
     
   ]
