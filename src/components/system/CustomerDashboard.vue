@@ -168,7 +168,7 @@ onMounted(() => {
     <template v-slot:activator="{ props }">
       <v-btn icon v-bind="props">
         <v-avatar
-          style="margin-top: -12px;"
+          style="margin-top: -15px;"
           color="brown"
           size="large"
         >
@@ -311,30 +311,6 @@ onMounted(() => {
 
 
 <style scoped>
-
-/* Sidebar styles */
-.custom-drawer {
-  background: linear-gradient(135deg, #1F1F1F, #0B0C10, #000000);
-  background-size: 300% 300%; /* Expand the gradient size for animation */
-  animation: gradientAnimation 10s ease infinite; /* Apply the animation */
-  color: #C5C6C7;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
-}
-
-/* Gradient Animation */
-@keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%; /* Start position */
-  }
-  50% {
-    background-position: 100% 50%; /* Midway position */
-  }
-  100% {
-    background-position: 0% 50%; /* End position */
-  }
-}
-
-
 
 .divider {
   background-color: #66FCF1;

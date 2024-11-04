@@ -6,9 +6,11 @@ import ProfileView from '@/views/auth/ProfileView.vue'
 import DashboardView from '@/views/auth/DashboardView.vue' 
 import ShowcasePageView from '@/views/auth/ShowcasePageView.vue'
 import CustomerDashboard from '@/components/system/CustomerDashboard.vue'
+import HomepageView from '@/components/system/HomepageView.vue'
 import Advertise from '@/views/auth/Advertise.vue'
 import ForbiddenView from '@/views/error/ForbiddenView.vue'
 import NotFoundView from '@/views/error/NotFoundView.vue'
+
 
 
 const router = createRouter({
@@ -57,6 +59,11 @@ const router = createRouter({
       path: '/customerdashboard',
       name: 'customerdashboard',
       component: CustomerDashboard
+    },
+    {
+      path: '/homepage',
+      name: 'homepage',
+      component: HomepageView
     },
     //Intro
     {
