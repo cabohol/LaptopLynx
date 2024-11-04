@@ -2,6 +2,17 @@
 import { ref } from 'vue';
 
 const drawer = ref(false);
+
+
+const notifications = ref([
+  { title: 'New Comment', message: 'You have a new comment on your post.' },
+  { title: 'Reminder', message: 'Your session starts in 30 minutes.' },
+  { title: 'Update Available', message: 'A new version is available.' },
+])
+
+const clearNotifications = () => {
+  notifications.value = []
+}
 </script>
 
 <template>
@@ -20,26 +31,53 @@ const drawer = ref(false);
 
       <v-spacer></v-spacer>
 
-      <v-btn icon @click="toggleNotifications">
-      <v-icon style="color: #66FCF1;">mdi-bell</v-icon>
-    </v-btn>
-
-    <!-- Notification Dropdown / Modal -->
-    <v-menu
-      v-model="isNotificationOpen"
+      <v-menu
       offset-y
-      left  
-      min-width="250px" 
-      >
-      <v-list>
-        <v-list-item v-for="(message, index) in messages" :key="index">
-          <v-list-item-content>
-            <v-list-item-title>{{ message.title }}</v-list-item-title>
-            <v-list-item-subtitle>{{ message.body }}</v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
+      min-width="300px"
+      rounded
+    >
+      <template v-slot:activator="{ props }">
+        <v-btn
+          icon
+          v-bind="props"
+        >
+          <v-icon color="#66FCF1;">mdi-bell</v-icon>
+        </v-btn>
+      </template>
+      <v-card style="background-color: #1F2833;">
+        <v-card-text>
+          <div class="mx-auto text-center">
+            <h3 class="text-h6">Notifications</h3>
+            <v-divider class="my-3"></v-divider>
+            <!-- List of Notifications -->
+            <v-list>
+              <v-list-item
+                v-for="(notification, index) in notifications"
+                :key="index"
+                class="py-2"
+              >
+                <v-list-item-avatar color="brown">
+                  <v-icon>mdi-bell-alert</v-icon>
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title>{{ notification.title }}</v-list-item-title>
+                  <v-list-item-subtitle>{{ notification.message }}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+            <v-divider class="my-3"></v-divider>
+            <v-btn
+              variant="text"
+              rounded
+              @click="clearNotifications"
+            >
+              Clear All
+            </v-btn>
+          </div>
+        </v-card-text>
+      </v-card>
     </v-menu>
+    <!-- End of Notification Bell -->
 
 
     
@@ -70,25 +108,43 @@ const drawer = ref(false);
       <br>
       <br>
       <br>
-      <v-row justify="center"  >
-        <!-- Profile Picture and Basic Info Section -->
-        <v-col cols="12" md="5">
-          <v-card class="pa-8 text-center" elevation="2" style="height: auto;background-color: #1F2833;">
-            <v-avatar class="mx-auto mb-4" size="200">
-              <img src="https://randomuser.me/api/portraits/women/85.jpg" alt="Profile Picture" width="100%" />
-            </v-avatar>
-            <v-card-title class="text-h4" style="color: #66FCF1;">Melvin Jipos</v-card-title>
-            <v-card-subtitle class="text-body-2 text-center" style="color: white;">System Analyst</v-card-subtitle>
-            <v-card-subtitle class="text-body-2 text-center" style="color: white;">Contact Number: 0912389934</v-card-subtitle>
-            <v-btn color="cyan-accent-2" block class="mt-4">Edit Profile</v-btn>
-          </v-card>
-        </v-col>
+      <v-row justify="center">
+    <!-- Profile Picture and Basic Info Section -->
+    <v-col cols="12" md="5">
+      <v-card class="pa-8 text-center" elevation="2" style="height: auto; background-color: #1F2833;">
+        <v-avatar class="mx-auto mb-4" size="200">
+          <img :src="profilePicture" alt="Profile Picture" width="100%" />
+        </v-avatar>
+        <v-card-title class="text-h4" style="color: #66FCF1;">Melvin Jipos</v-card-title>
+        <v-card-subtitle class="text-body-2 text-center" style="color: white;">System Analyst</v-card-subtitle>
+        <v-card-subtitle class="text-body-2 text-center" style="color: white;">Contact Number: 0912389934</v-card-subtitle>
+        <v-btn color="cyan-accent-2" block class="mt-4" @click="openImagePicker">Edit Profile</v-btn>
+      </v-card>
+    </v-col>
+
+    <!-- File Input Dialog -->
+    <v-dialog v-model="dialog" max-width="400">
+      <v-card>
+        <v-card-title>
+          <span class="text-h5">Select a new profile picture</span>
+        </v-card-title>
+        <v-card-text>
+          <input type="file" @change="onImageChange" accept="image/*" />
+        </v-card-text>
+        <v-card-actions>
+          <v-btn text @click="dialog = false">Cancel</v-btn>
+          <v-btn text @click="dialog = false">Confirm</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-row>
 
       
-      </v-row>
     </v-container>
   </v-app>
 </template>
+
+
 <script>
 export default {
   name: "UserProfile",
@@ -100,21 +156,39 @@ export default {
         email: "melvinjipos@gmail.com",
         fullname: "Melvin Jipos",
       },
-      isNotificationOpen: false, // Moved this inside the main object
+      isNotificationOpen: false,
       messages: [
         { title: 'Message 1', body: 'This is the first notification.' },
         { title: 'Message 2', body: 'This is the second notification.' },
         { title: 'Message 3', body: 'This is the third notification.' }
-      ]
+      ],
+      dialog: false, // Controls the visibility of the image picker dialog
+      profilePicture: localStorage.getItem('profilePicture') || "https://randomuser.me/api/portraits/men/32.jpg", // Load the profile picture from localStorage
     };
   },
   methods: {
     toggleNotifications() {
       this.isNotificationOpen = !this.isNotificationOpen;
-    }
+    },
+    openImagePicker() {
+      this.dialog = true; // Open the dialog for image selection
+    },
+    onImageChange(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.profilePicture = e.target.result; // Update the profile picture with the selected image
+          localStorage.setItem('profilePicture', e.target.result); // Save the new image to localStorage
+        };
+        reader.readAsDataURL(file); // Convert image to base64 string
+      }
+    },
   }
 };
 </script>
+
+
 
 
 <style scoped>
