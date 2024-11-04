@@ -4,15 +4,18 @@ import { onMounted, ref } from 'vue'
 
 // Load Variables
 const isLoggedIn = ref(false)
+const isAdmin = ref(false)
 
-// Get Authentication status from supabase
+// Get Authentication status and user data from supabase
 const getLoggedStatus = async () => {
-  isLoggedIn.value = await isAuthenticated()
+  const { isAuthenticated: loggedIn, user } = await isAuthenticated();
+  isLoggedIn.value = loggedIn;
+  isAdmin.value = user?.user_metadata?.is_admin === true; // Check if user is admin
 }
 
 // Load Functions during component rendering
 onMounted(() => {
-  getLoggedStatus()
+  getLoggedStatus();
 })
 </script>
 
@@ -28,9 +31,9 @@ onMounted(() => {
               You don’t have permission to access this page.
             </p>
   
-            <v-btn class="mt-2" style="color: black;" prepend-icon="mdi-home" :to="isLoggedIn ? '/customerdashboard' : '/Showcasepage'">
-              Back to {{ isLoggedIn ? 'Homepage' : 'Showcasepage' }}
-            </v-btn>
+            <v-btn class="mt-2" style="color: black;" prepend-icon="mdi-home" :to="isAdmin ? '/dashboard' : (isLoggedIn ? '/customerdashboard' : '/Showcasepage')">
+              Back to {{ isAdmin ? 'Admin Dashboard' : (isLoggedIn ? 'Customer Dashboard' : 'Showcase Page') }}
+          </v-btn>
           </v-col>
         </v-row>
       </v-container>
