@@ -10,7 +10,7 @@ import HomepageView from '@/components/system/HomepageView.vue'
 import Advertise from '@/views/auth/Advertise.vue'
 import ForbiddenView from '@/views/error/ForbiddenView.vue'
 import NotFoundView from '@/views/error/NotFoundView.vue'
-
+import { isAuthenticated} from '@/utils/supabase'
 
 
 const router = createRouter({
@@ -18,9 +18,8 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/Advertise',
+      redirect: '/advertise',
     },
-    
     {
       path: '/ShowcasePage',
       name: 'showcasepage',
@@ -36,43 +35,40 @@ const router = createRouter({
       name: 'register',
       component: RegisterView
     },
-    //appointment
     {
       path: '/booking',
       name: 'booking',
       component: BookingView
     },
-    //profile for customer
     {
       path: '/profile',
       name: 'profile',
       component: ProfileView
     },
-    //this is for admin dashboard
     {
       path: '/dashboard',
       name: 'dashboard',
       component: DashboardView
     },
-    //Homepage of customer
     {
       path: '/customerdashboard',
       name: 'customerdashboard',
       component: CustomerDashboard
     },
+<<<<<<< HEAD
     {
       path: '/homepage',
       name: 'homepage',
       component: HomepageView
     },
     //Intro
+=======
+>>>>>>> 4802e43bd0fc7db20a76acb1b613e7179593a925
     {
       path: '/advertise',
       name: 'advertise',
       component: Advertise
     },
-
-    //ERROR PAGES
     {
       path: '/forbidden',
       name: 'forbidden',
@@ -83,28 +79,58 @@ const router = createRouter({
       name: 'not-found',
       component: NotFoundView
     },
-    
+    {
+      path: '/:pathMatch(.*)*', // This will match any route that doesn't exist
+      redirect: '/not-found'
+    }
   ]
 })
 
+router.beforeEach(async (to) => {
+  const { isAuthenticated: isLoggedIn, user } = await isAuthenticated(); // Get both auth status and user data
 
+  console.log("User logged in:", isLoggedIn);
+  console.log("User metadata:", user?.user_metadata);
 
-// router.beforeEach (async (to) => {
+  // Handle access to protected routes
+  const protectedRoutes = ['dashboard', 'customerdashboard', 'booking', 'profile'];
 
-//   const isLoggedIn = await isAuthenticated()
+  // If the user is trying to access a protected route and is not logged in
+  if (protectedRoutes.includes(to.name) && !isLoggedIn) {
+    return { name: 'login' }; // Redirect to login if not logged in
+  }
 
-//   const isAdmin = userMetadata.is_Admin === true
+  // Check admin status only if the user is logged in
+  const isAdmin = isLoggedIn ? user?.user_metadata?.is_admin === true : false;
 
-//   if (to.name === 'showcasepage') {
-//     return isLoggedIn ? {name: 'customerdashboard'} : {name: 'login'}
-//   }
+  console.log("Is admin:", isAdmin);
 
-//   if(isLoggedIn && (to.name === 'login' || to.name === 'register')){
-//     return {name : 'board'}
-//   }
+  // Redirect to forbidden if user is not admin and trying to access the dashboard
+  if (to.name === 'dashboard' && !isAdmin) {
+    return { name: 'forbidden' }; // Redirect to forbidden if user is not admin
+  }
 
-//   if (isLoggedIn && !isAdmin)
-  
-// })
+  // Prevent admins from accessing the customerdashboard
+  if (to.name === 'customerdashboard' && isAdmin) {
+    return { name: 'dashboard' }; // Redirect admins to the admin dashboard
+  }
 
-export default router
+   // Prevent admins from accessing the customerdashboard
+   if (to.name === 'booking' && isAdmin) {
+    return { name: 'forbidden' }; // Redirect admins to the admin dashboard
+  }
+  // Redirect logged-in users away from login/register pages, but allow access to customer dashboard
+  if (isLoggedIn && (to.name === 'login' || to.name === 'register')) {
+    return { name: 'customerdashboard' }; // Redirect logged-in users away from login/register
+  }
+
+  // Allow access to the customerdashboard if logged in and not admin
+  if (isLoggedIn && to.name === 'customerdashboard' && !isAdmin) {
+    return true; // Allow access
+  }
+
+  // Allow access to other routes
+  return true;
+});
+
+export default router;
