@@ -12,7 +12,7 @@ export default {
     const selectedTime = ref(null);
     const laptop = ref(null);
     const selectedDate = ref(null);
-    const meetupPlace = ref('CSU (Hiraya Hall)'); // Pre-filled with CSU (Hiraya Hall)
+    const meetupPlace = ref('Caraga State University (Hiraya Hall)'); // Pre-filled with CSU (Hiraya Hall)
     const notifications = ref([
       { title: 'Reminder', message: 'Your appointment is tomorrow at 10:00 AM.' },
       { title: 'Update', message: 'New laptop models available.' },
@@ -40,14 +40,37 @@ export default {
       selectedDate.value = date;
     };
 
-    const submitForm = () => {
-      console.log('Form Submitted:', {
-        name: name.value,
-        laptop: laptop.value,
-        selectedDate: selectedDate.value,
-        selectedTime: selectedTime.value,
-        meetupPlace: meetupPlace.value
-      });
+    const submitForm = async () => {
+      const { data, error } = await supabase
+        .from('appointments') 
+        .insert([
+          {
+            first_name: firstName.value,
+            last_name: lastName.value,
+            email: email.value,
+            phone: phone.value,
+            meetup_place: meetupPlace.value,
+            laptop_model: laptop.value,
+            appointment_date: selectedDate.value,
+            appointment_time: selectedTime.value,
+          },
+        ]);
+
+        if (error) {
+        console.error('Error inserting data:', error);
+        alert('Error booking appointment. Please try again.');
+      } else {
+        alert('Appointment booked successfully!');
+        // Clear form fields
+        firstName.value = '';
+        lastName.value = '';
+        email.value = '';
+        phone.value = '';
+        meetupPlace.value = '';
+        laptop.value = '';
+        selectedDate.value = null;
+        selectedTime.value = '';
+      }
     };
 
     const clearNotifications = () => {
@@ -122,6 +145,18 @@ export default {
     };
   }
 };
+
+      // firstName,
+      // lastName,
+      // email,
+      // phone,
+      // meetupPlace,
+      // laptop,
+      // selectedDate,
+      // selectedTime,
+      // laptopModels,
+      // timeOptions,
+      // submitForm,
 </script>
 
 
@@ -193,99 +228,318 @@ export default {
       </v-list>
     </v-navigation-drawer>
 
+    
     <v-main>
-      <v-row style="background-color: #0B0C10; min-height: 100vh;">
-        <v-col cols="12" md="6" class="mx-auto">
-          <v-card class="mx-auto" style="background-color: #1F2833;">
-            <v-card-title class="text-center">
-              <v-img class="mx-auto" src="/src/images/logolynx.png" width="30%"></v-img>
-              <h2 class="white--text" style="color: #C5C6C7;">Make your Laptop Appointment</h2>
-              <h4 class="white--text" style="color: #C5C6C7; text-align: center;">
-                <span style="display: flex; align-items: center; justify-content: center;">
-                  <hr style="flex-grow: 1; margin-right: 10px; border-color: #C5C6C7;" />
-                  Book Now!
-                  <hr style="flex-grow: 1; margin-left: 10px; border-color: #C5C6C7;" />
-                </span>
-              </h4>
-            </v-card-title>
-            <v-card-text class="pt-4" style="background-color: #1F2833;">
-              <v-form fast-fail @submit.prevent="submitForm">
-                <v-text-field
-                  label="Enter Name:"
-                  v-model="name"
-                  :rules="[() => !!name || 'This field is required']"
-                  outlined
-                  style="background-color:#1F2833; color: #fff;"
-                  class="white--text"
-                ></v-text-field>
-                <v-autocomplete
-                  v-model="laptop"
-                  :items="laptopModels"
-                  :rules="[() => !!laptop || 'This field is required']"
-                  label="Select Laptop"
-                  placeholder="Select..."
-                  required
-                  outlined
-                  style="background-color: #1F2833; color: #fff;"
-                  class="white--text"
-                ></v-autocomplete>
-                <v-text-field
-                  label="Meetup Place:"
-                  v-model="meetupPlace"
-                  outlined
-                  style="background-color:#1F2833; color: #fff;"
-                  class="white--text"
-                  readonly
-                ></v-text-field>
-                <v-container>
-                  <v-row justify="space-around">
-                    <v-col cols="6">
-                      <v-date-picker
-                        v-model="selectedDate"
-                        color="cyan-accent-2"
-                        label="Select Date"
-                        :min="new Date().toISOString().substr(0, 10)"
-                        @input="handleDateChange"
-                        class="white--text"
-                      ></v-date-picker>
-                    </v-col>
-                    <v-col cols="6" class="mt-4">
-                      <span class="font-weight-black" style="padding-left: 50px; color: #fff;">Select Time:</span>
-                      <v-row class="pt-2" style="padding-left: 50px;">
-                        <v-col cols="5" v-for="time in timeOptions" :key="time">
-                          <v-btn
-                            :class="{'primary--text': selectedTime === time}"
-                            color="cyan-accent-2"
-                            block
-                            @click="selectTime(time)"
-                            class="my-2"
-                          >
-                            {{ time }}
-                          </v-btn>
-                        </v-col>
-                      </v-row>
-                    </v-col>
-                  </v-row>
-                  <v-alert v-if="selectedDate && selectedTime" type="info" class="mt-4" style="background-color: #0B0C10; color: #fff;">
-                    Selected Time: {{ selectedTime }} on {{ selectedDate }}
-                  </v-alert>
-                </v-container>
-                <v-btn class="mt-2" type="submit" block color="cyan-accent-2">
-                  <RouterLink to="/dashboard">SUBMIT</RouterLink>
-                </v-btn>
-              </v-form>
-            </v-card-text>
-          </v-card>
+  <v-container fluid="booking" style="margin-top: 50px;" class="animated-background">
+    <v-card-title class="text-center">
+      <v-img class="mx-auto responsive-image" src="/src/images/logolynx.png"></v-img>
+      <h2 class="white--text responsive-heading">Make your Laptop Appointment</h2>
+      <h4 class="white--text" style="color: #C5C6C7; text-align: center;">
+        <span style="display: flex; align-items: center; justify-content: center;">
+          <hr style="flex-grow: 1; margin-right: 10px; border-color: #C5C6C7;" />
+          Book Now!
+          <hr style="flex-grow: 1; margin-left: 10px; border-color: #C5C6C7;" />
+        </span>
+      </h4>
+    </v-card-title>
+
+    <v-card class="mx-auto custom-card" max-width="1000px" style="background-color: #1F2833;  border: 1px solid #66FCF1; ">
+  <v-form>
+    <v-card-text>
+      <!-- First Name and Last Name Row -->
+      <v-row class="custom-row">
+        <v-col cols="12" sm="6">
+          <v-text-field
+            v-model="firstName"
+            label="First Name"
+            required
+            outlined
+            color="#C5C6C7"
+            prepend-inner-icon="mdi-account"
+            class="custom-text-field"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" sm="6">
+          <v-text-field
+            v-model="lastName"
+            label="Last Name"
+            required
+            outlined
+            color="#C5C6C7"
+            prepend-inner-icon="mdi-account"
+            class="custom-text-field"
+          ></v-text-field>
         </v-col>
       </v-row>
-    </v-main>
+
+      <!-- Email and Phone Number Row -->
+      <v-row class="custom-row">
+        <v-col cols="12" sm="6">
+          <v-text-field
+            v-model="email"
+            label="Email"
+            required
+            outlined
+            color="#C5C6C7"
+            prepend-inner-icon="mdi-email"
+            class="custom-text-field"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" sm="6">
+          <v-text-field
+            v-model="phone"
+            label="Phone Number"
+            required
+            outlined
+            color="#C5C6C7"
+            prepend-inner-icon="mdi-phone"
+            class="custom-text-field"
+          ></v-text-field>
+        </v-col>
+      </v-row>
+
+      <!-- Meet-up Place and Laptop Model Row -->
+      <v-row class="custom-row">
+        <v-col cols="12" sm="6">
+          <v-text-field
+              v-model="meetupPlace"
+              label="Meet-up Place:"
+              outlined
+              color="#C5C6C7"
+              prepend-inner-icon="mdi-pin"
+              class="custom-text-field"
+              readonly
+              disabled
+            ></v-text-field>
+        </v-col>
+        <v-col cols="12" sm="6">
+          <v-select
+            v-model="laptop"
+            :items="laptopModels"
+            label="Select Laptop Model"
+            required
+            outlined
+            color="#C5C6C7"
+            prepend-inner-icon="mdi-laptop"
+            class="custom-select"
+          ></v-select>
+        </v-col>
+      </v-row>
+
+      <!-- Date and Time Row -->
+      <v-row class="custom-row">
+        <v-col cols="12" sm="6">
+          <v-container>
+              <v-row justify="space-around">
+                  <v-date-picker
+                    class="custom-date-picker"
+                    color="cyan"
+                  ></v-date-picker>
+                </v-row>
+            </v-container>
+        </v-col>
+        <v-col cols="12" sm="6">
+          <v-select
+            v-model="selectedTime"
+            :items="timeOptions"
+            label="Select Time"
+            required
+            outlined
+            color="#C5C6C7"
+            prepend-inner-icon="mdi-clock"
+            class="custom-select"
+          ></v-select>
+        </v-col>
+      </v-row>
+    </v-card-text>
+
+    <!-- Submit Button -->
+    <v-card-actions class="custom-actions">
+      <v-btn  @click="submitForm" class="custom-btn">Book Appointment</v-btn>
+    </v-card-actions>
+  </v-form>
+</v-card>
+<br>
+<br>
+
+  </v-container>
+</v-main>
+
+
   </v-app>
 </template>
 
 
 
 <style scoped>
-/* App Bar and Drawer Background Color */
+/* @keyframes colorPulse {
+    0% {
+        background-color: #1F2833; 
+    }
+    50% {
+        background-color: #2B3A42; 
+    }
+    100% {
+        background-color: #1F2833; 
+    }
+}
+
+.animated-background {
+    animation: colorPulse 3s ease-in-out infinite;
+    transition: background-color 0.5s; 
+} */
+
+.custom-btn {
+  background-color: #66FCF1;
+  color: #1F2833;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.custom-btn:hover {
+  background-color: #66FCF1;
+  color: #1F2833;
+  transform: translateY(-2px);
+}
+
+.custom-actions {
+  display: flex;
+  justify-content: center;
+  padding: 16px 24px;
+  background-color: #1F2833;
+  border-top: 1px solid #66FCF1;
+}
+
+.custom-text-field {
+  background-color: #1F2833;
+  border-radius: 8px;
+  color: #EDF2F4;
+  transition: all 0.3s ease;
+}
+
+.custom-text-field input {
+  color: #EDF2F4;
+}
+
+.custom-select {
+  background-color: #1F2833;
+  border-radius: 8px;
+  color: #EDF2F4;
+}
+
+
+/* Responsiveness for img */
+.responsive-image {
+  width: 80%;
+  max-width: 300px;
+}
+
+@media (min-width: 600px) {
+  .responsive-image {
+    width: 50%;
+    max-width: 400px;
+  }
+}
+
+@media (min-width: 960px) {
+  .responsive-image {
+    width: 35%;
+    max-width: 500px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .responsive-image {
+    width: 30%;
+    max-width: 600px;
+  }
+}
+
+
+
+/* Responsiveness for heading */
+h2.responsive-heading {
+  font-size: 1.3rem;
+  color: #C5C6C7;
+  text-align: center;
+}
+
+
+@media (min-width: 600px) {
+  h2.responsive-heading {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 960px) {
+  h2.responsive-heading {
+    font-size: 2.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  h2.responsive-heading {
+    font-size: 2.5rem;
+  }
+}
+
+
+
+/* CSS aron di ma stay still ang nakadisplay
+bisag e open an nav drawer */
+.v-navigation-drawer {
+  z-index: 1000;
+  position: fixed;
+  height: 100%;
+}
+
+.v-app-bar {
+  position: relative;
+  z-index: 1001;
+}
+
+.v-main {
+  transition: margin-left 0.3s ease;
+  margin-left: 0;
+  padding: 16px;
+  background-color: #1F2833;
+}
+
+.v-navigation-drawer--is-mobile .v-main {
+  margin-left: 250px;
+}
+
+@media (max-width: 600px) {
+  .v-navigation-drawer {
+    width: 250px;
+  }
+
+  .v-navigation-drawer--is-mobile .v-main {
+    margin-left: 250px;
+  }
+}
+
+@media (min-width: 601px) {
+  .v-navigation-drawer {
+    width: 250px;
+  }
+
+  .v-navigation-drawer--is-mobile .v-main {
+    margin-left: 250px;
+  }
+}
+
+.v-navigation-drawer.v-navigation-drawer--permanent {
+  width: 250px;
+}
+
+.v-navigation-drawer.v-navigation-drawer--permanent + .v-main {
+  margin-left: 250px;
+}
+
 .v-app-bar {
   background-color: #1F2833;
 }
@@ -295,18 +549,21 @@ export default {
 }
 
 
+.v-app-bar {
+  background-color: #1F2833;
+}
 
-/* Button and Text Color */
-
+.v-navigation-drawer {
+  background-color: #1F2833;
+}
 
 .v-avatar img {
   object-fit: cover;
 }
 
-
 .container {
-  margin-left: 250px; /* Adjust this value according to the width of your drawer */
-  transition: margin-left 0.3s ease; /* Smooth transition effect */
+  margin-left: 250px;
+  transition: margin-left 0.3s ease;
 }
 
 .v-icon {
@@ -317,22 +574,18 @@ export default {
   color: #66FCF1;
 }
 
-/* If you want to keep the margin but color the space above the drawer */
 .v-navigation-drawer {
-  background-color: #1F2833; /* Ensure this matches the drawer color */
+  background-color: #1F2833;
 }
 
 .container {
   background-color: #0B0C10;
-  min-height: 100vh; /* Ensures the background color spans the whole height */
+  min-height: 100vh;
   padding: 16px;
 }
 
 .container-content-shift {
-  margin-left: 100px; /* Adjust this value according to the width of your drawer */
-  transition: margin-left 0.3s ease; /* Smooth transition effect */
-
+  margin-left: 100px;
+  transition: margin-left 0.3s ease;
 }
-
-
 </style>
