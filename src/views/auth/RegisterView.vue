@@ -174,7 +174,7 @@ watch(() => formData.value.role, (newRole) => {
                                 outlined
                                 dense
                                 class="custom-input"
-                                append-inner-icon="mdi-account"
+                                prepend-inner-icon="mdi-account"
                                 :rules="[requiredValidator]"
                               />
                             </v-col>
@@ -186,7 +186,7 @@ watch(() => formData.value.role, (newRole) => {
                                 outlined
                                 dense
                                 class="custom-input"
-                                append-inner-icon="mdi-account"
+                                prepend-inner-icon="mdi-account"
                                 :rules="[requiredValidator]"
                               />
                             </v-col>
@@ -198,7 +198,7 @@ watch(() => formData.value.role, (newRole) => {
                             outlined
                             dense
                             class="custom-input"
-                            append-inner-icon="mdi-phone"
+                            prepend-inner-icon="mdi-phone"
                             :rules="[requiredValidator]"
                           />
 
@@ -208,7 +208,7 @@ watch(() => formData.value.role, (newRole) => {
                             outlined
                             dense
                             class="custom-input"
-                            append-inner-icon="mdi-email"
+                            prepend-inner-icon="mdi-email"
                             :rules="[requiredValidator, emailValidator]"
                           />
 
@@ -219,7 +219,7 @@ watch(() => formData.value.role, (newRole) => {
                             dense
                             :type="isPasswordVisible ? 'text' : 'password'"
                             class="custom-input"
-                            append-inner-icon="mdi-lock"
+                            prepend-inner-icon="mdi-lock"
                             :append-icon="isPasswordVisible ? 'mdi-eye' : 'mdi-eye-off'" 
                             @click:append="isPasswordVisible = !isPasswordVisible" 
                             :rules="[requiredValidator, passwordValidator]"
@@ -233,7 +233,7 @@ watch(() => formData.value.role, (newRole) => {
                             dense
                             :type="isPasswordConfirmVisible ? 'text' : 'password'"
                             class="custom-input"
-                            append-inner-icon="mdi-lock"
+                            prepend-inner-icon="mdi-lock"
                             :append-icon="isPasswordConfirmVisible ? 'mdi-eye' : 'mdi-eye-off'"
                             @click:append="isPasswordConfirmVisible = !isPasswordConfirmVisible"
                             :rules="[requiredValidator, confirmedValidator(formData.password_confirmation, formData.password)]"

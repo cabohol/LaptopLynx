@@ -357,7 +357,6 @@ export default {
       </v-carousel>
 
       <v-container id="portfolio" class="portfolio section" fluid>
-   <!-- Section Title -->
 <v-row justify="center" data-aos="fade-up" class="section-title">
   <v-col cols="12" md="8" class="text-center">
     <h2 class="laptop-rent-title">LAPTOPLYNX - READY, SET, RENT!</h2>
@@ -451,127 +450,112 @@ export default {
 <style scoped>
 .custom-search-icon {
   margin-right: 15px;
-  transition: color 0.3s ease, transform 0.3s ease; /* Smooth color and transform transitions */
-  cursor: pointer; /* Change cursor to pointer for better UX */
+  transition: color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
 }
 
 .custom-search-icon:hover {
-  color: #45A29E; /* Change color on hover */
-  transform: scale(1.1); /* Slightly scale up the icon on hover */
+  color: #45A29E;
+  transform: scale(1.1);
 }
 
 .custom-search-bar {
-  background-color: #1F2833; /* Light gray background */
-  border-radius: 5px; /* Rounded corners */
-  transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
+  background-color: #1F2833;
+  border-radius: 5px;
+  transition: box-shadow 0.3s ease;
 }
 
 .custom-search-bar .v-input__control {
-  border: none; /* Remove default border */
+  border: none;
 }
 
 .custom-search-bar .v-input__slot {
-  padding: 0; /* Remove default padding */
+  padding: 0;
 }
 
 .custom-search-bar :placeholder-shown {
-  color: #ffffff; /* Text color */
-  padding: 10px 20px; /* Padding for input */
+  color: #ffffff;
+  padding: 10px 20px;
 }
 
-
-/* Style for the popup modal */
 .v-dialog {
-  background-color: #1F2833; /* Dark background for modal */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+  background-color: #1F2833;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
-/* Style for the card title */
 .v-card-title {
-  background-color: #0B0C10; /* Dark base color */
-  color: #66FCF1; /* Light cyan text color */
-  padding: 16px; /* Padding for the title */
-  border-top-left-radius: 8px; /* Rounded corners on the top left */
-  border-top-right-radius: 8px; /* Rounded corners on the top right */
+  background-color: #0B0C10;
+  color: #66FCF1;
+  padding: 16px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
-/* Style for the close button */
 .v-btn {
-  color: #C5C6C7; /* Light gray close button color */
+  color: #C5C6C7;
 }
 
-/* Style for the close button on hover */
 .v-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1); /* Slightly lighter on hover */
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Style for the image */
 .v-img {
-  max-height: 70vh; /* Limit the height of the image */
-  object-fit: contain; /* Maintain aspect ratio */
-  border-radius: 8px; /* Rounded corners for the image */
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 8px;
 }
 
-
-/* Prevent content shift when drawer is toggled */
 .v-navigation-drawer {
   z-index: 1000;
-  position: fixed; /* Keep the drawer fixed to the left */
-  z-index: 1000; /* Ensure it's above other content */
-  height: 100%; /* Full height of the viewport */
+  position: fixed;
+  height: 100%;
 }
 
-/* Ensure the app bar stays in position */
 .v-app-bar {
-  position: relative; /* Keep the app bar fixed at the top */
-  z-index: 1001; /* Above the drawer */
+  position: relative;
+  z-index: 1001;
 }
 
-/* Main content settings */
 .v-main {
-  transition: margin-left 0.3s ease; /* Smooth transition for main content */
-  margin-left: 0; /* Default margin */
-  padding: 16px; /* Optional: add padding to main content */
+  transition: margin-left 0.3s ease;
+  margin-left: 0;
+  padding: 16px;
   background-color: #0B0C10;
 }
 
-/* Adjust the main content to create space for the drawer */
 .v-navigation-drawer--is-mobile .v-main {
-  margin-left: 250px; /* Adjust this based on drawer width */
+  margin-left: 250px;
 }
 
-/* Media queries for responsiveness */
 @media (max-width: 600px) {
   .v-navigation-drawer {
-    width: 250px; /* Mobile drawer width */
+    width: 250px;
   }
 
   .v-navigation-drawer--is-mobile .v-main {
-    margin-left: 250px; /* Same as drawer width */
+    margin-left: 250px;
   }
 }
 
 @media (min-width: 601px) {
   .v-navigation-drawer {
-    width: 250px; /* Desktop drawer width */
+    width: 250px;
   }
 
   .v-navigation-drawer--is-mobile .v-main {
-    margin-left: 250px; /* Same as drawer width */
+    margin-left: 250px;
   }
 }
 
-/* To prevent movement of content */
 .v-navigation-drawer.v-navigation-drawer--permanent {
-  width: 250px; /* Fixed width */
+  width: 250px;
 }
 
 .v-navigation-drawer.v-navigation-drawer--permanent + .v-main {
-  margin-left: 250px; /* Adjust the main content */
+  margin-left: 250px;
 }
 
-/* App Bar and Drawer Background Color */
 .v-app-bar {
   background-color: #1F2833;
 }
@@ -599,20 +583,14 @@ export default {
   color: #66FCF1;
 }
 
-
-
-
-
-/* Portfolio Section Styling */
 .isotope-container {
   background-color: #0B0C10;
 }
 
-/* Updated Card Styling */
 .laptop-card {
   border-radius: 12px;
   overflow: hidden;
-  background-color: #1F2833; /* Dark background */
+  background-color: #1F2833;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
@@ -622,7 +600,6 @@ export default {
   transform: scale(1.02);
 }
 
-/* Image Styling */
 .laptop-image {
   height: 200px;
   margin-top: 20px;
@@ -632,10 +609,9 @@ export default {
 .laptop-card:hover .laptop-image {
   transform: scale(1.1);
   filter: brightness(0.95);
-  border-bottom: 3px solid #66FCF1; /* Accent color for border */
+  border-bottom: 3px solid #66FCF1;
 }
 
-/* Card Text Styling */
 .laptop-info {
   padding: 20px;
   text-align: center;
@@ -643,74 +619,69 @@ export default {
 
 .laptop-info h4 {
   font-size: 1.25em;
-  color: #C5C6C7; /* Light text color */
+  color: #C5C6C7;
   margin-bottom: 8px;
   font-weight: bold;
 }
 
 .laptop-info p {
-  color: #C5C6C7; /* Light text color */
+  color: #C5C6C7;
   font-size: 0.95em;
   margin: 0;
 }
 
 .laptop-info .laptop-price {
   font-weight: bold;
-  color: #66FCF1; /* Accent color for price */
+  color: #66FCF1;
   margin-top: 10px;
 }
 
-/* Rent Button Styling */
 .rent-btn {
-  color: #1F2833; /* Accent color for button */
+  background-color: #45A29E;
   border-radius: 50%;
   transition: background-color 0.3s ease, transform 0.3s ease;
   margin-top: 15px;
 }
 
 .rent-btn:hover {
-  background-color: #45A29E; /* Darker hover effect */
+  background-color: #45A29E;
   transform: scale(1.1);
 }
 
 .rent-icon {
   font-size: 1.2em;
+  color: #0B0C10;
 }
 
-
-/* Title Styling */
 .laptop-rent-title {
-  font-size: 2.5em; /* Larger font size */
-  color: #66FCF1; /* Accent color */
-  text-transform: uppercase; /* Uppercase text */
-  letter-spacing: 1.5px; /* Space between letters */
-  margin-bottom: 15px; /* Space below the title */
-  position: relative; /* Position for the pseudo-element */
+  font-size: 2.5em;
+  color: #66FCF1;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 15px;
+  position: relative;
 }
 
-/* Add an underline effect with a pseudo-element */
 .laptop-rent-title::after {
   content: '';
   display: block;
-  width: 50%; /* Adjust the width as needed */
-  height: 4px; /* Underline height */
-  background-color: #45A29E; /* Accent color */
-  margin: 10px auto 0; /* Center the underline */
-  border-radius: 5px; /* Rounded corners for the underline */
+  width: 50%;
+  height: 4px;
+  background-color: #45A29E;
+  margin: 10px auto 0;
+  border-radius: 5px;
 }
 
-/* Description Styling */
 .laptop-rent-description {
-  font-size: 1.2em; /* Slightly larger font size */
-  color: #C5C6C7; /* Light color for the text */
-  margin: 0 auto; /* Center the paragraph */
-  max-width: 600px; /* Limit the width */
-  line-height: 1.6; /* Improve readability */
-  padding: 0 20px; /* Add some padding */
-  position: relative; /* Position for the pseudo-element */
+  font-size: 1.2em;
+  color: #C5C6C7;
+  margin: 0 auto;
+  max-width: 600px;
+  line-height: 1.6;
+  padding: 0 20px;
+  position: relative;
 }
 
-/* Add a subtle glow effect */
 .laptop-rent-description::before {
   content: '';
   position: absolute;
@@ -718,34 +689,28 @@ export default {
   left: 50%;
   width: 100%;
   height: 100%;
-  background-color: rgba(102, 252, 241, 0.3); /* Soft glow color */
-  filter: blur(10px); /* Blur effect for glow */
-  z-index: -1; /* Place behind the text */
-  transform: translateX(-50%); /* Center the glow */
+  background-color: rgba(102, 252, 241, 0.3);
+  filter: blur(10px);
+  z-index: -1;
+  transform: translateX(-50%);
 }
 
-
-
-/* Make drawer responsive */
 @media (max-width: 600px) {
   .custom-drawer {
     width: 100%;
   }
 }
 
-/* Make search card responsive */
 .search-card {
-  width: 100%; /* Adjust width for small screens */
+  width: 100%;
 }
 
-/* Adjust title font size */
 @media (max-width: 600px) {
   .title {
-    font-size: 1.5rem; /* Smaller font size for mobile */
+    font-size: 1.5rem;
   }
 }
 
-/* Center align logo for small screens */
 @media (max-width: 600px) {
   .laptoplynxlogo {
     max-width: 80%;
@@ -753,39 +718,35 @@ export default {
   }
 }
 
-/* Responsive filter buttons */
 .portfolio-filters .v-btn {
-  flex: 1; /* Make filter buttons expand evenly */
+  flex: 1;
 }
 
-/* Responsive laptop card */
 .laptop-card {
   height: 100%;
 }
 
 .laptop-image {
-  height: 200px; /* Fixed height for images */
-  object-fit: cover; /* Cover to maintain aspect ratio */
+  height: 200px;
+  object-fit: cover;
 }
 
 .laptop-info {
-  text-align: center; /* Center align laptop info */
+  text-align: center;
 }
 
-/* Adjust font size for laptops */
 @media (max-width: 600px) {
   .laptop-info h4 {
-    font-size: 1.2rem; /* Smaller font size for mobile */
+    font-size: 1.2rem;
   }
   .laptop-price {
-    font-size: 1rem; /* Adjust price font size */
+    font-size: 1rem;
   }
 }
 
-/* Adjust margin and padding */
 @media (max-width: 600px) {
   .rent-btn {
-    margin: 0 auto; /* Center align rent button */
+    margin: 0 auto;
   }
 }
 
@@ -793,34 +754,31 @@ export default {
   margin: 20px 0;
 }
 
-
-
-
-
 .edit-account-btn {
-  background-color: #1F2833; /* Dark background */
-  color: #E2DAD6; /* Text color */
-  border-radius: 8px; /* Rounded corners */
-  padding: 10px 15px; /* Padding */
-  transition: background-color 0.3s ease; /* Smooth transition */
+  background-color: #1F2833;
+  color: #E2DAD6;
+  border-radius: 8px;
+  padding: 10px 15px;
+  transition: background-color 0.3s ease;
 }
 
 .edit-account-btn:hover {
-  background-color: #7FA1C3; /* Lighten on hover */
-  color: #fff; /* Change text color on hover */
+  background-color: #7FA1C3;
+  color: #fff;
 }
 
 .logout-btn {
-  background-color: #1F2833; /* Dark background */
-  color: #E2DAD6; /* Text color */
-  border-radius: 8px; /* Rounded corners */
-  padding: 10px 15px; /* Padding */
-  transition: background-color 0.3s ease; /* Smooth transition */
+  background-color: #1F2833;
+  color: #E2DAD6;
+  border-radius: 8px;
+  padding: 10px 15px;
+  transition: background-color 0.3s ease;
 }
 
 .logout-btn:hover {
-  background-color: #E2DAD6; /* Lighten on hover */
-  color: #1F2833; /* Change text color on hover */
+  background-color: #E2DAD6;
+  color: #1F2833;
 }
+
 
 </style>
