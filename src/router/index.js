@@ -5,7 +5,6 @@ import BookingView from '@/views/auth/BookingView.vue'
 import ProfileView from '@/views/auth/ProfileView.vue' 
 import DashboardView from '@/views/auth/DashboardView.vue' 
 import ShowcasePageView from '@/views/auth/ShowcasePageView.vue'
-import CustomerDashboard from '@/components/system/CustomerDashboard.vue'
 import HomepageView from '@/components/system/HomepageView.vue'
 import Advertise from '@/views/auth/Advertise.vue'
 import ForbiddenView from '@/views/error/ForbiddenView.vue'
@@ -51,11 +50,7 @@ const router = createRouter({
       name: 'dashboard',
       component: DashboardView
     },
-    {
-      path: '/customerdashboard',
-      name: 'customerdashboard',
-      component: CustomerDashboard
-    },
+   
     {
       path: '/customerprofile',
       name: 'customerprofile',
@@ -95,8 +90,8 @@ const router = createRouter({
 router.beforeEach(async (to) => {
   const { isAuthenticated: isLoggedIn, user } = await isAuthenticated(); // Get both auth status and user data
 
-  console.log("User logged in:", isLoggedIn);
-  console.log("User metadata:", user?.user_metadata);
+  //console.log("User logged in:", isLoggedIn);
+ // console.log("User metadata:", user?.user_metadata);
 
   // Handle access to protected routes
   const protectedRoutes = ['dashboard', 'customerdashboard', 'booking', 'profile'];
@@ -109,15 +104,19 @@ router.beforeEach(async (to) => {
   // Check admin status only if the user is logged in
   const isAdmin = isLoggedIn ? user?.user_metadata?.is_admin === true : false;
 
-  console.log("Is admin:", isAdmin);
+  //console.log("Is admin:", isAdmin);
 
   // Redirect to forbidden if user is not admin and trying to access the dashboard
   if (to.name === 'dashboard' && !isAdmin) {
     return { name: 'forbidden' }; // Redirect to forbidden if user is not admin
   }
 
+  if (to.name === 'profile' && !isAdmin) {
+    return { name: 'forbidden' }; // Redirect to forbidden if user is not admin
+  }
+
   // Prevent admins from accessing the customerdashboard
-  if (to.name === 'customerdashboard' && isAdmin) {
+  if (to.name === 'homepage' && isAdmin) {
     return { name: 'dashboard' }; // Redirect admins to the admin dashboard
   }
 

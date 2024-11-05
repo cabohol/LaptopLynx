@@ -13,6 +13,7 @@ const router = useRouter(); // Use the router for navigation
 const renter = ref({
   fullname: '',
   email: '',
+  phone_number: '',
   avatar: 'https://randomuser.me/api/portraits/men/85.jpg', // Default avatar if none provided
 });
 
@@ -32,8 +33,10 @@ const getRenterData = async () => {
   if (user) {
     renter.value.email = user.email;
     const metadata = user.user_metadata;
-   renter.value.fullname = `${metadata?.firstname || ''} ${metadata?.lastname || ''}`.trim();
+    renter.value.fullname = `${metadata?.firstname || ''} ${metadata?.lastname || ''}`.trim();
     renter.value.avatar = metadata?.avatar || renter.value.avatar; // Use avatar from metadata if available
+    renter.value.phone_number = metadata?.phone_number || 'Not Provided'; // Retrieve phone number from metadata
+
   }
 };
 
@@ -173,9 +176,9 @@ const clearNotifications = () => {
         <v-avatar class="mx-auto mb-4" size="200">
           <img :src="profilePicture" alt="Profile Picture" width="100%" />
         </v-avatar>
-        <v-card-title class="text-h4" style="color: #66FCF1;">Melvin Jipos</v-card-title>
-        <v-card-subtitle class="text-body-2 text-center" style="color: white;">System Analyst</v-card-subtitle>
-        <v-card-subtitle class="text-body-2 text-center" style="color: white;">Contact Number: 0912389934</v-card-subtitle>
+        <v-card-title class="text-h4" style="color: #66FCF1;">{{ renter.fullname }}</v-card-title>
+          <v-card-subtitle class="text-body-2 text-center" style="color: white;">Email: {{ renter.email }}</v-card-subtitle>
+          <v-card-subtitle class="text-body-2 text-center" style="color: white;">Contact Number: {{ renter.phone_number }}</v-card-subtitle>
         <v-btn color="cyan-accent-2" block class="mt-4" @click="openImagePicker">Edit Profile</v-btn>
       </v-card>
     </v-col>
