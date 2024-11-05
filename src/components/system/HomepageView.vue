@@ -1,11 +1,10 @@
 <script setup>
-import { getAvatarText } from '@/utils/helpers';
 import { formActionDefault, supabase } from '@/utils/supabase';
 import { ref, computed, onMounted } from 'vue'; // Import onMounted here
 import { useRouter } from 'vue-router';
 
 const router = useRouter(); // Use the router for navigation
-const drawer = ref(true);
+const drawer = ref(false);
 const selectedOption = ref('*'); // Set default selected option to "All"
 
 
@@ -139,14 +138,38 @@ const filteredLaptops = computed(() => {
 
 //USER FUNCTIONALITY
 
-const userData = ref({
-  initials: '',
+
+// Renter data for displaying logged-in user information
+const renter = ref({
+  fullname: '',
   email: '',
-  fullname: ''
+  avatar: 'https://randomuser.me/api/portraits/men/85.jpg', // Default avatar if none provided
 });
 
 const formAction = ref({
   ...formActionDefault
+});
+
+// Function to retrieve admin data
+const getRenterData = async () => {
+  const { data, error } = await supabase.auth.getUser();
+  if (error) {
+    console.error('Error fetching user data:', error);
+    return;
+  }
+
+  const user = data?.user;
+  if (user) {
+    renter.value.email = user.email;
+    const metadata = user.user_metadata;
+   renter.value.fullname = `${metadata?.firstname || ''} ${metadata?.lastname || ''}`.trim();
+    renter.value.avatar = metadata?.avatar || renter.value.avatar; // Use avatar from metadata if available
+  }
+};
+
+// Fetch admin data when the component is mounted
+onMounted(() => {
+  getRenterData();
 });
 
 // Logout functionality
@@ -160,31 +183,9 @@ const onLogout = async () => {
     return;
   }
   formAction.value.formProcess = false;
-  router.replace('/');
+  router.replace('/LoginView');
 };
 
-// Fetch user data
-const getUser = async () => {
-  const { data, error } = await supabase.auth.getUser();
-  if (error) {
-    console.error('Error fetching user data:', error);
-    return;
-  }
-
-  const metadata = data?.user?.user_metadata;
-  if (metadata) {
-    userData.value.email = metadata.email;
-    userData.value.fullname = `${metadata.firstname} ${metadata.lastname}`;
-    userData.value.initials = getAvatarText(userData.value.fullname);
-  } else {
-    console.warn('User metadata is missing');
-  }
-};
-
-// Call getUser on component mount
-onMounted(() => {
-  getUser();
-});
 
 const notifications = ref([
   { title: 'New Comment', message: 'You have a new comment on your post.' },
@@ -210,21 +211,7 @@ const closeImagePopup = () => {
 };
 </script>
 
-<script>
-export default {
-  name: "UserProfile",
-  data() {
-    return {
-      drawer: false,
-      admin: {
-        avatar: "",
-        email: "melvinjipos@gmail.com",
-        fullname: "Melvin Jipos",
-      },
-    };
-  },
-};
-</script>
+
 
 
 <template>
@@ -297,14 +284,18 @@ export default {
     <v-navigation-drawer v-model="drawer" app permanent elevation="3">
       <v-list>
         <br />
-        <v-list-item :prepend-avatar="admin.avatar" :subtitle="admin.email" :title="admin.fullname"></v-list-item>
+        <v-list-item
+        :prepend-avatar="renter.avatar"
+        :subtitle="renter.email"
+        :title="renter.fullname"
+      ></v-list-item>
       </v-list>
       <v-divider style="color: bisque;"></v-divider>
 
       <v-list density="compact" nav>
         <v-list-item prepend-icon="mdi-view-dashboard" title="Homepage" :to="{ name: 'homepage' }"></v-list-item>
         <v-list-item prepend-icon="mdi-book" title="Booking" :to="{ name: 'booking' }"></v-list-item>
-        <v-list-item prepend-icon="mdi-account" title="Profile" :to="{ name: 'profile' }"></v-list-item>
+        <v-list-item prepend-icon="mdi-account" title="Profile" :to="{ name: 'customerprofile' }"></v-list-item>
         <v-list-item @click="onLogout" title="Logout" prepend-icon="mdi-logout"></v-list-item>
 
       </v-list>

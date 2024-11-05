@@ -11,6 +11,7 @@ import Advertise from '@/views/auth/Advertise.vue'
 import ForbiddenView from '@/views/error/ForbiddenView.vue'
 import NotFoundView from '@/views/error/NotFoundView.vue'
 import { isAuthenticated} from '@/utils/supabase'
+import CustomerProfile from '@/views/auth/CustomerProfile.vue'
 
 
 const router = createRouter({
@@ -54,6 +55,11 @@ const router = createRouter({
       path: '/customerdashboard',
       name: 'customerdashboard',
       component: CustomerDashboard
+    },
+    {
+      path: '/customerprofile',
+      name: 'customerprofile',
+      component: CustomerProfile
     },
 
     {

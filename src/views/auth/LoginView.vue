@@ -81,7 +81,7 @@ const onSubmit = async () => {
     if (userRole === 'admin') {
       router.replace('/dashboard');  // Route for Admins
     } else if (userRole === 'renter') {
-      router.replace('/customerdashboard');  // Route for Renters
+      router.replace('/homepage');  // Route for Renters
     } else {
       formAction.value.formErrorMessage = 'User role not recognized.';
     }
