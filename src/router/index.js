@@ -55,15 +55,12 @@ const router = createRouter({
       name: 'customerdashboard',
       component: CustomerDashboard
     },
-<<<<<<< HEAD
     {
       path: '/homepage',
       name: 'homepage',
       component: HomepageView
     },
     //Intro
-=======
->>>>>>> 4802e43bd0fc7db20a76acb1b613e7179593a925
     {
       path: '/advertise',
       name: 'advertise',

@@ -948,10 +948,7 @@ export default {
   }
 }
 
-
-/* Medium Screens (Tablets) */
 @media (max-width: 992px) {
-
   .hero h1 {
     font-size: 2.5rem;
   }
@@ -961,18 +958,17 @@ export default {
   }
 }
 
-/* Small Screens (Phones) */
 @media (max-width: 768px) {
   .navbar-menu {
-    display: none; /* Hide menu on small screens */
+    display: none;
   }
 
   .navbar-hamburger {
-    display: block; /* Show hamburger menu on small screens */
+    display: block;
   }
 
   .card {
-    flex: 1 1 100%; /* 1 card per row */
+    flex: 1 1 100%;
   }
 
   .hero h1 {
@@ -985,7 +981,6 @@ export default {
   }
 }
 
-/* Extra Small Screens (Very Small Phones) */
 @media (max-width: 576px) {
   .hero p {
     font-size: 0.9rem;
@@ -1000,45 +995,39 @@ export default {
   }
 }
 
-/* General Font Settings */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap');
 
-/* Font Families */
 body, .description h2, .laptop-lynx-title, .auth-btn, .get-started-btn {
-  font-family: 'Poppins', sans-serif; /* Sleek modern font for most elements */
+  font-family: 'Poppins', sans-serif;
 }
 
 .description p, .auth-btn, .get-started-btn {
-  font-family: 'Raleway', sans-serif; /* Clean and elegant font for body text */
+  font-family: 'Raleway', sans-serif;
 }
+
 .semi-transparent-bar {
-  background: #0B0C10; /* Semi-transparent background */
+  background: #0B0C10;
   padding: 1%;
 }
 
-
-
-
 .auth-btn {
-  color: #66FCF1; /* Button text color */
-  margin-left: 10px; /* Space between buttons */
+  color: #66FCF1;
+  margin-left: 10px;
 }
 
 .auth-btn:hover {
-  text-decoration: underline; /* Underline effect on hover */
+  text-decoration: underline;
 }
 
 .v-icon {
-  margin-top: 8px; /* Add 5px top margin to all icons */
+  margin-top: 8px;
 }
 
-
-/* Ensure the v-main and full-screen-image fill the viewport */
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden; /* Prevent default scrolling */
+  overflow: hidden;
 }
 
 .v-main {
@@ -1046,120 +1035,111 @@ html, body {
   background: #0B0C10;
 }
 
-/* Full-Screen Background Image */
 .full-screen-image {
   margin-top: -70px;
   position: relative;
-  height: 100vh; /* Full height */
-  background-size: cover; /* Cover the full area */
-  background-position: center; /* Center the image */
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
   background-color: #0B0C10;
 }
 
-
-
 body {
-    margin: 0; /* Remove default body margin */
-    min-height: 100vh; /* Full viewport height */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Space elements evenly */
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-
-/* Style for the description section */
 .laptop-rental-description {
-    padding: 20px; /* Padding for spacious feel */
-    backdrop-filter: blur(10px); /* Positive blur effect */
-    background: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
-    width: 90%; /* Set width to a percentage for responsiveness */
-    max-width: 900px; /* Maximum width for larger screens */
-    height: auto; /* Adjust height to fit content */
-    margin: 20px auto; /* Center align the margin */
-    text-align: left; /* Align text to the left */
-    position: absolute; /* Absolute positioning for left alignment */
-    right: -20px; /* Distance from the right side */
-    bottom: -20px; /* Distance from the bottom */
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
+  width: 90%;
+  max-width: 900px;
+  height: auto;
+  margin: 20px auto;
+  text-align: left;
+  position: absolute;
+  right: -20px;
+  bottom: -20px;
 }
 
-/* Title Styles */
 .laptop-rental-description h2 {
-    font-size: 2.5rem; /* Larger title size */
-    font-weight: bold; 
-    text-align: center;
-    color: #66FCF1; /* Title color */
-    margin-bottom: 10px; /* Space below the title */
-    letter-spacing: 1.5px; /* Increased letter spacing */
-    text-transform: uppercase; /* Uppercase for modern feel */
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* Shadow for text visibility */
+  font-size: 2.5rem;
+  font-weight: bold; 
+  text-align: center;
+  color: #66FCF1;
+  margin-bottom: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
-/* Description Text Styles */
 .description-text {
-    font-size: 1.2rem; /* Slightly larger paragraph size */
-    color: #E0F2F1; /* Text color */
-    line-height: 1.6; /* Improved line spacing */
-    text-align: justify; /* Justify text */
-    margin-bottom: 10px; /* Space below the paragraph */
-    padding: 0 5px; /* Padding for responsive design */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Shadow for text visibility */
+  font-size: 1.2rem;
+  color: #E0F2F1;
+  line-height: 1.6;
+  text-align: justify;
+  margin-bottom: 10px;
+  padding: 0 5px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-
-/* Responsive Styles */
 @media (max-width: 1200px) {
-    .laptop-rental-description {
-        width: 95%; /* Slightly increase width for medium screens */
-    }
-    .laptop-rental-description h2 {
-        font-size: 2.2rem; /* Slightly smaller title on medium screens */
-    }
-    .description-text {
-        font-size: 1.1rem; /* Slightly smaller paragraph size on medium screens */
-    }
+  .laptop-rental-description {
+    width: 95%;
+  }
+  .laptop-rental-description h2 {
+    font-size: 2.2rem;
+  }
+  .description-text {
+    font-size: 1.1rem;
+  }
 }
 
 @media (max-width: 992px) {
-    .laptop-rental-description {
-        width: 100%; /* Full width on smaller screens */
-        right: 0; /* Remove right positioning */
-        bottom: 0; /* Adjust bottom positioning */
-        margin: 10px 0; /* Reduce margins */
-    }
-    .laptop-rental-description h2 {
-        font-size: 2rem; /* Smaller title on smaller screens */
-    }
-    .description-text {
-        font-size: 1rem; /* Smaller paragraph size on smaller screens */
-    }
+  .laptop-rental-description {
+    width: 100%;
+    right: 0;
+    bottom: 0;
+    margin: 10px 0;
+  }
+  .laptop-rental-description h2 {
+    font-size: 2rem;
+  }
+  .description-text {
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 768px) {
-    .laptop-rental-description {
-        padding: 15px; /* Reduce padding for mobile devices */
-    }
-    .laptop-rental-description h2 {
-        font-size: 1.8rem; /* Smaller title for mobile devices */
-    }
-    .description-text {
-        font-size: 0.9rem; /* Smaller paragraph size for mobile devices */
-    }
+  .laptop-rental-description {
+    padding: 15px;
+  }
+  .laptop-rental-description h2 {
+    font-size: 1.8rem;
+  }
+  .description-text {
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 576px) {
-    .laptop-rental-description {
-        padding: 10px; /* Further reduce padding for very small devices */
-    }
-    .laptop-rental-description h2 {
-        font-size: 1.6rem; /* Smaller title for very small devices */
-    }
-    .description-text {
-        font-size: 0.8rem; /* Further reduce paragraph size */
-    }
+  .laptop-rental-description {
+    padding: 10px;
+  }
+  .laptop-rental-description h2 {
+    font-size: 1.6rem;
+  }
+  .description-text {
+    font-size: 0.8rem;
+  }
 }
 
 .section__base {
-  background: #0B0C10; /* Dark background */
+  background: #0B0C10;
   border-radius: 12px;
 }
 
@@ -1174,7 +1154,7 @@ body {
 }
 
 .content-title {
-  color: #C5C6C7; /* Light gray for title */
+  color: #C5C6C7;
   text-transform: uppercase;
   letter-spacing: 1.5px;
 }
@@ -1185,20 +1165,21 @@ body {
 }
 
 .text--primary {
-  color: #66FCF1; /* Primary accent color */
+  color: #66FCF1;
 }
 
 .text--white {
-  color: #C5C6C7; /* Soft white/gray for main content */
+  color: #C5C6C7;
 }
 
 .hardware__img {
   opacity: 0.8;
   transition: opacity 0.3s ease;
-  width: 200px; /* Adjust the width to make it bigger */
-  height: auto; /* Maintain the aspect ratio */
-  max-width: 200%; /* Ensure it scales responsively */
+  width: 200px;
+  height: auto;
+  max-width: 200%;
 }
+
 
 
 .hardware__img:hover {
@@ -1379,8 +1360,6 @@ body {
 }
 
 
-
-/* Section header styling with icon */
 .unique-section-header {
   text-align: center;
   font-size: 2.7rem;
@@ -1396,12 +1375,10 @@ body {
   margin-right: 15px;
 }
 
-/* Unique Deals Section */
 .unique-deals-section {
   padding: 50px 20px;
 }
 
-/* Unique Promo Cards */
 .unique-promo-card {
   border-radius: 15px;
   overflow: hidden;
@@ -1427,18 +1404,16 @@ body {
   transform: scale(1.05) translateY(-5px);
 }
 
-/* Unique Card Images */
 .unique-promo-images {
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
 }
 
-/* Text Styling for Promo Cards */
 .unique-card-text p {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #C5C6C7; /* Dark teal for text */
+  color: #C5C6C7; 
 }
 
 .unique-card-text ul {
@@ -1452,79 +1427,73 @@ body {
   margin-bottom: 8px;
 }
 
-/* Responsive behavior */
 @media screen and (max-width: 1200px) {
   .unique-section-header {
-    font-size: 2.4rem; /* Slightly smaller font size */
+    font-size: 2.4rem;
   }
 
   .unique-promo-card {
-    padding: 12px; /* Adjust padding */
+    padding: 12px;
   }
 
   .unique-card-text p {
-    font-size: 1.1rem; /* Smaller text for medium screens */
+    font-size: 1.1rem;
   }
 
   .unique-card-text li {
-    font-size: 1rem; /* Adjust list item size */
+    font-size: 1rem;
   }
 }
 
 @media screen and (max-width: 992px) {
   .unique-promo-images {
-    flex-direction: column; /* Stack images on smaller screens */
-    align-items: center; /* Center images */
+    flex-direction: column;
+    align-items: center;
   }
 
   .unique-promo-images img {
-    width: 80%; /* Make images responsive */
-    height: auto; /* Maintain aspect ratio */
+    width: 80%;
+    height: auto;
   }
 }
 
 @media screen and (max-width: 768px) {
   .unique-promo-images img {
-    height: 120px; /* Specific height for small screens */
+    height: 120px;
   }
   
   .unique-promo-card {
-    margin-bottom: 20px; /* Less margin on smaller screens */
+    margin-bottom: 20px;
   }
 
   .unique-section-header {
-    font-size: 2rem; /* Smaller font size for smaller screens */
+    font-size: 2rem;
   }
 
   .unique-card-text p {
-    font-size: 1rem; /* Further decrease text size */
+    font-size: 1rem;
   }
 
   .unique-card-text li {
-    font-size: 0.9rem; /* Decrease list item size */
+    font-size: 0.9rem;
   }
 }
 
 @media screen and (max-width: 480px) {
   .unique-section-header {
-    font-size: 1.8rem; /* Further smaller font for very small screens */
+    font-size: 1.8rem;
   }
 
   .unique-promo-card {
-    padding: 10px; /* Reduce padding */
+    padding: 10px;
   }
 
   .unique-card-text p {
-    font-size: 0.9rem; /* Smaller paragraph size */
+    font-size: 0.9rem;
   }
 }
 
 
-
-
-
-
-/* Responsive Styles for LaptopLynx */
 
 @media screen and (max-width: 1200px) {
   .laptoplynx-company-name {
@@ -1595,7 +1564,7 @@ h2.section-title,
 }
 
 .v-icon {
-  color: #66FCF1 !important; /* This keeps the icons styled as requested */
+  color: #66FCF1 !important; 
 }
 
 
@@ -1610,42 +1579,37 @@ h2.section-title,
   letter-spacing: 1.2px;
 }
 
-
 .elegant-app-bar {
-  background-color: #0B0C10; /* Dark background for the app bar */
-  padding: 0.4%; /* Add padding for better spacing */
+  background-color: #0B0C10;
+  padding: 0.4%;
 }
 
-/* Base Button Styling */
 .v-btn {
   position: relative;
   overflow: hidden;
-  background-color: #1F2833; /* Dark primary background */
-  color: #C5C6C7; /* Light text color */
-  border: 2px solid #45A29E; /* Border matches the accent color */
+  background-color: #1F2833;
+  color: #C5C6C7;
+  border: 2px solid #45A29E;
   border-radius: 5px;
   padding: 10px 20px;
   transition: background-color 0.4s ease, border-color 0.4s ease, transform 0.3s ease;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Subtle shadow */
-  display: flex; /* Use flexbox to align icon and text */
-  align-items: center; /* Center icon and text vertically */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
 }
 
-/* Adjust icon size */
 .v-icon {
-  font-size: 1.2rem; /* Adjust icon size if needed */
-  margin-right: 8px; /* Space between icon and text */
+  font-size: 1.2rem;
+  margin-right: 8px;
 }
 
-/* Hover effect: Glow with accent color */
 .v-btn:hover {
-  background-color: #0B0C10; /* Slightly darker on hover */
-  border-color: #66FCF1; /* Accent color on hover */
-  transform: scale(1.05); /* Slight zoom on hover */
-  box-shadow: 0 0 15px 5px rgba(102, 252, 241, 0.5); /* Soft glow with accent color */
+  background-color: #0B0C10;
+  border-color: #66FCF1;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px 5px rgba(102, 252, 241, 0.5);
 }
 
-/* Unique glowing pulse animation */
 .v-btn::before {
   content: '';
   position: absolute;
@@ -1660,71 +1624,64 @@ h2.section-title,
   z-index: 0;
 }
 
-/* Animate the pulse when hovering */
 .v-btn:hover::before {
-  transform: scale(1.5); /* Pulse expands out */
+  transform: scale(1.5);
 }
 
-/* Text scaling and glow on hover */
 .v-btn:hover .v-btn__content {
-  color: #66FCF1; /* Change text to accent color on hover */
-  transform: translateY(-2px); /* Subtle upward lift */
-  text-shadow: 0 0 5px #66FCF1; /* Soft glow on the text */
+  color: #66FCF1;
+  transform: translateY(-2px);
+  text-shadow: 0 0 5px #66FCF1;
   transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
 }
 
-
 .lg {
-    width: 190px; /* Default width */
-    margin-left: -10px; /* Adjust margin */
-    margin-top: 7px;
+  width: 190px;
+  margin-left: -10px;
+  margin-top: 7px;
 }
 
-/* Responsive Styles */
 @media (max-width: 1024px) {
-    .lg {
-        width: 150px; /* Reduce width for tablets and medium screens */
-        margin-left: -5px; /* Adjust margin if necessary */
-    }
+  .lg {
+    width: 150px;
+    margin-left: -5px;
+  }
 }
 
 @media (max-width: 600px) {
-    .lg {
-        width: 120px; /* Further reduce width for mobile devices */
-        margin-left: 0; /* Center the logo by removing negative margin */
-    }
+  .lg {
+    width: 120px;
+    margin-left: 0;
+  }
 }
 
-
 .specs-title {
-    font-weight: bold;
-    font-size: 1.3rem; /* Adjust font size as needed */
-    margin-bottom: 0.5rem; /* Space between title and specs */
-    color: #45A29E; /* Use primary color or adjust as needed */
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: #45A29E;
 }
 
 .v-card-text div {
-    font-size: 0.9rem; /* Adjust font size for specs text */
-    line-height: 1.5; /* Line height for better readability */
-    margin-bottom: 0.3rem; /* Space between specs */
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 0.3rem;
 }
-
-
 
 .card-style {
   background: linear-gradient(135deg, #1f2833, #0b0c10);
   border-radius: 10px;
   transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
-  height: 300px; /* Default height */
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Subtle initial shadow */
-  border: 2px solid transparent; /* Initial transparent border */
+  height: 300px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  border: 2px solid transparent;
 }
 
 .card-style:hover {
-  transform: translateY(-5px); /* Slight upward movement for elegance */
-  box-shadow: 0px 12px 25px rgba(0, 0, 0, 0.4); /* Deeper shadow on hover */
-  border: 2px solid #45a29e; /* Subtle border color on hover */
-  background: linear-gradient(135deg, #2a2e35, #1c1e22); /* Softer background on hover */
+  transform: translateY(-5px);
+  box-shadow: 0px 12px 25px rgba(0, 0, 0, 0.4);
+  border: 2px solid #45a29e;
+  background: linear-gradient(135deg, #2a2e35, #1c1e22);
 }
 
 
@@ -1759,7 +1716,6 @@ h2.section-title,
   color: #45a29e;
 }
 
-/* Responsive Layout for Tablets and Small Screens */
 @media (max-width: 768px) {
   .card-style {
     max-width: 100%;
@@ -1782,7 +1738,6 @@ h2.section-title,
   }
 }
 
-/* Responsive Layout for Phones */
 @media (max-width: 600px) {
   .card-style {
     height: auto;
@@ -1886,16 +1841,15 @@ h2.section-title,
 
 
 
-/* General Carousel Styling */
 .section__4__slick {
   position: relative;
   overflow: hidden;
-  max-width: 95%; /* Set a maximum width for the carousel */
-  width: 90%; /* Set width to 90% of its container */
-  margin: 0 auto; /* Center the carousel */
+  max-width: 95%; 
+  width: 90%; 
+  margin: 0 auto; 
   padding: 4rem;
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
-  animation: gradientAnimation 10s ease infinite; /* Apply gradient animation */
+  animation: gradientAnimation 10s ease infinite; 
 }
 
 @keyframes gradientAnimation {
@@ -1938,39 +1892,35 @@ h2.section-title,
 }
 
 
-
-/* Keyframes for overlay fade effect */
 @keyframes fadeOverlay {
   0%, 100% {
-    opacity: 0.5; /* Start and end with a certain opacity */
+    opacity: 0.5; 
   }
   50% {
-    opacity: 0.8; /* Maximum opacity in the middle of the animation */
+    opacity: 0.8;
   }
 }
 
 
-
-/* Title Styling */
 .slickNvidiaTitle {
   font-weight: bold;                     
-  font-size: 1.6rem;                     /* Slightly larger font size */
-  color: #66FCF1;                        /* Light cyan for contrast */
+  font-size: 1.6rem;                    
+  color: #66FCF1;                        
   margin-bottom: 0.5rem;                 
-  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4); /* Softer shadow for depth */
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
   padding: 0.5rem 1rem;                  
   border-radius: 8px;                    
-  background-color: rgba(31, 40, 51, 0.8);  /* Dark semi-transparent background */
+  background-color: rgba(31, 40, 51, 0.8);  
   transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-/* Optional: Add hover effect */
+
 .slickNvidiaTitle:hover {
   transform: scale(1.05);                
-  background-color: rgba(102, 252, 241, 0.3); /* Light cyan on hover */
+  background-color: rgba(102, 252, 241, 0.3);
 }
 
-/* Image Zoom and Parallax on Hover */
+
 .zoom-on-hover {
   transition: transform 0.5s ease, box-shadow 0.5s ease;
   cursor: pointer;
@@ -1983,10 +1933,9 @@ h2.section-title,
 }
 
 
-/* Text Animation Styling */
 .slickTextFrame {
   padding: 2rem;
-  color: #C5C6C7; /* Light gray for text */
+  color: #C5C6C7; 
   font-size: 1rem;
   display: flex;
   flex-direction: column;
@@ -1995,13 +1944,11 @@ h2.section-title,
 }
 
 .slickText {
-  background: rgba(20, 28, 38, 0.85); /* Darker, more opaque background */
+  background: rgba(20, 28, 38, 0.85); 
   padding: 2rem;
   border-radius: 15px;
-  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.4), inset 0px 0px 15px rgba(50, 70, 90, 0.6); /* Outer shadow and inner glow */
-  border: 1px solid rgba(69, 162, 158, 0.2); /* Soft, cool-tone border */
-
-  /* Gradient Border Glow */
+  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.4), inset 0px 0px 15px rgba(50, 70, 90, 0.6); 
+  border: 1px solid rgba(69, 162, 158, 0.2);
   position: relative;
   overflow: hidden;
 }
@@ -2015,14 +1962,11 @@ h2.section-title,
   border-radius: 18px;
 }
 
-
-/* Fade In Animation */
 @keyframes fadeInUp {
   0% { opacity: 0; transform: translateY(20px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
-/* Carousel Item with Gradient Border on Hover */
 .carousel-item-custom {
   transition: all 0.8s ease;
   border-radius: 15px;
@@ -2032,39 +1976,36 @@ h2.section-title,
 }
 
 .carousel-item-custom:hover {
-  border: 2px solid #66FCF1; /* Border color matches the title */
+  border: 2px solid #66FCF1;
   box-shadow: 0px 10px 25px rgba(102, 252, 241, 0.3);
   animation: floating 3s ease-in-out infinite;
 }
 
-/* Floating Animation */
 @keyframes floating {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-8px); }
 }
 
-/* Image Style */
 .carousel-item-custom img {
   border-radius: 12px;
 }
 
-/* Small Screens (Mobile) */
 @media (max-width: 600px) {
   #section4__slick {
     padding: 10px;
   }
 
   .slickImgFrame {
-    max-height: 200px; /* Adjust image height for smaller screens */
+    max-height: 200px; 
   }
 
   .slickText {
-    font-size: 1rem; /* Smaller font for mobile */
+    font-size: 1rem; 
     padding: 10px;
   }
 
   .slickNvidiaTitle {
-    font-size: 1.3rem; /* Smaller title on mobile */
+    font-size: 1.3rem; 
   }
 
   .slickNvidiaDec {
@@ -2072,14 +2013,13 @@ h2.section-title,
   }
 }
 
-/* Medium Screens (Tablets) */
 @media (min-width: 600px) and (max-width: 960px) {
   #section4__slick {
     padding: 15px;
   }
 
   .slickImgFrame {
-    max-height: 300px; /* Larger image height for tablets */
+    max-height: 300px;
   }
 
   .slickText {
@@ -2088,7 +2028,7 @@ h2.section-title,
   }
 
   .slickNvidiaTitle {
-    font-size: 1.5rem; /* Adjust title size for tablets */
+    font-size: 1.5rem;
   }
 
   .slickNvidiaDec {
@@ -2096,36 +2036,30 @@ h2.section-title,
   }
 }
 
-
-
-
 .slickImgFrame {
-  border-radius: 15px; /* Rounded corners */
-  max-width: 100%; /* Ensure the image is responsive */
-  max-height: 350px; /* Adjust height to make the image larger */
-  width: auto; /* Maintain width automatically */
-  transition: transform 0.4s ease, box-shadow 0.4s ease; /* Smooth transition for effects */
+  border-radius: 15px;
+  max-width: 100%;
+  max-height: 350px;
+  width: auto;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
   animation: fadeInUp 1.5s ease forwards;
 }
 
-/* Centering the image */
 .v-img {
-  display: flex; /* Use flexbox to center */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Small Screens (Mobile) Adjustments */
 @media (max-width: 600px) {
   .slickImgFrame {
-    max-height: 250px; /* Limit height for smaller screens */
+    max-height: 250px;
   }
 }
 
-/* Medium Screens (Tablets) Adjustments */
 @media (min-width: 600px) and (max-width: 960px) {
   .slickImgFrame {
-    max-height: 300px; /* Adjust max-height for tablets */
+    max-height: 300px;
   }
 }
 
