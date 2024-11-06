@@ -81,7 +81,7 @@ const onSubmit = async () => {
     if (userRole === 'admin') {
       router.replace('/dashboard');  // Route for Admins
     } else if (userRole === 'renter') {
-      router.replace('/customerdashboard');  // Route for Renters
+      router.replace('/homepage');  // Route for Renters
     } else {
       formAction.value.formErrorMessage = 'User role not recognized.';
     }
@@ -132,7 +132,7 @@ const onSubmit = async () => {
                             outlined
                             dense
                             class="custom-input mt-4"
-                            append-inner-icon="mdi-email"
+                            prepend-inner-icon="mdi-email"
                             :rules="[requiredValidator, emailValidator]"
                           ></v-text-field>
                           <v-text-field
@@ -145,7 +145,7 @@ const onSubmit = async () => {
                             dense
                             :type="isPasswordVisible ? 'text' : 'password'" 
                             class="custom-input"
-                            append-inner-icon="mdi-lock"
+                            prepend-inner-icon="mdi-lock"
                             :append-icon="isPasswordVisible ? 'mdi-eye' : 'mdi-eye-off'" 
                             @click:append="isPasswordVisible = !isPasswordVisible" 
                             :rules="[requiredValidator]"

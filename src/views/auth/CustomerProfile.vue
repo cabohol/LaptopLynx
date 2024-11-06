@@ -6,8 +6,11 @@ import { useRouter } from 'vue-router';
 const drawer = ref(false);
 const router = useRouter(); // Use the router for navigation
 
-// Admin data for displaying logged-in user information
-const admin = ref({
+//USER FUNCTIONALITY
+
+
+// Renter data for displaying logged-in user information
+const renter = ref({
   fullname: '',
   email: '',
   phone_number: '',
@@ -19,7 +22,7 @@ const formAction = ref({
 });
 
 // Function to retrieve admin data
-const getAdminData = async () => {
+const getRenterData = async () => {
   const { data, error } = await supabase.auth.getUser();
   if (error) {
     console.error('Error fetching user data:', error);
@@ -28,17 +31,18 @@ const getAdminData = async () => {
 
   const user = data?.user;
   if (user) {
-    admin.value.email = user.email;
+    renter.value.email = user.email;
     const metadata = user.user_metadata;
-    admin.value.fullname = `${metadata?.firstname || ''} ${metadata?.lastname || ''}`.trim();
-    admin.value.avatar = metadata?.avatar || admin.value.avatar; // Use avatar from metadata if available
-    admin.value.phone_number = metadata?.phone_number || 'Not Provided'; // Retrieve phone number from metadata
+    renter.value.fullname = `${metadata?.firstname || ''} ${metadata?.lastname || ''}`.trim();
+    renter.value.avatar = metadata?.avatar || renter.value.avatar; // Use avatar from metadata if available
+    renter.value.phone_number = metadata?.phone_number || 'Not Provided'; // Retrieve phone number from metadata
+
   }
 };
 
 // Fetch admin data when the component is mounted
 onMounted(() => {
-  getAdminData();
+  getRenterData();
 });
 
 // Logout functionality
@@ -49,43 +53,41 @@ const onLogout = async () => {
   const { error } = await supabase.auth.signOut();
   if (error) {
     console.error('Error during logout:', error);
-    formAction.value.formProcess = false; // Ensure form process is reset even if there is an error
     return;
   }
-
   formAction.value.formProcess = false;
   router.replace('/LoginView');
 };
 
-// Dummy notifications for display
+
 const notifications = ref([
   { title: 'New Comment', message: 'You have a new comment on your post.' },
   { title: 'Reminder', message: 'Your session starts in 30 minutes.' },
   { title: 'Update Available', message: 'A new version is available.' },
-]);
+])
 
 const clearNotifications = () => {
-  notifications.value = [];
-};
+  notifications.value = []
+}
 </script>
 
 <template>
   <v-app>
     <!-- App Bar -->
-    <v-app-bar elevation="3" >
-    
-      <v-app-bar-nav-icon style="color:#66FCF1;" @click="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-app-bar elevation="3">
+    <v-app-bar-nav-icon style="color: #66FCF1;" @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <div class="d-flex align-center">
-        <img src="/src/images/logo1.png" width="50" alt="Logo" class="logo" />
-        <v-toolbar-title class="ml-2">
-          <h3 style="color: #66FCF1;">LaptopLynx</h3>
-        </v-toolbar-title>
-      </div>
+    <div class="d-flex align-center">
+      <img src="/src/images/logo1.png" width="50" alt="Logo" class="logo" />
+      <v-toolbar-title class="ml-2">
+        <h3 style="color: #66FCF1;">LaptopLynx</h3>
+      </v-toolbar-title>
+    </div>
 
-      <v-spacer></v-spacer>
+    <v-spacer></v-spacer>
 
-      <v-menu
+
+    <v-menu
       offset-y
       min-width="300px"
       rounded
@@ -133,26 +135,27 @@ const clearNotifications = () => {
     </v-menu>
     <!-- End of Notification Bell -->
 
-
-    
-    </v-app-bar>
+    <!-- Profile Dropdown can be added here if needed -->
+  </v-app-bar>
 
     <!-- Navigation Drawer -->
     <v-navigation-drawer v-model="drawer" app permanent elevation="3">
       <v-list>
         <br />
         <v-list-item
-        :prepend-avatar="admin.avatar"
-        :subtitle="admin.email"
-        :title="admin.fullname"
+        :prepend-avatar="renter.avatar"
+        :subtitle="renter.email"
+        :title="renter.fullname"
       ></v-list-item>
-          </v-list>
+      </v-list>
       <v-divider style="color: bisque;"></v-divider>
 
       <v-list density="compact" nav>
-        <v-list-item prepend-icon="mdi-view-dashboard" title="Dashboard" :to="{ name: 'dashboard' }"></v-list-item>
-        <v-list-item prepend-icon="mdi-account" title="Profile" :to="{ name: 'profile' }"></v-list-item>
+        <v-list-item prepend-icon="mdi-view-dashboard" title="Homepage" :to="{ name: 'homepage' }"></v-list-item>
+        <v-list-item prepend-icon="mdi-book" title="Booking" :to="{ name: 'booking' }"></v-list-item>
+        <v-list-item prepend-icon="mdi-account" title="Profile" :to="{ name: 'customerprofile' }"></v-list-item>
         <v-list-item @click="onLogout" title="Logout" prepend-icon="mdi-logout"></v-list-item>
+
       </v-list>
     </v-navigation-drawer>
 
@@ -168,25 +171,17 @@ const clearNotifications = () => {
       <br>
       <v-row justify="center">
     <!-- Profile Picture and Basic Info Section -->
-    <v-main>
-  <v-row style="background-color: #0B0C10; min-height: 100vh;">
-    <v-col cols="12" md="5" class="mx-auto">
-      <div class="mx-auto" style="background-color: #1F2833; padding: 20px; border-radius: 8px;">
-        <div class="text-center">
-          <v-avatar class="mx-auto mb-4" size="200">
-            <img :src="admin.avatar" alt="Profile Picture" width="100%" />
-          </v-avatar>
-          <v-card-title class="text-h4" style="color: #66FCF1;">{{ admin.fullname }}</v-card-title>
-          <v-card-subtitle class="text-body-2 text-center" style="color: white;">{{ admin.email }}</v-card-subtitle>
-          <v-card-subtitle class="text-body-2 text-center" style="color: white;">Contact Number: {{ admin.phone_number }}</v-card-subtitle>
-          <v-btn color="cyan-accent-2" block class="mt-4" @click="openImagePicker">Edit Profile</v-btn>
-        </div>
-      </div>
+    <v-col cols="12" md="5">
+      <v-card class="pa-8 text-center" elevation="2" style="height: auto; background-color: #1F2833;">
+        <v-avatar class="mx-auto mb-4" size="200">
+          <img :src="profilePicture" alt="Profile Picture" width="100%" />
+        </v-avatar>
+        <v-card-title class="text-h4" style="color: #66FCF1;">{{ renter.fullname }}</v-card-title>
+          <v-card-subtitle class="text-body-2 text-center" style="color: white;">Email: {{ renter.email }}</v-card-subtitle>
+          <v-card-subtitle class="text-body-2 text-center" style="color: white;">Contact Number: {{ renter.phone_number }}</v-card-subtitle>
+        <v-btn color="cyan-accent-2" block class="mt-4" @click="openImagePicker">Edit Profile</v-btn>
+      </v-card>
     </v-col>
-  </v-row>
-</v-main>
-
-
 
     <!-- File Input Dialog -->
     <v-dialog v-model="dialog" max-width="400">
@@ -213,6 +208,25 @@ const clearNotifications = () => {
 
 <script>
 export default {
+  name: "UserProfile",
+  data() {
+    return {
+      drawer: false,
+      admin: {
+        avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+        email: "melvinjipos@gmail.com",
+        fullname: "Melvin Jipos",
+      },
+      isNotificationOpen: false,
+      messages: [
+        { title: 'Message 1', body: 'This is the first notification.' },
+        { title: 'Message 2', body: 'This is the second notification.' },
+        { title: 'Message 3', body: 'This is the third notification.' }
+      ],
+      dialog: false, // Controls the visibility of the image picker dialog
+      profilePicture: localStorage.getItem('profilePicture') || "https://randomuser.me/api/portraits/men/32.jpg", // Load the profile picture from localStorage
+    };
+  },
   methods: {
     toggleNotifications() {
       this.isNotificationOpen = !this.isNotificationOpen;

@@ -53,32 +53,87 @@ const onLogout = async () => {
   formAction.value.formProcess = false;
   router.replace('/LoginView');
 };
+
+const notifications = ref([
+  { title: 'New Comment', message: 'You have a new comment on your post.' },
+  { title: 'Reminder', message: 'Your session starts in 30 minutes.' },
+  { title: 'Update Available', message: 'A new version is available.' },
+])
+
+const clearNotifications = () => {
+  notifications.value = []
+}
+
+
+
 </script>
 
 <template>
   <v-app id="inspire">
     <!-- App Bar -->
-    <v-app-bar
-      elevation="3"
+    <v-app-bar elevation="3">
+    <v-app-bar-nav-icon style="color: #66FCF1;" @click="drawer = !drawer"></v-app-bar-nav-icon>
+
+    <div class="d-flex align-center">
+      <img src="/src/images/logo1.png" width="50" alt="Logo" class="logo" />
+      <v-toolbar-title class="ml-2">
+        <h3 style="color: #66FCF1;">LaptopLynx</h3>
+      </v-toolbar-title>
+    </div>
+
+    <v-spacer></v-spacer>
+
+    <!-- Notification Bell -->
+    <v-menu
+      offset-y
+      min-width="300px"
+      rounded
     >
-      <v-app-bar-nav-icon style="color: #66FCF1;" @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <template v-slot:activator="{ props }">
+        <v-btn
+          icon
+          v-bind="props"
+        >
+          <v-icon style="color: aqua;">mdi-bell</v-icon>
+        </v-btn>
+      </template>
+      <v-card style="background-color: #1F2833;">
+        <v-card-text>
+          <div class="mx-auto text-center">
+            <h3 class="text-h6" style="color: aqua;">Notifications</h3>
+            <v-divider class="my-3" style="color: aliceblue;"></v-divider>
+            <!-- List of Notifications -->
+            <v-list style="background-color: #1F2833;">
+              <v-list-item
+                v-for="(notification, index) in notifications"
+                :key="index"
+                class="py-2"
+              >
+                <v-list-item-avatar color="brown">
+                  <v-icon>mdi-bell-alert</v-icon>
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title>{{ notification.title }}</v-list-item-title>
+                  <v-list-item-subtitle>{{ notification.message }}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+            <v-divider class="my-3" style="color: aliceblue;"></v-divider>
+            <v-btn
+              variant="text"
+              rounded
+              @click="clearNotifications"
+            >
+              Clear All
+            </v-btn>
+          </div>
+        </v-card-text>
+      </v-card>
+    </v-menu>
+    <!-- End of Notification Bell -->
 
-      <div class="d-flex align-center">
-        <img src="/src/images/logo1.png" width="50" alt="Logo" class="logo" />
-        <v-toolbar-title class="ml-2">
-          <h3 style="color: #66FCF1;">LaptopLynx</h3>
-        </v-toolbar-title>
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon style="color: #66FCF1;">mdi-bell</v-icon>
-      </v-btn>
-
-      <!-- Profile Dropdown -->
-       
-    </v-app-bar>
+    <!-- Profile Dropdown can be added here if needed -->
+  </v-app-bar>
 
     <!-- Navigation Drawer -->
     <v-navigation-drawer

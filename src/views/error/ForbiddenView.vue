@@ -31,8 +31,8 @@ onMounted(() => {
               You don’t have permission to access this page.
             </p>
   
-            <v-btn class="mt-2" style="color: black;" prepend-icon="mdi-home" :to="isAdmin ? '/dashboard' : (isLoggedIn ? '/customerdashboard' : '/Showcasepage')">
-              Back to {{ isAdmin ? 'Admin Dashboard' : (isLoggedIn ? 'Customer Dashboard' : 'Showcase Page') }}
+            <v-btn class="mt-2" style="color: black;" prepend-icon="mdi-home" :to="isAdmin ? '/dashboard' : (isLoggedIn ? '/homepage' : '/Showcasepage')">
+              Back to {{ isAdmin ? 'Admin Dashboard' : (isLoggedIn ? 'Homepage' : 'Showcase Page') }}
           </v-btn>
           </v-col>
         </v-row>
