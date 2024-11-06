@@ -402,6 +402,30 @@ const closeImagePopup = () => {
       
       </v-carousel>
 
+
+      <v-container>
+    <v-row class="hero-content">
+      <v-col cols="12" md="7" class="hero-image">
+        <v-img
+          src="https://i.redd.it/msl53vqmf4xb1.jpg"
+          aspect-ratio="16/9"
+          class="laptop-image"
+        ></v-img>
+      </v-col>
+
+      <v-col cols="12" md="5" class="hero-text">
+        <h1 class="hero-title">PERFORMANCE REDEFINED</h1>
+        <p class="hero-description">
+          Discover the latest high-performance laptops for rent at LaptopLynx. Designed for both productivity and gaming, our rentals deliver cutting-edge technology at your fingertips.
+        </p>
+        <div class="cta-container">
+          <v-icon>mdi-arrow-right</v-icon>
+          <span class="cta-text">The best laptops for every purpose await you.</span>
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
+
       <v-container id="portfolio" class="portfolio section" fluid>
 <v-row justify="center" data-aos="fade-up" class="section-title">
   <v-col cols="12" md="8" class="text-center">
@@ -488,6 +512,111 @@ const closeImagePopup = () => {
   </div>
       </v-container>
 
+
+      <v-container fluid class="cta-section">
+  <v-row align="center" justify="space-between" class="cta-row">
+  </v-row>
+</v-container>
+
+<v-container>
+  <!-- First Section -->
+  <v-row class="hero-content-section1">
+    <v-col cols="12" md="5" class="section1-text">
+      <h1 class="section1-title">POWER MEETS PRECISION</h1>
+      <p class="section1-description">
+          Experience top-tier laptops that combine power and portability at LaptopLynx. Perfect for work, play, and everything in between, our rentals put the latest technology right in your hands.
+      </p>
+
+    </v-col>
+    <v-col cols="12" md="7" class="section1-image">
+      <v-img
+        src="https://images.acer.com/is/image/acer/predator-laptop-helios-3d-true-game-expanded?$responsive$"
+        aspect-ratio="16/9"
+        class="laptop-image-section1"
+      ></v-img>
+    </v-col>
+  </v-row>
+
+  <!-- Second Section -->
+  <v-row class="hero-content-section2">
+    <v-col cols="12" md="7" class="section2-image">
+      <v-img
+        src="https://images.acer.com/is/image/acer/predator-laptop-helios-3d-cooling-perfected?$responsive$"
+        aspect-ratio="16/9"
+        class="laptop-image-section2"
+      ></v-img>
+    </v-col>
+    <v-col cols="12" md="5" class="section2-text">
+      <h1 class="section2-title">EXPERIENCE THE FUTURE</h1>
+      <p class="section2-description">
+        Rent premium laptops designed for immersive experiences and unmatched performance, ideal for any task you face. LaptopLynx has you covered.
+      </p>
+    </v-col>
+  </v-row>
+</v-container>
+
+<v-container fluid class="brandlogo">
+    <v-row class="logo-grid" align="center" justify="center">
+      <v-col cols="6" sm="4" md="2" lg="1" class="logo-container">
+        <v-img
+          src="https://1000logos.net/wp-content/uploads/2016/09/Acer-Logo.png"
+          class="logo-image"
+          aspect-ratio="1"
+        ></v-img>
+      </v-col>
+      <v-col cols="6" sm="4" md="2" lg="1" class="logo-container">
+        <v-img
+          src="https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Huawei_Standard_logo.svg/1008px-Huawei_Standard_logo.svg.png"
+          class="logo-image"
+          aspect-ratio="1"
+        ></v-img>
+      </v-col>
+      <v-col cols="6" sm="4" md="2" lg="1" class="logo-container">
+        <v-img
+          src="https://logos-world.net/wp-content/uploads/2022/07/Lenovo-Symbol.png"
+          class="logo-image"
+          aspect-ratio="1"
+        ></v-img>
+      </v-col>
+      <v-col cols="6" sm="4" md="2" lg="1" class="logo-container">
+        <v-img
+          src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/dell-icon.png"
+          class="logo-image"
+          aspect-ratio="1"
+        ></v-img>
+      </v-col>
+      <v-col cols="6" sm="4" md="2" lg="1" class="logo-container">
+        <v-img
+          src="https://cdn.freebiesupply.com/images/large/2x/hewlett-packard-logo-png-transparent.png"
+          class="logo-image"
+          aspect-ratio="1"
+        ></v-img>
+      </v-col>
+      <v-col cols="6" sm="4" md="2" lg="1" class="logo-container">
+        <v-img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/TOSHIBA_Logo.png/1200px-TOSHIBA_Logo.png"
+          class="logo-image"
+          aspect-ratio="1"
+        ></v-img>
+      </v-col>
+      <v-col cols="6" sm="4" md="2" lg="1" class="logo-container">
+        <v-img
+          src="https://www.freepnglogos.com/uploads/apple-logo-png/apple-logo-hcil-17.png"
+          class="logo-image"
+          aspect-ratio="1"
+        ></v-img>
+      </v-col>
+      <v-col cols="6" sm="4" md="2" lg="1" class="logo-container">
+        <v-img
+          src="https://1000logos.net/wp-content/uploads/2016/10/Asus-Logo-1995.png"
+          class="logo-image"
+          aspect-ratio="1"
+        ></v-img>
+      </v-col>
+    </v-row>
+  </v-container>
+
+
       <v-container class="laptoplynx-container">
   <v-row justify="center" align="center" class="my-3 text-center laptoplynx-logo-row">
     <v-col cols="12" md="4" class="text-center laptoplynx-logo-col">
@@ -565,6 +694,8 @@ const closeImagePopup = () => {
 
 
 </v-container>
+
+
     </v-main>
   </v-app>
 </template>
@@ -575,6 +706,305 @@ const closeImagePopup = () => {
 
 
 <style scoped>
+.brandlogo {
+  background: linear-gradient(45deg, #1F2833, #3A4A5D);
+  background-size: 300% 300%;
+  animation: gradientEffect 5s ease infinite;
+}
+
+@keyframes gradientEffect {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+.logo-grid {
+  padding: 20px;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.logo-image {
+  width: 100%;
+  height: auto;
+  max-width: 80px; 
+  padding: 10px;
+  transition: transform 0.3s ease;
+}
+
+.logo-image:hover {
+  transform: scale(1.1); 
+}
+
+
+.hero-content-section1, .hero-content-section2 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  margin-top: 50px;
+  opacity: 0; 
+  animation: fadeIn 2s forwards; 
+}
+
+.hero-content-section1 {
+  animation-delay: 0.5s; 
+}
+
+.hero-content-section2 {
+  animation-delay: 0.10s; 
+}
+
+.laptop-image-section1, .laptop-image-section2 {
+  opacity: 0;
+  animation: fadeInImage 2s forwards;
+}
+
+.laptop-image-section1 {
+  animation-delay: 0.5s;
+}
+
+.laptop-image-section2 {
+  animation-delay: 0.8s;
+}
+
+.section1-text, .section2-text {
+  opacity: 0;
+  animation: fadeInText 1s forwards;
+}
+
+.section1-text {
+  animation-delay: 0.7s;
+}
+
+.section2-text {
+  animation-delay: 1s;
+}
+
+.section1-title, .section2-title {
+  font-size: 2.3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #66FCF1;
+}
+
+.section1-description, .section2-description {
+  font-size: 1.1em;
+  color: #C5C6C7;
+  margin-bottom: 20px;
+}
+
+.cta-text-section1, .cta-text-section2 {
+  margin-left: 8px;
+}
+
+/* Fade-In Animations */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInImage {
+  0% { opacity: 0; transform: translateX(30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInText {
+  0% { opacity: 0; transform: translateX(-30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  /* Tablet View */
+  .hero-content-section1, .hero-content-section2 {
+    flex-direction: column-reverse;
+    text-align: center;
+    animation: fadeIn 1s forwards;
+  }
+
+  .section1-title, .section2-title {
+    font-size: 1.8em;
+  }
+
+  .section1-description, .section2-description {
+    font-size: 1em;
+  }
+
+  .cta-container-section1, .cta-container-section2 {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Mobile View */
+  .hero-content-section1, .hero-content-section2 {
+    flex-direction: column;
+    text-align: center;
+    animation: fadeIn 1s forwards;
+  }
+
+  .section1-title, .section2-title {
+    font-size: 1.6em;
+  }
+
+  .section1-description, .section2-description {
+    font-size: 0.9em;
+  }
+
+  .cta-container-section1, .cta-container-section2 {
+    justify-content: center;
+  }
+}
+
+
+.cta-section {
+  background-image: url('https://images.acer.com/is/image/acer/predator-laptop-helios-3d-spatiallabs-experience-center?$responsive$');
+  background-size: cover;
+  background-position: center;
+  margin-top: 40px;
+  padding: 50px;
+  color: #ffffff;
+  min-height: 450px; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+  .cta-section {
+    min-height: 450px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .cta-section {
+    min-height: 450px;
+  }
+}
+
+.cta-container .v-icon {
+  font-size: 30px; 
+  color: #66fcf1; 
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.cta-container .v-icon:hover {
+  color: #45A29E;
+  transform: translateX(5px);
+}
+
+
+.hero-content {
+  display: flex;
+  padding-top: 60px;
+  margin-top: -70px;
+  flex-direction: row;
+}
+
+.hero-image .laptop-image {
+  margin-top: 60px;
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-image .laptop-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.hero-text {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  text-align: justify;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #66fcf1;
+  margin-bottom: 15px;
+}
+
+.hero-description {
+  font-size: 1.1rem;
+  color: #e2dad6;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.cta-container {
+  display: flex;
+  align-items: center;
+  margin-top: -15px;
+  justify-content: center; 
+}
+
+.cta-text {
+  font-size: 0.9rem;
+  color: #66FCF1;
+  margin-left: 10px;
+}
+
+@media (min-width: 768px) {
+  .hero-content {
+    flex-direction: row;
+    padding-top: 80px;
+  }
+
+  .hero-text {
+    padding: 40px;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .hero-title {
+    font-size: 3.5rem;
+  }
+
+  .hero-description {
+    font-size: 1.25rem;
+    margin-bottom: 30px;
+  }
+
+  .cta-text {
+    font-size: 1rem;
+    margin-left: 15px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-content {
+    padding-top: 100px;
+  }
+
+  .hero-title {
+    font-size: 4rem;
+  }
+
+  .hero-description {
+    font-size: 1.35rem;
+    max-width: 500px;
+  }
+}
+
+
+
 .laptoplynx-dialog .v-card {
   background-color: #0B0C10; 
   border-radius: 12px;
@@ -604,7 +1034,6 @@ const closeImagePopup = () => {
   background-color: #66fcf1; 
   color: #0B0C10;
   border-radius: 8px;
-  font-family: 'Arial', sans-serif;
   text-transform: uppercase;
   font-weight: bold;
   padding: 8px 20px;
@@ -612,7 +1041,7 @@ const closeImagePopup = () => {
 }
 
 .laptoplynx-dialog .v-btn:hover {
-  background-color: #45A29E; 
+  color: #45A29E; 
 }
 
 .laptoplynx-bottom-row {
