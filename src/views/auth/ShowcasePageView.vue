@@ -104,16 +104,14 @@ export default {
     ></v-img>
   </v-toolbar-title>
 
-  <!-- Spacer to push the login button to the right -->
   <v-spacer></v-spacer>
 
-  <!-- Responsive Log In Button -->
 <v-btn
   class="ml-3"
   large
   to="/LoginView"
 >
-  <v-icon left>mdi-account</v-icon> <!-- Person icon added here -->
+  <v-icon left>mdi-account</v-icon> 
   Log In
 </v-btn>
 

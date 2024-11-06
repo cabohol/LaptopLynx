@@ -12,7 +12,7 @@ export default {
     const selectedTime = ref(null);
     const laptop = ref(null);
     const selectedDate = ref(null);
-    const meetupPlace = ref('Caraga State University (Hiraya Hall)'); // Pre-filled with CSU (Hiraya Hall)
+    const meetupPlace = ref('CSU (Hiraya Hall)'); // Pre-filled with CSU (Hiraya Hall)
     const notifications = ref([
       { title: 'Reminder', message: 'Your appointment is tomorrow at 10:00 AM.' },
       { title: 'Update', message: 'New laptop models available.' },
