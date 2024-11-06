@@ -204,11 +204,7 @@ export default {
     </v-navigation-drawer>
 
    <v-main>
-    <v-container
-        fluid
-        class="pa-6"
-        :class="{'container-content-shift': drawer}"
-        style="background-color: #1F2833; height: 100vh;">
+    <v-container fluid>
 
         <br><br><br><br>
 
