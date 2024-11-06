@@ -203,6 +203,7 @@ export default {
       </v-list>
     </v-navigation-drawer>
 
+   <v-main>
     <v-container
         fluid
         class="pa-6"
@@ -232,13 +233,13 @@ export default {
                     class="text-body-2 text-md-body-1 text-lg-subtitle-1 text-center"
                     style="color: white;"
                   >
-                    Email: {{ renter.email }}
+                  <strong>Email:</strong> {{ renter.email }}
                   </v-card-subtitle>
                   <v-card-subtitle
                     class="text-body-2 text-md-body-1 text-lg-subtitle-1 text-center"
                     style="color: white;"
                   >
-                    Contact Number: {{ renter.phone_number }}
+                  <strong>Contact Number:</strong> {{ renter.phone_number }}
                   </v-card-subtitle>
                   <v-btn block class="mt-10 profile-edit-btn" @click="openImagePicker"> Edit Profile </v-btn>
             </v-card>
@@ -261,12 +262,20 @@ export default {
     </v-card>
   </v-dialog> -->
 </v-container>
+   </v-main>
 
   </v-app>
 </template>
 
 
 <style scoped>
+.v-main {
+  margin-left: 0 !important;
+  padding: 16px;
+  background-color: #1F2833;
+  transition: none;
+}
+
 .profile-edit-btn {
   background: linear-gradient(45deg, #66FCF1, #1F2833);
   color: #0B0C10;
@@ -344,7 +353,9 @@ export default {
 }
 
 .v-navigation-drawer {
-  background-color: #1F2833;
+  background: linear-gradient(135deg, #1F2833, #2C3E50); 
+  color: #66FCF1; 
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .container {

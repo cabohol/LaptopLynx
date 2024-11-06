@@ -552,7 +552,9 @@ const closeImagePopup = () => {
 }
 
 .v-navigation-drawer {
-  background-color: #1F2833;
+  background: linear-gradient(135deg, #1F2833, #2C3E50); 
+  color: #66FCF1; 
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .v-avatar img {
