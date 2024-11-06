@@ -211,7 +211,62 @@ const closeImagePopup = () => {
 };
 </script>
 
-
+<script>
+  export default {
+    data() {
+      return {
+        dialog: false,
+        dialogTitle: '',
+        dialogContent: '',
+      };
+    },
+    methods: {
+      openDialog(section) {
+        switch(section) {
+          case 'about':
+            this.dialogTitle = 'About Us';
+            this.dialogContent = `
+              LaptopLynx is your trusted partner for hassle-free laptop rentals. We offer flexible rental options for businesses, students, and individuals. 
+              Whether you need a laptop for a short-term project, studying, or business operations, we have a variety of high-performance laptops to choose from. 
+              Our goal is to make renting a laptop as simple as possible, providing easy rental terms and reliable service. At LaptopLynx, we believe in offering flexible, convenient solutions to meet all your tech needs.
+            `;
+            break;
+          case 'contact':
+            this.dialogTitle = 'Contact Us';
+            this.dialogContent = `
+              We’re here to help! If you have any inquiries or need assistance, feel free to reach out to us through email or phone.
+              For any rental questions, you can contact us at laptoplynx@gmail.com or call us at 09635858259.
+              We also invite you to connect with us on our social media platforms, where we share updates and information about our services.
+              Follow us on Twitter (LaptopLynx), Facebook (LaptopLynxRentals), and Instagram (LaptopLynx) for the latest news.          
+            `;
+            break;
+          case 'terms':
+            this.dialogTitle = 'Terms & Conditions';
+            this.dialogContent = `
+             By renting a laptop from LaptopLynx, you agree to the following terms and conditions. Laptops are available for rent on daily, weekly, or monthly terms, and the specific rental duration will be clearly outlined at the time of booking.
+             Please be aware that late returns will incur additional charges based on the rental period. The renter is fully responsible for the laptop's condition during the rental period. In the case of damage or loss to the laptop, you will be required to pay a fee for repair or replacement.
+             We accept cash on delivery (COD) as the only payment method, and payment is due upon delivery of the laptop. For students renting a laptop, please note that failure to return the laptop in good condition will result in us contacting your university’s registrar to block your clearance until the matter is resolved.
+             Cancellations are allowed up to 24 hours before the rental period begins, but a cancellation fee may apply depending on the timing.
+             LaptopLynx reserves the right to update or modify these terms at any time. It is important for all renters to review these terms before each rental.
+            `;
+            break;
+          case 'privacy':
+            this.dialogTitle = 'Privacy Policy';
+            this.dialogContent = `
+              At LaptopLynx, we take your privacy seriously. This privacy policy outlines how we collect, use, and protect your personal information. 
+              We collect personal data such as your name, email address, phone number, and payment details solely for the purpose of processing your rental orders. 
+              Your personal information is used exclusively for communication related to your rental and will never be shared with third parties without your consent, unless required by law. 
+              We use secure systems and protocols to protect your data from unauthorized access, and we comply with all relevant privacy laws to ensure your information is safe. 
+              Our website may use cookies to improve your browsing experience, but you can disable them through your browser settings. You have the right to access, update, or request the deletion of your personal data at any time. 
+              If you have any concerns or questions about how your data is handled, please contact our support team.
+            `;
+            break;
+        }
+        this.dialog = true;
+      },
+    },
+  };
+</script>
 
 
 <template>
@@ -294,7 +349,7 @@ const closeImagePopup = () => {
 
       <v-list density="compact" nav>
         <v-list-item prepend-icon="mdi-view-dashboard" title="Homepage" :to="{ name: 'homepage' }"></v-list-item>
-        <v-list-item prepend-icon="mdi-book" title="Booking" :to="{ name: 'booking' }"></v-list-item>
+        <v-list-item prepend-icon="mdi-calendar-check" title="Booking" :to="{ name: 'booking' }"></v-list-item>
         <v-list-item prepend-icon="mdi-account" title="Profile" :to="{ name: 'customerprofile' }"></v-list-item>
         <v-list-item @click="onLogout" title="Logout" prepend-icon="mdi-logout"></v-list-item>
 
@@ -432,13 +487,212 @@ const closeImagePopup = () => {
     </v-dialog>
   </div>
       </v-container>
+
+      <v-container class="laptoplynx-container">
+  <v-row justify="center" align="center" class="my-3 text-center laptoplynx-logo-row">
+    <v-col cols="12" md="4" class="text-center laptoplynx-logo-col">
+      <v-row justify="center" align="center">
+        <v-img
+          src="https://scontent.fmnl14-1.fna.fbcdn.net/v/t1.15752-9/462568879_1068096351387700_3074067409424495304_n.png?_nc_cat=109&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeFucn2vC8_y2RUX7gCXtbUthrz3YobBPg2GvPdihsE-DRdRBgxt66N5RXQFb3CJS2aydhLnPUDOpdiba360L2oK&_nc_ohc=aRc3zdgk7J4Q7kNvgFaTGJg&_nc_zt=23&_nc_ht=scontent.fmnl14-1.fna&_nc_gid=A1vBvxM5mfHNWxBIwrI9TgZ&oh=03_Q7cD1QHWYn60J_Jg1D3UpKhw5ald2tbITJ15FO26uy8g8rJr3Q&oe=67314AF2"
+          alt="LaptopLynx Logo"
+          max-width="80"
+          style="transition: transform 0.3s ease-in-out;"
+          class="hover-zoom laptoplynx-logo-img"
+        ></v-img>
+        <div class="ml-2 laptoplynx-text">
+          <h4 class="mb-0 laptoplynx-company-name" style="color: #66FCF1; font-family: 'Arial', sans-serif; font-size: 24px; font-weight: bold;">
+            LaptopLynx
+          </h4>
+          <p class="laptoplynx-tagline" style="color: #E2DAD6; font-family: 'Arial', sans-serif; font-size: 14px; margin-top: 5px;">
+            Rent laptops effortlessly, wherever you go!
+          </p>
+        </div>
+      </v-row>
+    </v-col>
+  </v-row>
+
+  <!-- Divider -->
+  <v-row justify="center" class="laptoplynx-divider-row">
+    <v-col cols="12" md="12" class="laptoplynx-divider-col">
+      <v-divider color="#ffffff" class="laptoplynx-divider"></v-divider>
+    </v-col>
+  </v-row>
+
+  <v-row justify="center" align="center" class="text-center laptoplynx-bottom-row">
+  <v-col cols="12" md="10" class="text-center laptoplynx-bottom-col">
+    <v-row class="custom-btn-row" justify="center">
+      <v-col cols="12" sm="4" md="auto">
+        <span class="custom-btn-link" @click="openDialog('about')">About Us</span>
+      </v-col>
+      <v-col cols="12" sm="4" md="auto">
+        <span class="custom-btn-link" @click="openDialog('contact')">Contact</span>
+      </v-col>
+      <v-col cols="12" sm="4" md="auto">
+        <span class="custom-btn-link" @click="openDialog('terms')">Terms & Conditions</span>
+      </v-col>
+      <v-col cols="12" sm="4" md="auto">
+        <span class="custom-btn-link" @click="openDialog('privacy')">Privacy Policy</span>
+      </v-col>
+    </v-row>
+
+
+
+
+      <div class="laptoplynx-social-icons">
+        <a href="https://twitter.com/LaptopLynx" target="_blank" class="social-icon" title="Twitter">
+          <img src="https://freepnglogo.com/images/all_img/1691832581twitter-x-icon-png.png" alt="X">
+        </a>
+        <a href="https://www.facebook.com/LaptopLynx" target="_blank" class="social-icon" title="Facebook">
+          <img src="https://cdn.freebiesupply.com/logos/large/2x/facebook-logo-2019.png" alt="Facebook">
+        </a>
+        <a href="https://www.instagram.com/LaptopLynx" target="_blank" class="social-icon" title="Instagram">
+          <img src="https://static.vecteezy.com/system/resources/previews/023/741/058/non_2x/instagram-logo-icon-social-media-icon-free-png.png" alt="Instagram">
+        </a>
+      </div>
+    </v-col>
+  </v-row>
+
+  <!-- Dialogs -->
+<v-dialog v-model="dialog" max-width="600px" class="laptoplynx-dialog">
+  <v-card>
+    <v-card-title class="headline">{{ dialogTitle }}</v-card-title>
+    <v-card-text>{{ dialogContent }}</v-card-text>
+    <v-card-actions>
+      <v-btn  text @click="dialog = false">Close</v-btn>
+    </v-card-actions>
+  </v-card>
+</v-dialog>
+
+
+</v-container>
     </v-main>
   </v-app>
 </template>
 
 
 
+
+
+
 <style scoped>
+.laptoplynx-dialog .v-card {
+  background-color: #0B0C10; 
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); 
+}
+
+.laptoplynx-dialog .v-card-title {
+  color: #66fcf1; 
+  font-size: 26px;
+  font-weight: bold;
+  letter-spacing: 0.9px;
+}
+
+.laptoplynx-dialog .v-card-text {
+  color: #e2dad6; 
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: justify;
+  margin-bottom: 20px;
+}
+
+.laptoplynx-dialog .v-card-actions {
+  justify-content: flex-end;
+}
+
+.laptoplynx-dialog .v-btn {
+  background-color: #66fcf1; 
+  color: #0B0C10;
+  border-radius: 8px;
+  font-family: 'Arial', sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 8px 20px;
+  transition: background-color 0.3s ease;
+}
+
+.laptoplynx-dialog .v-btn:hover {
+  background-color: #45A29E; 
+}
+
+.laptoplynx-bottom-row {
+  padding: 16px 0;
+  margin-top: -20px;
+}
+
+.custom-btn-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.custom-btn-link {
+  font-size: 16px;
+  font-family: 'Arial', sans-serif;
+  color: #66fcf1;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.custom-btn-link:hover {
+  color: #45A29E; 
+}
+
+.custom-btn-link {
+    font-weight: 100;
+    color: #66FCF1;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0 15px;
+}
+
+.custom-btn-link:active {
+    background-color: #45a3b8;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+
+.laptoplynx-social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.social-icon img {
+    width: 45px;
+    height: 45px;
+    padding: 8px;
+    border-radius: 50%;
+    background-color: #333;
+    transition: transform 0.4s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.social-icon img:hover {
+    transform: scale(1.3) rotate(15deg);
+    background-color: #66FCF1;
+    box-shadow: 0px 6px 12px rgba(102, 252, 241, 0.5);
+}
+
+.v-list-item {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.v-list-item:hover {
+  transform: scale(1.05);
+  color: #66FCF1; 
+}
+
+.v-list-item:active {
+  transform: scale(0.95);
+  opacity: 0.7;
+  transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+
 .custom-search-icon {
   margin-right: 15px;
   transition: color 0.3s ease, transform 0.3s ease;
