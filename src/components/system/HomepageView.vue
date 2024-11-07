@@ -211,7 +211,62 @@ const closeImagePopup = () => {
 };
 </script>
 
-
+<script>
+  export default {
+    data() {
+      return {
+        dialog: false,
+        dialogTitle: '',
+        dialogContent: '',
+      };
+    },
+    methods: {
+      openDialog(section) {
+        switch(section) {
+          case 'about':
+            this.dialogTitle = 'About Us';
+            this.dialogContent = `
+              LaptopLynx is your trusted partner for hassle-free laptop rentals. We offer flexible rental options for businesses, students, and individuals. 
+              Whether you need a laptop for a short-term project, studying, or business operations, we have a variety of high-performance laptops to choose from. 
+              Our goal is to make renting a laptop as simple as possible, providing easy rental terms and reliable service. At LaptopLynx, we believe in offering flexible, convenient solutions to meet all your tech needs.
+            `;
+            break;
+          case 'contact':
+            this.dialogTitle = 'Contact Us';
+            this.dialogContent = `
+              We’re here to help! If you have any inquiries or need assistance, feel free to reach out to us through email or phone.
+              For any rental questions, you can contact us at laptoplynx@gmail.com or call us at 09635858259.
+              We also invite you to connect with us on our social media platforms, where we share updates and information about our services.
+              Follow us on Twitter (LaptopLynx), Facebook (LaptopLynxRentals), and Instagram (LaptopLynx) for the latest news.          
+            `;
+            break;
+          case 'terms':
+            this.dialogTitle = 'Terms & Conditions';
+            this.dialogContent = `
+             By renting a laptop from LaptopLynx, you agree to the following terms and conditions. Laptops are available for rent on daily, weekly, or monthly terms, and the specific rental duration will be clearly outlined at the time of booking.
+             Please be aware that late returns will incur additional charges based on the rental period. The renter is fully responsible for the laptop's condition during the rental period. In the case of damage or loss to the laptop, you will be required to pay a fee for repair or replacement.
+             We accept cash on delivery (COD) as the only payment method, and payment is due upon delivery of the laptop. For students renting a laptop, please note that failure to return the laptop in good condition will result in us contacting your university’s registrar to block your clearance until the matter is resolved.
+             Cancellations are allowed up to 24 hours before the rental period begins, but a cancellation fee may apply depending on the timing.
+             LaptopLynx reserves the right to update or modify these terms at any time. It is important for all renters to review these terms before each rental.
+            `;
+            break;
+          case 'privacy':
+            this.dialogTitle = 'Privacy Policy';
+            this.dialogContent = `
+              At LaptopLynx, we take your privacy seriously. This privacy policy outlines how we collect, use, and protect your personal information. 
+              We collect personal data such as your name, email address, phone number, and payment details solely for the purpose of processing your rental orders. 
+              Your personal information is used exclusively for communication related to your rental and will never be shared with third parties without your consent, unless required by law. 
+              We use secure systems and protocols to protect your data from unauthorized access, and we comply with all relevant privacy laws to ensure your information is safe. 
+              Our website may use cookies to improve your browsing experience, but you can disable them through your browser settings. You have the right to access, update, or request the deletion of your personal data at any time. 
+              If you have any concerns or questions about how your data is handled, please contact our support team.
+            `;
+            break;
+        }
+        this.dialog = true;
+      },
+    },
+  };
+</script>
 
 
 <template>
@@ -294,7 +349,7 @@ const closeImagePopup = () => {
 
       <v-list density="compact" nav>
         <v-list-item prepend-icon="mdi-view-dashboard" title="Homepage" :to="{ name: 'homepage' }"></v-list-item>
-        <v-list-item prepend-icon="mdi-book" title="Booking" :to="{ name: 'booking' }"></v-list-item>
+        <v-list-item prepend-icon="mdi-calendar-check" title="Booking" :to="{ name: 'booking' }"></v-list-item>
         <v-list-item prepend-icon="mdi-account" title="Profile" :to="{ name: 'customerprofile' }"></v-list-item>
         <v-list-item @click="onLogout" title="Logout" prepend-icon="mdi-logout"></v-list-item>
 
@@ -346,6 +401,30 @@ const closeImagePopup = () => {
         
       
       </v-carousel>
+
+
+      <v-container>
+    <v-row class="hero-content">
+      <v-col cols="12" md="7" class="hero-image">
+        <v-img
+          src="https://i.redd.it/msl53vqmf4xb1.jpg"
+          aspect-ratio="16/9"
+          class="laptop-image"
+        ></v-img>
+      </v-col>
+
+      <v-col cols="12" md="5" class="hero-text">
+        <h1 class="hero-title">PERFORMANCE REDEFINED</h1>
+        <p class="hero-description">
+          Discover the latest high-performance laptops for rent at LaptopLynx. Designed for both productivity and gaming, our rentals deliver cutting-edge technology at your fingertips.
+        </p>
+        <div class="cta-container">
+          <v-icon>mdi-arrow-right</v-icon>
+          <span class="cta-text">The best laptops for every purpose await you.</span>
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
 
       <v-container id="portfolio" class="portfolio section" fluid>
 <v-row justify="center" data-aos="fade-up" class="section-title">
@@ -432,13 +511,617 @@ const closeImagePopup = () => {
     </v-dialog>
   </div>
       </v-container>
+
+
+      <v-container fluid class="cta-section">
+  <v-row align="center" justify="space-between" class="cta-row">
+  </v-row>
+</v-container>
+
+<v-container>
+  <!-- First Section -->
+  <v-row class="hero-content-section1">
+    <v-col cols="12" md="5" class="section1-text">
+      <h1 class="section1-title">POWER MEETS PRECISION</h1>
+      <p class="section1-description">
+          Experience top-tier laptops that combine power and portability at LaptopLynx. Perfect for work, play, and everything in between, our rentals put the latest technology right in your hands.
+      </p>
+
+    </v-col>
+    <v-col cols="12" md="7" class="section1-image">
+      <v-img
+        src="https://images.acer.com/is/image/acer/predator-laptop-helios-3d-true-game-expanded?$responsive$"
+        aspect-ratio="16/9"
+        class="laptop-image-section1"
+      ></v-img>
+    </v-col>
+  </v-row>
+
+  <!-- Second Section -->
+  <v-row class="hero-content-section2">
+    <v-col cols="12" md="7" class="section2-image">
+      <v-img
+        src="https://images.acer.com/is/image/acer/predator-laptop-helios-3d-cooling-perfected?$responsive$"
+        aspect-ratio="16/9"
+        class="laptop-image-section2"
+      ></v-img>
+    </v-col>
+    <v-col cols="12" md="5" class="section2-text">
+      <h1 class="section2-title">EXPERIENCE THE FUTURE</h1>
+      <p class="section2-description">
+        Rent premium laptops designed for immersive experiences and unmatched performance, ideal for any task you face. LaptopLynx has you covered.
+      </p>
+    </v-col>
+  </v-row>
+</v-container>
+
+<v-container fluid class="brandlogo">
+    <v-row class="logo-grid" align="center" justify="center">
+      <v-col cols="6" sm="4" md="2" lg="1" class="logo-container">
+        <v-img
+          src="https://1000logos.net/wp-content/uploads/2016/09/Acer-Logo.png"
+          class="logo-image"
+          aspect-ratio="1"
+        ></v-img>
+      </v-col>
+      <v-col cols="6" sm="4" md="2" lg="1" class="logo-container">
+        <v-img
+          src="https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Huawei_Standard_logo.svg/1008px-Huawei_Standard_logo.svg.png"
+          class="logo-image"
+          aspect-ratio="1"
+        ></v-img>
+      </v-col>
+      <v-col cols="6" sm="4" md="2" lg="1" class="logo-container">
+        <v-img
+          src="https://logos-world.net/wp-content/uploads/2022/07/Lenovo-Symbol.png"
+          class="logo-image"
+          aspect-ratio="1"
+        ></v-img>
+      </v-col>
+      <v-col cols="6" sm="4" md="2" lg="1" class="logo-container">
+        <v-img
+          src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/dell-icon.png"
+          class="logo-image"
+          aspect-ratio="1"
+        ></v-img>
+      </v-col>
+      <v-col cols="6" sm="4" md="2" lg="1" class="logo-container">
+        <v-img
+          src="https://cdn.freebiesupply.com/images/large/2x/hewlett-packard-logo-png-transparent.png"
+          class="logo-image"
+          aspect-ratio="1"
+        ></v-img>
+      </v-col>
+      <v-col cols="6" sm="4" md="2" lg="1" class="logo-container">
+        <v-img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/TOSHIBA_Logo.png/1200px-TOSHIBA_Logo.png"
+          class="logo-image"
+          aspect-ratio="1"
+        ></v-img>
+      </v-col>
+      <v-col cols="6" sm="4" md="2" lg="1" class="logo-container">
+        <v-img
+          src="https://www.freepnglogos.com/uploads/apple-logo-png/apple-logo-hcil-17.png"
+          class="logo-image"
+          aspect-ratio="1"
+        ></v-img>
+      </v-col>
+      <v-col cols="6" sm="4" md="2" lg="1" class="logo-container">
+        <v-img
+          src="https://1000logos.net/wp-content/uploads/2016/10/Asus-Logo-1995.png"
+          class="logo-image"
+          aspect-ratio="1"
+        ></v-img>
+      </v-col>
+    </v-row>
+  </v-container>
+
+
+      <v-container class="laptoplynx-container">
+  <v-row justify="center" align="center" class="my-3 text-center laptoplynx-logo-row">
+    <v-col cols="12" md="4" class="text-center laptoplynx-logo-col">
+      <v-row justify="center" align="center">
+        <v-img
+          src="https://scontent.fmnl14-1.fna.fbcdn.net/v/t1.15752-9/462568879_1068096351387700_3074067409424495304_n.png?_nc_cat=109&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeFucn2vC8_y2RUX7gCXtbUthrz3YobBPg2GvPdihsE-DRdRBgxt66N5RXQFb3CJS2aydhLnPUDOpdiba360L2oK&_nc_ohc=aRc3zdgk7J4Q7kNvgFaTGJg&_nc_zt=23&_nc_ht=scontent.fmnl14-1.fna&_nc_gid=A1vBvxM5mfHNWxBIwrI9TgZ&oh=03_Q7cD1QHWYn60J_Jg1D3UpKhw5ald2tbITJ15FO26uy8g8rJr3Q&oe=67314AF2"
+          alt="LaptopLynx Logo"
+          max-width="80"
+          style="transition: transform 0.3s ease-in-out;"
+          class="hover-zoom laptoplynx-logo-img"
+        ></v-img>
+        <div class="ml-2 laptoplynx-text">
+          <h4 class="mb-0 laptoplynx-company-name" style="color: #66FCF1; font-family: 'Arial', sans-serif; font-size: 24px; font-weight: bold;">
+            LaptopLynx
+          </h4>
+          <p class="laptoplynx-tagline" style="color: #E2DAD6; font-family: 'Arial', sans-serif; font-size: 14px; margin-top: 5px;">
+            Rent laptops effortlessly, wherever you go!
+          </p>
+        </div>
+      </v-row>
+    </v-col>
+  </v-row>
+
+  <!-- Divider -->
+  <v-row justify="center" class="laptoplynx-divider-row">
+    <v-col cols="12" md="12" class="laptoplynx-divider-col">
+      <v-divider color="#ffffff" class="laptoplynx-divider"></v-divider>
+    </v-col>
+  </v-row>
+
+  <v-row justify="center" align="center" class="text-center laptoplynx-bottom-row">
+  <v-col cols="12" md="10" class="text-center laptoplynx-bottom-col">
+    <v-row class="custom-btn-row" justify="center">
+      <v-col cols="12" sm="4" md="auto">
+        <span class="custom-btn-link" @click="openDialog('about')">About Us</span>
+      </v-col>
+      <v-col cols="12" sm="4" md="auto">
+        <span class="custom-btn-link" @click="openDialog('contact')">Contact</span>
+      </v-col>
+      <v-col cols="12" sm="4" md="auto">
+        <span class="custom-btn-link" @click="openDialog('terms')">Terms & Conditions</span>
+      </v-col>
+      <v-col cols="12" sm="4" md="auto">
+        <span class="custom-btn-link" @click="openDialog('privacy')">Privacy Policy</span>
+      </v-col>
+    </v-row>
+
+
+
+
+      <div class="laptoplynx-social-icons">
+        <a href="https://twitter.com/LaptopLynx" target="_blank" class="social-icon" title="Twitter">
+          <img src="https://freepnglogo.com/images/all_img/1691832581twitter-x-icon-png.png" alt="X">
+        </a>
+        <a href="https://www.facebook.com/LaptopLynx" target="_blank" class="social-icon" title="Facebook">
+          <img src="https://cdn.freebiesupply.com/logos/large/2x/facebook-logo-2019.png" alt="Facebook">
+        </a>
+        <a href="https://www.instagram.com/LaptopLynx" target="_blank" class="social-icon" title="Instagram">
+          <img src="https://static.vecteezy.com/system/resources/previews/023/741/058/non_2x/instagram-logo-icon-social-media-icon-free-png.png" alt="Instagram">
+        </a>
+      </div>
+    </v-col>
+  </v-row>
+
+  <!-- Dialogs -->
+<v-dialog v-model="dialog" max-width="600px" class="laptoplynx-dialog">
+  <v-card>
+    <v-card-title class="headline">{{ dialogTitle }}</v-card-title>
+    <v-card-text>{{ dialogContent }}</v-card-text>
+    <v-card-actions>
+      <v-btn  text @click="dialog = false">Close</v-btn>
+    </v-card-actions>
+  </v-card>
+</v-dialog>
+
+
+</v-container>
+
+
     </v-main>
   </v-app>
 </template>
 
 
 
+
+
+
 <style scoped>
+.brandlogo {
+  background: linear-gradient(45deg, #1F2833, #3A4A5D);
+  background-size: 300% 300%;
+  animation: gradientEffect 5s ease infinite;
+}
+
+@keyframes gradientEffect {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+.logo-grid {
+  padding: 20px;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.logo-image {
+  width: 100%;
+  height: auto;
+  max-width: 80px; 
+  padding: 10px;
+  transition: transform 0.3s ease;
+}
+
+.logo-image:hover {
+  transform: scale(1.1); 
+}
+
+
+.hero-content-section1, .hero-content-section2 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  margin-top: 50px;
+  opacity: 0; 
+  animation: fadeIn 2s forwards; 
+}
+
+.hero-content-section1 {
+  animation-delay: 0.5s; 
+}
+
+.hero-content-section2 {
+  animation-delay: 0.10s; 
+}
+
+.laptop-image-section1, .laptop-image-section2 {
+  opacity: 0;
+  animation: fadeInImage 2s forwards;
+}
+
+.laptop-image-section1 {
+  animation-delay: 0.5s;
+}
+
+.laptop-image-section2 {
+  animation-delay: 0.8s;
+}
+
+.section1-text, .section2-text {
+  opacity: 0;
+  animation: fadeInText 1s forwards;
+}
+
+.section1-text {
+  animation-delay: 0.7s;
+}
+
+.section2-text {
+  animation-delay: 1s;
+}
+
+.section1-title, .section2-title {
+  font-size: 2.3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #66FCF1;
+}
+
+.section1-description, .section2-description {
+  font-size: 1.1em;
+  color: #C5C6C7;
+  margin-bottom: 20px;
+}
+
+.cta-text-section1, .cta-text-section2 {
+  margin-left: 8px;
+}
+
+/* Fade-In Animations */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInImage {
+  0% { opacity: 0; transform: translateX(30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInText {
+  0% { opacity: 0; transform: translateX(-30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  /* Tablet View */
+  .hero-content-section1, .hero-content-section2 {
+    flex-direction: column-reverse;
+    text-align: center;
+    animation: fadeIn 1s forwards;
+  }
+
+  .section1-title, .section2-title {
+    font-size: 1.8em;
+  }
+
+  .section1-description, .section2-description {
+    font-size: 1em;
+  }
+
+  .cta-container-section1, .cta-container-section2 {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Mobile View */
+  .hero-content-section1, .hero-content-section2 {
+    flex-direction: column;
+    text-align: center;
+    animation: fadeIn 1s forwards;
+  }
+
+  .section1-title, .section2-title {
+    font-size: 1.6em;
+  }
+
+  .section1-description, .section2-description {
+    font-size: 0.9em;
+  }
+
+  .cta-container-section1, .cta-container-section2 {
+    justify-content: center;
+  }
+}
+
+
+.cta-section {
+  background-image: url('https://images.acer.com/is/image/acer/predator-laptop-helios-3d-spatiallabs-experience-center?$responsive$');
+  background-size: cover;
+  background-position: center;
+  margin-top: 40px;
+  padding: 50px;
+  color: #ffffff;
+  min-height: 450px; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+  .cta-section {
+    min-height: 450px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .cta-section {
+    min-height: 450px;
+  }
+}
+
+.cta-container .v-icon {
+  font-size: 30px; 
+  color: #66fcf1; 
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.cta-container .v-icon:hover {
+  color: #45A29E;
+  transform: translateX(5px);
+}
+
+
+.hero-content {
+  display: flex;
+  padding-top: 60px;
+  margin-top: -70px;
+  flex-direction: row;
+}
+
+.hero-image .laptop-image {
+  margin-top: 60px;
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-image .laptop-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.hero-text {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  text-align: justify;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #66fcf1;
+  margin-bottom: 15px;
+}
+
+.hero-description {
+  font-size: 1.1rem;
+  color: #e2dad6;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.cta-container {
+  display: flex;
+  align-items: center;
+  margin-top: -15px;
+  justify-content: center; 
+}
+
+.cta-text {
+  font-size: 0.9rem;
+  color: #66FCF1;
+  margin-left: 10px;
+}
+
+@media (min-width: 768px) {
+  .hero-content {
+    flex-direction: row;
+    padding-top: 80px;
+  }
+
+  .hero-text {
+    padding: 40px;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .hero-title {
+    font-size: 3.5rem;
+  }
+
+  .hero-description {
+    font-size: 1.25rem;
+    margin-bottom: 30px;
+  }
+
+  .cta-text {
+    font-size: 1rem;
+    margin-left: 15px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-content {
+    padding-top: 100px;
+  }
+
+  .hero-title {
+    font-size: 4rem;
+  }
+
+  .hero-description {
+    font-size: 1.35rem;
+    max-width: 500px;
+  }
+}
+
+
+
+.laptoplynx-dialog .v-card {
+  background-color: #0B0C10; 
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); 
+}
+
+.laptoplynx-dialog .v-card-title {
+  color: #66fcf1; 
+  font-size: 26px;
+  font-weight: bold;
+  letter-spacing: 0.9px;
+}
+
+.laptoplynx-dialog .v-card-text {
+  color: #e2dad6; 
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: justify;
+  margin-bottom: 20px;
+}
+
+.laptoplynx-dialog .v-card-actions {
+  justify-content: flex-end;
+}
+
+.laptoplynx-dialog .v-btn {
+  background-color: #66fcf1; 
+  color: #0B0C10;
+  border-radius: 8px;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 8px 20px;
+  transition: background-color 0.3s ease;
+}
+
+.laptoplynx-dialog .v-btn:hover {
+  color: #45A29E; 
+}
+
+.laptoplynx-bottom-row {
+  padding: 16px 0;
+  margin-top: -20px;
+}
+
+.custom-btn-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.custom-btn-link {
+  font-size: 16px;
+  font-family: 'Arial', sans-serif;
+  color: #66fcf1;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.custom-btn-link:hover {
+  color: #45A29E; 
+}
+
+.custom-btn-link {
+    font-weight: 100;
+    color: #66FCF1;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0 15px;
+}
+
+.custom-btn-link:active {
+    background-color: #45a3b8;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+
+.laptoplynx-social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.social-icon img {
+    width: 45px;
+    height: 45px;
+    padding: 8px;
+    border-radius: 50%;
+    background-color: #333;
+    transition: transform 0.4s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.social-icon img:hover {
+    transform: scale(1.3) rotate(15deg);
+    background-color: #66FCF1;
+    box-shadow: 0px 6px 12px rgba(102, 252, 241, 0.5);
+}
+
+.v-list-item {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.v-list-item:hover {
+  transform: scale(1.05);
+  color: #66FCF1; 
+}
+
+.v-list-item:active {
+  transform: scale(0.95);
+  opacity: 0.7;
+  transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+
 .custom-search-icon {
   margin-right: 15px;
   transition: color 0.3s ease, transform 0.3s ease;
@@ -552,7 +1235,9 @@ const closeImagePopup = () => {
 }
 
 .v-navigation-drawer {
-  background-color: #1F2833;
+  background: linear-gradient(135deg, #1F2833, #2C3E50); 
+  color: #66FCF1; 
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .v-avatar img {

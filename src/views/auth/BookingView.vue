@@ -12,7 +12,7 @@ export default {
     const selectedTime = ref(null);
     const laptop = ref(null);
     const selectedDate = ref(null);
-    const meetupPlace = ref('Caraga State University (Hiraya Hall)'); // Pre-filled with CSU (Hiraya Hall)
+    const meetupPlace = ref('CSU (Hiraya Hall)'); // Pre-filled with CSU (Hiraya Hall)
     const notifications = ref([
       { title: 'Reminder', message: 'Your appointment is tomorrow at 10:00 AM.' },
       { title: 'Update', message: 'New laptop models available.' },
@@ -222,7 +222,7 @@ export default {
       <v-divider style="color: bisque;"></v-divider>
       <v-list density="compact" nav>
         <v-list-item prepend-icon="mdi-view-dashboard" title="Homepage" :to="{ name: 'homepage' }"></v-list-item>
-        <v-list-item prepend-icon="mdi-book" title="Booking" :to="{ name: 'booking' }"></v-list-item>
+        <v-list-item prepend-icon="mdi-calendar-check" title="Booking" :to="{ name: 'booking' }"></v-list-item>
         <v-list-item prepend-icon="mdi-account" title="Profile" :to="{ name: 'customerprofile' }"></v-list-item>
         <v-list-item @click="onLogout" title="Logout" prepend-icon="mdi-logout"></v-list-item>
       </v-list>
@@ -363,6 +363,8 @@ export default {
 <br>
 
   </v-container>
+
+
 </v-main>
 
 
@@ -372,6 +374,22 @@ export default {
 
 
 <style scoped>
+.v-list-item {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.v-list-item:hover {
+  transform: scale(1.05);
+  color: #66FCF1; 
+}
+
+.v-list-item:active {
+  transform: scale(0.95);
+  opacity: 0.7;
+  transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+
 /* @keyframes colorPulse {
     0% {
         background-color: #1F2833; 
@@ -545,9 +563,10 @@ bisag e open an nav drawer */
 }
 
 .v-navigation-drawer {
-  background-color: #1F2833;
+  background: linear-gradient(135deg, #1F2833, #2C3E50); 
+  color: #66FCF1; 
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
 }
-
 
 .v-app-bar {
   background-color: #1F2833;
