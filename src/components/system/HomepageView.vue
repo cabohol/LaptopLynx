@@ -212,61 +212,94 @@ const closeImagePopup = () => {
 </script>
 
 <script>
-  export default {
-    data() {
-      return {
-        dialog: false,
-        dialogTitle: '',
-        dialogContent: '',
-      };
+import { ref } from 'vue';
+
+export default {
+  data() {
+    return {
+      // For dialog
+      dialog: false,
+      dialogTitle: '',
+      dialogContent: '',
+
+      // For images
+      currentImage: 'https://images.acer.com/is/image/acer/acer-aspire-vero-av14-52p-fingerprint-backlit-on-wallpaper-start-screen-cobblestone-gray-01-1?$Visual-Filter-XL$',
+      images: [
+        {
+          src: 'https://images.acer.com/is/image/acer/acer-aspire-vero-av14-52p-fingerprint-backlit-on-wallpaper-start-screen-cobblestone-gray-01-1?$Visual-Filter-XL$',
+          thumbnail: 'https://images.acer.com/is/image/acer/acer-aspire-vero-av14-52p-fingerprint-backlit-on-wallpaper-start-screen-cobblestone-gray-01-1?$Visual-Filter-XL$',
+          caption: 'Aspire Vero 14/15 - Iron',
+        },
+        {
+          src: 'https://img01.huaweifile.com/sg/ms/ph/pms/uomcdn/PH_HW_B2B2C/pms/202312/gbom/6942103112805/group/800_800_402EF8CEF7223855788A78F172AA81EB.png',
+          thumbnail: 'https://img01.huaweifile.com/sg/ms/ph/pms/uomcdn/PH_HW_B2B2C/pms/202312/gbom/6942103112805/group/800_800_402EF8CEF7223855788A78F172AA81EB.png',
+          caption: 'HUAWEI MateBook D 16 - Mystic Silver',
+        },
+        {
+          src: 'https://images.acer.com/is/image/acer/acer-chormebook-vero-514-cbv514-1h-backlit-on-wallpaper-chrome-ui-cobblestone-gray-01-1?$Visual-Filter-XL$',
+          thumbnail: 'https://images.acer.com/is/image/acer/acer-chormebook-vero-514-cbv514-1h-backlit-on-wallpaper-chrome-ui-cobblestone-gray-01-1?$Visual-Filter-XL$',
+          caption: 'Acer Chromebook Vero 514 - Iron',
+        },
+        {
+          src: 'https://asset.msi.com/resize/image/global/product/product_164730247617039c3f1bd7445f8f53e96cd736bf7d.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png',
+          thumbnail: 'https://asset.msi.com/resize/image/global/product/product_164730247617039c3f1bd7445f8f53e96cd736bf7d.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png',
+          caption: 'MSI GS66 Stealth - Black',
+        },
+      ]
+    };
+  },
+  methods: {
+    openDialog(section) {
+      switch(section) {
+        case 'about':
+          this.dialogTitle = 'About Us';
+          this.dialogContent = `
+            LaptopLynx is your trusted partner for hassle-free laptop rentals. We offer flexible rental options for businesses, students, and individuals. 
+            Whether you need a laptop for a short-term project, studying, or business operations, we have a variety of high-performance laptops to choose from. 
+            Our goal is to make renting a laptop as simple as possible, providing easy rental terms and reliable service. At LaptopLynx, we believe in offering flexible, convenient solutions to meet all your tech needs.
+          `;
+          break;
+        case 'contact':
+          this.dialogTitle = 'Contact Us';
+          this.dialogContent = `
+            We’re here to help! If you have any inquiries or need assistance, feel free to reach out to us through email or phone.
+            For any rental questions, you can contact us at laptoplynx@gmail.com or call us at 09635858259.
+            We also invite you to connect with us on our social media platforms, where we share updates and information about our services.
+            Follow us on Twitter (LaptopLynx), Facebook (LaptopLynxRentals), and Instagram (LaptopLynx) for the latest news.          
+          `;
+          break;
+        case 'terms':
+          this.dialogTitle = 'Terms & Conditions';
+          this.dialogContent = `
+           By renting a laptop from LaptopLynx, you agree to the following terms and conditions. Laptops are available for rent on daily, weekly, or monthly terms, and the specific rental duration will be clearly outlined at the time of booking.
+           Please be aware that late returns will incur additional charges based on the rental period. The renter is fully responsible for the laptop's condition during the rental period. In the case of damage or loss to the laptop, you will be required to pay a fee for repair or replacement.
+           We accept cash on delivery (COD) as the only payment method, and payment is due upon delivery of the laptop. For students renting a laptop, please note that failure to return the laptop in good condition will result in us contacting your university’s registrar to block your clearance until the matter is resolved.
+           Cancellations are allowed up to 24 hours before the rental period begins, but a cancellation fee may apply depending on the timing.
+           LaptopLynx reserves the right to update or modify these terms at any time. It is important for all renters to review these terms before each rental.
+          `;
+          break;
+        case 'privacy':
+          this.dialogTitle = 'Privacy Policy';
+          this.dialogContent = `
+            At LaptopLynx, we take your privacy seriously. This privacy policy outlines how we collect, use, and protect your personal information. 
+            We collect personal data such as your name, email address, phone number, and payment details solely for the purpose of processing your rental orders. 
+            Your personal information is used exclusively for communication related to your rental and will never be shared with third parties without your consent, unless required by law. 
+            We use secure systems and protocols to protect your data from unauthorized access, and we comply with all relevant privacy laws to ensure your information is safe. 
+            Our website may use cookies to improve your browsing experience, but you can disable them through your browser settings. You have the right to access, update, or request the deletion of your personal data at any time. 
+            If you have any concerns or questions about how your data is handled, please contact our support team.
+          `;
+          break;
+      }
+      this.dialog = true;
     },
-    methods: {
-      openDialog(section) {
-        switch(section) {
-          case 'about':
-            this.dialogTitle = 'About Us';
-            this.dialogContent = `
-              LaptopLynx is your trusted partner for hassle-free laptop rentals. We offer flexible rental options for businesses, students, and individuals. 
-              Whether you need a laptop for a short-term project, studying, or business operations, we have a variety of high-performance laptops to choose from. 
-              Our goal is to make renting a laptop as simple as possible, providing easy rental terms and reliable service. At LaptopLynx, we believe in offering flexible, convenient solutions to meet all your tech needs.
-            `;
-            break;
-          case 'contact':
-            this.dialogTitle = 'Contact Us';
-            this.dialogContent = `
-              We’re here to help! If you have any inquiries or need assistance, feel free to reach out to us through email or phone.
-              For any rental questions, you can contact us at laptoplynx@gmail.com or call us at 09635858259.
-              We also invite you to connect with us on our social media platforms, where we share updates and information about our services.
-              Follow us on Twitter (LaptopLynx), Facebook (LaptopLynxRentals), and Instagram (LaptopLynx) for the latest news.          
-            `;
-            break;
-          case 'terms':
-            this.dialogTitle = 'Terms & Conditions';
-            this.dialogContent = `
-             By renting a laptop from LaptopLynx, you agree to the following terms and conditions. Laptops are available for rent on daily, weekly, or monthly terms, and the specific rental duration will be clearly outlined at the time of booking.
-             Please be aware that late returns will incur additional charges based on the rental period. The renter is fully responsible for the laptop's condition during the rental period. In the case of damage or loss to the laptop, you will be required to pay a fee for repair or replacement.
-             We accept cash on delivery (COD) as the only payment method, and payment is due upon delivery of the laptop. For students renting a laptop, please note that failure to return the laptop in good condition will result in us contacting your university’s registrar to block your clearance until the matter is resolved.
-             Cancellations are allowed up to 24 hours before the rental period begins, but a cancellation fee may apply depending on the timing.
-             LaptopLynx reserves the right to update or modify these terms at any time. It is important for all renters to review these terms before each rental.
-            `;
-            break;
-          case 'privacy':
-            this.dialogTitle = 'Privacy Policy';
-            this.dialogContent = `
-              At LaptopLynx, we take your privacy seriously. This privacy policy outlines how we collect, use, and protect your personal information. 
-              We collect personal data such as your name, email address, phone number, and payment details solely for the purpose of processing your rental orders. 
-              Your personal information is used exclusively for communication related to your rental and will never be shared with third parties without your consent, unless required by law. 
-              We use secure systems and protocols to protect your data from unauthorized access, and we comply with all relevant privacy laws to ensure your information is safe. 
-              Our website may use cookies to improve your browsing experience, but you can disable them through your browser settings. You have the right to access, update, or request the deletion of your personal data at any time. 
-              If you have any concerns or questions about how your data is handled, please contact our support team.
-            `;
-            break;
-        }
-        this.dialog = true;
-      },
-    },
-  };
+
+    selectImage(image) {
+      this.currentImage = image;
+    }
+  }
+};
 </script>
+
 
 
 <template>
@@ -425,6 +458,37 @@ const closeImagePopup = () => {
       </v-col>
     </v-row>
   </v-container>
+
+
+  <v-container fluid style="background: linear-gradient(45deg, #1F2833, #3A4A5D); background-repeat: repeat; margin-top: 40px;" >
+    <v-row>
+      <v-col cols="12" md="5" class="d-flex flex-column align-center">
+        <div class="buttons-container">
+    <button
+        v-for="(image, index) in images"
+        :key="index"
+        @click="selectImage(image.src)"
+        class="grid-button"
+    >
+        <img :src="image.thumbnail" alt="Image thumbnail" class="thumbnail-image" />
+        <div class="button-caption">{{ image.caption }}</div>
+    </button>
+       </div>
+      </v-col>
+
+      <v-col cols="12" md="7" class="d-flex justify-center align-center">
+      <v-img
+          :src="currentImage"
+          alt="Zephyrus G14 Display Image"
+          max-width="100%"
+          max-height="400px"
+          class="image-display"
+        ></v-img>
+      </v-col>
+    </v-row>
+    <br>
+  </v-container>
+  
 
       <v-container id="portfolio" class="portfolio section" fluid>
 <v-row justify="center" data-aos="fade-up" class="section-title">
@@ -706,6 +770,111 @@ const closeImagePopup = () => {
 
 
 <style scoped>
+/* Image Display */
+.image-display {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.image-display:hover {
+    transform: scale(1.08);
+}
+
+/* Buttons Container */
+.buttons-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+    padding: 15px;
+    width: 100%;
+    justify-items: center;
+}
+
+/* Grid Button */
+.grid-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(11, 12, 16, 0.75);
+    border: 2px solid rgba(102, 252, 241, 0.85);
+    border-radius: 12px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+    padding: 12px;
+    width: 100%;
+    max-width: 320px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.grid-button:hover {
+    background-color: rgba(16, 20, 23, 0.65);
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(102, 252, 241, 0.6);
+}
+
+/* Thumbnail Image */
+.thumbnail-image {
+    border-radius: 12px;
+    max-height: 120px;
+    transition: transform 0.3s ease-in-out;
+    width: 80%;
+    object-fit: cover;
+}
+
+.thumbnail-image:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(102, 252, 241, 0.4);
+}
+
+/* Button Caption */
+.button-caption {
+    font-size: 13px;
+    padding: 0.6rem;
+    color: rgba(102, 252, 241, 1);
+    font-weight: 400;
+    background-color: rgba(26, 35, 43, 0.85);
+    border-radius: 0 0 12px 12px;
+    text-align: center;
+    width: 100%;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Additional effects for grid button */
+.grid-button:active {
+    transform: translateY(2px);
+    background-color: rgba(16, 20, 23, 0.55);
+}
+
+
+@media (max-width: 768px) {
+    .buttons-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .buttons-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .grid-button {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+  .image-display {
+    max-height: 250px;
+  }
+
+  .image-button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+
+
 .brandlogo {
   background: linear-gradient(45deg, #1F2833, #3A4A5D);
   background-size: 300% 300%;
