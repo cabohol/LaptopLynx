@@ -154,100 +154,80 @@ const clearNotifications = () => {
 
       <v-list density="compact" nav>
         <v-list-item prepend-icon="mdi-view-dashboard" title="Dashboard" value="dashboard"></v-list-item>
-        <v-list-item
-  prepend-icon="mdi-account"
-  title="Profile"
-  :to="{ name: 'profile' }" 
-></v-list-item>
+        <v-list-item prepend-icon="mdi-account" title="Profile" :to="{ name: 'profile' }"></v-list-item>
         <v-list-item prepend-icon="mdi-logout" title="Log out" value="logout"
-        @click = "onLogout"
+           @click = "onLogout"
           :loading = "formAction.formProcess"
           :disabled = "formAction.formProcess"></v-list-item>
       </v-list>
     </v-navigation-drawer>
 
     <!-- Main Content -->
-    <v-main :class="{ 'main-content-shift': drawer }" class="main-content" style="background-color: #0B0C10;">
-      <v-container>
-        <br>
-        <br>
-        <br>
-        <br>
+<v-main class="main-content" style="background-color: #0B0C10;">
+  <v-container fluid>
+    <v-row class="mt-12" justify="center">
+      
+      <!-- Table Column -->
+      <v-col cols="12" md="8">
+        <v-table fixed-header style="background-color: #1F2833; color: white;">
+          <thead>
+            <tr>
+              <th class="text-center" style="background-color: #1F2833; color: #66FCF1;"><b><h3>Fullname</h3></b></th>
+              <th class="text-center" style="background-color: #1F2833; color: #66FCF1;"><b><h3>Rate per Day</h3></b></th>
+              <th class="text-center" style="background-color: #1F2833; color: #66FCF1;"><b><h3>Model of Laptop</h3></b></th>
+              <th class="text-center" style="background-color: #1F2833; color: #66FCF1;"><b><h3>Confirmation</h3></b></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in laptops" :key="item.model">
+              <td class="text-center"></td>
+              <td class="text-center"></td>
+              <td class="text-center"></td>
+              <td class="text-center">
+                <v-btn class="mx-2" color="green" @click="accept(item)">Accept</v-btn>
+                <v-btn class="mx-2" color="red" @click="reject(item)">Reject</v-btn>
+              </td>
+            </tr>
+          </tbody>
+        </v-table>
+      </v-col>
 
-        <!-- Use v-row and v-col for layout -->
-        <v-row>
-         <!-- Table Column -->
-         <v-col cols="12" md="8">
-  <v-table fixed-header style="background-color: #1F2833; color: white;">
-    <thead>
-      <tr>
-        <th class="text-center" style="background-color: #1F2833; color:#66FCF1;"><b><h3>Fullname</h3></b></th>
-        <th class="text-center" style="background-color: #1F2833; color:#66FCF1;"><b><h3>Rate per Day</h3></b></th>
-        <th class="text-center" style="background-color: #1F2833; color:#66FCF1;"><b><h3>Model of Laptop</h3></b> </th>
-        <th class="text-center" style="background-color: #1F2833; color:#66FCF1;"><b><h3>Confirmation</h3></b></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="item in laptops" :key="item.model">
-        <td class="text-center"></td>
-        <td class="text-center"></td>
-        <td class="text-center"></td>
-        <td class="text-center">
-          <v-btn class="mx-2" color="green" @click="accept(item)">Accept</v-btn>
-          <v-btn class="mx-2" color="red" @click="reject(item)">Reject</v-btn>
-        </td>
-      </tr>
-    </tbody>
-  </v-table>
-</v-col>
-
-
+      <!-- Appointments Column -->
       <v-col cols="12" md="4">
-          <v-card fixed-header class="mx-auto" style="background-color: #1F2833; color: white;">
-            <v-card-text>
-              <div class="text-center"><h2 style="color: #66FCF1 ;">Appointments</h2> </div>
-
-              <v-timeline align="start" density="compact">
-                <v-timeline-item
-                  v-for="appointment in appointments"
-                  :key="appointment.time"
-                  dot-color="cyan-accent-2" 
-                  color="black"     
-
-                  size="x-small"
-                >
-                <div>
-              <strong>Time:</strong> <!-- Time displayed here -->
+        <v-card fixed-header class="mx-auto" style="background-color: #1F2833; color: white;">
+          <v-card-text>
+            <div class="text-center">
+              <h2 style="color: #66FCF1;">Appointments</h2>
             </div>
 
-                  <!-- Appointment details on the right -->
-                  <div class="mb-4">
-                    <div>
-                      <strong>Renter: </strong>
-                    </div>
-                    <div>
-                      <strong>Date: </strong>
-                    </div>
-                    <div>
-                      <strong>Laptop Model: </strong>
-                    </div>
-                    <div>
-                      <strong>Meet-up: </strong>
-                    </div>
-                  </div>
-                </v-timeline-item>
-              </v-timeline>
-            </v-card-text>
-          </v-card>
-        </v-col>
+            <v-timeline align="start" density="compact">
+              <v-timeline-item
+                v-for="appointment in appointments"
+                :key="appointment.time"
+                dot-color="cyan-accent-2"
+                color="black"
+                size="x-small"
+              >
+                <div>
+                  <strong>Time:</strong> <!-- Time displayed here -->
+                </div>
+                <div class="mb-4">
+                  <div><strong>Renter: </strong></div>
+                  <div><strong>Date: </strong></div>
+                  <div><strong>Laptop Model: </strong></div>
+                  <div><strong>Meet-up: </strong></div>
+                </div>
+              </v-timeline-item>
+            </v-timeline>
+          </v-card-text>
+        </v-card>
+      </v-col>
 
+    </v-row>
+    <br><br>
+  </v-container>
+</v-main>
 
-
-        </v-row>
-
-        <br><br>
-      </v-container>
-    </v-main>
   </v-app>
 </template>
 
@@ -256,7 +236,22 @@ const clearNotifications = () => {
 
 
 <style scoped>
-/* App Bar and Drawer Background Color */
+.v-list-item {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.v-list-item:hover {
+  transform: scale(1.05);
+  color: #66FCF1; 
+}
+
+.v-list-item:active {
+  transform: scale(0.95);
+  opacity: 0.7;
+  transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+
 .v-app-bar {
   background-color: #1F2833;
 }
@@ -303,7 +298,9 @@ const clearNotifications = () => {
 
 /* If you want to keep the margin but color the space above the drawer */
 .v-navigation-drawer {
-  background-color: #1F2833; /* Ensure this matches the drawer color */
+  background: linear-gradient(135deg, #1F2833, #2C3E50); 
+  color: #66FCF1; 
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 
