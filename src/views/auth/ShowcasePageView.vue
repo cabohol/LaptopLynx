@@ -526,7 +526,7 @@ export default {
 
 
 
-  <v-container class="unique-deals-section" fluid style="margin-top: -50px;">
+  <v-container class="unique-deals-section" fluid style="margin-top: -0px;">
   <v-row justify="center">
     <v-col cols="12" class="text-center">
       <h2 class="unique-section-header">
