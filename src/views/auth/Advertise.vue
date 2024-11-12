@@ -2,7 +2,9 @@
 export default {
   data() {
     return {
-      dialog: true,
+      showLogo: true,
+      showLoading: false,
+      showGifs: false,
       gifs: [
         'https://64.media.tumblr.com/b5570e061b38e5ccf9432f70f9e824eb/tumblr_p2w8vlUbVB1w4kgreo1_500.gifv', 
         'https://cdn.prod.website-files.com/652c101aadcd91f29004ee59/65aec32e1ca1bbfc25eee730_KP9-studio-main.gif',
@@ -13,31 +15,59 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.dialog = false;
-    }, 3000);
+      this.showLogo = false;
+      this.showLoading = true;
+    }, 5000);
+
+    setTimeout(() => {
+      this.showLoading = false;
+      this.showGifs = true;
+      this.scheduleNextGif();
+    }, 8000);
   },
   methods: {
     skipAd() {
       this.$router.push('/showcasepage');
     },
     scheduleNextGif() {
-      setTimeout(() => {
-        this.currentGifIndex++;
-        if (this.currentGifIndex >= this.gifs.length) {
+      if (this.currentGifIndex < this.gifs.length - 1) {
+        setTimeout(() => {
+          this.currentGifIndex++;
+          this.scheduleNextGif();
+        }, 3000);
+      } else {
+        setTimeout(() => {
           this.displayText = true;
-        } else {
-          this.currentGifIndex = this.currentGifIndex % this.gifs.length;
-        }
-      }, 4000);
+        }, 3000);
+      }
     },
   },
 };
 </script>
 
 
+
+
 <template>
   <v-app class="full-screen cyber-theme">
-    <v-container v-if="!dialog" fluid fill-height>
+    <!-- Logo Display Screen -->
+    <div class="logo-screen" v-if="showLogo">
+      <img src="https://scontent.fmnl14-1.fna.fbcdn.net/v/t1.15752-9/462337933_1972891169798050_3639474823550317272_n.png?_nc_cat=106&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeFVBlqPGHmug7ujjk4_fdqnYIloCJoykQNgiWgImjKRA9kUvPCCSSCffjVmYPh6dm4GCPi5WbpMzQjdBUYeZYXj&_nc_ohc=EJdiNvxjwKQQ7kNvgGzvkmY&_nc_zt=23&_nc_ht=scontent.fmnl14-1.fna&_nc_gid=AuC2fffehralh-F2OQq5hL-&oh=03_Q7cD1QH4dYZXqLvzBF4yctp5OMzlM0yFWlJAxmtlkh_5P70wrg&oe=67314C88" alt="LaptopLynx Logo" class="logo-image" />
+    </div>
+
+    <!-- Loading Overlay -->
+    <div v-if="showLoading && !showLogo" class="loading-overlay neon-loading">
+      <div class="neon-ring"></div>
+      <h3 class="loading-title">Welcome to LaptopLynx</h3>
+      <p class="loading-text">Bringing cutting-edge laptops to your screen</p>
+      <br>
+      <v-btn color="cyan darken-2" dark class="cyber-button" @click="skipAd">
+        Skip
+      </v-btn>
+    </div>
+
+    <!-- Main Content: GIFs and Text -->
+    <v-container v-if="!showLoading && !showLogo" fluid fill-height>
       <v-row align="center" justify="center">
         <v-col cols="12" sm="8" md="6" class="content-wrapper">
           <div class="neon-border"></div>
@@ -48,9 +78,7 @@ export default {
               :src="gifs[currentGifIndex]"
               alt="Futuristic Laptop GIF"
               class="animated-hologram"
-              @load="scheduleNextGif"
             />
-            <!-- Display saying only when currentGifIndex is 1 -->
             <p v-if="!displayText && currentGifIndex === 1" class="laptop-saying">
               "Empower your potential with the perfect laptop, your gateway to innovation and creativity."
             </p>
@@ -72,22 +100,74 @@ export default {
         </v-col>
       </v-row>
     </v-container>
-
-    <div v-if="dialog" class="loading-overlay neon-loading">
-      <div class="neon-ring"></div>
-      <h3 class="loading-title">Welcome to LaptopLynx</h3>
-      <p class="loading-text">Bringing cutting-edge laptops to your screen</p>
-      <br>
-      <v-btn color="cyan darken-2" dark class="cyber-button" @click="skipAd">
-        Skip
-      </v-btn>
-    </div>
   </v-app>
 </template>
 
 
 
+
 <style scoped>
+.logo-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  z-index: 9999;
+}
+
+.logo-image {
+  width: 50%; 
+  max-width: 550px;
+  height: auto;
+  animation: fadeIn 1.2s ease-in-out, float 3s ease-in-out infinite;
+}
+
+@media (max-width: 1024px) { 
+  .logo-image {
+    width: 60%;
+    max-width: 450px;
+  }
+}
+
+@media (max-width: 768px) { 
+  .logo-image {
+    width: 70%;
+    max-width: 350px;
+  }
+}
+
+@media (max-width: 600px) { 
+  .logo-image {
+    width: 80%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) { 
+  .logo-image {
+    width: 85%;
+    max-width: 250px;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+
+
+
 .laptop-saying {
   text-align: center; 
   color: #66FCF1; 
