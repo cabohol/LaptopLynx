@@ -15,23 +15,32 @@ export const formActionDefault = {
 }
 
 export const isAuthenticated = async () => {
-  const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+  try {
+    const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+    console.log("Session Data:", sessionData);
 
-  if (sessionError) {
-    console.error('Error getting session:', sessionError.message);
+    if (sessionError || !sessionData.session) {
+      //console.error('Error getting session:', sessionError ? sessionError.message : "No active session");
+      return { isAuthenticated: false, user: null };
+    }
+
+    const { data: userData, error: userError } = await supabase.auth.getUser();
+
+    if (userError) {
+      console.error('Error getting user data:', userError.message);
+      return { isAuthenticated: true, user: null };
+    }
+
+    console.log("Authenticated User:", userData.user);
+    return {
+      isAuthenticated: true,
+      user: userData.user
+    };
+  } catch (error) {
+    console.error("Unexpected error in isAuthenticated:", error);
     return { isAuthenticated: false, user: null };
   }
-
-  const { data: userData, error: userError } = await supabase.auth.getUser();
-
-  if (userError) {
-    console.error('Error getting user data:', userError.message);
-    return { isAuthenticated: !!sessionData.session, user: null };
-  }
-
-  return {
-    isAuthenticated: !!sessionData.session,
-    user: userData.user // Return the user data along with authentication status
-  };
 };
+
+
 
