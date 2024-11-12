@@ -94,7 +94,7 @@ router.beforeEach(async (to) => {
  // console.log("User metadata:", user?.user_metadata);
 
   // Handle access to protected routes
-  const protectedRoutes = ['dashboard', 'homepage', 'booking', 'profile'];
+  const protectedRoutes = ['dashboard', 'homepage', 'booking', 'profile', 'customerprofile'];
 
   // If the user is trying to access a protected route and is not logged in
   if (protectedRoutes.includes(to.name) && !isLoggedIn) {
