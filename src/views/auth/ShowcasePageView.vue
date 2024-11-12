@@ -1763,10 +1763,10 @@ h2.section-title,
 
 
 .animated-parallax {
-  animation: flipZoomIn 12s ease-in-out infinite alternate, pulseOpacity 8s ease-in-out infinite alternate;
+  /* animation: flipZoomIn 12s ease-in-out infinite alternate, pulseOpacity 8s ease-in-out infinite alternate; */
   background-position: center center;
   background-size: cover;
-  perspective: 1000px; /* Adds depth to the flip effect */
+  perspective: 1000px; 
 }
 
 .parallax-text {
