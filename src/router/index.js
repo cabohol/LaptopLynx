@@ -94,7 +94,7 @@ router.beforeEach(async (to) => {
  // console.log("User metadata:", user?.user_metadata);
 
   // Handle access to protected routes
-  const protectedRoutes = ['dashboard', 'customerdashboard', 'booking', 'profile'];
+  const protectedRoutes = ['dashboard', 'homepage', 'booking', 'profile'];
 
   // If the user is trying to access a protected route and is not logged in
   if (protectedRoutes.includes(to.name) && !isLoggedIn) {
@@ -126,11 +126,11 @@ router.beforeEach(async (to) => {
   }
   // Redirect logged-in users away from login/register pages, but allow access to customer dashboard
   if (isLoggedIn && (to.name === 'login' || to.name === 'register')) {
-    return { name: 'customerdashboard' }; // Redirect logged-in users away from login/register
+    return { name: 'homepage' }; // Redirect logged-in users away from login/register
   }
 
   // Allow access to the customerdashboard if logged in and not admin
-  if (isLoggedIn && to.name === 'customerdashboard' && !isAdmin) {
+  if (isLoggedIn && to.name === 'homepage' && !isAdmin) {
     return true; // Allow access
   }
 
