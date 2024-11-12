@@ -11,7 +11,7 @@ const admin = ref({
   fullname: '',
   email: '',
   phone_number: '',
-  avatar: 'https://randomuser.me/api/portraits/men/85.jpg', // Default avatar if none provided
+  avatar: '/src/images/Default_pfp.svg.png', // Default avatar if none provided
 });
 
 const formAction = ref({

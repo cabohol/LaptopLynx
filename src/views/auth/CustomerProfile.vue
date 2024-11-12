@@ -14,7 +14,7 @@ const renter = ref({
   fullname: '',
   email: '',
   phone_number: '',
-  avatar: 'https://randomuser.me/api/portraits/men/85.jpg', // Default avatar if none provided
+  avatar: '/src/images/Default_pfp.svg.png', // Default avatar if none provided
 });
 
 const formAction = ref({
@@ -214,7 +214,7 @@ export default {
               class="profile-avatar mx-auto"
               size="180"
             >
-              <img :src="profilePicture" alt="Profile Picture" width="100%" />
+              <img :src="renter.avatar" alt="Profile Picture" width="100%" />
             </v-avatar>
 
             <!-- Profile Card -->

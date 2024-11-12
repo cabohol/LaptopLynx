@@ -143,7 +143,7 @@ const filteredLaptops = computed(() => {
 const renter = ref({
   fullname: '',
   email: '',
-  avatar: 'https://randomuser.me/api/portraits/men/85.jpg', // Default avatar if none provided
+  avatar: '/src/images/Default_pfp.svg.png', // Default avatar if none provided
 });
 
 const formAction = ref({
@@ -162,7 +162,7 @@ const getRenterData = async () => {
   if (user) {
     renter.value.email = user.email;
     const metadata = user.user_metadata;
-   renter.value.fullname = `${metadata?.firstname || ''} ${metadata?.lastname || ''}`.trim();
+    renter.value.fullname = `${metadata?.firstname || ''} ${metadata?.lastname || ''}`.trim();
     renter.value.avatar = metadata?.avatar || renter.value.avatar; // Use avatar from metadata if available
   }
 };
@@ -209,6 +209,8 @@ const openImagePopup = (imageSrc) => {
 const closeImagePopup = () => {
   imagePopup.value = false;
 };
+
+
 </script>
 
 <script>
@@ -390,6 +392,41 @@ export default {
     </v-navigation-drawer>
 
 <v-main>
+  <v-card style="margin-top: 70px; margin-bottom: 20px; background: linear-gradient(to bottom, #0B0C10, #1A1C23);">
+    <v-card-text style="color: #E2DAD6;">
+      <v-row>
+        <v-col cols="12" sm="3" :class="mdAndDown ? 'd-flex justify-center align-center' : ''">
+            <v-img
+              src="/src/images/logo1.png"
+              style="height: 250px; width: 250px; margin-left: 30px;"
+            ></v-img>
+          </v-col>
+
+
+        <v-col cols="12" sm="9" style="margin-top: 60px;">
+          <h2 class="mb-5">
+            Welcome,
+            <span class="font-weight-black">
+              {{  renter.fullname  }}!
+            </span>
+            You're Now Part of LaptopLynx!
+          </h2>
+
+         <p class="text-justify">
+            Welcome to Laptoplynx, your go-to platform for seamless laptop management and services!
+            Whether you're a business, student, or individual, Laptoplynx helps you keep track of your laptops, 
+            monitor their performance, and access top-notch repair and maintenance services—all in one place.
+            Log in to manage your account, or register today to get started. With Laptoplynx, you can easily monitor device health, 
+            request services, and ensure your laptops are running at their best. Thank you for choosing Laptoplynx—where your laptop 
+            management needs are made simple, reliable, and efficient!
+          </p>
+
+        </v-col>
+      </v-row>
+    </v-card-text>
+  </v-card>
+
+
       <v-carousel hide-delimiter-background height="600" cycle dark show-arrows="hover" interval="3000">
         <v-carousel-item>
           <video
