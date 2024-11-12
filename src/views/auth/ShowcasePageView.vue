@@ -657,7 +657,7 @@ export default {
     <v-avatar
       size="70"
       color="#ffffff"
-      image="https://scontent.fcrk2-2.fna.fbcdn.net/v/t39.30808-1/428645010_1116196032717815_9061274676202760255_n.jpg?stp=dst-jpg_s200x200&_nc_cat=103&ccb=1-7&_nc_sid=0ecb9b&_nc_eui2=AeEqz7vd59cTCeqqT6zaTcQIW1ICeIfOrylbUgJ4h86vKZIGVnEpUmm9PSRl2PkFddBVo_Kj59KgqThzJNBlcUPC&_nc_ohc=dA5QnoUE0ycQ7kNvgEgQKN7&_nc_zt=24&_nc_ht=scontent.fcrk2-2.fna&_nc_gid=AfVWLRxG3TNggP2Q-g-GHA2&oh=00_AYAbUPQRWYSF0qWTSeemsgLcUyutrmi3BOkmUHrOkN-Wtw&oe=6731F416"
+      image="/src/images/claire.jpg"
       style="border: 2px solid #66fcf1; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);"
     ></v-avatar>
   </template>
@@ -703,7 +703,7 @@ export default {
             <v-avatar
               size="70"
               color="#ffffff"
-              image="https://scontent.fcrk2-3.fna.fbcdn.net/v/t39.30808-6/356900684_3490557554596131_5490992218168981358_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeF_UpcmPqMWY5bfnb0ifX3K-VKQh_IL_T35UpCH8gv9PVfI-odYtOKPwoStjBrjYlQdKlDyCSdekPZ55ocp4jA9&_nc_ohc=ZVPCqPi-ZQEQ7kNvgGs-GMy&_nc_zt=23&_nc_ht=scontent.fcrk2-3.fna&_nc_gid=AkXhCFB5545Yl94SQ39Pk5O&oh=00_AYBg7j6Jsz-teWLdi7kp-_uMxHKMvenVhVyCFe-TbvK6yA&oe=67321FEF"
+              image="/src/images/christine.jpg"
               style="border: 2px solid #66fcf1; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);"
             ></v-avatar>
           </template>
@@ -749,7 +749,7 @@ export default {
             <v-avatar
               size="70"
               color="#ffffff"
-              image="https://scontent.fcrk2-2.fna.fbcdn.net/v/t39.30808-6/286447752_3252891181661335_3341390978979218536_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeE0GJY5wqa7DOtUBC_5OInDf8WUFO_SGmV_xZQU79IaZdyAwXU4NVE4gbhVNG5nICyMgsXSRIv6F6rWIAUqNXuJ&_nc_ohc=5p7g1YiqaiAQ7kNvgGnfTVo&_nc_zt=23&_nc_ht=scontent.fcrk2-2.fna&_nc_gid=AghNzViNBwtXnbaNasdzWQ-&oh=00_AYAYHFTWEmML_oII-RyMul3CP2BsMnByX1jdQSAoXxghHA&oe=6731F068"
+              image="/src/images/melvin.jpg"
               style="border: 2px solid #66fcf1; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);"
             ></v-avatar>
           </template>
