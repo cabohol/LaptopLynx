@@ -162,12 +162,17 @@ const onSubmit = async () => {
                       </v-card-text>
                     </v-col>
                     
-                    <v-col cols="12" md="6" class="right-panel">
-                      <img src="https://scontent.fmnl14-1.fna.fbcdn.net/v/t1.15752-9/462337933_1972891169798050_3639474823550317272_n.png?_nc_cat=106&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeFVBlqPGHmug7ujjk4_fdqnYIloCJoykQNgiWgImjKRA9kUvPCCSSCffjVmYPh6dm4GCPi5WbpMzQjdBUYeZYXj&_nc_ohc=EJdiNvxjwKQQ7kNvgGzvkmY&_nc_zt=23&_nc_ht=scontent.fmnl14-1.fna&_nc_gid=AuC2fffehralh-F2OQq5hL-&oh=03_Q7cD1QH4dYZXqLvzBF4yctp5OMzlM0yFWlJAxmtlkh_5P70wrg&oe=67314C88" alt="Your Logo" class="logo" style="margin-top: -40px;" />
-                      <v-btn class="signup-btn" to="/RegisterView">
+                    <v-col cols="12" md="6" class="right-panel d-flex flex-column align-center">
+                      <img src="/src/images/logolynx.png" alt="Your Logo" class="logo" style="margin: 10px 0; max-width: 100%;" />
+                      
+                      <br>
+                      <br>
+                      <br>
+                      <v-btn class="signup-btn mt-4" to="/RegisterView">
                         New Here? <span class="no-underline">Create an Account</span>
                       </v-btn>
                     </v-col>
+
 
                   </v-row>
                 </v-window-item>
