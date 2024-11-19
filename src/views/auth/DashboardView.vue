@@ -10,7 +10,7 @@ const router = useRouter();
 const admin = ref({
   fullname: '',
   email: '',
-  avatar: 'https://randomuser.me/api/portraits/men/85.jpg', // Default avatar if none provided
+  avatar: '/src/images/Default_pfp.svg.png', // Default avatar if none provided
 });
 
 const formAction = ref({
@@ -164,6 +164,40 @@ const clearNotifications = () => {
 
     <!-- Main Content -->
 <v-main class="main-content" style="background-color: #0B0C10;">
+
+  <v-card style="margin-top: 70px; margin-bottom: 20px; background: linear-gradient(to bottom, #0B0C10, #1A1C23);">
+    <v-card-text style="color: #E2DAD6;">
+      <v-row>
+        <v-col cols="12" sm="3" :class="mdAndDown ? 'd-flex justify-center align-center' : ''">
+            <v-img
+              src="/src/images/logo1.png"
+              style="height: 250px; width: 250px; margin-left: 30px;"
+            ></v-img>
+          </v-col>
+
+
+        <v-col cols="12" sm="9" style="margin-top: 60px;">
+          <h2 class="mb-5">
+            Greetings,
+            <span class="font-weight-black">
+              {{  admin.fullname  }}!
+            </span>
+            Ready to Manage your LaptopLynx?
+          </h2>
+
+          <p class="text-justify">
+          Welcome to LaptopLynx Admin! As an admin, you’ll manage laptops, track performance, and handle repair requests. 
+          You have control over keeping the platform running smoothly and ensuring devices are in top condition. 
+          Log in to start managing your admin account, or register to get started. Thanks for choosing LaptopLynx—making laptop management easy and efficient!
+        </p>
+
+
+        </v-col>
+      </v-row>
+    </v-card-text>
+  </v-card>
+
+
   <v-container fluid>
     <v-row class="mt-12" justify="center">
       
