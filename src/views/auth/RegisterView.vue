@@ -198,7 +198,7 @@ watch(() => formData.value.role, (newRole) => {
                           </v-row>
                           
                           <v-text-field
-<<<<<<< HEAD
+
   v-model="formData.phone_number"
   label="Phone Number"
   outlined
@@ -206,20 +206,10 @@ watch(() => formData.value.role, (newRole) => {
   class="custom-input"
   prepend-inner-icon="mdi-phone"
   :rules="[requiredValidator]"
-  @keypress="onlyNumbers"
-/>
+  @input="formData.phone_number = formData.phone_number.replace(/\D/g, '')"
+  />
 
-=======
-                              v-model="formData.phone_number"
-                              label="Phone Number"
-                              outlined
-                              dense
-                              class="custom-input"
-                              prepend-inner-icon="mdi-phone"
-                              :rules="[requiredValidator]"
-                              @input="formData.phone_number = formData.phone_number.replace(/\D/g, '')"
-                            />
->>>>>>> development
+                            
 
                           <v-text-field
                             v-model="formData.email"
