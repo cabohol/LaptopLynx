@@ -6,8 +6,8 @@ export default {
       showLoading: false,
       showGifs: false,
       gifs: [
-        'https://64.media.tumblr.com/b5570e061b38e5ccf9432f70f9e824eb/tumblr_p2w8vlUbVB1w4kgreo1_500.gifv', 
-        'https://cdn.prod.website-files.com/652c101aadcd91f29004ee59/65aec32e1ca1bbfc25eee730_KP9-studio-main.gif',
+        '/src/images/advertise1.webp', 
+        'src/images/advertise.gif',
       ],
       currentGifIndex: 0,
       displayText: false,

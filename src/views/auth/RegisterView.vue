@@ -198,14 +198,16 @@ watch(() => formData.value.role, (newRole) => {
                           </v-row>
                           
                           <v-text-field
-                            v-model="formData.phone_number"
-                            label="Phone Number"
-                            outlined
-                            dense
-                            class="custom-input"
-                            prepend-inner-icon="mdi-phone"
-                            :rules="[requiredValidator]"
-                          />
+  v-model="formData.phone_number"
+  label="Phone Number"
+  outlined
+  dense
+  class="custom-input"
+  prepend-inner-icon="mdi-phone"
+  :rules="[requiredValidator]"
+  @keypress="onlyNumbers"
+/>
+
 
                           <v-text-field
                             v-model="formData.email"
