@@ -182,9 +182,9 @@ export default {
     linear-gradient(135deg, #1F2833 20%, transparent 20%),
     linear-gradient(135deg, transparent 40%, #0B0C10 40%, #0B0C10 60%, transparent 60%),
     linear-gradient(135deg, #0B0C10 60%, #1F2833 60%);
-  background-color: #0B0C10; /* Base color */
-  background-size: 100% 100%; /* Adjust as needed */
-  height: 100vh; /* Full height */
+  background-color: #0B0C10;
+  background-size: 100% 100%; 
+  height: 100vh; 
   overflow: hidden;
   position: relative;
 }
