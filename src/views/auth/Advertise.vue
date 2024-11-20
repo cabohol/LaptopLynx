@@ -17,13 +17,13 @@ export default {
     setTimeout(() => {
       this.showLogo = false;
       this.showLoading = true;
-    }, 5000);
+    }, 3000);
 
     setTimeout(() => {
       this.showLoading = false;
       this.showGifs = true;
       this.scheduleNextGif();
-    }, 8000);
+    }, 5000);
   },
   methods: {
     skipAd() {
@@ -34,11 +34,11 @@ export default {
         setTimeout(() => {
           this.currentGifIndex++;
           this.scheduleNextGif();
-        }, 3000);
+        }, 2000);
       } else {
         setTimeout(() => {
           this.displayText = true;
-        }, 3000);
+        }, 2000);
       }
     },
   },
