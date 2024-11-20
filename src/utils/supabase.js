@@ -18,14 +18,14 @@ export const isAuthenticated = async () => {
   const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
 
   if (sessionError) {
-    console.error('Error getting session:', sessionError.message);
+    // console.error('Error getting session:', sessionError.message);
     return { isAuthenticated: false, user: null };
   }
 
   const { data: userData, error: userError } = await supabase.auth.getUser();
 
   if (userError) {
-    console.error('Error getting user data:', userError.message);
+    // console.error('Error getting user data:', userError.message);
     return { isAuthenticated: !!sessionData.session, user: null };
   }
 
