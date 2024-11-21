@@ -6,8 +6,6 @@ export default {
       showLoading: false,
       showGifs: false,
       gifs: [
-
-
         '/src/images/gif1.gif', 
         'https://cdn.prod.website-files.com/652c101aadcd91f29004ee59/65aec32e1ca1bbfc25eee730_KP9-studio-main.gif',
       ],
