@@ -7,6 +7,7 @@ export default {
       showGifs: false,
       gifs: [
 
+
         '/src/images/advertise1.webp', 
         'src/images/advertise.gif',
         '/src/images/gif1.gif', 
