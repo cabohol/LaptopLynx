@@ -11,6 +11,7 @@ import ForbiddenView from '@/views/error/ForbiddenView.vue'
 import NotFoundView from '@/views/error/NotFoundView.vue'
 import { isAuthenticated} from '@/utils/supabase'
 import CustomerProfile from '@/views/auth/CustomerProfile.vue'
+import NotificationPage from '@/components/system/NotificationPage.vue'
 
 
 const router = createRouter({
@@ -39,6 +40,11 @@ const router = createRouter({
       path: '/booking',
       name: 'booking',
       component: BookingView
+    },
+    {
+      path: '/notifications',
+      name: 'notifications',
+      component: NotificationPage
     },
     {
       path: '/profile',

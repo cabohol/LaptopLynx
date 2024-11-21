@@ -6,8 +6,13 @@ export default {
       showLoading: false,
       showGifs: false,
       gifs: [
+<<<<<<< HEAD
         '/src/images/advertise1.webp', 
         'src/images/advertise.gif',
+=======
+        '/src/images/gif1.gif', 
+        'https://cdn.prod.website-files.com/652c101aadcd91f29004ee59/65aec32e1ca1bbfc25eee730_KP9-studio-main.gif',
+>>>>>>> development
       ],
       currentGifIndex: 0,
       displayText: false,
@@ -23,7 +28,7 @@ export default {
       this.showLoading = false;
       this.showGifs = true;
       this.scheduleNextGif();
-    }, 8000);
+    }, 5000);
   },
   methods: {
     skipAd() {
@@ -34,11 +39,11 @@ export default {
         setTimeout(() => {
           this.currentGifIndex++;
           this.scheduleNextGif();
-        }, 3000);
+        }, 2000);
       } else {
         setTimeout(() => {
           this.displayText = true;
-        }, 3000);
+        }, 2000);
       }
     },
   },
@@ -56,7 +61,7 @@ export default {
     </div>
 
     <!-- Loading Overlay -->
-    <div v-if="showLoading && !showLogo" class="loading-overlay neon-loading">
+    <!-- <div v-if="showLoading && !showLogo" class="loading-overlay neon-loading">
       <div class="neon-ring"></div>
       <h3 class="loading-title">Welcome to LaptopLynx</h3>
       <p class="loading-text">Bringing cutting-edge laptops to your screen</p>
@@ -64,9 +69,8 @@ export default {
       <v-btn color="cyan darken-2" dark class="cyber-button" @click="skipAd">
         Skip
       </v-btn>
-    </div>
+    </div> -->
 
-    <!-- Main Content: GIFs and Text -->
     <v-container v-if="!showLoading && !showLogo" fluid fill-height>
       <v-row align="center" justify="center">
         <v-col cols="12" sm="8" md="6" class="content-wrapper">
@@ -116,7 +120,6 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #000;
   z-index: 9999;
 }
 
@@ -180,25 +183,15 @@ export default {
 }
 
 .full-screen {
-  background-color: #000;
+  background: 
+    linear-gradient(135deg, #1F2833 20%, transparent 20%),
+    linear-gradient(135deg, transparent 40%, #0B0C10 40%, #0B0C10 60%, transparent 60%),
+    linear-gradient(135deg, #0B0C10 60%, #1F2833 60%);
+  background-color: #0B0C10;
+  background-size: 100% 100%; 
+  height: 100vh; 
   overflow: hidden;
   position: relative;
-}
-
-@keyframes gradientShift {
-  0% { background-color: #000; }
-  25% { background-color: #1F2833; }
-  50% { background-color: #0B0C10; }
-  100% { background-color: #000; }
-}
-
-.full-screen {
-  animation: gradientShift 8s ease-in-out infinite;
-}
-
-.cyber-theme {
-  background: #000;
-  color: #66FCF1;
 }
 
 .content-wrapper {
@@ -219,15 +212,18 @@ export default {
 .cyber-button {
   font-weight: bold;
   text-transform: uppercase;
-  padding: 12px 30px;
+  padding: 12px 50px; 
+  width: 150px; 
+  text-align: center; 
   border: none;
   border-radius: 8px;
   color: #1F2833;
-  background: linear-gradient(90deg, #66FCF1, #0B0C10);
+  background: linear-gradient(90deg, #1F2833, #66FCF1, #0B0C10);
   position: relative;
   overflow: hidden;
   transition: color 0.3s ease-in-out;
 }
+
 
 .cyber-button::before {
   content: '';
@@ -257,13 +253,12 @@ export default {
   100% { transform: translate(25%, 25%) rotate(45deg); }
 }
 
-.loading-overlay {
+/* .loading-overlay {
   position: fixed;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(31, 40, 51, 0.95));
   color: #66FCF1;
   display: flex;
   flex-direction: column;
@@ -271,7 +266,6 @@ export default {
   justify-content: center;
   text-align: center;
   z-index: 1000;
-  animation: overlayPulse 3s infinite alternate;
   transition: opacity 0.3s ease-in-out;
 }
 
@@ -318,7 +312,7 @@ export default {
     transform: scale(1.05);
     opacity: 0.7;
   }
-}
+} */
 
 .loading-title {
   margin-top: 30px;
