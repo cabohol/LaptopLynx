@@ -187,17 +187,6 @@ const onLogout = async () => {
 };
 
 
-const notifications = ref([
-  { title: 'New Comment', message: 'You have a new comment on your post.' },
-  { title: 'Reminder', message: 'Your session starts in 30 minutes.' },
-  { title: 'Update Available', message: 'A new version is available.' },
-])
-
-const clearNotifications = () => {
-  notifications.value = []
-}
-
-
 const imagePopup = ref(false);
 const selectedImage = ref('');
 
