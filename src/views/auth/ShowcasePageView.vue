@@ -1,9 +1,11 @@
 <script>
-import { ref } from 'vue';
+import { ref } from "vue";
 
 export default {
+  name: "LaptopLynxBanner",
   data() {
     return {
+      // Data for first script
       currentImage: 'https://images.acer.com/is/image/acer/swift3_sf31459_wp_fp-bl_silver_01_l-2?$Visual-Filter-XL$',
       images: [
         {
@@ -64,10 +66,31 @@ export default {
           title: 'Acer Predator Helios 300',
           description: "Get ready for serious gaming with the Helios 300. Its competitive pricing, stunning display, and powerful internals make it a top choice for gamers."
         }
-      ]
+      ],
+      currentImageIndex: 0,
+
+      // Data for second script
+      currentLaptopImageIndex: 0,
+      laptopImages: [
+        "https://i.pinimg.com/originals/aa/59/d1/aa59d139b93dde70ff207187c9f1d8bd.gif",
+        "https://i.pinimg.com/originals/52/97/24/5297244037ac7f3882a1ccc85b38ece6.gif",
+        "https://i.pinimg.com/originals/1d/72/a2/1d72a2ecc5710dcabf7c0e95e3bccb16.gif",
+        "https://i.pinimg.com/originals/75/e7/ef/75e7ef7aa27009befb076509382b86b8.gif",
+      ],
     };
   },
+  computed: {
+    // Computed for first script
+    currentImage() {
+      return this.images[this.currentImageIndex].src;
+    },
+    // Computed for second script
+    currentLaptopImage() {
+      return this.laptopImages[this.currentLaptopImageIndex];
+    },
+  },
   methods: {
+    // Methods for first script
     selectImage(image) {
       this.currentImage = image;
     },
@@ -81,68 +104,117 @@ export default {
         })),
       });
       lightbox.openAt(index);
-    }
-  }
+    },
+    startSlideshow() {
+      setInterval(() => {
+        this.currentImageIndex =
+          (this.currentImageIndex + 1) % this.images.length;
+      }, 3000); 
+    },
+
+    // Methods for second script
+    startLaptopSlideshow() {
+      setInterval(() => {
+        this.currentLaptopImageIndex =
+          (this.currentLaptopImageIndex + 1) % this.laptopImages.length;
+      }, 4000); 
+    },
+  },
+  mounted() {
+    // Mount both slideshows
+    this.startSlideshow();
+    this.startLaptopSlideshow();
+  },
 };
 </script>
 
 
 
-
 <template>
 <v-responsive class="border rounded">
-    <v-app>
-        <v-app-bar app class="elegant-app-bar">
-  <v-toolbar-title>
-    <v-img
-      src="/src/images/logo1.png"
-      alt="Logo"
-      class="lg"
-      contain
-    ></v-img>
+  <v-app>
+      <v-app-bar app class="elegant-app-bar">
+        <v-toolbar-title>
+          <v-img
+            src="/src/images/logo1.png"
+            alt="Logo"
+            class="lg"
+            contain
+          ></v-img>
+        </v-toolbar-title>
+        <v-spacer></v-spacer>
 
-  </v-toolbar-title>
+          <v-btn
+            class="ml-3"
+            large
+            to="/LoginView"
+          >
+            <v-icon left>mdi-account</v-icon> 
+            Log In
+          </v-btn>
+      </v-app-bar>
 
-  <v-spacer></v-spacer>
-
-<v-btn
-  class="ml-3"
-  large
-  to="/LoginView"
->
-  <v-icon left>mdi-account</v-icon> 
-  Log In
-</v-btn>
-
-</v-app-bar>
-
-    <!-- Main content with Carousel -->
     <v-main>
-      <v-parallax src="https://images.acer.com/is/image/acer/predator-laptop-helios-neo-18-code-design:KSP-with-Specs-XL" height="700" style="position: relative; overflow: hidden;" class="animated-parallax">
-  <template v-slot:default>
-    <div class="parallax-text">
-      <h1>Welcome to LaptopLynx</h1>
-      <p>Your premier destination for affordable laptop rentals.</p>
-      <p>Choose from a wide range of high-performance laptops for gaming, work, or study.</p>
-    </div>
-  </template>
-</v-parallax>
+      <v-container fluid class="py-10" style="
+        background: linear-gradient(120deg, #000000 0%, #00FFFF 100%), 
+                    linear-gradient(120deg, #000000 0%, #00FFFF 100%), 
+                    linear-gradient(130deg, #000000 0%, #00FFFF 100%), 
+                    radial-gradient(110% 140% at 15% 90%, #000000 0%, #00FFFF 100%), 
+                    radial-gradient(100% 100% at 50% 0%, #000000 0%, #00FFFF 100%), 
+                    radial-gradient(100% 100% at 50% 0%, #000000 0%, #00FFFF 80%), 
+                    linear-gradient(30deg, #000000 0%, #00FFFF 100%);
+        background-blend-mode: overlay, color, overlay, difference, color-dodge, difference, normal;">
 
+
+            <v-row align="center" justify="space-between" class="laptop-row">
+              <v-col cols="12" md="7" class="image-container">
+                <v-img :src="currentLaptopImage" alt="Laptop image" contain height="400" class="laptop-image"></v-img>
+              </v-col>
+
+              <v-col cols="12" md="5" class="text-content-container">
+                <h1 class="main-heading">
+                  Discover <span class="highlight-text">LaptopLynx</span>
+                </h1>
+
+                <p class="description-text">
+                  Whether you're a student, a professional, or a gamer, LaptopLynx provides you with access to the latest, high-performance laptops at unbeatable prices. Our hassle-free rental service gives you the flexibility to choose the laptop you need, when you need it.
+                </p>
+                <div class="cta-card" @click="scrollToExplore">
+                  <div class="cta-content">
+                    <h2 class="cta-title">Explore Our Collection</h2>
+                    <p class="cta-subtitle">Click to find the perfect laptop for your needs.</p>
+                  </div>
+                </div>
+              </v-col>
+            </v-row>
+      </v-container>
+       
 
 
               <!-- Logos Section -->
-              <div class="logo-scroll-container">
-                  <div class="logo-container">
-                      <img src="https://1000logos.net/wp-content/uploads/2016/09/Acer-Logo.png" alt="Brand Logo 1" class="logo" />
-                      <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Huawei_Standard_logo.svg/1008px-Huawei_Standard_logo.svg.png" alt="Brand Logo 2" class="logo" />
-                      <img src="https://logos-world.net/wp-content/uploads/2022/07/Lenovo-Symbol.png" alt="Brand Logo 3" class="logo" />
-                      <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/dell-icon.png" alt="Brand Logo 4" class="logo" />
-                      <img src="https://cdn.freebiesupply.com/images/large/2x/apple-logo-transparent.png" alt="Brand Logo 5" class="logo" />
-                      <img src="https://cdn.freebiesupply.com/images/large/2x/hewlett-packard-logo-png-transparent.png" alt="Brand Logo 6" class="logo" />
-                      <img src="https://cdn.freebiesupply.com/images/large/2x/asus-logo-black-transparent.png" alt="Brand Logo 7" class="logo" />
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/TOSHIBA_Logo.png/1200px-TOSHIBA_Logo.png" alt="Brand Logo 8" class="logo" />
-                  </div>
-              </div>
+<div class="logo-scroll-container">
+    <div class="logo-container">
+        <img src="https://1000logos.net/wp-content/uploads/2016/09/Acer-Logo.png" alt="Brand Logo 1" class="logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Huawei_Standard_logo.svg/1008px-Huawei_Standard_logo.svg.png" alt="Brand Logo 2" class="logo" />
+        <img src="https://logos-world.net/wp-content/uploads/2022/07/Lenovo-Symbol.png" alt="Brand Logo 3" class="logo" />
+        <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/dell-icon.png" alt="Brand Logo 4" class="logo" />
+        <img src="https://cdn.freebiesupply.com/images/large/2x/apple-logo-transparent.png" alt="Brand Logo 5" class="logo" />
+        <img src="https://cdn.freebiesupply.com/images/large/2x/hewlett-packard-logo-png-transparent.png" alt="Brand Logo 6" class="logo" />
+        <img src="https://cdn.freebiesupply.com/images/large/2x/asus-logo-black-transparent.png" alt="Brand Logo 7" class="logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/TOSHIBA_Logo.png/1200px-TOSHIBA_Logo.png" alt="Brand Logo 8" class="logo" />
+        <!-- Duplicate the logos -->
+        <img src="https://1000logos.net/wp-content/uploads/2016/09/Acer-Logo.png" alt="Brand Logo 1" class="logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Huawei_Standard_logo.svg/1008px-Huawei_Standard_logo.svg.png" alt="Brand Logo 2" class="logo" />
+        <img src="https://logos-world.net/wp-content/uploads/2022/07/Lenovo-Symbol.png" alt="Brand Logo 3" class="logo" />
+        <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/dell-icon.png" alt="Brand Logo 4" class="logo" />
+        <img src="https://cdn.freebiesupply.com/images/large/2x/apple-logo-transparent.png" alt="Brand Logo 5" class="logo" />
+        <img src="https://cdn.freebiesupply.com/images/large/2x/hewlett-packard-logo-png-transparent.png" alt="Brand Logo 6" class="logo" />
+        <img src="https://cdn.freebiesupply.com/images/large/2x/asus-logo-black-transparent.png" alt="Brand Logo 7" class="logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/TOSHIBA_Logo.png/1200px-TOSHIBA_Logo.png" alt="Brand Logo 8" class="logo" />
+    </div>
+</div>
+
+
 
 
 
@@ -208,7 +280,7 @@ export default {
       </div>
     </v-col>
   </v-row>
-</v-container>
+              </v-container>
   
 
 <v-container fluid style="background: url('https://images.acer.com/is/image/acer/triton14_beyond%20performance?$responsive$'); background-repeat: repeat;">
@@ -625,8 +697,6 @@ export default {
 </v-container>
 
 
-
-
 <br>
 <br>
 
@@ -837,6 +907,112 @@ export default {
 
 
 <style scoped>
+.text-content-container {
+  color: #c5c6c7;
+  text-align: left;
+  padding: 10px 20px;
+}
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 80%;
+  }
+}
+
+@keyframes blink {
+  0%, 100% {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #66FCF1;
+  }
+}
+
+.main-heading {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #66FCF1;
+  line-height: 1.4;
+  margin-bottom: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid #66FCF1;
+  display: inline-block;
+  animation: typing 4s steps(50, end), blink 1s infinite step-end;
+}
+
+
+.highlight-text {
+  color: #66FCF1;
+  font-weight: bold;
+  display: inline-block;
+  animation: none; 
+}
+
+@media (max-width: 1200px) {
+  .main-heading {
+    font-size: 2.5rem; 
+  }
+}
+
+@media (max-width: 768px) {
+  .main-heading {
+    font-size: 2rem; 
+  }
+}
+
+@media (max-width: 480px) {
+  .main-heading {
+    margin-top: -30px;
+    font-size: 1.5rem; 
+  }
+}
+
+
+.description-text {
+  font-size: 1.2rem;
+  line-height: 1.9;
+  margin-bottom: 30px;
+  color: #c5c6c7;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.cta-card {
+  margin-top: 40px;
+  cursor: pointer;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(145deg, #1F2833, #45A29E);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cta-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+}
+
+.cta-content {
+  padding: 20px;
+  text-align: center;
+}
+
+.cta-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #66FCF1;
+}
+
+.cta-subtitle {
+  font-size: 1.2rem;
+  color: #c5c6c7;
+}
+
+
+
 .laptoplynx-social-icons {
     display: flex;
     justify-content: center;
@@ -1192,7 +1368,7 @@ body {
 
 .logo-scroll-container {
   max-height: 200px;
-  overflow-y: auto;
+  overflow: hidden;
   padding: 25px;
   background-color: rgba(31, 40, 51, 0.85);
   border-radius: 20px;
@@ -1211,74 +1387,36 @@ body {
 .logo-container {
   display: flex;
   flex-wrap: nowrap;
-  justify-content: center;
-  animation: move 10s linear infinite; 
+  justify-content: flex-start; 
+  animation: scroll 15s linear infinite;
 }
 
-@keyframes move {
+.logo {
+  width: 100px;
+  margin: 0 10px;
+}
+
+@keyframes scroll {
   0% {
     transform: translateX(0);
   }
-  50% {
-    transform: translateX(10px); 
-  }
   100% {
-    transform: translateX(0); 
+    transform: translateX(-50%); 
   }
 }
+
 
 .logo {
   margin: 0 35px;
   height: 60px;
   object-fit: contain;
   transition: transform 0.4s ease, filter 0.4s ease; 
-  opacity: 0;
-  transform: translateY(30px); 
-  animation: fadeIn 1.2s ease-in-out forwards;
+  opacity: 1; 
 }
 
 .logo:hover {
-  transform: scale(1.15) rotate(3deg); 
   filter: brightness(1.3) drop-shadow(0px 4px 8px rgba(102, 252, 241, 0.5)); 
 }
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.logo:nth-child(1) {
-  animation-delay: 0.3s;
-}
-.logo:nth-child(2) {
-  animation-delay: 0.6s;
-}
-.logo:nth-child(3) {
-  animation-delay: 0.9s;
-}
-.logo:nth-child(4) {
-  animation-delay: 1.2s;
-}
-.logo:nth-child(5) {
-  animation-delay: 1.5s;
-}
-.logo:nth-child(6) {
-  animation-delay: 1.8s;
-}
-.logo:nth-child(7) {
-  animation-delay: 2.1s;
-}
-.logo:nth-child(8) {
-  animation-delay: 2.4s;
-}
-
-
 
 
 .laptop-card {
