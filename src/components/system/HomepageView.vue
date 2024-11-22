@@ -1341,23 +1341,41 @@ export default {
 }
 
 .custom-search-bar {
-  background-color: #1F2833;
-  border-radius: 5px;
-  transition: box-shadow 0.3s ease;
+  background: linear-gradient(110deg, #1F2833, #66FCF1, #1F2833); 
+  border-radius: 8px; 
+  transition: box-shadow 0.3s ease, transform 0.2s ease; 
+}
+
+.custom-search-bar:hover {
+  box-shadow: 0px 6px 10px rgba(102, 252, 241, 0.2); 
+  transform: translateY(-2px); 
 }
 
 .custom-search-bar .v-input__control {
-  border: none;
+  border: none; 
+  background-color: transparent; 
+  color: #FFFFFF; 
+  font-size: 1rem; 
+  padding: 12px 16px; 
 }
 
 .custom-search-bar .v-input__slot {
-  padding: 0;
+  padding: 0; 
 }
 
-.custom-search-bar :placeholder-shown {
-  color: #ffffff;
-  padding: 10px 20px;
+.custom-search-bar ::placeholder {
+  color: #C5C6C7;
+  opacity: 0.9;
 }
+
+.custom-search-bar ::placeholder-shown {
+  padding: 12px 16px; 
+}
+
+.custom-search-bar .v-input__control:focus {
+  outline: none;
+}
+
 
 .v-dialog {
   background-color: #1F2833;
