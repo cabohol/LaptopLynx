@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');  // Import the CORS package
 const app = express();
 const PORT = 3000;
-
 //import Cors from 'cors';
 
 
@@ -109,22 +108,19 @@ const laptops = [
 
   //app.use(cors()); // Allow all origins
 
+  //Configure CORS options
   const corsOptions = {
-    origin: [
-      'https://laptop-lynx.vercel.app',
-      'https://laptop-lynx.vercel.app/homepage',
-      'https://laptop-lynx.vercel.app/booking'
-    ], // Allow only these frontend origins
-    methods: 'GET,POST,PUT,DELETE', // Specify allowed methods
+    origin: 'https://laptop-lynx.vercel.app', // Allow only this origin
+    methods: 'GET, POST, PUT, DELETE', // Specify allowed methods
+    allowedHeaders: ['Content-Type'], // Allow Content-Type header
+    credentials: true, // Allow cookies and credentials (if needed)
   };
   
-  app.use(cors(corsOptions));
+  app.use(cors(corsOptions)); // Apply CORS middleware with the specified options
   
-
-
-
   app.use(express.json()); // Allow parsing JSON data from requests
   
+  // Define the /api/laptops route
   app.get('/api/laptops', (req, res) => {
       res.json(laptops); // Send the laptop data as JSON response
   });
@@ -133,7 +129,6 @@ const laptops = [
   app.listen(PORT, () => {
       console.log(`Server is running on http://localhost:${PORT}`);
   });
-
 
 
   // Initialize the CORS middleware
