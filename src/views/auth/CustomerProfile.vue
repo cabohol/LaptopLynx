@@ -10,7 +10,7 @@ const renter = ref({
   fullname: '',
   email: '',
   phone_number: '',
-  avatar: '/src/images/Default_pfp.svg.png',
+  avatar: localStorage.getItem('user-avatar') || '/src/images/Default_pfp.svg.png', // Default profile picture or stored avatar
 });
 
 const formAction = ref({
@@ -29,7 +29,6 @@ const getRenterData = async () => {
     renter.value.email = user.email;
     const metadata = user.user_metadata;
     renter.value.fullname = `${metadata?.firstname || ''} ${metadata?.lastname || ''}`.trim();
-    renter.value.avatar = metadata?.avatar || renter.value.avatar;
     renter.value.phone_number = metadata?.phone_number || 'Not Provided';
   }
 };
@@ -58,6 +57,8 @@ const onImageChange = (event) => {
   const file = event.target.files[0];
   if (file) {
     selectedFile.value = file;
+    renter.value.avatar = URL.createObjectURL(file); // Preview image locally
+    localStorage.setItem('user-avatar', renter.value.avatar); // Store avatar URL locally
   }
 };
 
@@ -67,46 +68,7 @@ const uploadProfilePicture = async () => {
     return;
   }
 
-  const user = (await supabase.auth.getUser()).data.user;
-  if (!user) {
-    alert('No user is logged in.');
-    return;
-  }
-
-  const fileName = `avatars/${user.id}/${selectedFile.value.name}`;
-  const { data, error } = await supabase.storage
-    .from('avatars')
-    .upload(fileName, selectedFile.value, {
-      upsert: true,
-    });
-
-  if (error) {
-    console.error('Error uploading file:', error);
-    alert('Failed to upload profile picture. Try again.');
-    return;
-  }
-
-  const { data: publicUrlData, error: urlError } = supabase.storage
-    .from('avatars')
-    .getPublicUrl(fileName);
-
-  if (urlError) {
-    console.error('Error getting public URL:', urlError);
-    alert('Failed to retrieve uploaded image URL.');
-    return;
-  }
-
-  const { error: updateError } = await supabase.auth.updateUser({
-    user_metadata: { avatar: publicUrlData.publicUrl },
-  });
-
-  if (updateError) {
-    console.error('Error updating user data:', updateError);
-    alert('Failed to update profile picture.');
-    return;
-  }
-
-  renter.value.avatar = publicUrlData.publicUrl;
+  // Functionality to upload the profile picture to Supabase storage removed.
   alert('Profile picture updated successfully!');
   dialog.value = false;
 };

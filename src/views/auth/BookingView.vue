@@ -80,7 +80,7 @@ export default {
     const renter = ref({
       fullname: '',
       email: '',
-      avatar: '/src/images/Default_pfp.svg.png', // Default avatar if none provided
+      avatar: localStorage.getItem('user-avatar') || '/src/images/Default_pfp.svg.png', // Default profile picture or stored avatar
     });
 
     const formAction = ref({

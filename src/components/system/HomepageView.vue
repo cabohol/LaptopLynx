@@ -58,7 +58,7 @@ const filteredLaptops = computed(() => {
 const renter = ref({
   fullname: '',
   email: '',
-  avatar: '/src/images/Default_pfp.svg.png', // Default avatar if none provided
+  avatar: localStorage.getItem('user-avatar') || '/src/images/Default_pfp.svg.png', // Default profile picture or stored avatar
 });
 
 const formAction = ref({
@@ -221,57 +221,6 @@ export default {
     </div>
 
     <v-spacer></v-spacer>
-
-
-    <!-- <v-menu
-      offset-y
-      min-width="300px"
-      rounded
-    >
-      <template v-slot:activator="{ props }">
-        <v-btn
-          icon
-          v-bind="props"
-        >
-          <v-icon color="#66FCF1;">mdi-bell</v-icon>
-        </v-btn>
-      </template>
-      <v-card style="background-color: #1F2833;">
-        <v-card-text>
-          <div class="mx-auto text-center">
-            <h3 class="text-h6">Notifications</h3>
-            <v-divider class="my-3"></v-divider>
-
-            <v-list>
-              <v-list-item
-                v-for="(notification, index) in notifications"
-                :key="index"
-                class="py-2"
-              >
-                <v-list-item-avatar color="brown">
-                  <v-icon>mdi-bell-alert</v-icon>
-                </v-list-item-avatar>
-                <v-list-item-content>
-                  <v-list-item-title>{{ notification.title }}</v-list-item-title>
-                  <v-list-item-subtitle>{{ notification.message }}</v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
-            <v-divider class="my-3"></v-divider>
-            <v-btn
-              variant="text"
-              rounded
-              @click="clearNotifications"
-            >
-              Clear All
-            </v-btn>
-          </div>
-        </v-card-text>
-      </v-card>
-    </v-menu> -->
-    <!-- End of Notification Bell -->
-
-    <!-- Profile Dropdown can be added here if needed -->
   </v-app-bar>
 
     <!-- Navigation Drawer -->

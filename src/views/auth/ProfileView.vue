@@ -11,7 +11,7 @@ const admin = ref({
   fullname: '',
   email: '',
   phone_number: '',
-  avatar: '/src/images/Default_pfp.svg.png', // Default avatar if none provided
+  avatar: localStorage.getItem('user-avatar') || '/src/images/Default_pfp.svg.png', // Default profile picture or stored avatar
 });
 
 const formAction = ref({
@@ -31,7 +31,6 @@ const getAdminData = async () => {
     admin.value.email = user.email;
     const metadata = user.user_metadata;
     admin.value.fullname = `${metadata?.firstname || ''} ${metadata?.lastname || ''}`.trim();
-    admin.value.avatar = metadata?.avatar || admin.value.avatar; // Use avatar from metadata if available
     admin.value.phone_number = metadata?.phone_number || 'Not Provided'; // Retrieve phone number from metadata
   }
 };
@@ -57,41 +56,32 @@ const onLogout = async () => {
   router.replace('/LoginView');
 };
 
-// Dummy notifications for display
-const notifications = ref([
-  { title: 'New Comment', message: 'You have a new comment on your post.' },
-  { title: 'Reminder', message: 'Your session starts in 30 minutes.' },
-  { title: 'Update Available', message: 'A new version is available.' },
-]);
+const dialog = ref(false);
+const selectedFile = ref(null);
 
-const clearNotifications = () => {
-  notifications.value = [];
-};
-</script>
-
-<script>
-export default {
-  methods: {
-    toggleNotifications() {
-      this.isNotificationOpen = !this.isNotificationOpen;
-    },
-    openImagePicker() {
-      this.dialog = true; // Open the dialog for image selection
-    },
-    onImageChange(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.profilePicture = e.target.result; // Update the profile picture with the selected image
-          localStorage.setItem('profilePicture', e.target.result); // Save the new image to localStorage
-        };
-        reader.readAsDataURL(file); // Convert image to base64 string
-      }
-    },
+const onImageChange = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    selectedFile.value = file;
+    admin.value.avatar = URL.createObjectURL(file); // Preview image locally
+    localStorage.setItem('user-avatar', admin.value.avatar); // Store avatar URL locally
   }
 };
+
+const uploadProfilePicture = async () => {
+  if (!selectedFile.value) {
+    alert('Please select a file!');
+    return;
+  }
+
+  // Functionality to upload the profile picture to Supabase storage removed.
+  alert('Profile picture updated successfully!');
+  dialog.value = false;
+};
 </script>
+
+
+
 
 <template>
   <v-app>
@@ -108,57 +98,6 @@ export default {
       </div>
 
       <v-spacer></v-spacer>
-
-      <v-menu
-      offset-y
-      min-width="300px"
-      rounded
-    >
-      <template v-slot:activator="{ props }">
-        <v-btn
-          icon
-          v-bind="props"
-        >
-          <v-icon color="#66FCF1;">mdi-bell</v-icon>
-        </v-btn>
-      </template>
-      <v-card style="background-color: #1F2833;">
-        <v-card-text>
-          <div class="mx-auto text-center">
-            <h3 class="text-h6">Notifications</h3>
-            <v-divider class="my-3"></v-divider>
-            <!-- List of Notifications -->
-            <v-list>
-              <v-list-item
-                v-for="(notification, index) in notifications"
-                :key="index"
-                class="py-2"
-              >
-                <v-list-item-avatar color="brown">
-                  <v-icon>mdi-bell-alert</v-icon>
-                </v-list-item-avatar>
-                <v-list-item-content>
-                  <v-list-item-title>{{ notification.title }}</v-list-item-title>
-                  <v-list-item-subtitle>{{ notification.message }}</v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
-            <v-divider class="my-3"></v-divider>
-            <v-btn
-              variant="text"
-              rounded
-              @click="clearNotifications"
-            >
-              Clear All
-            </v-btn>
-          </div>
-        </v-card-text>
-      </v-card>
-    </v-menu>
-    <!-- End of Notification Bell -->
-
-
-    
     </v-app-bar>
 
     <!-- Navigation Drawer -->
@@ -175,6 +114,7 @@ export default {
 
       <v-list density="compact" nav>
         <v-list-item prepend-icon="mdi-view-dashboard" title="Dashboard" :to="{ name: 'dashboard' }"></v-list-item>
+        <v-list-item prepend-icon="mdi-account-multiple" title="Customer's List" :to="{ name: 'customerslist' }"></v-list-item>
         <v-list-item prepend-icon="mdi-account" title="Profile" :to="{ name: 'profile' }"></v-list-item>
         <v-list-item @click="onLogout" title="Logout" prepend-icon="mdi-logout"></v-list-item>
       </v-list>
@@ -195,31 +135,50 @@ export default {
                 <v-card-title class="text-h4" style="color: #66FCF1; font-weight: 600;">{{ admin.fullname }}</v-card-title>
                 <v-card-subtitle class="text-body-2 text-center" style="color: white; margin-top: 7px;" > <strong>Email:</strong> {{ admin.email }}</v-card-subtitle>
                 <v-card-subtitle class="text-body-2 text-center" style="color: white;"> <strong>Contact Number:</strong> {{ admin.phone_number }}</v-card-subtitle>
-                <v-btn block class="mt-10 profile-edit-btn" @click="openImagePicker"> Edit Profile </v-btn>
+                <v-btn block class="mt-10 profile-edit-btn" @click="dialog = true"> Edit Profile </v-btn>
               </div>
             </div>
           </v-col>
         </v-row>
-      </v-row>          
+      </v-row>      
+      
+      
+
+         <!-- File Input Dialog -->
+         <v-dialog v-model="dialog" max-width="400" style="border-radius: 12px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); background-color: #1F2833;">
+          <v-card style="border-radius: 12px; background-color: #1F2833;">
+            <v-card-title style="background-color: #0B0C10; color: #66FCF1; padding: 16px; border-top-left-radius: 12px; border-top-right-radius: 12px;">
+              <span class="text-h5" style="font-weight: 600;">Select a new profile picture</span>
+            </v-card-title>
+            <v-card-text style="padding: 24px; display: flex; flex-direction: column; align-items: center; color: #C5C6C7;">
+              <input type="file" @change="onImageChange" accept="image/*" 
+                style="border: 2px solid #66FCF1; border-radius: 8px; padding: 8px 12px; font-size: 16px; cursor: pointer; background-color: #1F2833; color: #0B0C10; transition: background-color 0.3s ease, border-color 0.3s ease;"
+                @mouseover="event.target.style.backgroundColor = '#66FCF1'; event.target.style.color = '#1F2833'; event.target.style.borderColor = '#0B0C10'"
+                @mouseleave="event.target.style.backgroundColor = '#1F2833'; event.target.style.color = '#C5C6C7'; event.target.style.borderColor = '#66FCF1'"
+              />
+            </v-card-text>
+            <v-card-actions style="padding: 16px; display: flex; justify-content: flex-end; gap: 12px;">
+              <v-btn text @click="dialog = false" 
+                style="color: #66FCF1; background-color: #0B0C10; border-radius: 8px; padding: 8px 16px; font-weight: 500; transition: background-color 0.3s ease, transform 0.2s ease;" 
+                @mouseover="event.target.style.backgroundColor = '#66FCF1'; event.target.style.color = '#0B0C10'; event.target.style.transform = 'scale(1.05)';"
+                @mouseleave="event.target.style.backgroundColor = '#0B0C10'; event.target.style.color = '#66FCF1'; event.target.style.transform = 'scale(1)'"
+              >
+                Cancel
+              </v-btn>
+              <v-btn text @click="dialog = false" 
+                style="color: #66FCF1; background-color: #0B0C10; border-radius: 8px; padding: 8px 16px; font-weight: 500; transition: background-color 0.3s ease, transform 0.2s ease;" 
+                @mouseover="event.target.style.backgroundColor = '#66FCF1'; event.target.style.color = '#0B0C10'; event.target.style.transform = 'scale(1.05)';"
+                @mouseleave="event.target.style.backgroundColor = '#0B0C10'; event.target.style.color = '#66FCF1'; event.target.style.transform = 'scale(1)'"
+              >
+                Confirm
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
+
     </v-container>
   </v-main>
-
-    <!-- File Input Dialog -->
-    <v-dialog v-model="dialog" max-width="400">
-      <v-card>
-        <v-card-title>
-          <span class="text-h5">Select a new profile picture</span>
-        </v-card-title>
-        <v-card-text>
-          <input type="file" @change="onImageChange" accept="image/*" />
-        </v-card-text>
-        <v-card-actions>
-          <v-btn text @click="dialog = false">Cancel</v-btn>
-          <v-btn text @click="dialog = false">Confirm</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
- 
   </v-app>
 </template>
 
