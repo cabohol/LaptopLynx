@@ -106,7 +106,15 @@ const laptops = [
 
   app.use(cors()); // Allow all origins
 
+  const corsOptions = {
+    origin: 'https://laptop-lynx.vercel.app', // Allow only your frontend's origin
+    methods: 'GET,POST,PUT,DELETE', // Specify allowed methods
+  };
   
+  app.use(cors(corsOptions));
+
+
+
   app.use(express.json()); // Allow parsing JSON data from requests
   
   app.get('/api/laptops', (req, res) => {
