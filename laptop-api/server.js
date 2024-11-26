@@ -104,14 +104,19 @@ const laptops = [
   ];
 
 
-  app.use(cors()); // Allow all origins
+  //app.use(cors()); // Allow all origins
 
   const corsOptions = {
-    origin: 'https://laptop-lynx.vercel.app', // Allow only your frontend's origin
+    origin: [
+      'https://laptop-lynx.vercel.app',
+      'https://laptop-lynx.vercel.app/homepage',
+      'https://laptop-lynx.vercel.app/booking'
+    ], // Allow only these frontend origins
     methods: 'GET,POST,PUT,DELETE', // Specify allowed methods
   };
   
   app.use(cors(corsOptions));
+  
 
 
 
