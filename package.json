@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.6",
+    "cors": "^2.8.5",
     "glightbox": "^3.3.0",
     "pinia": "^2.1.7",
     "vue": "^3.4.29",
