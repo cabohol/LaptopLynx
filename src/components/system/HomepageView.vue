@@ -19,7 +19,7 @@ const laptops = ref([]);
 // Fetch laptops data from Vercel backend
 onMounted(async () => {
   try {
-    const response = await fetch('https://laptop-lynx.vercel.app/api/laptops'); // Replace with your actual Vercel URL
+    const response = await fetch('http://localhost:3000/api/laptops'); // Replace with your actual Vercel URL
     if (!response.ok) {
       throw new Error(`Failed to fetch laptops: ${response.status}`);
     }
