@@ -104,19 +104,17 @@ const laptops = [
   ];
 
 
-  const allowedOrigins = ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5174'];
+  app.use(cors()); // Allow all origins
 
-  app.use(cors({
-    origin: (origin, callback) => {
-      // Allow requests with no origin (like Postman) or if origin is in the allowed list
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-  }));
+  const corsOptions = {
+    origin: 'https://laptop-lynx.vercel.app', // Allow only your frontend's origin
+    methods: 'GET,POST,PUT,DELETE', // Specify allowed methods
+  };
   
+  app.use(cors(corsOptions));
+
+
+
   app.use(express.json()); // Allow parsing JSON data from requests
   
   app.get('/api/laptops', (req, res) => {
