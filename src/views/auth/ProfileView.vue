@@ -135,6 +135,7 @@ const saveProfile = async () => {
     console.log('Profile updated successfully');
   }
 };
+
 </script>
 
 
