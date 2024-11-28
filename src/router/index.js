@@ -12,7 +12,6 @@ import NotFoundView from '@/views/error/NotFoundView.vue'
 import { isAuthenticated} from '@/utils/supabase'
 import CustomerProfile from '@/views/auth/CustomerProfile.vue'
 import NotificationPage from '@/components/system/NotificationPage.vue'
-import CustomersList from '@/components/system/CustomersList.vue'
 
 
 const router = createRouter({
@@ -57,11 +56,7 @@ const router = createRouter({
       name: 'dashboard',
       component: DashboardView
     },
-    {
-      path: '/customerslist',
-      name: 'customerslist',
-      component: CustomersList
-    },
+    
     {
       path: '/customerprofile',
       name: 'customerprofile',
