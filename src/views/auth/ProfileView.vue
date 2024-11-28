@@ -171,7 +171,6 @@ const saveProfile = async () => {
 
       <v-list density="compact" nav>
         <v-list-item prepend-icon="mdi-view-dashboard" title="Dashboard" :to="{ name: 'dashboard' }"></v-list-item>
-        <v-list-item prepend-icon="mdi-account-multiple" title="Customer's List" :to="{ name: 'customerslist' }"></v-list-item>
         <v-list-item prepend-icon="mdi-account" title="Profile" :to="{ name: 'profile' }"></v-list-item>
         <v-list-item @click="onLogout" title="Logout" prepend-icon="mdi-logout"></v-list-item>
       </v-list>

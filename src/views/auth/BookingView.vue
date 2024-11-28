@@ -22,30 +22,17 @@ const selectedDate = ref(null);
 const selectedTime = ref(null);
 const rentalDays = ref('');
 const meetupPlace = ref('CSU (Hiraya Hall)');
+const today = new Date().toISOString().substr(0, 10); // Get today's date in 'YYYY-MM-DD' format
+
+const handleDateChange = () => {
+  console.log("Selected date:", selectedDate.value);
+};
 
 // Time options for the form
 const timeOptions = [
-  '08:00:00', '09:00:00', '10:00:00', '11:00:00', '12:00:00',
-  '13:00:00', '14:00:00', '15:00:00', '16:00:00', '17:00:00',
+  '08:00 A.M', '09:00 A.M', '10:00 A.M', '11:00 A.M', '12:00 NN',
+  '1:00 P.M', '2:00 P.M', '3:00 P.M', '4:00 P.M', '5:00 P.M',
 ];
-
-// Function to generate a range of dates starting from today
-const generateDateOptions = () => {
-  const today = new Date();
-  const dateOptions = [];
-  const yearsToGenerate = 10;
-
-  for (let i = 0; i < yearsToGenerate * 365; i++) {
-    const date = new Date(today);
-    date.setDate(today.getDate() + i);
-    const formattedDate = date.toISOString().split('T')[0];
-    dateOptions.push(formattedDate);
-  }
-  return dateOptions;
-};
-
-// Date options for the form
-const dateOptions = generateDateOptions();
 
 // Laptop model options for the form
 const laptopModels = [
@@ -105,8 +92,24 @@ const submitForm = async () => {
 
     const userId = user.user.id;
 
-    // Convert local date and time to UTC
-    const localDateTime = new Date(`${selectedDate.value}T${selectedTime.value}`);
+    // Parse and format the selected time
+    const timeParts = selectedTime.value.split(/[.: ]/); // Split time into components
+    let hours = parseInt(timeParts[0], 10);
+    const minutes = parseInt(timeParts[1], 10);
+    const period = timeParts[2];
+
+    // Convert to 24-hour format
+    if (period === 'P' && hours !== 12) {
+      hours += 12;
+    } else if (period === 'A' && hours === 12) {
+      hours = 0;
+    }
+
+    // Create a valid Date object
+    const localDateTime = new Date(selectedDate.value);
+    localDateTime.setHours(hours, minutes, 0, 0);
+
+    // Convert to UTC for storage
     const utcDateTime = new Date(localDateTime.getTime() - localDateTime.getTimezoneOffset() * 60000).toISOString();
 
     // Insert appointment into the Supabase database
@@ -138,6 +141,7 @@ const submitForm = async () => {
   }
 };
 </script>
+
 
 
 
@@ -215,129 +219,120 @@ const submitForm = async () => {
           max-width="1000px"
           style="background-color: #1F2833; border: 1px solid #66FCF1; border-radius: 10px; padding: 20px;"
         >
-          <v-form>
-            <v-card-text>
-              <!-- User Info Section -->
-              <v-row>
-                <v-col cols="12" sm="6">
-                  <v-text-field
-                    v-model="renter.firstname"
-                    label="First Name"
-                    outlined
-                    readonly
-                    color="#C5C6C7"
-                    style="color: white;"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6">
-                  <v-text-field
-                    v-model="renter.lastname"
-                    label="Last Name"
-                    outlined
-                    readonly
-                    color="#C5C6C7"
-                    style="color: white;"
-                  ></v-text-field>
-                </v-col>
-              </v-row>
+        <v-form>
+    <v-card-text>
+      <!-- User Info Section -->
+      <v-row>
+        <v-col cols="12" sm="6">
+          <v-text-field
+            v-model="renter.firstname"
+            label="First Name"
+            outlined
+            readonly
+            color="#C5C6C7"
+            style="color: white;"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" sm="6">
+          <v-text-field
+            v-model="renter.lastname"
+            label="Last Name"
+            outlined
+            readonly
+            color="#C5C6C7"
+            style="color: white;"
+          ></v-text-field>
+        </v-col>
+      </v-row>
 
-              <!-- Contact and Location Section -->
-              <v-row>
-                <v-col cols="12" sm="6">
-                  <v-text-field
-                    v-model="renter.email"
-                    label="Email"
-                    outlined
-                    readonly
-                    color="#C5C6C7"
-                    style="color: white;"
-                  ></v-text-field>
-                </v-col>
+      <!-- Contact and Location Section -->
+      <v-row>
+        <v-col cols="12" sm="6">
+          <v-text-field
+            v-model="renter.email"
+            label="Email"
+            outlined
+            readonly
+            color="#C5C6C7"
+            style="color: white;"
+          ></v-text-field>
+        </v-col>
 
-                <v-col cols="12" sm="6">
-                  <v-text-field
-                    v-model="meetupPlace"
-                    label="Meet-up Place"
-                    outlined
-                    readonly
-                    color="#C5C6C7"
-                    style="color: white;"
-                  ></v-text-field>
-                </v-col>
-              </v-row>
+        <v-col cols="12" sm="6">
+          <v-text-field
+            v-model="meetupPlace"
+            label="Meet-up Place"
+            outlined
+            readonly
+            color="#C5C6C7"
+            style="color: white;"
+          ></v-text-field>
+        </v-col>
+      </v-row>
 
-              <!-- Rental and Laptop Details -->
-              <v-row>
-                <v-col cols="12" sm="6">
-                  <v-text-field
-                    v-model="rentalDays"
-                    label="Rental Days"
-                    outlined
-                    color="#C5C6C7"
-                    type="number"
-                    style="color: white;"
-                  ></v-text-field>
-                </v-col>
+      <!-- Rental and Laptop Details -->
+      <v-row>
+        <v-col cols="12" sm="6">
+          <v-text-field
+            v-model="rentalDays"
+            label="Rental Days"
+            outlined
+            color="#C5C6C7"
+            type="number"
+            style="color: white;"
+          ></v-text-field>
+        </v-col>
 
-                <v-col cols="12" sm="6">
-                  <v-select
-                    v-model="laptop"
-                    :items="laptopModels"
-                    label="Laptop Model"
-                    outlined
-                    color="#C5C6C7"
-                    style="color: white;"
-                  ></v-select>
-                </v-col>
-              </v-row>
+        <v-col cols="12" sm="6">
+          <v-select
+            v-model="laptop"
+            :items="laptopModels"
+            label="Laptop Model"
+            outlined
+            color="#C5C6C7"
+            style="color: white;"
+          ></v-select>
+        </v-col>
+      </v-row>
 
-              <!-- Date and Time Selection -->
-              <v-row>
-                <!-- <v-col cols="12" sm="6">
-                  <v-select
-                    v-model="selectedDate"
-                    :items="dateOptions"
-                    label="Select Date"
-                    outlined
-                    color="#C5C6C7"
-                    style="color: white;"
-                  ></v-select>
-                </v-col> -->
+      <!-- Date and Time Selection -->
+      <v-row>
+        <v-col cols="12" sm="6" class="d-flex justify-center">
+                <v-date-picker
+          v-model="selectedDate"
+          :min="today" 
+          label="Select Date"
+          outlined
+          color="cyan"
+          @change="handleDateChange"
+          style="background-color: #1F2833; border-radius: 10px; color: cyan; border: 1px solid #66FCF1;"
+  ></v-date-picker>
+        </v-col>
 
-                <v-col cols="12" sm="6" class="d-flex justify-center">
-                  <v-date-picker
-                    v-model="selectedDate"
-                    label="Select Date"
-                    outlined
-                    color="cyan"
-                    style="background-color: #1F2833; border-radius: 10px; color: cyan; border: 1px solid #66FCF1;"
-                  ></v-date-picker>
-                </v-col>
+        <v-col cols="12" sm="6">
+          <v-select
+            v-model="selectedTime"
+            :items="timeOptions"
+            label="Select Time"
+            outlined
+            color="#C5C6C7"
+            style="color: white;"
+          ></v-select>
+        </v-col>
+      </v-row>
+    </v-card-text>
 
-                <v-col cols="12" sm="6">
-                  <v-select
-                    v-model="selectedTime"
-                    :items="timeOptions"
-                    label="Select Time"
-                    outlined
-                    color="#C5C6C7"
-                    style="color: white;"
-                  ></v-select>
-                </v-col>
-              </v-row>
-            </v-card-text>
-
-            <!-- Submit Button -->
-            <v-card-actions>
-              <v-btn
-                block
-                @click="submitForm"
-                style="font-size: 18px; font-weight: bold; padding: 10px 0; border-radius: 5px; background: linear-gradient(45deg, #1F2833, #66FCF1); color: white; border: none;"
-              >
-                Submit Appointment
-              </v-btn>
-            </v-card-actions>
-          </v-form>
+    <!-- Submit Button -->
+    <v-card-actions>
+      <v-btn
+        block
+        @click="submitForm"
+        style="font-size: 18px; font-weight: bold; padding: 10px 0; border-radius: 5px; background: linear-gradient(45deg, #1F2833, #66FCF1); color: white; border: none;"
+      >
+        Submit Appointment
+      </v-btn>
+    </v-card-actions>
+  </v-form>
         </v-card>
 
       </v-container>
