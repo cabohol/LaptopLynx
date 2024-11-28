@@ -884,13 +884,13 @@ export default {
                     &copy; 2024 LaptopLynx. All rights reserved.
                 </p>
                 <div class="laptoplynx-social-icons">
-                    <a href="https://twitter.com/LaptopLynx" target="_blank" class="social-icon" title="Twitter">
+                    <a href="https://x.com/LaptopLynx?t=tyTHnc4nm2jZlzmJV5nb7w&s=09" target="_blank" class="social-icon" title="Twitter">
                         <img src="https://freepnglogo.com/images/all_img/1691832581twitter-x-icon-png.png" alt="X">
                     </a>
-                    <a href="https://www.facebook.com/LaptopLynx" target="_blank" class="social-icon" title="Facebook">
+                    <a href="https://www.facebook.com/profile.php?id=61568959936845&mibextid=ZbWKwL" target="_blank" class="social-icon" title="Facebook">
                         <img src="https://cdn.freebiesupply.com/logos/large/2x/facebook-logo-2019.png" alt="Facebook">
                     </a>
-                    <a href="https://www.instagram.com/LaptopLynx" target="_blank" class="social-icon" title="Instagram">
+                    <a href="https://www.instagram.com/laptoplynx?igsh=ZWd0YnNjb25qOGtw&utm_source=ig_contact_invite" target="_blank" class="social-icon" title="Instagram">
                         <img src="https://static.vecteezy.com/system/resources/previews/023/741/058/non_2x/instagram-logo-icon-social-media-icon-free-png.png" alt="Instagram">
                     </a>
                 </div>
