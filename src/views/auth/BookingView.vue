@@ -1,170 +1,155 @@
-<script>
+<script setup>
 import { ref, onMounted } from 'vue';
-import { formActionDefault, supabase } from '@/utils/supabase';
+import { supabase } from '@/utils/supabase';
 import { useRouter } from 'vue-router';
 
-export default {
-  setup() {
-    const router = useRouter(); // Use the router for navigation
+const router = useRouter();
 
-    const drawer = ref(false);
-    const name = ref('');
-    const selectedTime = ref(null);
-    const laptop = ref(null);
-    const selectedDate = ref(null);
-    const meetupPlace = ref('CSU (Hiraya Hall)'); // Pre-filled with CSU (Hiraya Hall)
-    const notifications = ref([
-      { title: 'Reminder', message: 'Your appointment is tomorrow at 10:00 AM.' },
-      { title: 'Update', message: 'New laptop models available.' },
-    ]);
+// Define renter data and initial values
+const renter = ref({
+  firstname: '',
+  lastname: '',
+  email: '',
+  avatar: localStorage.getItem('customer-avatar') || '/src/images/Default_pfp.svg.png',
+});
 
-    const timeOptions = [
-      '6:00 AM', '7:00 AM', '8:00 AM', '9:00 AM', '10:00 AM',
-      '11:00 AM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM'
-    ];
+// Drawer state for UI
+const drawer = ref(false);
 
-    const laptopModels = [
-      'Acer Aspire 5', 'Dell XPS 13', 'HP Pavilion', 'Lenovo ThinkPad X1',
-      'Asus ZenBook 14', 'MacBook Air', 'Razer Blade 15', 'Microsoft Surface Laptop',
-      'Acer Swift 3', 'Dell Inspiron 15', 'HP Envy', 'Lenovo IdeaPad',
-      'Asus VivoBook', 'LG Gram 17', 'Samsung Galaxy Book', 'Toshiba Tecra',
-      'MSI Prestige 14', 'Huawei MateBook X Pro', 'Alienware m15',
-      'Fujitsu Lifebook', 'Gigabyte AERO 15'
-    ];
+// Form fields and default values
+const laptop = ref(null);
+const selectedDate = ref(null);
+const selectedTime = ref(null);
+const rentalDays = ref('');
+const meetupPlace = ref('CSU (Hiraya Hall)');
 
-    const selectTime = (time) => {
-      selectedTime.value = time;
-    };
+// Time options for the form
+const timeOptions = [
+  '08:00:00', '09:00:00', '10:00:00', '11:00:00', '12:00:00',
+  '13:00:00', '14:00:00', '15:00:00', '16:00:00', '17:00:00',
+];
 
-    const handleDateChange = (date) => {
-      selectedDate.value = date;
-    };
+// Function to generate a range of dates starting from today
+const generateDateOptions = () => {
+  const today = new Date();
+  const dateOptions = [];
+  const yearsToGenerate = 10;
 
-    const submitForm = async () => {
-      const { data, error } = await supabase
-        .from('appointments') 
-        .insert([
-          {
-            first_name: firstName.value,
-            last_name: lastName.value,
-            email: email.value,
-            phone: phone.value,
-            meetup_place: meetupPlace.value,
-            laptop_model: laptop.value,
-            appointment_date: selectedDate.value,
-            appointment_time: selectedTime.value,
-          },
-        ]);
+  for (let i = 0; i < yearsToGenerate * 365; i++) {
+    const date = new Date(today);
+    date.setDate(today.getDate() + i);
+    const formattedDate = date.toISOString().split('T')[0];
+    dateOptions.push(formattedDate);
+  }
+  return dateOptions;
+};
 
-        if (error) {
-        console.error('Error inserting data:', error);
-        alert('Error booking appointment. Please try again.');
-      } else {
-        alert('Appointment booked successfully!');
-        // Clear form fields
-        firstName.value = '';
-        lastName.value = '';
-        email.value = '';
-        phone.value = '';
-        meetupPlace.value = '';
-        laptop.value = '';
-        selectedDate.value = null;
-        selectedTime.value = '';
-      }
-    };
-    const clearNotifications = () => {
-      notifications.value = [];
-    };
+// Date options for the form
+const dateOptions = generateDateOptions();
 
-    // Renter data for displaying logged-in user information
-    const renter = ref({
-      fullname: '',
-      email: '',
-      avatar: localStorage.getItem('user-avatar') || '/src/images/Default_pfp.svg.png', // Default profile picture or stored avatar
-    });
+// Laptop model options for the form
+const laptopModels = [
+  'Dell XPS 13', 'Asus ROG Zephyrus G14', 'MacBook Pro 16', 'HP Spectre x360',
+  'Lenovo ThinkPad X1', 'MSI GS66 Stealth', 'Razer Blade 15', 'Huawei MateBook D15',
+  'Acer Aspire 5', 'Acer Nitro 5', 'Lenovo V15 Gen 5', 'Acer Predator Helios',
+];
 
-    const formAction = ref({
-      ...formActionDefault
-    });
+// Function to fetch renter data from Supabase
+const getRenterData = async () => {
+  const { data, error } = await supabase.auth.getUser();
+  if (error) {
+    console.error('Error fetching user data:', error);
+    return;
+  }
 
-    // Function to retrieve renter data
-    const getRenterData = async () => {
-      const { data, error } = await supabase.auth.getUser();
-      if (error) {
-        console.error('Error fetching user data:', error);
-        return;
-      }
-
-      const user = data?.user;
-      if (user) {
-        renter.value.email = user.email;
-        const metadata = user.user_metadata;
-        renter.value.fullname = `${metadata?.firstname || ''} ${metadata?.lastname || ''}`.trim();
-        renter.value.avatar = metadata?.avatar || renter.value.avatar; // Use avatar from metadata if available
-      }
-    };
-
-    // Fetch renter data when the component is mounted
-    onMounted(() => {
-      getRenterData();
-    });
-
-    // Logout functionality
-    const onLogout = async () => {
-      formAction.value = { ...formActionDefault };
-      formAction.value.formProcess = true;
-
-      const { error } = await supabase.auth.signOut();
-      if (error) {
-        console.error('Error during logout:', error);
-        return;
-      }
-      formAction.value.formProcess = false;
-      router.replace('/LoginView'); // Redirect after logout
-    };
-
-    return {
-      drawer,
-      name,
-      selectedTime,
-      laptop,
-      selectedDate,
-      meetupPlace,
-      timeOptions,
-      laptopModels,
-      notifications,
-      selectTime,
-      handleDateChange,
-      submitForm,
-      clearNotifications,
-      renter,
-      formAction,
-      getRenterData,
-      onLogout
-    };
+  const user = data?.user;
+  if (user) {
+    // Populate renter details from Supabase user metadata
+    renter.value.email = user.email;
+    const metadata = user.user_metadata;
+    renter.value.firstname = metadata?.firstname || '';
+    renter.value.lastname = metadata?.lastname || '';
+    renter.value.avatar = metadata?.avatar || renter.value.avatar;
   }
 };
 
-      // firstName,
-      // lastName,
-      // email,
-      // phone,
-      // meetupPlace,
-      // laptop,
-      // selectedDate,
-      // selectedTime,
-      // laptopModels,
-      // timeOptions,
-      // submitForm,
+// Fetch renter data on component mount
+onMounted(() => {
+  getRenterData();
+});
+
+// Function to clear form fields after submission
+const clearForm = () => {
+  laptop.value = null;
+  selectedDate.value = null;
+  selectedTime.value = null;
+  rentalDays.value = '';
+};
+
+// Function to submit the form and book an appointment
+const submitForm = async () => {
+  // Validate required fields
+  if (!laptop.value || !selectedDate.value || !selectedTime.value || !rentalDays.value) {
+    alert('Please fill in all the required fields.');
+    return;
+  }
+
+  try {
+    // Get user data from Supabase
+    const { data: user, error: userError } = await supabase.auth.getUser();
+    if (userError || !user?.user) {
+      console.error('Error fetching user:', userError);
+      alert('You must be logged in to book an appointment.');
+      return;
+    }
+
+    const userId = user.user.id;
+
+    // Convert local date and time to UTC
+    const localDateTime = new Date(`${selectedDate.value}T${selectedTime.value}`);
+    const utcDateTime = new Date(localDateTime.getTime() - localDateTime.getTimezoneOffset() * 60000).toISOString();
+
+    // Insert appointment into the Supabase database
+    const { error } = await supabase.from('appointments').insert([
+      {
+        laptop_name: laptop.value,
+        date_and_time: utcDateTime,
+        rental_days: parseInt(rentalDays.value, 10),
+        user_id: userId,
+        created_at: new Date().toISOString(),
+        firstname: renter.value.firstname,
+        lastname: renter.value.lastname,
+      },
+    ]);
+
+    if (error) {
+      console.error('Supabase insert error:', error);
+      alert('Error booking appointment. Please try again.');
+      return;
+    }
+
+    // Display success message and clear the form
+    alert('Your appointment has been successfully booked with LaptopLynx! Thank you for choosing us.');
+    clearForm();
+  } catch (error) {
+    // Handle unexpected errors
+    console.error('Unexpected error:', error);
+    alert('Something went wrong. Please try again.');
+  }
+};
 </script>
+
 
 
 <template>
   <v-app>
+
     <!-- App Bar -->
     <v-app-bar elevation="3">
+      <!-- Drawer Toggle Icon -->
       <v-app-bar-nav-icon style="color: #66FCF1;" @click="drawer = !drawer"></v-app-bar-nav-icon>
       <div class="d-flex align-center">
+        <!-- Logo and Title -->
         <img src="/src/images/logo1.png" width="50" alt="Logo" class="logo" />
         <v-toolbar-title class="ml-2">
           <h3 style="color: #66FCF1;">LaptopLynx</h3>
@@ -177,171 +162,210 @@ export default {
     <v-navigation-drawer v-model="drawer" app permanent elevation="3">
       <v-list>
         <br>
-
+        <!-- User Info -->
         <v-list-item
-        :prepend-avatar="renter.avatar"
-        :subtitle="renter.email"
-        :title="renter.fullname"
-      ></v-list-item>
-          </v-list>
+          :prepend-avatar="renter.avatar"
+          :subtitle="renter.email"
+          :title="renter.fullname"
+        ></v-list-item>
+      </v-list>
       <v-divider style="color: bisque;"></v-divider>
       <v-list density="compact" nav>
+        <!-- Navigation Items -->
         <v-list-item prepend-icon="mdi-view-dashboard" title="Homepage" :to="{ name: 'homepage' }"></v-list-item>
         <v-list-item prepend-icon="mdi-calendar-check" title="Booking" :to="{ name: 'booking' }"></v-list-item>
-        <v-list-item prepend-icon="mdi-bell" title="Notifications":to="{ name: 'notifications' }"></v-list-item>
+        <v-list-item prepend-icon="mdi-bell" title="Notifications" :to="{ name: 'notifications' }"></v-list-item>
         <v-list-item prepend-icon="mdi-account" title="Profile" :to="{ name: 'customerprofile' }"></v-list-item>
         <v-list-item @click="onLogout" title="Logout" prepend-icon="mdi-logout"></v-list-item>
       </v-list>
     </v-navigation-drawer>
 
-    
+    <!-- Main Content -->
     <v-main>
-  <v-container fluid="booking" style="margin-top: 50px;" class="animated-background">
-    <v-card-title class="text-center">
-      <v-img class="mx-auto responsive-image" src="/src/images/logolynx.png"></v-img>
-      <h2 class="white--text responsive-heading">Make your Laptop Appointment</h2>
-      <h4 class="white--text" style="color: #C5C6C7; text-align: center;">
-        <span style="display: flex; align-items: center; justify-content: center;">
-          <hr style="flex-grow: 1; margin-right: 10px; border-color: #C5C6C7;" />
-          Book Now!
-          <hr style="flex-grow: 1; margin-left: 10px; border-color: #C5C6C7;" />
-        </span>
-      </h4>
-    </v-card-title>
+      <v-container
+        fluid="booking"
+        style="margin-top: 50px; background-color: #1F2833; padding: 20px; border-radius: 10px;"
+        class="animated-background"
+      >
+        <!-- Title Section -->
+        <v-card-title class="text-center" style="padding-bottom: 30px;">
+              <v-img
+                class="mx-auto responsive-image floating-img"
+                src="/src/images/logolynx.png"
+                style="max-width: 350px; margin-bottom: 20px;"
+              ></v-img>
+          <h2 class="white--text responsive-heading" style="font-family: 'Roboto', sans-serif; font-weight: bold; color: #66FCF1;">
+            Make your Laptop Appointment
+          </h2>
+          <h4
+            class="white--text"
+            style="color: #C5C6C7; text-align: center; font-family: 'Roboto', sans-serif; font-size: 1.2rem;"
+          >
+            <span style="display: flex; align-items: center; justify-content: center; color: cyan;">
+              <hr style="flex-grow: 1; margin-right: 10px; border: 2px solid transparent; border-image: linear-gradient(90deg,  #1F2833, #66FCF1) 1;">
+              Book Now!
+              <hr style="flex-grow: 1; margin-left: 10px; border: 2px solid transparent; border-image: linear-gradient(90deg, #66FCF1, #1F2833) 1;">
+            </span>
+          </h4>
+        </v-card-title>
 
-    <v-card class="mx-auto custom-card" max-width="1000px" style="background-color: #1F2833;  border: 1px solid #66FCF1; ">
-  <v-form>
-    <v-card-text>
-      <!-- First Name and Last Name Row -->
-      <v-row class="custom-row">
-        <v-col cols="12" sm="6">
-          <v-text-field
-            v-model="firstName"
-            label="First Name"
-            required
-            outlined
-            color="#C5C6C7"
-            prepend-inner-icon="mdi-account"
-            class="custom-text-field"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" sm="6">
-          <v-text-field
-            v-model="lastName"
-            label="Last Name"
-            required
-            outlined
-            color="#C5C6C7"
-            prepend-inner-icon="mdi-account"
-            class="custom-text-field"
-          ></v-text-field>
-        </v-col>
-      </v-row>
+        <!-- Booking Form -->
+        <v-card
+          class="mx-auto custom-card"
+          max-width="1000px"
+          style="background-color: #1F2833; border: 1px solid #66FCF1; border-radius: 10px; padding: 20px;"
+        >
+          <v-form>
+            <v-card-text>
+              <!-- User Info Section -->
+              <v-row>
+                <v-col cols="12" sm="6">
+                  <v-text-field
+                    v-model="renter.firstname"
+                    label="First Name"
+                    outlined
+                    readonly
+                    color="#C5C6C7"
+                    style="color: white;"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6">
+                  <v-text-field
+                    v-model="renter.lastname"
+                    label="Last Name"
+                    outlined
+                    readonly
+                    color="#C5C6C7"
+                    style="color: white;"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
 
-      <!-- Email and Phone Number Row -->
-      <v-row class="custom-row">
-        <v-col cols="12" sm="6">
-          <v-text-field
-            v-model="email"
-            label="Email"
-            required
-            outlined
-            color="#C5C6C7"
-            prepend-inner-icon="mdi-email"
-            class="custom-text-field"
-          ></v-text-field>
-        </v-col>
-        
-        <v-col cols="12" sm="6">
-        <v-text-field
-          v-model="phone"
-          label="Phone Number"
-          required
-          outlined
-          color="#C5C6C7"
-          prepend-inner-icon="mdi-phone"
-          class="custom-text-field"
-        ></v-text-field>
-      </v-col>
+              <!-- Contact and Location Section -->
+              <v-row>
+                <v-col cols="12" sm="6">
+                  <v-text-field
+                    v-model="renter.email"
+                    label="Email"
+                    outlined
+                    readonly
+                    color="#C5C6C7"
+                    style="color: white;"
+                  ></v-text-field>
+                </v-col>
 
-      </v-row>
+                <v-col cols="12" sm="6">
+                  <v-text-field
+                    v-model="meetupPlace"
+                    label="Meet-up Place"
+                    outlined
+                    readonly
+                    color="#C5C6C7"
+                    style="color: white;"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
 
-      <!-- Meet-up Place and Laptop Model Row -->
-      <v-row class="custom-row">
-        <v-col cols="12" sm="6">
-          <v-text-field
-              v-model="meetupPlace"
-              label="Meet-up Place:"
-              outlined
-              color="#C5C6C7"
-              prepend-inner-icon="mdi-pin"
-              class="custom-text-field"
-              readonly
-              disabled
-            ></v-text-field>
-        </v-col>
-        <v-col cols="12" sm="6">
-          <v-select
-            v-model="laptop"
-            :items="laptopModels"
-            label="Select Laptop Model"
-            required
-            outlined
-            color="#C5C6C7"
-            prepend-inner-icon="mdi-laptop"
-            class="custom-select"
-          ></v-select>
-        </v-col>
-      </v-row>
+              <!-- Rental and Laptop Details -->
+              <v-row>
+                <v-col cols="12" sm="6">
+                  <v-text-field
+                    v-model="rentalDays"
+                    label="Rental Days"
+                    outlined
+                    color="#C5C6C7"
+                    type="number"
+                    style="color: white;"
+                  ></v-text-field>
+                </v-col>
 
-      <!-- Date and Time Row -->
-      <v-row class="custom-row">
-        <v-col cols="12" sm="6">
-          <v-container>
-              <v-row justify="space-around">
+                <v-col cols="12" sm="6">
+                  <v-select
+                    v-model="laptop"
+                    :items="laptopModels"
+                    label="Laptop Model"
+                    outlined
+                    color="#C5C6C7"
+                    style="color: white;"
+                  ></v-select>
+                </v-col>
+              </v-row>
+
+              <!-- Date and Time Selection -->
+              <v-row>
+                <!-- <v-col cols="12" sm="6">
+                  <v-select
+                    v-model="selectedDate"
+                    :items="dateOptions"
+                    label="Select Date"
+                    outlined
+                    color="#C5C6C7"
+                    style="color: white;"
+                  ></v-select>
+                </v-col> -->
+
+                <v-col cols="12" sm="6" class="d-flex justify-center">
                   <v-date-picker
-                    class="custom-date-picker"
+                    v-model="selectedDate"
+                    label="Select Date"
+                    outlined
                     color="cyan"
+                    style="background-color: #1F2833; border-radius: 10px; color: cyan; border: 1px solid #66FCF1;"
                   ></v-date-picker>
-                </v-row>
-            </v-container>
-        </v-col>
-        <v-col cols="12" sm="6">
-          <v-select
-            v-model="selectedTime"
-            :items="timeOptions"
-            label="Select Time"
-            required
-            outlined
-            color="#C5C6C7"
-            prepend-inner-icon="mdi-clock"
-            class="custom-select"
-          ></v-select>
-        </v-col>
-      </v-row>
-    </v-card-text>
+                </v-col>
 
-    <!-- Submit Button -->
-    <v-card-actions class="custom-actions">
-      <v-btn  @click="submitForm" class="custom-btn">Book Appointment</v-btn>
-    </v-card-actions>
-  </v-form>
-</v-card>
-<br>
-<br>
+                <v-col cols="12" sm="6">
+                  <v-select
+                    v-model="selectedTime"
+                    :items="timeOptions"
+                    label="Select Time"
+                    outlined
+                    color="#C5C6C7"
+                    style="color: white;"
+                  ></v-select>
+                </v-col>
+              </v-row>
+            </v-card-text>
 
-  </v-container>
+            <!-- Submit Button -->
+            <v-card-actions>
+              <v-btn
+                block
+                @click="submitForm"
+                style="font-size: 18px; font-weight: bold; padding: 10px 0; border-radius: 5px; background: linear-gradient(45deg, #1F2833, #66FCF1); color: white; border: none;"
+              >
+                Submit Appointment
+              </v-btn>
+            </v-card-actions>
+          </v-form>
+        </v-card>
 
-
-</v-main>
-
-
+      </v-container>
+    </v-main>
   </v-app>
 </template>
 
 
 
+
+
 <style scoped>
+.floating-img {
+  animation: floatUpDown 3s ease-in-out infinite;
+}
+
+@keyframes floatUpDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0); 
+  }
+}
+
 .v-list-item {
   transition: transform 0.3s ease, color 0.3s ease;
 }
@@ -356,66 +380,6 @@ export default {
   opacity: 0.7;
   transition: transform 0.1s ease, opacity 0.1s ease;
 }
-
-
-/* @keyframes colorPulse {
-    0% {
-        background-color: #1F2833; 
-    }
-    50% {
-        background-color: #2B3A42; 
-    }
-    100% {
-        background-color: #1F2833; 
-    }
-}
-
-.animated-background {
-    animation: colorPulse 3s ease-in-out infinite;
-    transition: background-color 0.5s; 
-} */
-
-.custom-btn {
-  background-color: #66FCF1;
-  color: #1F2833;
-  font-weight: bold;
-  text-transform: uppercase;
-  padding: 12px 24px;
-  border-radius: 8px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.custom-btn:hover {
-  background-color: #66FCF1;
-  color: #1F2833;
-  transform: translateY(-2px);
-}
-
-.custom-actions {
-  display: flex;
-  justify-content: center;
-  padding: 16px 24px;
-  background-color: #1F2833;
-  border-top: 1px solid #66FCF1;
-}
-
-.custom-text-field {
-  background-color: #1F2833;
-  border-radius: 8px;
-  color: #EDF2F4;
-  transition: all 0.3s ease;
-}
-
-.custom-text-field input {
-  color: #EDF2F4;
-}
-
-.custom-select {
-  background-color: #1F2833;
-  border-radius: 8px;
-  color: #EDF2F4;
-}
-
 
 /* Responsiveness for img */
 .responsive-image {
