@@ -55,7 +55,7 @@ export default {
           description: "Elevate your gaming experience with customizable RGB lighting and cutting-edge hardware. Designed for gamers who demand excellence in every match."
         },
         {
-          image: 'https://www.pcworld.com/wp-content/uploads/2023/04/hp_omen_15_hero-100759572-orig.jpg?quality=50&strip=all',
+          image: 'https://i.pinimg.com/736x/50/c9/1c/50c91c4131b0739ad84f67e9ca403ac4.jpg',
           ariaLabel: 'HP Omen 15',
           title: 'HP Omen 15',
           description: "Combine style and performance with the HP Omen 15. Its sleek design, powerful graphics, and immersive audio bring your games to life."
@@ -126,6 +126,8 @@ export default {
     this.startLaptopSlideshow();
   },
 };
+
+
 </script>
 
 
@@ -135,13 +137,21 @@ export default {
   <v-app>
       <v-app-bar app class="elegant-app-bar">
         <v-toolbar-title>
-          <v-img
-            src="/src/images/logo1.png"
-            alt="Logo"
-            class="lg"
-            contain
-          ></v-img>
-        </v-toolbar-title>
+  <v-row align="center" no-gutters>
+    <v-col class="d-flex" cols="auto">
+      <v-img
+        src="/src/images/logo1.png"
+        alt="Logo"
+        class="lg"
+        contain
+      ></v-img>
+    </v-col>
+    <v-col class="d-flex" cols="auto">
+      <span class="title" style="color: #00FFFF; font-weight: bold; font-size: 29px;">LaptopLynx</span>
+    </v-col>
+  </v-row>
+</v-toolbar-title>
+
         <v-spacer></v-spacer>
 
           <v-btn
@@ -155,38 +165,41 @@ export default {
       </v-app-bar>
 
     <v-main>
-      <v-container fluid class="py-10" style="
-        background: linear-gradient(120deg, #000000 0%, #00FFFF 100%), 
-                    linear-gradient(120deg, #000000 0%, #00FFFF 100%), 
-                    linear-gradient(130deg, #000000 0%, #00FFFF 100%), 
-                    radial-gradient(110% 140% at 15% 90%, #000000 0%, #00FFFF 100%), 
-                    radial-gradient(100% 100% at 50% 0%, #000000 0%, #00FFFF 100%), 
-                    radial-gradient(100% 100% at 50% 0%, #000000 0%, #00FFFF 80%), 
-                    linear-gradient(30deg, #000000 0%, #00FFFF 100%);
-        background-blend-mode: overlay, color, overlay, difference, color-dodge, difference, normal;">
+      <v-container fluid class="py-10">
 
 
-            <v-row align="center" justify="space-between" class="laptop-row">
-              <v-col cols="12" md="7" class="image-container">
-                <v-img :src="currentLaptopImage" alt="Laptop image" contain height="400" class="laptop-image"></v-img>
-              </v-col>
+        <v-row align="center" justify="space-between" class="laptop-row">
+  <v-col cols="12" md="7" class="image-container">
+    <!-- Adding a video without controls -->
+    <video
+      class="responsive-video"
+      autoplay
+      controls
+      loop
+      style="width: 100%; border-radius: 10px;"
+    >
+      <source src="/src/images/laptopvid (2).mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </v-col>
 
-              <v-col cols="12" md="5" class="text-content-container">
-                <h1 class="main-heading">
-                  Discover <span class="highlight-text">LaptopLynx</span>
-                </h1>
+  <v-col cols="12" md="5" class="text-content-container">
+    <h1 class="main-heading">
+      Discover <span class="highlight-text">LaptopLynx</span>
+    </h1>
 
-                <p class="description-text">
-                  Whether you're a student, a professional, or a gamer, LaptopLynx provides you with access to the latest, high-performance laptops at unbeatable prices. Our hassle-free rental service gives you the flexibility to choose the laptop you need, when you need it.
-                </p>
-                <div class="cta-card" @click="scrollToExplore">
-                  <div class="cta-content">
-                    <h2 class="cta-title">Explore Our Collection</h2>
-                    <p class="cta-subtitle">Click to find the perfect laptop for your needs.</p>
-                  </div>
-                </div>
-              </v-col>
-            </v-row>
+    <p class="description-text">
+      Whether you're a student, a professional, or a gamer, LaptopLynx provides you with access to the latest, high-performance laptops at unbeatable prices. Our hassle-free rental service gives you the flexibility to choose the laptop you need, when you need it.
+    </p>
+    <div class="cta-card">
+      <div class="cta-content">
+        <h2 class="cta-title">Explore Our Collection</h2>
+        <p class="cta-subtitle">Click to find the perfect laptop for your needs.</p>
+      </div>
+    </div>
+  </v-col>
+</v-row>
+
       </v-container>
        
 

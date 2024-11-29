@@ -170,7 +170,7 @@ const submitForm = async () => {
         <v-list-item
           :prepend-avatar="renter.avatar"
           :subtitle="renter.email"
-          :title="renter.fullname"
+          :title="renter.firstname + ' ' + renter.lastname"
         ></v-list-item>
       </v-list>
       <v-divider style="color: bisque;"></v-divider>
