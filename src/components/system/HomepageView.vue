@@ -36,17 +36,7 @@ const searchQuery = ref('')
 
 
 
-// Fetch laptops data from Vercel backend
-onMounted(async () => {
-  try {
-    const response = await fetch('http://localhost:3000/api/laptops'); // Replace with your actual Vercel URL
-    if (!response.ok) {
-      throw new Error(`Failed to fetch laptops: ${response.status}`);
-    }
-    laptops.value = await response.json();
-    console.log('Fetched laptops:', laptops.value); // Debugging output
-  } catch (error) {
-    console.error('Error fetching laptops:', error);
+
 
 const apiKey = 'AIzaSyArZgtHqK_zQJd1gHecKVJ-q7m6gsYVn6U' //  YouTube Data API Key
 
