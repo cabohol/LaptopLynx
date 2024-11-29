@@ -169,13 +169,9 @@ const submitForm = async () => {
 
 <template>
   <v-app>
-
-    <!-- App Bar -->
     <v-app-bar elevation="3">
-      <!-- Drawer Toggle Icon -->
       <v-app-bar-nav-icon style="color: #66FCF1;" @click="drawer = !drawer"></v-app-bar-nav-icon>
       <div class="d-flex align-center">
-        <!-- Logo and Title -->
         <img src="/src/images/logo1.png" width="50" alt="Logo" class="logo" />
         <v-toolbar-title class="ml-2">
           <h3 style="color: #66FCF1;">LaptopLynx</h3>
@@ -188,16 +184,9 @@ const submitForm = async () => {
     <v-navigation-drawer v-model="drawer" app permanent elevation="3">
       <v-list>
         <br>
-        <!-- User Info -->
-        <v-list-item
-          :prepend-avatar="renter.avatar"
-          :subtitle="renter.email"
-          :title="renter.firstname + ' ' + renter.lastname"
-        ></v-list-item>
-      </v-list>
+        <v-list-item :prepend-avatar="renter.avatar" :subtitle="renter.email" :title="renter.firstname + ' ' + renter.lastname"></v-list-item> </v-list>
       <v-divider style="color: bisque;"></v-divider>
       <v-list density="compact" nav>
-        <!-- Navigation Items -->
         <v-list-item prepend-icon="mdi-view-dashboard" title="Homepage" :to="{ name: 'homepage' }"></v-list-item>
         <v-list-item prepend-icon="mdi-calendar-check" title="Booking" :to="{ name: 'booking' }"></v-list-item>
         <v-list-item prepend-icon="mdi-bell" title="Notifications" :to="{ name: 'notifications' }"></v-list-item>
@@ -208,42 +197,25 @@ const submitForm = async () => {
 
     <!-- Main Content -->
     <v-main>
-      <v-container
-        fluid="booking"
-        style="margin-top: 50px; background-color: #1F2833; padding: 20px; border-radius: 10px;"
-        class="animated-background"
-      >
-        <!-- Title Section -->
+      <v-container fluid="booking" style="margin-top: 50px; background-color: #1F2833; padding: 20px; border-radius: 10px;" class="animated-background">
         <v-card-title class="text-center" style="padding-bottom: 30px;">
-              <v-img
-                class="mx-auto responsive-image floating-img"
-                src="/src/images/logolynx.png"
-                style="max-width: 350px; margin-bottom: 20px;"
-              ></v-img>
-          <h2 class="white--text responsive-heading" style="font-family: 'Roboto', sans-serif; font-weight: bold; color: #66FCF1;">
-            Make your Laptop Appointment
-          </h2>
-          <h4
-            class="white--text"
-            style="color: #C5C6C7; text-align: center; font-family: 'Roboto', sans-serif; font-size: 1.2rem;"
-          >
-            <span style="display: flex; align-items: center; justify-content: center; color: cyan;">
-              <hr style="flex-grow: 1; margin-right: 10px; border: 2px solid transparent; border-image: linear-gradient(90deg,  #1F2833, #66FCF1) 1;">
-              Book Now!
-              <hr style="flex-grow: 1; margin-left: 10px; border: 2px solid transparent; border-image: linear-gradient(90deg, #66FCF1, #1F2833) 1;">
-            </span>
-          </h4>
-        </v-card-title>
+              <v-img class="mx-auto responsive-image floating-img" src="/src/images/logolynx.png" style="max-width: 350px; margin-bottom: 20px;"></v-img>
+                  <h2 class="white--text responsive-heading" style="font-family: 'Roboto', sans-serif; font-weight: bold; color: #66FCF1;">
+                    Make your Laptop Appointment
+                  </h2>
+                  <h4 class="white--text" style="color: #C5C6C7; text-align: center; font-family: 'Roboto', sans-serif; font-size: 1.2rem;">
+                    <span style="display: flex; align-items: center; justify-content: center; color: cyan;">
+                      <hr style="flex-grow: 1; margin-right: 10px; border: 2px solid transparent; border-image: linear-gradient(90deg,  #1F2833, #66FCF1) 1;">
+                      Book Now!
+                      <hr style="flex-grow: 1; margin-left: 10px; border: 2px solid transparent; border-image: linear-gradient(90deg, #66FCF1, #1F2833) 1;">
+                    </span>
+                  </h4>
+          </v-card-title>
 
         <!-- Booking Form -->
-        <v-card
-          class="mx-auto custom-card"
-          max-width="1000px"
-          style="background-color: #1F2833; border: 1px solid #66FCF1; border-radius: 10px; padding: 20px;"
-        >
+        <v-card class="mx-auto custom-card" max-width="1000px" style="background-color: #1F2833; border: 1px solid #66FCF1; border-radius: 10px; padding: 20px;">
         <v-form>
     <v-card-text>
-      <!-- User Info Section -->
       <v-row>
         <v-col cols="12" sm="6">
           <v-text-field
@@ -320,15 +292,15 @@ const submitForm = async () => {
       <!-- Date and Time Selection -->
       <v-row>
         <v-col cols="12" sm="6" class="d-flex justify-center">
-                <v-date-picker
-          v-model="selectedDate"
-          :min="today" 
-          label="Select Date"
-          outlined
-          color="cyan"
-          @change="handleDateChange"
-          style="background-color: #1F2833; border-radius: 10px; color: cyan; border: 1px solid #66FCF1;"
-  ></v-date-picker>
+          <v-date-picker
+            v-model="selectedDate"
+            :min="today" 
+            label="Select Date"
+            outlined
+            color="cyan"
+            @change="handleDateChange"
+            style="background-color: #1F2833; border-radius: 10px; color: cyan; border: 1px solid #66FCF1;"
+          ></v-date-picker>
         </v-col>
 
         <v-col cols="12" sm="6">
@@ -344,19 +316,15 @@ const submitForm = async () => {
       </v-row>
     </v-card-text>
 
-    <!-- Submit Button -->
-    <v-card-actions>
-      <v-btn
-        block
-        @click="submitForm"
-        style="font-size: 18px; font-weight: bold; padding: 10px 0; border-radius: 5px; background: linear-gradient(45deg, #1F2833, #66FCF1); color: white; border: none;"
-      >
-        Submit Appointment
-      </v-btn>
-    </v-card-actions>
-  </v-form>
+      <!-- Submit Button -->
+      <v-card-actions>
+        <v-btn block @click="submitForm" style="font-size: 18px; font-weight: bold; 
+          padding: 10px 0; border-radius: 5px; background: linear-gradient(45deg, #1F2833, #66FCF1); 
+          color: white; border: none;"> Submit Appointment
+        </v-btn>
+      </v-card-actions>
+    </v-form>
         </v-card>
-
       </v-container>
     </v-main>
   </v-app>
