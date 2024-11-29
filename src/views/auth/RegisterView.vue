@@ -143,9 +143,7 @@ watch(() => formData.value.role, (newRole) => {
                       <br>
                       <br>
                       <br>
-
-                  
-                      <v-btn class="signup-btn" to="/LoginView">New Here? <span class="no-underline">Create an Account</span></v-btn>
+                      <v-btn class="signup-btn" to="/LoginView">Log in your Account</v-btn>
                     </v-col>
 
                     <v-col cols="12" md="6">

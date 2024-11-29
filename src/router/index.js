@@ -56,7 +56,7 @@ const router = createRouter({
       name: 'dashboard',
       component: DashboardView
     },
-   
+    
     {
       path: '/customerprofile',
       name: 'customerprofile',
