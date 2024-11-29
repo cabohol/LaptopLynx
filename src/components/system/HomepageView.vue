@@ -239,7 +239,6 @@ const closeImagePopup = () => {
 
 <script>
 import { ref } from 'vue'
-
 export default {
   data() {
     return {
@@ -335,62 +334,35 @@ export default {
   <v-app>
     <v-app-bar elevation="3">
       <v-app-bar-nav-icon style="color: #66fcf1" @click="drawer = !drawer"></v-app-bar-nav-icon>
-
       <div class="d-flex align-center">
         <img src="/src/images/logo1.png" width="50" alt="Logo" class="logo" />
         <v-toolbar-title class="ml-2">
           <h3 style="color: #66fcf1">LaptopLynx</h3>
         </v-toolbar-title>
       </div>
-
       <v-spacer></v-spacer>
     </v-app-bar>
 
-    <!-- Navigation Drawer -->
-    <v-navigation-drawer v-model="drawer" app permanent elevation="3">
-      <v-list>
-        <br />
-        <v-list-item
-          :prepend-avatar="renter.avatar"
-          :subtitle="renter.email"
-          :title="renter.fullname"
-        ></v-list-item>
-      </v-list>
-      <v-divider style="color: bisque"></v-divider>
+        <!-- Navigation Drawer -->
+      <v-navigation-drawer v-model="drawer" app permanent elevation="3">
+        <v-list>
+          <br />
+          <v-list-item :prepend-avatar="renter.avatar" :subtitle="renter.email" :title="renter.fullname"></v-list-item>
+        </v-list>
+        <v-divider style="color: bisque"></v-divider>
+        <!-- Navigation Links -->
+        <v-list density="compact" nav>
+          <v-list-item prepend-icon="mdi-view-dashboard" title="Homepage" :to="{ name: 'homepage' }" />
+          <v-list-item prepend-icon="mdi-calendar-check" title="Booking" :to="{ name: 'booking' }" />
+          <v-list-item prepend-icon="mdi-bell" title="Notifications" :to="{ name: 'notifications' }" />
+          <v-list-item prepend-icon="mdi-account" title="Profile" :to="{ name: 'customerprofile' }" />
+          <v-list-item @click="onLogout" title="Logout" prepend-icon="mdi-logout" />
+        </v-list>
+      </v-navigation-drawer>
 
-      <v-list density="compact" nav>
-        <v-list-item
-          prepend-icon="mdi-view-dashboard"
-          title="Homepage"
-          :to="{ name: 'homepage' }"
-        ></v-list-item>
-        <v-list-item
-          prepend-icon="mdi-calendar-check"
-          title="Booking"
-          :to="{ name: 'booking' }"
-        ></v-list-item>
-        <v-list-item
-          prepend-icon="mdi-bell"
-          title="Notifications"
-          :to="{ name: 'notifications' }"
-        ></v-list-item>
-        <v-list-item
-          prepend-icon="mdi-account"
-          title="Profile"
-          :to="{ name: 'customerprofile' }"
-        ></v-list-item>
-        <v-list-item @click="onLogout" title="Logout" prepend-icon="mdi-logout"></v-list-item>
-      </v-list>
-    </v-navigation-drawer>
 
     <v-main>
-      <v-card
-        style="
-          margin-top: 70px;
-          margin-bottom: 20px;
-          background: linear-gradient(to bottom, #0b0c10, #1a1c23);
-        "
-      >
+      <v-card style=" margin-top: 70px; margin-bottom: 20px;background: linear-gradient(to bottom, #0b0c10, #1a1c23);">
         <v-card-text style="color: #e2dad6">
           <v-row>
             <v-col cols="12" sm="3" :class="mdAndDown ? 'd-flex justify-center align-center' : ''">
@@ -923,7 +895,6 @@ export default {
 </template>
 
 <style scoped>
-/* Image Display */
 .image-display {
   transition:
     transform 0.3s ease-in-out,
@@ -934,7 +905,6 @@ export default {
   transform: scale(1.08);
 }
 
-/* Buttons Container */
 .buttons-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -945,7 +915,7 @@ export default {
   justify-items: center;
 }
 
-/* Grid Button */
+
 .grid-button {
   display: flex;
   flex-direction: column;
@@ -955,8 +925,8 @@ export default {
   border: 2px solid rgba(102, 252, 241, 0.85);
   border-radius: 12px;
   transition:
-    background-color 0.3s ease,
-    transform 0.3s ease;
+  background-color 0.3s ease,
+  transform 0.3s ease;
   cursor: pointer;
   padding: 12px;
   width: 100%;
@@ -970,7 +940,6 @@ export default {
   box-shadow: 0 6px 15px rgba(102, 252, 241, 0.6);
 }
 
-/* Thumbnail Image */
 .thumbnail-image {
   border-radius: 12px;
   max-height: 120px;
@@ -984,7 +953,6 @@ export default {
   box-shadow: 0 5px 15px rgba(102, 252, 241, 0.4);
 }
 
-/* Button Caption */
 .button-caption {
   font-size: 13px;
   padding: 0.6rem;
@@ -997,7 +965,6 @@ export default {
   box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Additional effects for grid button */
 .grid-button:active {
   transform: translateY(2px);
   background-color: rgba(16, 20, 23, 0.55);
@@ -1136,7 +1103,6 @@ export default {
   margin-left: 8px;
 }
 
-/* Fade-In Animations */
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -1170,9 +1136,7 @@ export default {
   }
 }
 
-/* Responsive Design */
 @media (max-width: 992px) {
-  /* Tablet View */
   .hero-content-section1,
   .hero-content-section2 {
     flex-direction: column-reverse;
@@ -1197,7 +1161,6 @@ export default {
 }
 
 @media (max-width: 768px) {
-  /* Mobile View */
   .hero-content-section1,
   .hero-content-section2 {
     flex-direction: column;
