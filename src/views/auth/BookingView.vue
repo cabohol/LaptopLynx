@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { supabase } from '@/utils/supabase';
+import { formActionDefault, supabase } from '@/utils/supabase';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -12,6 +12,28 @@ const renter = ref({
   email: '',
   avatar: localStorage.getItem('customer-avatar') || '/src/images/Default_pfp.svg.png',
 });
+
+const formAction = ref({
+  ...formActionDefault,
+});
+
+// Logout functionality
+const onLogout = async () => {
+  formAction.value = { ...formActionDefault };
+  formAction.value.formProcess = true;
+
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    console.error('Error during logout:', error);
+    formAction.value.formProcess = false; // Ensure form process is reset even if there is an error
+    return;
+  }
+
+  formAction.value.formProcess = false;
+  router.replace('/LoginView');
+};
+
+
 
 // Drawer state for UI
 const drawer = ref(false);
