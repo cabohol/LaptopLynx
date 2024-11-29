@@ -117,13 +117,7 @@ router.beforeEach(async (to) => {
     return { name: 'forbidden' }; // Redirect to forbidden if user is not admin
   }
 
-  if (to.name === 'advertise' && !isAdmin) {
-    return { name: 'homepage' }; // Redirect to forbidden if user is not admin
-  }
-
-  if (to.name === 'showcasepage' && !isAdmin) {
-    return { name: 'homepage' }; // Redirect to forbidden if user is not admin
-  }
+ 
 
   if (to.name === 'profile' && !isAdmin) {
     return { name: 'forbidden' }; // Redirect to forbidden if user is not admin
@@ -131,13 +125,6 @@ router.beforeEach(async (to) => {
 
   // Prevent admins from accessing the customerdashboard
   if (to.name === 'homepage' && isAdmin) {
-    return { name: 'dashboard' }; // Redirect admins to the admin dashboard
-  }
-
-  if (to.name === 'advertise' && isAdmin) {
-    return { name: 'dashboard' }; // Redirect admins to the admin dashboard
-  }
-  if (to.name === 'showcasepage' && isAdmin) {
     return { name: 'dashboard' }; // Redirect admins to the admin dashboard
   }
 
@@ -159,6 +146,24 @@ router.beforeEach(async (to) => {
   // Allow access to the customerdashboard if logged in and not admin
   if (isLoggedIn && to.name === 'homepage' && !isAdmin) {
     return true; // Allow access
+  }
+
+
+  if (isLoggedIn && (to.name === 'advertise' && !isAdmin)) {
+    return { name: 'homepage' }; // Redirect logged-in users away from login/register
+  }
+
+  if (isLoggedIn && (to.name === 'showcasepage' && !isAdmin)) {
+    return { name: 'homepage' }; // Redirect logged-in users away from login/register
+  }
+
+
+  if (isLoggedIn && (to.name === 'advertise' && isAdmin)) {
+    return { name: 'homepage' }; // Redirect logged-in users away from login/register
+  }
+
+  if (isLoggedIn && (to.name === 'showcasepage' && isAdmin)) {
+    return { name: 'homepage' }; // Redirect logged-in users away from login/register
   }
 
   // Allow access to other routes
