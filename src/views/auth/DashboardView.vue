@@ -3,19 +3,19 @@ import { supabase } from '@/utils/supabase';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
-const drawer = ref(false); // State for the drawer toggle
+// State management
+const drawer = ref(false); // Drawer toggle
 const router = useRouter();
-
 const admin = ref({
-  fullname: '', // Admin's full name
-  email: '',    // Admin's email
-  avatar: localStorage.getItem('admin-avatar') || '/src/images/Default_pfp.svg.png', // Admin's avatar
+  fullname: '',
+  email: '',
+  avatar: localStorage.getItem('admin-avatar') || '/src/images/Default_pfp.svg.png',
 });
+const formAction = ref({});
+const appointments = ref([]);
+const notifications = ref([]);
 
-const formAction = ref({}); // Handles form processing states
-const appointments = ref([]); // Holds fetched appointment data
-
-// Fetches admin user data from Supabase
+// Fetch admin data
 const getAdminData = async () => {
   const { data, error } = await supabase.auth.getUser();
   if (error) {
@@ -32,7 +32,7 @@ const getAdminData = async () => {
   }
 };
 
-// Fetches all appointments, including renter's first and last names
+// Fetch appointments
 const getAppointments = async () => {
   const { data, error } = await supabase
     .from('appointments')
@@ -45,9 +45,100 @@ const getAppointments = async () => {
   }
 
   appointments.value = data;
+  getNotifications(); // Fetch notifications
 };
 
-// Updates appointment status to 'Accepted'
+// Fetch notifications
+const getNotifications = async () => {
+  const { data, error } = await supabase
+    .from('notifications')
+    .select('id, type, message, appointment_id')
+    .order('id', { ascending: false });
+
+  if (error) {
+    console.error('Error fetching notifications:', error.message);
+    return;
+  }
+
+  notifications.value = data;
+};
+
+// Add a notification
+const addNotification = async (type, message, appointmentId) => {
+  try {
+    const { data, error } = await supabase
+      .from('notifications')
+      .insert([{ type, message, appointment_id: appointmentId }]);
+
+    if (error) {
+      console.error('Error adding notification:', error.message);
+      return;
+    }
+
+    console.log('Notification added:', data);
+    getNotifications();
+  } catch (err) {
+    console.error('Unexpected error adding notification:', err);
+  }
+};
+
+// Get notification for an appointment
+const appointmentNotification = (appointment) => {
+  const notification = notifications.value.find(n => n.appointment_id === appointment.id);
+
+  if (!notification) {
+    if (appointment.status === 'Accepted') {
+      return { type: 'Accepted', message: `Successfully accepted your appointment for ${appointment.laptop_name}.` };
+    }
+    if (appointment.status === 'Rejected') {
+      return { type: 'Rejected', message: `Your appointment for ${appointment.laptop_name} has been rejected.` };
+    }
+    return null;
+  }
+
+  if (notification.type === 'Accepted') {
+    notification.message = `Successfully accepted your appointment for ${appointment.laptop_name}.`;
+  } else if (notification.type === 'Rejected') {
+    notification.message = `Your appointment for ${appointment.laptop_name} has been rejected.`;
+  }
+
+  return notification;
+};
+
+// Delete an appointment and its notifications
+const deleteAppointment = async (appointment) => {
+  try {
+    const { error: notificationsError } = await supabase
+      .from('notifications')
+      .delete()
+      .eq('appointment_id', appointment.id);
+
+    if (notificationsError) {
+      console.error('Error deleting notifications:', notificationsError);
+      alert(`Failed to delete related notifications: ${notificationsError.message}`);
+      return;
+    }
+
+    const { error: appointmentError } = await supabase
+      .from('appointments')
+      .delete()
+      .eq('id', appointment.id);
+
+    if (appointmentError) {
+      console.error('Error deleting appointment:', appointmentError);
+      alert(`Failed to delete appointment: ${appointmentError.message}`);
+      return;
+    }
+
+    appointments.value = appointments.value.filter(a => a.id !== appointment.id);
+    alert('Appointment and related notifications successfully deleted.');
+  } catch (err) {
+    console.error('Unexpected error deleting appointment:', err);
+    alert('An unexpected error occurred while deleting the appointment.');
+  }
+};
+
+// Accept an appointment
 const acceptAppointment = async (appointment) => {
   try {
     const { error } = await supabase
@@ -57,19 +148,21 @@ const acceptAppointment = async (appointment) => {
 
     if (error) {
       console.error('Error accepting appointment:', error);
-      alert('Failed to accept appointment.');
+      alert('Failed to accept the appointment.');
       return;
     }
 
-    appointment.status = 'Accepted'; // Update status locally
-    alert('Appointment successfully accepted.');
+    appointment.status = 'Accepted';
+    const successMessage = `Successfully accepted the appointment for ${appointment.laptop_name}.`;
+    await addNotification('Accepted', successMessage, appointment.id);
+    alert('Appointment accepted successfully.');
   } catch (err) {
     console.error('Unexpected error accepting appointment:', err);
-    alert('An unexpected error occurred.');
+    alert('An unexpected error occurred while accepting the appointment.');
   }
 };
 
-// Deletes an appointment from Supabase
+// Reject an appointment
 const rejectAppointment = async (appointment) => {
   try {
     const { error } = await supabase
@@ -79,27 +172,18 @@ const rejectAppointment = async (appointment) => {
 
     if (error) {
       console.error('Error deleting appointment:', error);
-      alert('Failed to delete appointment.');
       return;
     }
 
-    // Remove the deleted appointment locally
-    appointments.value = appointments.value.filter((a) => a.id !== appointment.id);
-
-    alert('Appointment successfully deleted.');
+    appointments.value = appointments.value.filter(a => a.id !== appointment.id);
+    const successMessage = `Successfully rejected the appointment for ${appointment.laptop_name}.`;
+    await addNotification('Rejected', successMessage, appointment.id);
   } catch (err) {
-    console.error('Unexpected error deleting appointment:', err);
-    alert('An unexpected error occurred.');
+    console.error('Unexpected error rejecting appointment:', err);
   }
 };
 
-// Runs when the component is mounted
-onMounted(() => {
-  getAdminData(); // Fetch admin data
-  getAppointments(); // Fetch appointments
-});
-
-// Logs out the admin and redirects to login page
+// Logout function
 const onLogout = async () => {
   const { error } = await supabase.auth.signOut();
   if (error) {
@@ -107,9 +191,16 @@ const onLogout = async () => {
     return;
   }
 
-  router.replace('/LoginView'); // Navigate to login view
+  router.replace('/LoginView');
 };
+
+// On component mount
+onMounted(() => {
+  getAdminData();
+  getAppointments();
+});
 </script>
+
 
 
 
@@ -147,15 +238,7 @@ const onLogout = async () => {
       <v-list density="compact" nav>
         <v-list-item prepend-icon="mdi-view-dashboard" title="Dashboard" value="dashboard"></v-list-item>
         <v-list-item prepend-icon="mdi-account" title="Profile" :to="{ name: 'profile' }"></v-list-item>
-        <v-list-item
-          prepend-icon="mdi-logout"
-          title="Log out"
-          value="logout"
-          @click="onLogout"
-          :loading="formAction.formProcess"
-          :disabled="formAction.formProcess"
-        ></v-list-item>
-      </v-list>
+        <v-list-item prepend-icon="mdi-logout" title="Log out"value="logout" @click="onLogout" :loading="formAction.formProcess" :disabled="formAction.formProcess"></v-list-item></v-list>
     </v-navigation-drawer>
 
     <!-- Main Content -->
@@ -239,13 +322,17 @@ const onLogout = async () => {
                       <div><strong>Renter: </strong>{{ `${appointment.firstname} ${appointment.lastname}` }}</div>
                       <div><strong>Laptop Model: </strong>{{ appointment.laptop_name }}</div>
                       <div><strong>Meet-up: </strong>Hiraya Hall - CSU</div>
+                      <div v-if="appointmentNotification(appointment)">
+                        <div><strong>Notification Type: </strong>{{ appointmentNotification(appointment).type }}</div>
+                        <div><strong>Message: </strong>{{ appointmentNotification(appointment).message }}</div>
+                      </div>
+                      <v-btn color="error" class="mx-1" @click="deleteAppointment(appointment)">Delete</v-btn>
                     </div>
                   </v-timeline-item>
                 </v-timeline>
               </v-card-text>
             </v-card>
           </v-col>
-
         </v-row>
       </v-container>
     </v-main>
