@@ -1,22 +1,13 @@
 <script setup>
 import { formActionDefault, supabase } from '@/utils/supabase';
-import { ref, computed, onMounted } from 'vue'; 
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
+// Router instance
 const router = useRouter();
 const drawer = ref(false);
 
-
-
-// Method to handle laptop rental
-// const rentLaptop = (id) => {
-//   alert(`You have selected Laptop ID: ${id}`);
-// };
-
-//USER FUNCTIONALITY
-
-
-// Renter data for displaying logged-in user information
+// USER FUNCTIONALITY
 const renter = ref({
   fullname: '',
   email: '',
@@ -27,7 +18,7 @@ const formAction = ref({
   ...formActionDefault
 });
 
-// Function to retrieve admin data
+// Function to retrieve renter data
 const getRenterData = async () => {
   const { data, error } = await supabase.auth.getUser();
   if (error) {
@@ -44,7 +35,7 @@ const getRenterData = async () => {
   }
 };
 
-// Fetch admin data when the component is mounted
+// Fetch renter data on component mount
 onMounted(() => {
   getRenterData();
 });
@@ -63,20 +54,79 @@ const onLogout = async () => {
   router.replace('/LoginView');
 };
 
+// NOTIFICATION FUNCTIONALITY
+const notifications = ref([]);
+const loadingNotifications = ref(false);
+const notificationsError = ref(null);
 
-const imagePopup = ref(false);
-const selectedImage = ref('');
+// Fetch notifications for the logged-in renter
+const fetchNotifications = async () => {
+  loadingNotifications.value = true;
+  try {
+    const { data: user, error: userError } = await supabase.auth.getUser();
+    if (userError) {
+      notificationsError.value = 'Error fetching user data. Please log in again.';
+      console.error(userError);
+      return;
+    }
 
-const openImagePopup = (imageSrc) => {
-  selectedImage.value = imageSrc;
-  imagePopup.value = true;
+    const userId = user?.user?.id; // Get logged-in user's ID
+    if (!userId) {
+      notificationsError.value = 'No renter information found.';
+      return;
+    }
+
+    // Query notifications joined with appointments, filtered by user_id
+    const { data, error: notificationsFetchError } = await supabase
+      .from('notifications')
+      .select(`
+        id,
+        type,
+        message,
+        created_at,
+        appointment_id,
+        appointments (
+          laptop_name,
+          date_and_time,
+          rental_days,
+          status,
+          user_id
+        )
+      `)
+      .eq('appointments.user_id', userId) // Filter notifications for this renter's appointments
+      .order('created_at', { ascending: false });
+
+    if (notificationsFetchError) {
+      notificationsError.value = 'Error fetching notifications.';
+      console.error(notificationsFetchError);
+      return;
+    }
+
+    // Format notifications for display
+    notifications.value = data
+      .filter((notif) => notif.appointments?.user_id === userId) // Double-check the notification is for this user
+      .map((notif) => ({
+        ...notif,
+        laptopName: notif.appointments?.laptop_name || 'N/A',
+        appointmentDate: notif.appointments?.date_and_time || 'N/A',
+        status: notif.appointments?.status || 'N/A',
+      }));
+  } catch (err) {
+    notificationsError.value = 'An unexpected error occurred.';
+    console.error(err);
+  } finally {
+    loadingNotifications.value = false;
+  }
 };
 
-const closeImagePopup = () => {
-  imagePopup.value = false;
-};
+// Fetch notifications on component mount
+onMounted(() => {
+  fetchNotifications();
+});
 
 </script>
+
+
 
 
 <template>
@@ -124,76 +174,56 @@ const closeImagePopup = () => {
     </v-navigation-drawer>
 
     <v-main>
-        <div class="notification-page">
+      <div class="notification-page">
         <h1 class="page-title">Latest Notifications</h1>
-        <h4 class="white--text" style="color: #66FCF1; text-align: center;">
-          <span style="display: flex; align-items: center; justify-content: center;">
-            <hr style="flex-grow: 1; margin-right: 10px; border: 2px solid transparent; border-image: linear-gradient(90deg,  #1F2833, #66FCF1) 1;">
-            Don't Miss Out on Important Alerts!
-            <hr style="flex-grow: 1; margin-left: 10px; border: 2px solid transparent; border-image: linear-gradient(90deg, #66FCF1, #1F2833) 1;">
-          </span>
-        </h4>
         <v-container>
-        <!-- Notification Grid -->
-        <v-row justify="center" class="notification-grid">
-          <!-- System Update Notification -->
-          <v-col cols="12" sm="6" md="4" lg="5">
-            <v-card class="notification-card" outlined>
-              <v-card-title>
-                <v-icon left color="#66FCF1">mdi-bell-ring</v-icon>
-                <span class="notification-title"> System Update: Scheduled Downtime</span>
-              </v-card-title>
-              <v-card-text class="notification-subtitle">
-                Our system will undergo scheduled maintenance on November 30, 2024, from 2 AM to 4 AM. Please plan your rental orders accordingly.
-              </v-card-text>
-            </v-card>
-          </v-col>
-
-          <!-- Booking Confirmed Notification -->
-          <v-col cols="12" sm="6" md="4" lg="5">
-            <v-card class="notification-card" outlined>
-              <v-card-title>
-                <v-icon left color="#66FCF1">mdi-check-circle</v-icon>
-                <span class="notification-title"> Booking Confirmed: Laptop Ready for Pickup</span>
-              </v-card-title>
-              <v-card-text class="notification-subtitle">
-                Your booking for the Dell XPS 13 has been confirmed. Your laptop will be ready for pickup on November 25, 2024, at our main office.
-              </v-card-text>
-            </v-card>
-          </v-col>
-
-          <!-- Payment Reminder Notification -->
-          <v-col cols="12" sm="6" md="4" lg="5">
-            <v-card class="notification-card" outlined>
-              <v-card-title>
-                <v-icon left color="#66FCF1">mdi-alert-circle</v-icon>
-                <span class="notification-title"> Payment Reminder: Due for Your Rental</span>
-              </v-card-title>
-              <v-card-text class="notification-subtitle">
-                Your payment for the MacBook Pro rental is due by November 25, 2024. Please complete the payment to avoid delays in your pickup.
-              </v-card-text>
-            </v-card>
-          </v-col>
-
-          <!-- New Feature Alert Notification -->
-          <v-col cols="12" sm="6" md="4" lg="5">
-            <v-card class="notification-card" outlined>
-              <v-card-title>
-                <v-icon left color="#66FCF1">mdi-information-outline</v-icon>
-                <span class="notification-title"> New Feature Alert: Laptop Rental Extension</span>
-              </v-card-title>
-              <v-card-text class="notification-subtitle">
-                We’ve added a new feature allowing you to extend your laptop rental period directly from your account dashboard. Check it out today!
-              </v-card-text>
-            </v-card>
-          </v-col>
-        </v-row>
-</v-container>
-
-
-
+          <v-row justify="center" class="notification-grid">
+            <template v-if="loadingNotifications">
+              <v-progress-circular indeterminate color="primary" />
+            </template>
+            <template v-else-if="notificationsError">
+              <v-alert type="error" class="mx-auto" max-width="400">
+                {{ notificationsError }}
+              </v-alert>
+            </template>
+            <template v-else-if="notifications.length === 0">
+              <v-alert type="info" class="mx-auto" max-width="400">
+                No notifications found.
+              </v-alert>
+            </template>
+            <template v-else>
+              <v-col
+                cols="12"
+                sm="6"
+                md="4"
+                lg="5"
+                v-for="notification in notifications"
+                :key="notification.id"
+              >
+                <v-card class="notification-card" outlined>
+                  <v-card-title>
+                    <v-icon left color="#66FCF1">
+                      {{ notification.type === 'Accepted' ? 'mdi-check-circle' : 'mdi-alert-circle' }}
+                    </v-icon>
+                    <span class="notification-title">
+                      {{ notification.type === 'Accepted'
+                        ? 'Booking Confirmed'
+                        : 'Booking Rejected' }}
+                    </span>
+                  </v-card-title>
+                  <v-card-text>
+                    <p>{{ notification.message }}</p>
+                    <p><strong>Laptop:</strong> {{ notification.laptopName }}</p>
+                    <p><strong>Date:</strong> {{ notification.appointmentDate }}</p>
+                    <p><strong>Status:</strong> {{ notification.status }}</p>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+            </template>
+          </v-row>
+        </v-container>
       </div>
- </v-main>
+  </v-main>
 </v-app>
 </template>
 
