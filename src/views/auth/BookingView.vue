@@ -2,6 +2,8 @@
 import { ref, onMounted } from 'vue';
 import { formActionDefault, supabase } from '@/utils/supabase';
 import { useRouter } from 'vue-router';
+import AlertNotification from '@/components/common/AlertNotification.vue';
+
 
 const router = useRouter();
 
@@ -99,7 +101,9 @@ const clearForm = () => {
 const submitForm = async () => {
   // Validate required fields
   if (!laptop.value || !selectedDate.value || !selectedTime.value || !rentalDays.value) {
-    alert('Please fill in all the required fields.');
+    //alert('Please fill in all the required fields.');
+    formAction.value.formErrorMessage = 'Please fill in all the required fields.';
+
     return;
   }
 
@@ -108,7 +112,9 @@ const submitForm = async () => {
     const { data: user, error: userError } = await supabase.auth.getUser();
     if (userError || !user?.user) {
       console.error('Error fetching user:', userError);
-      alert('You must be logged in to book an appointment.');
+      //alert('You must be logged in to book an appointment.');
+      formAction.value.formErrorMessage = 'You must be logged in to book an appointment.';
+      
       return;
     }
 
@@ -149,17 +155,23 @@ const submitForm = async () => {
 
     if (error) {
       console.error('Supabase insert error:', error);
-      alert('Error booking appointment. Please try again.');
+      //alert('Error booking appointment. Please try again.');
+      formAction.value.formErrorMessage = 'Error booking appointment. Please try again.';
+
       return;
     }
 
     // Display success message and clear the form
-    alert('Your appointment has been successfully booked with LaptopLynx! Thank you for choosing us.');
+    //alert('Your appointment has been successfully booked with LaptopLynx! Thank you for choosing us.');
+    formAction.value.formSuccessMessage = 'Your appointment has been successfully booked with LaptopLynx! Thank you for choosing us.';
+
     clearForm();
   } catch (error) {
     // Handle unexpected errors
-    console.error('Unexpected error:', error);
-    alert('Something went wrong. Please try again.');
+    //console.error('Unexpected error:', error);
+    //alert('Something went wrong. Please try again.');
+    formAction.value.formErrorMessage = 'Something went wrong. Please try again.';
+
   }
 };
 </script>
@@ -214,7 +226,15 @@ const submitForm = async () => {
 
         <!-- Booking Form -->
         <v-card class="mx-auto custom-card" max-width="1000px" style="background-color: #1F2833; border: 1px solid #66FCF1; border-radius: 10px; padding: 20px;">
-        <v-form>
+                            <br>
+                            <AlertNotification
+                           :form-success-message="formAction.formSuccessMessage" 
+                           :form-error-message="formAction.formErrorMessage"
+                            >
+                          </AlertNotification>
+                          <br>
+        
+          <v-form>
     <v-card-text>
       <v-row>
         <v-col cols="12" sm="6">
@@ -251,17 +271,17 @@ const submitForm = async () => {
             style="color: white;"
           ></v-text-field>
         </v-col>
-
-        <v-col cols="12" sm="6">
-          <v-text-field
-            v-model="meetupPlace"
-            label="Meet-up Place"
+<v-col cols="12" sm="6">
+          <v-select
+            v-model="selectedTime"
+            :items="timeOptions"
+            label="Select Time"
             outlined
-            readonly
             color="#C5C6C7"
             style="color: white;"
-          ></v-text-field>
+          ></v-select>
         </v-col>
+        
       </v-row>
 
       <!-- Rental and Laptop Details -->
@@ -291,6 +311,8 @@ const submitForm = async () => {
 
       <!-- Date and Time Selection -->
       <v-row>
+
+        
         <v-col cols="12" sm="6" class="d-flex justify-center">
           <v-date-picker
             v-model="selectedDate"
@@ -304,15 +326,28 @@ const submitForm = async () => {
         </v-col>
 
         <v-col cols="12" sm="6">
-          <v-select
-            v-model="selectedTime"
-            :items="timeOptions"
-            label="Select Time"
-            outlined
-            color="#C5C6C7"
-            style="color: white;"
-          ></v-select>
-        </v-col>
+        <v-text-field
+          v-model="meetupPlace"
+          label="Meet-up Place"
+          outlined
+          readonly
+          color="#C5C6C7"
+          style="color: white;"
+        ></v-text-field>
+
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1014.0913711541785!2d125.59720176000253!3d8.955168374883792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3301eb718c34871d%3A0x6e2100629a1a0a27!2sCSU%20Main%20College%20of%20Computing%20and%20Information%20Sciences!5e1!3m2!1sen!2sph!4v1732915131845!5m2!1sen!2sph"
+          width="600"
+          height="450"
+          style="border:0; width: 100%; height: 300px;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </v-col>
+        <!-- Embedded Google Map -->
+       
+        
       </v-row>
     </v-card-text>
 
