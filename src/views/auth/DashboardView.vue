@@ -88,7 +88,7 @@ const appointmentNotification = (appointment) => {
 
   if (!notification) {
     if (appointment.status === 'Accepted') {
-      return { type: 'Accepted', message: `Successfully accepted your appointment for ${appointment.laptop_name}.` };
+      return { type: 'Accepted', message: `Successfully accepted appointment for ${appointment.laptop_name}.` };
     }
     if (appointment.status === 'Rejected') {
       return { type: 'Rejected', message: `Your appointment for ${appointment.laptop_name} has been rejected.` };
@@ -97,7 +97,7 @@ const appointmentNotification = (appointment) => {
   }
 
   if (notification.type === 'Accepted') {
-    notification.message = `Successfully accepted your appointment for ${appointment.laptop_name}.`;
+    notification.message = `Successfully accepted appointment for ${appointment.laptop_name}.`;
   } else if (notification.type === 'Rejected') {
     notification.message = `Your appointment for ${appointment.laptop_name} has been rejected.`;
   }
@@ -207,34 +207,24 @@ onMounted(() => {
 
 <template>
   <v-app id="inspire">
-
-    <!-- App Bar -->
     <v-app-bar elevation="3">
-      <!-- Navigation Icon -->
       <v-app-bar-nav-icon style="color: #66FCF1;" @click="drawer = !drawer"></v-app-bar-nav-icon>
-
-      <!-- Logo and Title -->
       <div class="d-flex align-center">
         <img src="/src/images/logo1.png" width="50" alt="Logo" class="logo" />
         <v-toolbar-title class="ml-2">
           <h3 style="color: #66FCF1;">LaptopLynx</h3>
         </v-toolbar-title>
       </div>
-
       <v-spacer></v-spacer>
     </v-app-bar>
 
     <!-- Navigation Drawer -->
     <v-navigation-drawer v-model="drawer" app permanent elevation="3">
       <v-list>
-        <!-- Admin Information -->
         <br>
         <v-list-item :prepend-avatar="admin.avatar" :subtitle="admin.email" :title="admin.fullname"></v-list-item>
       </v-list>
-
       <v-divider style="color: bisque;"></v-divider>
-
-      <!-- Navigation Links -->
       <v-list density="compact" nav>
         <v-list-item prepend-icon="mdi-view-dashboard" title="Dashboard" value="dashboard"></v-list-item>
         <v-list-item prepend-icon="mdi-account" title="Profile" :to="{ name: 'profile' }"></v-list-item>
@@ -243,17 +233,12 @@ onMounted(() => {
 
     <!-- Main Content -->
     <v-main class="main-content" style="background-color: #1F2833;">
-
-      <!-- Welcome Section -->
       <v-card style="margin-top: 70px; margin-bottom: 20px; background: linear-gradient(to bottom, #0B0C10, #1A1C23);">
         <v-card-text style="color: #E2DAD6;">
           <v-row>
-            <!-- Admin Image -->
             <v-col cols="12" sm="3" :class="mdAndDown ? 'd-flex justify-center align-center' : ''">
               <v-img src="/src/images/logo1.png" style="height: 250px; width: 250px; margin-left: 30px;"></v-img>
             </v-col>
-
-            <!-- Welcome Text -->
             <v-col cols="12" sm="9" style="margin-top: 60px;">
               <h2 class="mb-5">
                 Greetings, <span class="font-weight-black">{{ admin.fullname }}</span>! Ready to Manage your LaptopLynx?
@@ -271,7 +256,6 @@ onMounted(() => {
       <!-- Appointments Section -->
       <v-container fluid>
         <v-row class="mt-12" justify="center">
-
           <!-- Appointments Table -->
           <v-col cols="12" md="8">
             <v-table fixed-header style="background-color: #1F2833; color: white; border: 2px solid #66FCF1;">
@@ -313,20 +297,18 @@ onMounted(() => {
                 <div class="text-center">
                   <h2 style="color: #66FCF1;">Appointments</h2>
                 </div>
-
-                <!-- Timeline Items -->
                 <v-timeline align="start" density="compact">
                   <v-timeline-item v-for="appointment in appointments" :key="appointment.date_and_time" dot-color="cyan-accent-2" color="black" size="x-small">
-                    <div><strong>Time:</strong> {{ appointment.date_and_time }}</div>
+                    <div><strong style="color: #66FCF1; font-size: 15px;">Time:</strong> {{ appointment.date_and_time }}</div>
                     <div class="mb-4">
-                      <div><strong>Renter: </strong>{{ `${appointment.firstname} ${appointment.lastname}` }}</div>
-                      <div><strong>Laptop Model: </strong>{{ appointment.laptop_name }}</div>
-                      <div><strong>Meet-up: </strong>Hiraya Hall - CSU</div>
+                      <div><strong style="color: #66FCF1; font-size: 15px;">Renter: </strong>{{ `${appointment.firstname} ${appointment.lastname}` }}</div>
+                      <div><strong style="color: #66FCF1; font-size: 15px;">Laptop Model: </strong>{{ appointment.laptop_name }}</div>
+                      <div><strong style="color: #66FCF1; font-size: 15px;">Meet-up: </strong>Hiraya Hall - CSU</div>
                       <div v-if="appointmentNotification(appointment)">
-                        <div><strong>Notification Type: </strong>{{ appointmentNotification(appointment).type }}</div>
-                        <div><strong>Message: </strong>{{ appointmentNotification(appointment).message }}</div>
+                        <div><strong style="color: #66FCF1; font-size: 15px;">Notification Type: </strong>{{ appointmentNotification(appointment).type }}</div>
+                        <div><strong style="color: #66FCF1; font-size: 15px;">Message: </strong>{{ appointmentNotification(appointment).message }}</div>
                       </div>
-                      <v-btn color="error" class="mx-1" @click="deleteAppointment(appointment)">Delete</v-btn>
+                      <v-btn color="error" class="mx-1 mt-1 w-50" @click="deleteAppointment(appointment)">Delete</v-btn>
                     </div>
                   </v-timeline-item>
                 </v-timeline>
