@@ -118,7 +118,6 @@ router.beforeEach(async (to) => {
   }
 
  
-
   if (to.name === 'profile' && !isAdmin) {
     return { name: 'forbidden' }; // Redirect to forbidden if user is not admin
   }
@@ -127,6 +126,8 @@ router.beforeEach(async (to) => {
   if (to.name === 'homepage' && isAdmin) {
     return { name: 'dashboard' }; // Redirect admins to the admin dashboard
   }
+
+ 
 
 
 
@@ -142,6 +143,8 @@ router.beforeEach(async (to) => {
   if (isLoggedIn && (to.name === 'login' || to.name === 'register')) {
     return { name: 'homepage' }; // Redirect logged-in users away from login/register
   }
+
+
 
   // Allow access to the customerdashboard if logged in and not admin
   if (isLoggedIn && to.name === 'homepage' && !isAdmin) {
@@ -169,5 +172,7 @@ router.beforeEach(async (to) => {
   // Allow access to other routes
   return true;
 });
+
+
 
 export default router;
