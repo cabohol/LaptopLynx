@@ -108,6 +108,20 @@ const fetchNotifications = async () => {
       return;
     }
 
+    const handleAppointmentChange = (appointment) => {
+  const notification = appointmentNotification(appointment);
+  if (notification) {
+    // Check if the notification already exists
+    const existingIndex = notifications.value.findIndex(n => n.appointment_id === appointment.id);
+    if (existingIndex !== -1) {
+      notifications.value[existingIndex] = notification; // Update existing notification
+    } else {
+      notifications.value.push(notification); // Add new notification
+    }
+  }
+};
+
+
     // Format notifications for display
     notifications.value = data
       .filter((notif) => notif.appointments?.user_id === userId) // Ensure notifications belong to the user
@@ -196,34 +210,40 @@ onMounted(() => {
             <template v-else>
               <v-col cols="12" sm="6" md="4" lg="5" v-for="notification in notifications" :key="notification.id">
                 <v-card class="notification-card" outlined>
-                  <v-card-title>
-                    <v-icon left color="#66FCF1">
-                      {{ notification.type === 'Accepted' ? 'mdi-check-circle' : 'mdi-alert-circle' }}
-                    </v-icon>
-                    <span class="notification-title">
-                      {{ notification.type === 'Accepted'
-                        ? ' Your Request Has Been Approved'
-                        : ' Your Booking Has Been Canceled' }}
-                    </span>
-                  </v-card-title>
-                  <v-card-text style="padding: 15px; color: #1F2833;">
+                      <v-card-title>
+                        <v-icon left :color="notification.type === 'Accepted' ? '#66FCF1' : notification.type === 'Rejected' ? '#66FCF1' : '#66FCF1'">
+                          {{ notification.type === 'Accepted' 
+                              ? 'mdi-check-circle' 
+                              : notification.type === 'Rejected' 
+                                ? 'mdi-close-circle' 
+                                : 'mdi-alert-circle' }}
+                        </v-icon>
+                        <span class="notification-title">
+                          {{ notification.type === 'Accepted'
+                              ? ' Your Request Has Been Approved'
+                              : notification.type === 'Rejected'
+                                ? ' Your Booking Has Been Rejected'
+                                : ' Your Booking Has Been Canceled' }}
+                        </span>
+                      </v-card-title>
+                      <v-card-text style="padding: 15px; color: #1F2833;">
                         <p style="font-size: 18px; line-height: 1.6; margin-bottom: 10px; color: #66FCF1;">
                           {{ notification.message }}
                         </p>
                         <p style="margin: 5px 0; font-size: 17px;">
                           <strong style="color: #66FCF1;">Laptop: </strong> 
-                          <span style="color: #C5C6C7;"> {{ notification.laptopName }}</span>
+                          <span style="color: #C5C6C7;">{{ notification.laptopName }}</span>
                         </p>
                         <p style="margin: 5px 0; font-size: 17px;">
                           <strong style="color: #66FCF1;">Date: </strong> 
-                          <span style="color: #C5C6C7;"> {{ notification.appointmentDate }}</span>
+                          <span style="color: #C5C6C7;">{{ notification.appointmentDate }}</span>
                         </p>
                         <p style="margin: 5px 0; font-size: 17px;">
                           <strong style="color: #66FCF1;">Status: </strong> 
-                          <span style="color:#C5C6C7;"> {{ notification.status }}</span>
+                          <span style="color:#C5C6C7;">{{ notification.status }}</span>
                         </p>
-                    </v-card-text>
-                </v-card>
+                      </v-card-text>
+                    </v-card>
               </v-col>
             </template>
           </v-row>
