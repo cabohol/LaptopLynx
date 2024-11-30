@@ -140,7 +140,7 @@ export default {
   <v-row align="center" no-gutters>
     <v-col class="d-flex" cols="auto">
       <v-img
-        src="/src/images/logo1.png"
+        src="https://scontent.xx.fbcdn.net/v/t1.15752-9/462568879_1068096351387700_3074067409424495304_n.png?_nc_cat=109&ccb=1-7&_nc_sid=0024fc&_nc_eui2=AeFucn2vC8_y2RUX7gCXtbUthrz3YobBPg2GvPdihsE-DRdRBgxt66N5RXQFb3CJS2aydhLnPUDOpdiba360L2oK&_nc_ohc=pL_7bk9g6RYQ7kNvgHUsAMh&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&oh=03_Q7cD1QESkyuzEgfyGNOmHn20oNBngFZRzPFQnrNcsVOi_2ukiw&oe=67721CB2"
         alt="Logo"
         class="lg"
         contain
@@ -741,7 +741,7 @@ export default {
     <v-avatar
       size="70"
       color="#ffffff"
-      image="/src/images/claire.jpg"
+      image="https://scontent.fcgy2-2.fna.fbcdn.net/v/t39.30808-1/428645010_1116196032717815_9061274676202760255_n.jpg?stp=dst-jpg_s200x200&_nc_cat=103&ccb=1-7&_nc_sid=0ecb9b&_nc_eui2=AeEqz7vd59cTCeqqT6zaTcQIW1ICeIfOrylbUgJ4h86vKZIGVnEpUmm9PSRl2PkFddBVo_Kj59KgqThzJNBlcUPC&_nc_ohc=pTJNV_SNZU8Q7kNvgHSOiez&_nc_zt=24&_nc_ht=scontent.fcgy2-2.fna&_nc_gid=As7hDYnYpcg6kN-h-qz38Nf&oh=00_AYBaGVVRCfLbxKrjn3TucMWfRsyBNy_clR1BshQLY_Tdlw&oe=67507ED6"
       style="border: 2px solid #66fcf1; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);"
     ></v-avatar>
   </template>
@@ -787,7 +787,7 @@ export default {
             <v-avatar
               size="70"
               color="#ffffff"
-              image="/src/images/christine.jpg"
+              image="https://scontent.fcgy2-4.fna.fbcdn.net/v/t39.30808-6/356900684_3490557554596131_5490992218168981358_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeF_UpcmPqMWY5bfnb0ifX3K-VKQh_IL_T35UpCH8gv9PVfI-odYtOKPwoStjBrjYlQdKlDyCSdekPZ55ocp4jA9&_nc_ohc=jBKxaVTPUI0Q7kNvgFwKVDx&_nc_zt=23&_nc_ht=scontent.fcgy2-4.fna&_nc_gid=AFlK-qiodBY2EpgTFE0CdV7&oh=00_AYA4c-Q6XT624Lfta0rPaBgBm_s0D2ytcRQo32ZEAINigA&oe=6750726F  "
               style="border: 2px solid #66fcf1; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);"
             ></v-avatar>
           </template>
@@ -833,7 +833,7 @@ export default {
             <v-avatar
               size="70"
               color="#ffffff"
-              image="/src/images/melvin.jpg"
+              image="https://scontent.fcgy2-4.fna.fbcdn.net/v/t1.15752-9/462569093_885135030401116_6094537037404051337_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeHU1KZfGXl13MRcBWnc5pdkr_cQzS0VlUav9xDNLRWVRjNRJBWZKFxqv62e4lCxa5Xbj5bHlTqN2wXHm7cdpdRB&_nc_ohc=CRfgzohavxIQ7kNvgHm0Any&_nc_zt=23&_nc_ht=scontent.fcgy2-4.fna&oh=03_Q7cD1QE9_2ZwJCnn2WULPC_Ub2XLk7Mc2MTrEcGzqPQTmxDnFw&oe=6771EF3C"
               style="border: 2px solid #66fcf1; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);"
             ></v-avatar>
           </template>
