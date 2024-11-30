@@ -237,10 +237,8 @@ const closeImagePopup = () => {
 }
 </script>
 
-
 <script>
 import { ref } from "vue";
-
 export default {
   data() {
     return {
@@ -253,6 +251,36 @@ export default {
       secondaryDialog: false,
       secondaryDialogTitle: "",
       secondaryDialogContent: "",
+
+      // For images
+      currentImage:
+        'https://images.acer.com/is/image/acer/acer-aspire-vero-av14-52p-fingerprint-backlit-on-wallpaper-start-screen-cobblestone-gray-01-1?$Visual-Filter-XL$',
+      images: [
+        {
+          src: 'https://images.acer.com/is/image/acer/acer-aspire-vero-av14-52p-fingerprint-backlit-on-wallpaper-start-screen-cobblestone-gray-01-1?$Visual-Filter-XL$',
+          thumbnail:
+            'https://images.acer.com/is/image/acer/acer-aspire-vero-av14-52p-fingerprint-backlit-on-wallpaper-start-screen-cobblestone-gray-01-1?$Visual-Filter-XL$',
+          caption: 'Aspire Vero 14/15 - Iron'
+        },
+        {
+          src: 'https://img01.huaweifile.com/sg/ms/ph/pms/uomcdn/PH_HW_B2B2C/pms/202312/gbom/6942103112805/group/800_800_402EF8CEF7223855788A78F172AA81EB.png',
+          thumbnail:
+            'https://img01.huaweifile.com/sg/ms/ph/pms/uomcdn/PH_HW_B2B2C/pms/202312/gbom/6942103112805/group/800_800_402EF8CEF7223855788A78F172AA81EB.png',
+          caption: 'HUAWEI MateBook D 16 - Mystic Silver'
+        },
+        {
+          src: 'https://images.acer.com/is/image/acer/acer-chormebook-vero-514-cbv514-1h-backlit-on-wallpaper-chrome-ui-cobblestone-gray-01-1?$Visual-Filter-XL$',
+          thumbnail:
+            'https://images.acer.com/is/image/acer/acer-chormebook-vero-514-cbv514-1h-backlit-on-wallpaper-chrome-ui-cobblestone-gray-01-1?$Visual-Filter-XL$',
+          caption: 'Acer Chromebook Vero 514 - Iron'
+        },
+        {
+          src: 'https://asset.msi.com/resize/image/global/product/product_164730247617039c3f1bd7445f8f53e96cd736bf7d.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png',
+          thumbnail:
+            'https://asset.msi.com/resize/image/global/product/product_164730247617039c3f1bd7445f8f53e96cd736bf7d.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png',
+          caption: 'MSI GS66 Stealth - Black'
+        }
+      ]
     };
   },
   methods: {
@@ -309,9 +337,14 @@ export default {
       this.secondaryDialogContent = content;
       this.secondaryDialog = true;
     },
+    selectImage(image) {
+      this.currentImage = image;
+    }
   },
 };
 </script>
+
+
 
 <template>
   <v-app>
@@ -326,7 +359,7 @@ export default {
       <v-spacer></v-spacer>
     </v-app-bar>
 
-        <!-- Navigation Drawer -->
+      <!-- Navigation Drawer -->
       <v-navigation-drawer v-model="drawer" app permanent elevation="3">
         <v-list>
           <br />
@@ -376,15 +409,15 @@ export default {
           </v-row>
         </v-card-text>
       </v-card>
-
+      <!-- Carousel -->
       <v-carousel
-        hide-delimiter-background
-        height="600"
-        cycle
-        dark
-        show-arrows="hover"
-        interval="3000"
-      >
+          hide-delimiter-background
+          height="600"
+          cycle
+          dark
+          show-arrows="hover"
+          interval="3000"
+        >
         <v-carousel-item>
           <video
             width="100%"
@@ -452,12 +485,7 @@ export default {
 
       <v-container
         fluid
-        style="
-          background: linear-gradient(45deg, #1f2833, #3a4a5d);
-          background-repeat: repeat;
-          margin-top: 40px;
-        "
-      >
+        style="background: linear-gradient(45deg, #1f2833, #3a4a5d); background-repeat: repeat; margin-top: 40px;">
         <v-row>
           <v-col cols="12" md="5" class="d-flex flex-column align-center">
             <div class="buttons-container">
