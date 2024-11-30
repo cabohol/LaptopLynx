@@ -130,6 +130,7 @@ const fetchNotifications = async () => {
         laptopName: notif.appointments?.laptop_name || 'N/A',
         appointmentDate: notif.appointments?.date_and_time || 'N/A',
         status: notif.appointments?.status || 'N/A',
+        rental_days: notif.appointments?.rental_days|| 'N/A',
       }));
   } catch (err) {
     notificationsError.value = 'An unexpected error occurred.';
@@ -238,6 +239,11 @@ onMounted(() => {
                           <strong style="color: #66FCF1;">Date: </strong> 
                           <span style="color: #C5C6C7;">{{ notification.appointmentDate }}</span>
                         </p>
+                        <p style="margin: 5px 0; font-size: 17px;">
+                          <strong style="color: #66FCF1;">Rental days: </strong> 
+                          <span style="color: #C5C6C7;"> {{ notification.rental_days }}</span>
+                        </p>
+                        
                         <p style="margin: 5px 0; font-size: 17px;">
                           <strong style="color: #66FCF1;">Status: </strong> 
                           <span style="color:#C5C6C7;">{{ notification.status }}</span>
