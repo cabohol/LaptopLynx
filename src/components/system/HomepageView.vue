@@ -237,97 +237,80 @@ const closeImagePopup = () => {
 }
 </script>
 
+
 <script>
-import { ref } from 'vue'
+import { ref } from "vue";
+
 export default {
   data() {
     return {
-      // For dialog
-      dialog: false,
-      dialogTitle: '',
-      dialogContent: '',
+      // For the "About Us" and related dialog
+      mainDialog: false,
+      mainDialogTitle: "",
+      mainDialogContent: "",
 
-      // For images
-      currentImage:
-        'https://images.acer.com/is/image/acer/acer-aspire-vero-av14-52p-fingerprint-backlit-on-wallpaper-start-screen-cobblestone-gray-01-1?$Visual-Filter-XL$',
-      images: [
-        {
-          src: 'https://images.acer.com/is/image/acer/acer-aspire-vero-av14-52p-fingerprint-backlit-on-wallpaper-start-screen-cobblestone-gray-01-1?$Visual-Filter-XL$',
-          thumbnail:
-            'https://images.acer.com/is/image/acer/acer-aspire-vero-av14-52p-fingerprint-backlit-on-wallpaper-start-screen-cobblestone-gray-01-1?$Visual-Filter-XL$',
-          caption: 'Aspire Vero 14/15 - Iron'
-        },
-        {
-          src: 'https://img01.huaweifile.com/sg/ms/ph/pms/uomcdn/PH_HW_B2B2C/pms/202312/gbom/6942103112805/group/800_800_402EF8CEF7223855788A78F172AA81EB.png',
-          thumbnail:
-            'https://img01.huaweifile.com/sg/ms/ph/pms/uomcdn/PH_HW_B2B2C/pms/202312/gbom/6942103112805/group/800_800_402EF8CEF7223855788A78F172AA81EB.png',
-          caption: 'HUAWEI MateBook D 16 - Mystic Silver'
-        },
-        {
-          src: 'https://images.acer.com/is/image/acer/acer-chormebook-vero-514-cbv514-1h-backlit-on-wallpaper-chrome-ui-cobblestone-gray-01-1?$Visual-Filter-XL$',
-          thumbnail:
-            'https://images.acer.com/is/image/acer/acer-chormebook-vero-514-cbv514-1h-backlit-on-wallpaper-chrome-ui-cobblestone-gray-01-1?$Visual-Filter-XL$',
-          caption: 'Acer Chromebook Vero 514 - Iron'
-        },
-        {
-          src: 'https://asset.msi.com/resize/image/global/product/product_164730247617039c3f1bd7445f8f53e96cd736bf7d.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png',
-          thumbnail:
-            'https://asset.msi.com/resize/image/global/product/product_164730247617039c3f1bd7445f8f53e96cd736bf7d.png62405b38c58fe0f07fcef2367d8a9ba1/1024.png',
-          caption: 'MSI GS66 Stealth - Black'
-        }
-      ]
-    }
+      // For the other dialog
+      secondaryDialog: false,
+      secondaryDialogTitle: "",
+      secondaryDialogContent: "",
+    };
   },
   methods: {
-    openDialog(section) {
-      switch (section) {
-        case 'about':
-          this.dialogTitle = 'About Us'
-          this.dialogContent = `
+    openMainDialog(section) {
+      const dialogData = {
+        about: {
+          title: "About Us",
+          content: `
             LaptopLynx is your trusted partner for hassle-free laptop rentals. We offer flexible rental options for businesses, students, and individuals. 
             Whether you need a laptop for a short-term project, studying, or business operations, we have a variety of high-performance laptops to choose from. 
             Our goal is to make renting a laptop as simple as possible, providing easy rental terms and reliable service. At LaptopLynx, we believe in offering flexible, convenient solutions to meet all your tech needs.
-          `
-          break
-        case 'contact':
-          this.dialogTitle = 'Contact Us'
-          this.dialogContent = `
+          `,
+        },
+        contact: {
+          title: "Contact Us",
+          content: `
             We’re here to help! If you have any inquiries or need assistance, feel free to reach out to us through email or phone.
             For any rental questions, you can contact us at laptoplynx@gmail.com or call us at 09635858259.
             We also invite you to connect with us on our social media platforms, where we share updates and information about our services.
-            Follow us on Twitter (LaptopLynx), Facebook (LaptopLynxRentals), and Instagram (LaptopLynx) for the latest news.          
-          `
-          break
-        case 'terms':
-          this.dialogTitle = 'Terms & Conditions'
-          this.dialogContent = `
-           By renting a laptop from LaptopLynx, you agree to the following terms and conditions. Laptops are available for rent on daily, weekly, or monthly terms, and the specific rental duration will be clearly outlined at the time of booking.
-           Please be aware that late returns will incur additional charges based on the rental period. The renter is fully responsible for the laptop's condition during the rental period. In the case of damage or loss to the laptop, you will be required to pay a fee for repair or replacement.
-           We accept cash on delivery (COD) as the only payment method, and payment is due upon delivery of the laptop. For students renting a laptop, please note that failure to return the laptop in good condition will result in us contacting your university’s registrar to block your clearance until the matter is resolved.
-           Cancellations are allowed up to 24 hours before the rental period begins, but a cancellation fee may apply depending on the timing.
-           LaptopLynx reserves the right to update or modify these terms at any time. It is important for all renters to review these terms before each rental.
-          `
-          break
-        case 'privacy':
-          this.dialogTitle = 'Privacy Policy'
-          this.dialogContent = `
+            Follow us on Twitter (LaptopLynx), Facebook (LaptopLynx), and Instagram (LaptopLynx) for the latest news.
+          `,
+        },
+        terms: {
+          title: "Terms & Conditions",
+          content: `
+            By renting a laptop from LaptopLynx, you agree to the following terms and conditions. Laptops are available for rent on daily, weekly, or monthly terms, and the specific rental duration will be clearly outlined at the time of booking.
+            Please be aware that late returns will incur additional charges based on the rental period. The renter is fully responsible for the laptop's condition during the rental period. In the case of damage or loss to the laptop, you will be required to pay a fee for repair or replacement.
+            We accept cash on delivery (COD) as the only payment method, and payment is due upon delivery of the laptop. For students renting a laptop, please note that failure to return the laptop in good condition will result in us contacting your university’s registrar to block your clearance until the matter is resolved.
+            Cancellations are allowed up to 24 hours before the rental period begins, but a cancellation fee may apply depending on the timing.
+            LaptopLynx reserves the right to update or modify these terms at any time. It is important for all renters to review these terms before each rental.
+          `,
+        },
+        privacy: {
+          title: "Privacy Policy",
+          content: `
             At LaptopLynx, we take your privacy seriously. This privacy policy outlines how we collect, use, and protect your personal information. 
             We collect personal data such as your name, email address, phone number, and payment details solely for the purpose of processing your rental orders. 
             Your personal information is used exclusively for communication related to your rental and will never be shared with third parties without your consent, unless required by law. 
             We use secure systems and protocols to protect your data from unauthorized access, and we comply with all relevant privacy laws to ensure your information is safe. 
             Our website may use cookies to improve your browsing experience, but you can disable them through your browser settings. You have the right to access, update, or request the deletion of your personal data at any time. 
             If you have any concerns or questions about how your data is handled, please contact our support team.
-          `
-          break
-      }
-      this.dialog = true
-    },
+          `,
+        },
+      };
 
-    selectImage(image) {
-      this.currentImage = image
-    }
-  }
-}
+      if (dialogData[section]) {
+        this.mainDialogTitle = dialogData[section].title;
+        this.mainDialogContent = dialogData[section].content;
+        this.mainDialog = true;
+      }
+    },
+    openSecondaryDialog(title, content) {
+      this.secondaryDialogTitle = title;
+      this.secondaryDialogContent = content;
+      this.secondaryDialog = true;
+    },
+  },
+};
 </script>
 
 <template>
@@ -825,74 +808,88 @@ export default {
         </v-row>
 
         <v-row justify="center" align="center" class="text-center laptoplynx-bottom-row">
-          <v-col cols="12" md="10" class="text-center laptoplynx-bottom-col">
-            <v-row class="custom-btn-row" justify="center">
-              <v-col cols="12" sm="4" md="auto">
-                <span class="custom-btn-link" @click="openDialog('about')">About Us</span>
+              <v-col cols="12" md="10" class="text-center laptoplynx-bottom-col">
+                <v-row class="custom-btn-row" justify="center">
+                  <v-col cols="12" sm="4" md="auto">
+                    <span class="custom-btn-link" @click="openMainDialog('about')">About Us</span>
+                  </v-col>
+                  <v-col cols="12" sm="4" md="auto">
+                    <span class="custom-btn-link" @click="openMainDialog('contact')">Contact</span>
+                  </v-col>
+                  <v-col cols="12" sm="4" md="auto">
+                    <span class="custom-btn-link" @click="openMainDialog('terms')">Terms & Conditions</span>
+                  </v-col>
+                  <v-col cols="12" sm="4" md="auto">
+                    <span class="custom-btn-link" @click="openMainDialog('privacy')">Privacy Policy</span>
+                  </v-col>
+                </v-row>
+
+                <div class="laptoplynx-social-icons">
+                  <a
+                    href="https://twitter.com/LaptopLynx"
+                    target="_blank"
+                    class="social-icon"
+                    title="Twitter"
+                  >
+                    <img
+                      src="https://freepnglogo.com/images/all_img/1691832581twitter-x-icon-png.png"
+                      alt="X"
+                    />
+                  </a>
+                  <a
+                    href="https://www.facebook.com/LaptopLynx"
+                    target="_blank"
+                    class="social-icon"
+                    title="Facebook"
+                  >
+                    <img
+                      src="https://cdn.freebiesupply.com/logos/large/2x/facebook-logo-2019.png"
+                      alt="Facebook"
+                    />
+                  </a>
+                  <a
+                    href="https://www.instagram.com/LaptopLynx"
+                    target="_blank"
+                    class="social-icon"
+                    title="Instagram"
+                  >
+                    <img
+                      src="https://static.vecteezy.com/system/resources/previews/023/741/058/non_2x/instagram-logo-icon-social-media-icon-free-png.png"
+                      alt="Instagram"
+                    />
+                  </a>
+                </div>
               </v-col>
-              <v-col cols="12" sm="4" md="auto">
-                <span class="custom-btn-link" @click="openDialog('contact')">Contact</span>
-              </v-col>
-              <v-col cols="12" sm="4" md="auto">
-                <span class="custom-btn-link" @click="openDialog('terms')">Terms & Conditions</span>
-              </v-col>
-              <v-col cols="12" sm="4" md="auto">
-                <span class="custom-btn-link" @click="openDialog('privacy')">Privacy Policy</span>
-              </v-col>
+
+              <!-- Main Dialog -->
+              <v-dialog v-model="mainDialog" max-width="600px" class="laptoplynx-dialog">
+                <v-card>
+                  <v-card-title class="headline">{{ mainDialogTitle }}</v-card-title>
+                  <v-card-text v-html="mainDialogContent"></v-card-text>
+                  <v-card-actions>
+                    <v-btn text @click="mainDialog = false">Close</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+
+              <!-- Secondary Dialog -->
+              <v-dialog v-model="secondaryDialog" max-width="600px" class="laptoplynx-dialog">
+                <v-card>
+                  <v-card-title class="headline">{{ secondaryDialogTitle }}</v-card-title>
+                  <v-card-text v-html="secondaryDialogContent"></v-card-text>
+                  <v-card-actions>
+                    <v-btn text @click="secondaryDialog = false">Close</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
             </v-row>
-
-            <div class="laptoplynx-social-icons">
-              <a
-                href="https://twitter.com/LaptopLynx"
-                target="_blank"
-                class="social-icon"
-                title="Twitter"
-              >
-                <img
-                  src="https://freepnglogo.com/images/all_img/1691832581twitter-x-icon-png.png"
-                  alt="X"
-                />
-              </a>
-              <a
-                href="https://www.facebook.com/LaptopLynx"
-                target="_blank"
-                class="social-icon"
-                title="Facebook"
-              >
-                <img
-                  src="https://cdn.freebiesupply.com/logos/large/2x/facebook-logo-2019.png"
-                  alt="Facebook"
-                />
-              </a>
-              <a
-                href="https://www.instagram.com/LaptopLynx"
-                target="_blank"
-                class="social-icon"
-                title="Instagram"
-              >
-                <img
-                  src="https://static.vecteezy.com/system/resources/previews/023/741/058/non_2x/instagram-logo-icon-social-media-icon-free-png.png"
-                  alt="Instagram"
-                />
-              </a>
-            </div>
-          </v-col>
-        </v-row>
-
-        <!-- Dialogs -->
-        <v-dialog v-model="dialog" max-width="600px" class="laptoplynx-dialog">
-          <v-card>
-            <v-card-title class="headline">{{ dialogTitle }}</v-card-title>
-            <v-card-text>{{ dialogContent }}</v-card-text>
-            <v-card-actions>
-              <v-btn text @click="dialog = false">Close</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
       </v-container>
     </v-main>
   </v-app>
 </template>
+
+
+
 
 <style scoped>
 .image-display {
