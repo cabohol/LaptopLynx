@@ -741,7 +741,7 @@ export default {
     <v-avatar
       size="70"
       color="#ffffff"
-      image="/images/claire.jpg"
+      image="/src/images/claire.jpg"
       style="border: 2px solid #66fcf1; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);"
     ></v-avatar>
   </template>
@@ -787,7 +787,7 @@ export default {
             <v-avatar
               size="70"
               color="#ffffff"
-              image="/images/christine.jpg"
+              image="/src/images/christine.jpg"
               style="border: 2px solid #66fcf1; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);"
             ></v-avatar>
           </template>
@@ -833,7 +833,7 @@ export default {
             <v-avatar
               size="70"
               color="#ffffff"
-              image="/images/melvin.jpg"
+              image="/src/images/melvin.jpg"
               style="border: 2px solid #66fcf1; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);"
             ></v-avatar>
           </template>
