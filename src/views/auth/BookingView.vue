@@ -6,7 +6,6 @@ import AlertNotification from '@/components/common/AlertNotification.vue';
 
 const router = useRouter();
 
-// Define renter data and initial values
 const renter = ref({
   firstname: '',
   lastname: '',
@@ -18,7 +17,6 @@ const formAction = ref({
   ...formActionDefault,
 });
 
-// Logout functionality
 const onLogout = async () => {
   formAction.value = { ...formActionDefault };
   formAction.value.formProcess = true;
@@ -26,7 +24,7 @@ const onLogout = async () => {
   const { error } = await supabase.auth.signOut();
   if (error) {
     console.error('Error during logout:', error);
-    formAction.value.formProcess = false; // Ensure form process is reset even if there is an error
+    formAction.value.formProcess = false;
     return;
   }
 
@@ -34,49 +32,47 @@ const onLogout = async () => {
   router.replace('/LoginView');
 };
 
-// Drawer state for UI
 const drawer = ref(false);
 
-// Form fields and default values
 const laptop = ref(null);
 const selectedDate = ref(null);
 const selectedTime = ref(null);
 const rentalDays = ref('');
 const meetupPlace = ref('CSU (Hiraya Hall)');
-const today = new Date().toISOString().substr(0, 10); // Get today's date in 'YYYY-MM-DD' format
+const today = new Date().toISOString().substr(0, 10);
 
 const handleDateChange = () => {
   console.log('Selected date:', selectedDate.value);
 };
 
-// Time options for the form
 const timeOptions = [
   '08:00 A.M', '09:00 A.M', '10:00 A.M', '11:00 A.M', '12:00 NN',
   '1:00 P.M', '2:00 P.M', '3:00 P.M', '4:00 P.M', '5:00 P.M',
 ];
 
-// Laptop data
 const laptops = ref([
-  { id: 1, name: 'Dell XPS 13', price: '₱180/day' },
-  { id: 2, name: 'Asus ROG Zephyrus G14', price: '₱200/day' },
-  { id: 3, name: 'MacBook Pro 16', price: '₱200/day' },
-  { id: 4, name: 'HP Spectre x360', price: '₱190/day' },
-  { id: 5, name: 'Lenovo ThinkPad X1', price: '₱170/day' },
-  { id: 6, name: 'MSI GS66 Stealth', price: '₱200/day' },
-  { id: 7, name: 'Razer Blade 15', price: '₱190/day' },
-  { id: 8, name: 'Huawei MateBook D15', price: '₱150/day' },
-  { id: 9, name: 'Acer Aspire 5', price: '₱160/day' },
-  { id: 10, name: 'Acer Nitro 5', price: '₱200/day' },
-  { id: 11, name: 'Lenovo V15 Gen 5', price: '₱170/day' },
-  { id: 12, name: 'Acer Predator Helios', price: '₱230/day' },
+  { id: 1, name: 'Dell XPS 13', price: '₱180/day', booked: false },
+  { id: 2, name: 'Asus ROG Zephyrus G14', price: '₱200/day', booked: false },
+  { id: 3, name: 'MacBook Pro 16', price: '₱200/day', booked: false },
+  { id: 4, name: 'HP Spectre x360', price: '₱190/day', booked: false },
+  { id: 5, name: 'Lenovo ThinkPad X1', price: '₱170/day', booked: false },
+  { id: 6, name: 'MSI GS66 Stealth', price: '₱200/day', booked: false },
+  { id: 7, name: 'Razer Blade 15', price: '₱190/day', booked: false },
+  { id: 8, name: 'Huawei MateBook D15', price: '₱150/day', booked: false },
+  { id: 9, name: 'Acer Aspire 5', price: '₱160/day', booked: false },
+  { id: 10, name: 'Acer Nitro 5', price: '₱200/day', booked: false },
+  { id: 11, name: 'Lenovo V15 Gen 5', price: '₱170/day', booked: false },
+  { id: 12, name: 'Acer Predator Helios', price: '₱230/day', booked: false },
 ]);
 
-// Generate laptop models with prices
-const laptopModels = laptops.value.map(
-  (laptop) => `${laptop.name} (${laptop.price})`
-);
+const availableLaptops = ref([]);
 
-// Function to fetch renter data from Supabase
+const fetchAvailableLaptops = () => {
+  availableLaptops.value = laptops.value.filter((laptop) => !laptop.booked).map(
+    (laptop) => `${laptop.name} (${laptop.price})`
+  );
+};
+
 const getRenterData = async () => {
   const { data, error } = await supabase.auth.getUser();
   if (error) {
@@ -96,9 +92,9 @@ const getRenterData = async () => {
 
 onMounted(() => {
   getRenterData();
+  fetchAvailableLaptops();
 });
 
-// Clear form function
 const clearForm = () => {
   laptop.value = null;
   selectedDate.value = null;
@@ -106,9 +102,7 @@ const clearForm = () => {
   rentalDays.value = '';
 };
 
-// Form submission logic
 const submitForm = async () => {
-  // Validate required fields
   if (!laptop.value || !selectedDate.value || !selectedTime.value || !rentalDays.value) {
     formAction.value.formErrorMessage = 'Please fill in all the required fields.';
     return;
@@ -151,6 +145,13 @@ const submitForm = async () => {
       return;
     }
 
+    const bookedLaptop = laptops.value.find((item) => `${item.name} (${item.price})` === laptop.value);
+    if (bookedLaptop) {
+      bookedLaptop.booked = true;
+    }
+
+    fetchAvailableLaptops();
+
     formAction.value.formSuccessMessage = 'Your appointment has been successfully booked with LaptopLynx! Thank you for choosing us.';
     clearForm();
   } catch (error) {
@@ -158,6 +159,9 @@ const submitForm = async () => {
   }
 };
 </script>
+
+
+
 
 
 
@@ -279,15 +283,15 @@ const submitForm = async () => {
         </v-col>
 
         <v-col cols="12" sm="6">
-          <v-select
-            v-model="laptop"
-            :items="laptopModels"
-            label="Laptop Model (Price)"
-            outlined
-            color="#C5C6C7"
-            style="color: white;"
-          ></v-select>
-        </v-col>
+        <v-select
+          v-model="laptop"
+          :items="availableLaptops"
+          label="Laptop Model (Price)"
+          outlined
+          color="#C5C6C7"
+          style="color: white;"
+        ></v-select>
+      </v-col>
       </v-row>
 
       <!-- Date and Time Selection -->
