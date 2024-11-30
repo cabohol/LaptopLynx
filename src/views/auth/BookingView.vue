@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue';
 import { formActionDefault, supabase } from '@/utils/supabase';
 import { useRouter } from 'vue-router';
+import AlertNotification from '@/components/common/AlertNotification.vue';
 
 const router = useRouter();
 
@@ -33,8 +34,6 @@ const onLogout = async () => {
   router.replace('/LoginView');
 };
 
-
-
 // Drawer state for UI
 const drawer = ref(false);
 
@@ -47,7 +46,7 @@ const meetupPlace = ref('CSU (Hiraya Hall)');
 const today = new Date().toISOString().substr(0, 10); // Get today's date in 'YYYY-MM-DD' format
 
 const handleDateChange = () => {
-  console.log("Selected date:", selectedDate.value);
+  console.log('Selected date:', selectedDate.value);
 };
 
 // Time options for the form
@@ -56,12 +55,26 @@ const timeOptions = [
   '1:00 P.M', '2:00 P.M', '3:00 P.M', '4:00 P.M', '5:00 P.M',
 ];
 
-// Laptop model options for the form
-const laptopModels = [
-  'Dell XPS 13', 'Asus ROG Zephyrus G14', 'MacBook Pro 16', 'HP Spectre x360',
-  'Lenovo ThinkPad X1', 'MSI GS66 Stealth', 'Razer Blade 15', 'Huawei MateBook D15',
-  'Acer Aspire 5', 'Acer Nitro 5', 'Lenovo V15 Gen 5', 'Acer Predator Helios',
-];
+// Laptop data
+const laptops = ref([
+  { id: 1, name: 'Dell XPS 13', price: '₱180/day' },
+  { id: 2, name: 'Asus ROG Zephyrus G14', price: '₱200/day' },
+  { id: 3, name: 'MacBook Pro 16', price: '₱200/day' },
+  { id: 4, name: 'HP Spectre x360', price: '₱190/day' },
+  { id: 5, name: 'Lenovo ThinkPad X1', price: '₱170/day' },
+  { id: 6, name: 'MSI GS66 Stealth', price: '₱200/day' },
+  { id: 7, name: 'Razer Blade 15', price: '₱190/day' },
+  { id: 8, name: 'Huawei MateBook D15', price: '₱150/day' },
+  { id: 9, name: 'Acer Aspire 5', price: '₱160/day' },
+  { id: 10, name: 'Acer Nitro 5', price: '₱200/day' },
+  { id: 11, name: 'Lenovo V15 Gen 5', price: '₱170/day' },
+  { id: 12, name: 'Acer Predator Helios', price: '₱230/day' },
+]);
+
+// Generate laptop models with prices
+const laptopModels = laptops.value.map(
+  (laptop) => `${laptop.name} (${laptop.price})`
+);
 
 // Function to fetch renter data from Supabase
 const getRenterData = async () => {
@@ -73,7 +86,6 @@ const getRenterData = async () => {
 
   const user = data?.user;
   if (user) {
-    // Populate renter details from Supabase user metadata
     renter.value.email = user.email;
     const metadata = user.user_metadata;
     renter.value.firstname = metadata?.firstname || '';
@@ -82,12 +94,11 @@ const getRenterData = async () => {
   }
 };
 
-// Fetch renter data on component mount
 onMounted(() => {
   getRenterData();
 });
 
-// Function to clear form fields after submission
+// Clear form function
 const clearForm = () => {
   laptop.value = null;
   selectedDate.value = null;
@@ -95,46 +106,34 @@ const clearForm = () => {
   rentalDays.value = '';
 };
 
-// Function to submit the form and book an appointment
+// Form submission logic
 const submitForm = async () => {
   // Validate required fields
   if (!laptop.value || !selectedDate.value || !selectedTime.value || !rentalDays.value) {
-    alert('Please fill in all the required fields.');
+    formAction.value.formErrorMessage = 'Please fill in all the required fields.';
     return;
   }
 
   try {
-    // Get user data from Supabase
     const { data: user, error: userError } = await supabase.auth.getUser();
     if (userError || !user?.user) {
-      console.error('Error fetching user:', userError);
-      alert('You must be logged in to book an appointment.');
+      formAction.value.formErrorMessage = 'You must be logged in to book an appointment.';
       return;
     }
 
     const userId = user.user.id;
-
-    // Parse and format the selected time
-    const timeParts = selectedTime.value.split(/[.: ]/); // Split time into components
+    const timeParts = selectedTime.value.split(/[.: ]/);
     let hours = parseInt(timeParts[0], 10);
     const minutes = parseInt(timeParts[1], 10);
     const period = timeParts[2];
 
-    // Convert to 24-hour format
-    if (period === 'P' && hours !== 12) {
-      hours += 12;
-    } else if (period === 'A' && hours === 12) {
-      hours = 0;
-    }
+    if (period === 'P' && hours !== 12) hours += 12;
+    else if (period === 'A' && hours === 12) hours = 0;
 
-    // Create a valid Date object
     const localDateTime = new Date(selectedDate.value);
     localDateTime.setHours(hours, minutes, 0, 0);
-
-    // Convert to UTC for storage
     const utcDateTime = new Date(localDateTime.getTime() - localDateTime.getTimezoneOffset() * 60000).toISOString();
 
-    // Insert appointment into the Supabase database
     const { error } = await supabase.from('appointments').insert([
       {
         laptop_name: laptop.value,
@@ -148,18 +147,14 @@ const submitForm = async () => {
     ]);
 
     if (error) {
-      console.error('Supabase insert error:', error);
-      alert('Error booking appointment. Please try again.');
+      formAction.value.formErrorMessage = 'Error booking appointment. Please try again.';
       return;
     }
 
-    // Display success message and clear the form
-    alert('Your appointment has been successfully booked with LaptopLynx! Thank you for choosing us.');
+    formAction.value.formSuccessMessage = 'Your appointment has been successfully booked with LaptopLynx! Thank you for choosing us.';
     clearForm();
   } catch (error) {
-    // Handle unexpected errors
-    console.error('Unexpected error:', error);
-    alert('Something went wrong. Please try again.');
+    formAction.value.formErrorMessage = 'Something went wrong. Please try again.';
   }
 };
 </script>
@@ -169,13 +164,9 @@ const submitForm = async () => {
 
 <template>
   <v-app>
-
-    <!-- App Bar -->
     <v-app-bar elevation="3">
-      <!-- Drawer Toggle Icon -->
       <v-app-bar-nav-icon style="color: #66FCF1;" @click="drawer = !drawer"></v-app-bar-nav-icon>
       <div class="d-flex align-center">
-        <!-- Logo and Title -->
         <img src="/src/images/logo1.png" width="50" alt="Logo" class="logo" />
         <v-toolbar-title class="ml-2">
           <h3 style="color: #66FCF1;">LaptopLynx</h3>
@@ -188,16 +179,9 @@ const submitForm = async () => {
     <v-navigation-drawer v-model="drawer" app permanent elevation="3">
       <v-list>
         <br>
-        <!-- User Info -->
-        <v-list-item
-          :prepend-avatar="renter.avatar"
-          :subtitle="renter.email"
-          :title="renter.firstname + ' ' + renter.lastname"
-        ></v-list-item>
-      </v-list>
+        <v-list-item :prepend-avatar="renter.avatar" :subtitle="renter.email" :title="renter.firstname + ' ' + renter.lastname"></v-list-item> </v-list>
       <v-divider style="color: bisque;"></v-divider>
       <v-list density="compact" nav>
-        <!-- Navigation Items -->
         <v-list-item prepend-icon="mdi-view-dashboard" title="Homepage" :to="{ name: 'homepage' }"></v-list-item>
         <v-list-item prepend-icon="mdi-calendar-check" title="Booking" :to="{ name: 'booking' }"></v-list-item>
         <v-list-item prepend-icon="mdi-bell" title="Notifications" :to="{ name: 'notifications' }"></v-list-item>
@@ -208,64 +192,53 @@ const submitForm = async () => {
 
     <!-- Main Content -->
     <v-main>
-      <v-container
-        fluid="booking"
-        style="margin-top: 50px; background-color: #1F2833; padding: 20px; border-radius: 10px;"
-        class="animated-background"
-      >
-        <!-- Title Section -->
+      <v-container fluid="booking" style="margin-top: 50px; background-color: #1F2833; padding: 20px; border-radius: 10px;" class="animated-background">
         <v-card-title class="text-center" style="padding-bottom: 30px;">
-              <v-img
-                class="mx-auto responsive-image floating-img"
-                src="/src/images/logolynx.png"
-                style="max-width: 350px; margin-bottom: 20px;"
-              ></v-img>
-          <h2 class="white--text responsive-heading" style="font-family: 'Roboto', sans-serif; font-weight: bold; color: #66FCF1;">
-            Make your Laptop Appointment
-          </h2>
-          <h4
-            class="white--text"
-            style="color: #C5C6C7; text-align: center; font-family: 'Roboto', sans-serif; font-size: 1.2rem;"
-          >
-            <span style="display: flex; align-items: center; justify-content: center; color: cyan;">
-              <hr style="flex-grow: 1; margin-right: 10px; border: 2px solid transparent; border-image: linear-gradient(90deg,  #1F2833, #66FCF1) 1;">
-              Book Now!
-              <hr style="flex-grow: 1; margin-left: 10px; border: 2px solid transparent; border-image: linear-gradient(90deg, #66FCF1, #1F2833) 1;">
-            </span>
-          </h4>
-        </v-card-title>
+              <v-img class="mx-auto responsive-image floating-img" src="/src/images/logolynx.png" style="max-width: 350px; margin-bottom: 20px;"></v-img>
+                  <h2 class="white--text responsive-heading" style="font-family: 'Roboto', sans-serif; font-weight: bold; color: #66FCF1;">
+                    Make your Laptop Appointment
+                  </h2>
+                  <h4 class="white--text" style="color: #C5C6C7; text-align: center; font-family: 'Roboto', sans-serif; font-size: 1.2rem;">
+                    <span style="display: flex; align-items: center; justify-content: center; color: cyan;">
+                      <hr style="flex-grow: 1; margin-right: 10px; border: 2px solid transparent; border-image: linear-gradient(90deg,  #1F2833, #66FCF1) 1;">
+                      Book Now!
+                      <hr style="flex-grow: 1; margin-left: 10px; border: 2px solid transparent; border-image: linear-gradient(90deg, #66FCF1, #1F2833) 1;">
+                    </span>
+                  </h4>
+          </v-card-title>
 
         <!-- Booking Form -->
-        <v-card
-          class="mx-auto custom-card"
-          max-width="1000px"
-          style="background-color: #1F2833; border: 1px solid #66FCF1; border-radius: 10px; padding: 20px;"
-        >
-        <v-form>
+        <v-card class="mx-auto custom-card" max-width="1000px" style="background-color: #1F2833; border: 1px solid #66FCF1; border-radius: 10px; padding: 20px;">
+         <br>
+        <AlertNotification :form-success-message="formAction.formSuccessMessage" 
+                           :form-error-message="formAction.formErrorMessage">
+        </AlertNotification>
+         <br>
+        
+  <v-form>
     <v-card-text>
-      <!-- User Info Section -->
       <v-row>
-        <v-col cols="12" sm="6">
-          <v-text-field
-            v-model="renter.firstname"
-            label="First Name"
-            outlined
-            readonly
-            color="#C5C6C7"
-            style="color: white;"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" sm="6">
-          <v-text-field
-            v-model="renter.lastname"
-            label="Last Name"
-            outlined
-            readonly
-            color="#C5C6C7"
-            style="color: white;"
-          ></v-text-field>
-        </v-col>
-      </v-row>
+          <v-col cols="12" sm="6">
+            <v-text-field
+              v-model="renter.firstname"
+              label="First Name"
+              outlined
+              readonly
+              color="#C5C6C7"
+              style="color: white;"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <v-text-field
+              v-model="renter.lastname"
+              label="Last Name"
+              outlined
+              readonly
+              color="#C5C6C7"
+              style="color: white;"
+            ></v-text-field>
+          </v-col>
+        </v-row>
 
       <!-- Contact and Location Section -->
       <v-row>
@@ -279,17 +252,17 @@ const submitForm = async () => {
             style="color: white;"
           ></v-text-field>
         </v-col>
-
-        <v-col cols="12" sm="6">
-          <v-text-field
-            v-model="meetupPlace"
-            label="Meet-up Place"
+<v-col cols="12" sm="6">
+          <v-select
+            v-model="selectedTime"
+            :items="timeOptions"
+            label="Select Time"
             outlined
-            readonly
             color="#C5C6C7"
             style="color: white;"
-          ></v-text-field>
+          ></v-select>
         </v-col>
+        
       </v-row>
 
       <!-- Rental and Laptop Details -->
@@ -309,7 +282,7 @@ const submitForm = async () => {
           <v-select
             v-model="laptop"
             :items="laptopModels"
-            label="Laptop Model"
+            label="Laptop Model (Price)"
             outlined
             color="#C5C6C7"
             style="color: white;"
@@ -320,43 +293,51 @@ const submitForm = async () => {
       <!-- Date and Time Selection -->
       <v-row>
         <v-col cols="12" sm="6" class="d-flex justify-center">
-                <v-date-picker
-          v-model="selectedDate"
-          :min="today" 
-          label="Select Date"
-          outlined
-          color="cyan"
-          @change="handleDateChange"
-          style="background-color: #1F2833; border-radius: 10px; color: cyan; border: 1px solid #66FCF1;"
-  ></v-date-picker>
+          <v-date-picker
+            v-model="selectedDate"
+            :min="today" 
+            label="Select Date"
+            outlined
+            color="cyan"
+            @change="handleDateChange"
+            style="background-color: #1F2833; border-radius: 10px; color: cyan; border: 1px solid #66FCF1;"
+          ></v-date-picker>
         </v-col>
 
         <v-col cols="12" sm="6">
-          <v-select
-            v-model="selectedTime"
-            :items="timeOptions"
-            label="Select Time"
-            outlined
-            color="#C5C6C7"
-            style="color: white;"
-          ></v-select>
-        </v-col>
+        <v-text-field
+          v-model="meetupPlace"
+          label="Meet-up Place"
+          outlined
+          readonly
+          color="#C5C6C7"
+          style="color: white;"
+        ></v-text-field>
+     <div class="map-container">
+         <!-- Start of Embedded Google Map -->  
+         <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1014.0913711541785!2d125.59720176000253!3d8.955168374883792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3301eb718c34871d%3A0x6e2100629a1a0a27!2sCSU%20Main%20College%20of%20Computing%20and%20Information%20Sciences!5e1!3m2!1sen!2sph!4v1732915131845!5m2!1sen!2sph"
+          width="600"
+          height="450"
+          style="border:0; width: 100%; height: 300px;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+     </div>
+      </v-col>
+        <!-- End of Embedded Google Map -->  
       </v-row>
     </v-card-text>
-
-    <!-- Submit Button -->
-    <v-card-actions>
-      <v-btn
-        block
-        @click="submitForm"
-        style="font-size: 18px; font-weight: bold; padding: 10px 0; border-radius: 5px; background: linear-gradient(45deg, #1F2833, #66FCF1); color: white; border: none;"
-      >
-        Submit Appointment
-      </v-btn>
-    </v-card-actions>
+      <!-- Submit Button -->
+      <v-card-actions>
+        <v-btn block @click="submitForm" style="font-size: 18px; font-weight: bold; 
+          padding: 10px 0; border-radius: 5px; background: linear-gradient(45deg, #1F2833, #66FCF1); 
+          color: white; border: none;"> Submit Appointment
+        </v-btn>
+      </v-card-actions>
   </v-form>
         </v-card>
-
       </v-container>
     </v-main>
   </v-app>
@@ -367,6 +348,21 @@ const submitForm = async () => {
 
 
 <style scoped>
+.map-container {
+  width: 100%;
+  max-width: 800px; 
+  margin: 5px auto; 
+  background-color: cyan;
+  border: 3px solid cyan; 
+  overflow: hidden; 
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 300px;
+  border: none;
+}
+
 .floating-img {
   animation: floatUpDown 3s ease-in-out infinite;
 }
