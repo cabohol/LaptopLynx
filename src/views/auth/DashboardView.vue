@@ -308,14 +308,15 @@ onMounted(() => {
                   <td class="text-center">{{ appointment.laptop_name }}</td>
                   <td class="text-center">Hiraya Hall - CSU</td>
                   <td class="text-center">
-                    <div v-if="appointment.status !== 'Accepted'" class="d-flex align-center">
-                        <v-btn :color="appointment.status === 'Accepted' ? 'green' : 'success'"  class="mx-2" @click="acceptAppointment(appointment)">
-                          Accept
-                        </v-btn>
-                        <v-btn :color="appointment.status === 'Rejected' ? 'red' : 'error'" class="mx-2" @click="rejectAppointment(appointment)">
-                          Delete
-                        </v-btn>
-                    </div>
+                    <div v-if="appointment.status !== 'Accepted' && appointment.status !== 'Rejected'" class="d-flex align-center">
+                <v-btn :color="'success'" class="mx-2" @click="acceptAppointment(appointment)">
+                  Accept
+                </v-btn>
+                <v-btn :color="'error'" class="mx-2" @click="rejectAppointment(appointment)">
+                  Reject
+                </v-btn>
+              </div>
+              
                   </td>
                   <td class="text-center">{{ appointment.status || 'Pending' }}</td>
                 </tr>
