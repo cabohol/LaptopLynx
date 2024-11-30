@@ -176,23 +176,35 @@ const acceptAppointment = async (appointment) => {
 // Reject an appointment
 const rejectAppointment = async (appointment) => {
   try {
+    // Update the appointment status to 'Rejected'
     const { error } = await supabase
       .from('appointments')
-      .delete()
+      .update({ status: 'Rejected' }) // Change status instead of deleting
       .eq('id', appointment.id);
 
     if (error) {
-      console.error('Error deleting appointment:', error);
+      console.error('Error rejecting appointment:', error);
+      formAction.value.formErrorMessage = 'Failed to reject the appointment.';
       return;
     }
 
-    appointments.value = appointments.value.filter(a => a.id !== appointment.id);
-    const successMessage = `Successfully rejected the appointment for ${appointment.laptop_name}.`;
+    // Update the local state for the appointment
+    const updatedAppointment = appointments.value.find(a => a.id === appointment.id);
+    if (updatedAppointment) {
+      updatedAppointment.status = 'Rejected';
+    }
+
+    // Add a rejection notification
+    const successMessage = `Your booking for ${appointment.laptop_name} has been rejected.`;
     await addNotification('Rejected', successMessage, appointment.id);
+
+    formAction.value.formSuccessMessage = 'Appointment rejected successfully.';
   } catch (err) {
     console.error('Unexpected error rejecting appointment:', err);
+    formAction.value.formErrorMessage = 'An unexpected error occurred while rejecting the appointment.';
   }
 };
+
 
 // Logout function
 const onLogout = async () => {
@@ -265,11 +277,10 @@ onMounted(() => {
       </v-card>
 
     
-                            <AlertNotification
-                           :form-success-message="formAction.formSuccessMessage" 
-                           :form-error-message="formAction.formErrorMessage"
-                            >
-                          </AlertNotification>
+      <AlertNotification
+       :form-success-message="formAction.formSuccessMessage" 
+       :form-error-message="formAction.formErrorMessage">
+      </AlertNotification>
                         
 
       <!-- Appointments Section -->
@@ -297,9 +308,13 @@ onMounted(() => {
                   <td class="text-center">{{ appointment.laptop_name }}</td>
                   <td class="text-center">Hiraya Hall - CSU</td>
                   <td class="text-center">
-                    <div v-if="appointment.status !== 'Accepted'">
-                      <v-btn :color="appointment.status === 'Accepted' ? 'green' : 'success'" class="mx-1" @click="acceptAppointment(appointment)">Accept</v-btn>
-                      <v-btn :color="appointment.status === 'Rejected' ? 'red' : 'error'" class="mx-1" @click="rejectAppointment(appointment)">Delete</v-btn>
+                    <div v-if="appointment.status !== 'Accepted'" class="d-flex align-center">
+                        <v-btn :color="appointment.status === 'Accepted' ? 'green' : 'success'"  class="mx-2" @click="acceptAppointment(appointment)">
+                          Accept
+                        </v-btn>
+                        <v-btn :color="appointment.status === 'Rejected' ? 'red' : 'error'" class="mx-2" @click="rejectAppointment(appointment)">
+                          Delete
+                        </v-btn>
                     </div>
                   </td>
                   <td class="text-center">{{ appointment.status || 'Pending' }}</td>
@@ -323,7 +338,6 @@ onMounted(() => {
                       <div><strong style="color: #66FCF1; font-size: 15px;">Renter: </strong>{{ `${appointment.firstname} ${appointment.lastname}` }}</div>
                       <div><strong style="color: #66FCF1; font-size: 15px;">Laptop Model: </strong>{{ appointment.laptop_name }}</div>
                       <div><strong style="color: #66FCF1; font-size: 15px;">Rental days: </strong>{{ appointment.rental_days }}</div>
-
                       <div><strong style="color: #66FCF1; font-size: 15px;">Meet-up: </strong>Hiraya Hall - CSU</div>
                       <div v-if="appointmentNotification(appointment)">
                         <div><strong style="color: #66FCF1; font-size: 15px;">Notification Type: </strong>{{ appointmentNotification(appointment).type }}</div>
