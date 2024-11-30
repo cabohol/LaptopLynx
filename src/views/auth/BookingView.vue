@@ -194,7 +194,7 @@ const submitForm = async () => {
     <v-main>
       <v-container fluid="booking" style="margin-top: 50px; background-color: #1F2833; padding: 20px; border-radius: 10px;" class="animated-background">
         <v-card-title class="text-center" style="padding-bottom: 30px;">
-              <v-img class="mx-auto responsive-image floating-img" src="/src/images/logolynx.png" style="max-width: 350px; margin-bottom: 20px;"></v-img>
+              <v-img class="mx-auto responsive-image floating-img" src="https://scontent.fcgy2-2.fna.fbcdn.net/v/t1.15752-9/462570242_934271424742614_8571727547548847619_n.png?_nc_cat=101&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeH1u9_rN4jcrLeztslwfVjqZAEELCylFMtkAQQsLKUUy1QFK3TSl5AwXxCcyWyZ6SJMQhjjKMrvM_SSKpbb_19h&_nc_ohc=Q3u_OpXPqDoQ7kNvgGH6A3S&_nc_zt=23&_nc_ht=scontent.fcgy2-2.fna&oh=03_Q7cD1QEeQoH3cN2NogbN0iTBrBfPFGjAxkGdRUFNv8-6XI8OtA&oe=6771F9C0" style="max-width: 350px; margin-bottom: 20px;"></v-img>
                   <h2 class="white--text responsive-heading" style="font-family: 'Roboto', sans-serif; font-weight: bold; color: #66FCF1;">
                     Make your Laptop Appointment
                   </h2>
