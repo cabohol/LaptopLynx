@@ -36,6 +36,8 @@ const searchQuery = ref('')
 
 
 
+
+
 const apiKey = 'AIzaSyArZgtHqK_zQJd1gHecKVJ-q7m6gsYVn6U' //  YouTube Data API Key
 
 // Laptop data
@@ -153,6 +155,7 @@ const laptops = ref([
     bestFor: 'Gaming',
     image:
       'https://store.gigatechph.com/cdn/shop/products/predator-09_1024x1024@2x.png?v=1678418341'
+
   }
 ])
 

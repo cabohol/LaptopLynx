@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');  // Import the CORS package
 const app = express();
 const PORT = 3000;
+//import Cors from 'cors';
+
 
 // Sample laptop data
 const laptops = [
@@ -104,19 +106,21 @@ const laptops = [
   ];
 
 
-  app.use(cors()); // Allow all origins
+  //app.use(cors()); // Allow all origins
 
+  //Configure CORS options
   const corsOptions = {
-    origin: 'https://laptop-lynx.vercel.app', // Allow only your frontend's origin
-    methods: 'GET,POST,PUT,DELETE', // Specify allowed methods
+    origin: 'https://laptop-lynx.vercel.app', // Allow only this origin
+    methods: 'GET, POST, PUT, DELETE', // Specify allowed methods
+    allowedHeaders: ['Content-Type'], // Allow Content-Type header
+    credentials: true, // Allow cookies and credentials (if needed)
   };
   
-  app.use(cors(corsOptions));
-
-
-
+  app.use(cors(corsOptions)); // Apply CORS middleware with the specified options
+  
   app.use(express.json()); // Allow parsing JSON data from requests
   
+  // Define the /api/laptops route
   app.get('/api/laptops', (req, res) => {
       res.json(laptops); // Send the laptop data as JSON response
   });
@@ -125,3 +129,35 @@ const laptops = [
   app.listen(PORT, () => {
       console.log(`Server is running on http://localhost:${PORT}`);
   });
+
+
+  // Initialize the CORS middleware
+// const cors = Cors({
+//   origin: 'https://laptop-lynx.vercel.app',
+//   methods: ['GET'], // Specify allowed methods
+// });
+
+// // Helper method to run middleware
+// function runMiddleware(req, res, fn) {
+//   return new Promise((resolve, reject) => {
+//       fn(req, res, (result) => {
+//           if (result instanceof Error) {
+//               return reject(result);
+//           }
+//           return resolve(result);
+//       });
+//   });
+// }
+
+// export default async function handler(req, res) {
+//   // Run the CORS middleware
+//   await runMiddleware(req, res, cors);
+
+//   // Handle the GET request
+//   if (req.method === 'GET') {
+//       res.status(200).json(laptops);
+//   } else {
+//       res.setHeader('Allow', ['GET']);
+//       res.status(405).end(`Method ${req.method} Not Allowed`);
+//   }
+// }
