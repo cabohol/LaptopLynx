@@ -212,7 +212,7 @@ onMounted(() => {
               <v-col cols="12" sm="6" md="4" lg="5" v-for="notification in notifications" :key="notification.id">
                 <v-card class="notification-card" outlined>
                       <v-card-title>
-                        <v-icon left :color="notification.type === 'Accepted' ? '#66FCF1' : notification.type === 'Rejected' ? '#66FCF1' : '#66FCF1'">
+                        <v-icon left :color="notification.type === 'Accepted' ? '#008000' : notification.type === 'Rejected' ? '#FF0000' : '#FF0000'">
                           {{ notification.type === 'Accepted' 
                               ? 'mdi-check-circle' 
                               : notification.type === 'Rejected' 
