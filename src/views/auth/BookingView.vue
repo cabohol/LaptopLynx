@@ -209,38 +209,36 @@ const submitForm = async () => {
 
         <!-- Booking Form -->
         <v-card class="mx-auto custom-card" max-width="1000px" style="background-color: #1F2833; border: 1px solid #66FCF1; border-radius: 10px; padding: 20px;">
-                            <br>
-                            <AlertNotification
-                           :form-success-message="formAction.formSuccessMessage" 
-                           :form-error-message="formAction.formErrorMessage"
-                            >
-                          </AlertNotification>
-                          <br>
+         <br>
+        <AlertNotification :form-success-message="formAction.formSuccessMessage" 
+                           :form-error-message="formAction.formErrorMessage">
+        </AlertNotification>
+         <br>
         
-          <v-form>
+  <v-form>
     <v-card-text>
       <v-row>
-        <v-col cols="12" sm="6">
-          <v-text-field
-            v-model="renter.firstname"
-            label="First Name"
-            outlined
-            readonly
-            color="#C5C6C7"
-            style="color: white;"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" sm="6">
-          <v-text-field
-            v-model="renter.lastname"
-            label="Last Name"
-            outlined
-            readonly
-            color="#C5C6C7"
-            style="color: white;"
-          ></v-text-field>
-        </v-col>
-      </v-row>
+          <v-col cols="12" sm="6">
+            <v-text-field
+              v-model="renter.firstname"
+              label="First Name"
+              outlined
+              readonly
+              color="#C5C6C7"
+              style="color: white;"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <v-text-field
+              v-model="renter.lastname"
+              label="Last Name"
+              outlined
+              readonly
+              color="#C5C6C7"
+              style="color: white;"
+            ></v-text-field>
+          </v-col>
+        </v-row>
 
       <!-- Contact and Location Section -->
       <v-row>
@@ -254,16 +252,16 @@ const submitForm = async () => {
             style="color: white;"
           ></v-text-field>
         </v-col>
-          <v-col cols="12" sm="6">
-                    <v-select
-                      v-model="selectedTime"
-                      :items="timeOptions"
-                      label="Select Time"
-                      outlined
-                      color="#C5C6C7"
-                      style="color: white;"
-                    ></v-select>
-                  </v-col>
+<v-col cols="12" sm="6">
+          <v-select
+            v-model="selectedTime"
+            :items="timeOptions"
+            label="Select Time"
+            outlined
+            color="#C5C6C7"
+            style="color: white;"
+          ></v-select>
+        </v-col>
         
       </v-row>
 
@@ -294,8 +292,6 @@ const submitForm = async () => {
 
       <!-- Date and Time Selection -->
       <v-row>
-
-        
         <v-col cols="12" sm="6" class="d-flex justify-center">
           <v-date-picker
             v-model="selectedDate"
@@ -317,8 +313,9 @@ const submitForm = async () => {
           color="#C5C6C7"
           style="color: white;"
         ></v-text-field>
-
-        <iframe
+     <div class="map-container">
+         <!-- Start of Embedded Google Map -->  
+         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1014.0913711541785!2d125.59720176000253!3d8.955168374883792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3301eb718c34871d%3A0x6e2100629a1a0a27!2sCSU%20Main%20College%20of%20Computing%20and%20Information%20Sciences!5e1!3m2!1sen!2sph!4v1732915131845!5m2!1sen!2sph"
           width="600"
           height="450"
@@ -327,13 +324,11 @@ const submitForm = async () => {
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
+     </div>
       </v-col>
-        <!-- Embedded Google Map -->
-       
-        
+        <!-- End of Embedded Google Map -->  
       </v-row>
     </v-card-text>
-
       <!-- Submit Button -->
       <v-card-actions>
         <v-btn block @click="submitForm" style="font-size: 18px; font-weight: bold; 
@@ -341,7 +336,7 @@ const submitForm = async () => {
           color: white; border: none;"> Submit Appointment
         </v-btn>
       </v-card-actions>
-    </v-form>
+  </v-form>
         </v-card>
       </v-container>
     </v-main>
@@ -353,6 +348,21 @@ const submitForm = async () => {
 
 
 <style scoped>
+.map-container {
+  width: 100%;
+  max-width: 800px; 
+  margin: 5px auto; 
+  background-color: cyan;
+  border: 3px solid cyan; 
+  overflow: hidden; 
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 300px;
+  border: none;
+}
+
 .floating-img {
   animation: floatUpDown 3s ease-in-out infinite;
 }

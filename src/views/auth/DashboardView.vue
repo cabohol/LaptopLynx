@@ -329,7 +329,7 @@ onMounted(() => {
                         <div><strong style="color: #66FCF1; font-size: 15px;">Notification Type: </strong>{{ appointmentNotification(appointment).type }}</div>
                         <div><strong style="color: #66FCF1; font-size: 15px;">Message: </strong>{{ appointmentNotification(appointment).message }}</div>
                       </div>
-                      <v-btn color="error" class="mx-1 mt-1 w-50" @click="deleteAppointment(appointment)">Delete</v-btn>
+                      <v-btn color="error" class="mx-1 mt-1 " @click="deleteAppointment(appointment)">Delete</v-btn>
                     </div>
                   </v-timeline-item>
                 </v-timeline>
