@@ -4,7 +4,6 @@ import { formActionDefault, supabase } from '@/utils/supabase';
 import { useRouter } from 'vue-router';
 import AlertNotification from '@/components/common/AlertNotification.vue';
 
-
 const router = useRouter();
 
 // Define renter data and initial values
@@ -35,8 +34,6 @@ const onLogout = async () => {
   router.replace('/LoginView');
 };
 
-
-
 // Drawer state for UI
 const drawer = ref(false);
 
@@ -49,7 +46,7 @@ const meetupPlace = ref('CSU (Hiraya Hall)');
 const today = new Date().toISOString().substr(0, 10); // Get today's date in 'YYYY-MM-DD' format
 
 const handleDateChange = () => {
-  console.log("Selected date:", selectedDate.value);
+  console.log('Selected date:', selectedDate.value);
 };
 
 // Time options for the form
@@ -58,12 +55,26 @@ const timeOptions = [
   '1:00 P.M', '2:00 P.M', '3:00 P.M', '4:00 P.M', '5:00 P.M',
 ];
 
-// Laptop model options for the form
-const laptopModels = [
-  'Dell XPS 13', 'Asus ROG Zephyrus G14', 'MacBook Pro 16', 'HP Spectre x360',
-  'Lenovo ThinkPad X1', 'MSI GS66 Stealth', 'Razer Blade 15', 'Huawei MateBook D15',
-  'Acer Aspire 5', 'Acer Nitro 5', 'Lenovo V15 Gen 5', 'Acer Predator Helios',
-];
+// Laptop data
+const laptops = ref([
+  { id: 1, name: 'Dell XPS 13', price: '₱180/day' },
+  { id: 2, name: 'Asus ROG Zephyrus G14', price: '₱200/day' },
+  { id: 3, name: 'MacBook Pro 16', price: '₱200/day' },
+  { id: 4, name: 'HP Spectre x360', price: '₱190/day' },
+  { id: 5, name: 'Lenovo ThinkPad X1', price: '₱170/day' },
+  { id: 6, name: 'MSI GS66 Stealth', price: '₱200/day' },
+  { id: 7, name: 'Razer Blade 15', price: '₱190/day' },
+  { id: 8, name: 'Huawei MateBook D15', price: '₱150/day' },
+  { id: 9, name: 'Acer Aspire 5', price: '₱160/day' },
+  { id: 10, name: 'Acer Nitro 5', price: '₱200/day' },
+  { id: 11, name: 'Lenovo V15 Gen 5', price: '₱170/day' },
+  { id: 12, name: 'Acer Predator Helios', price: '₱230/day' },
+]);
+
+// Generate laptop models with prices
+const laptopModels = laptops.value.map(
+  (laptop) => `${laptop.name} (${laptop.price})`
+);
 
 // Function to fetch renter data from Supabase
 const getRenterData = async () => {
@@ -75,7 +86,6 @@ const getRenterData = async () => {
 
   const user = data?.user;
   if (user) {
-    // Populate renter details from Supabase user metadata
     renter.value.email = user.email;
     const metadata = user.user_metadata;
     renter.value.firstname = metadata?.firstname || '';
@@ -84,12 +94,11 @@ const getRenterData = async () => {
   }
 };
 
-// Fetch renter data on component mount
 onMounted(() => {
   getRenterData();
 });
 
-// Function to clear form fields after submission
+// Clear form function
 const clearForm = () => {
   laptop.value = null;
   selectedDate.value = null;
@@ -97,50 +106,34 @@ const clearForm = () => {
   rentalDays.value = '';
 };
 
-// Function to submit the form and book an appointment
+// Form submission logic
 const submitForm = async () => {
   // Validate required fields
   if (!laptop.value || !selectedDate.value || !selectedTime.value || !rentalDays.value) {
-    //alert('Please fill in all the required fields.');
     formAction.value.formErrorMessage = 'Please fill in all the required fields.';
-
     return;
   }
 
   try {
-    // Get user data from Supabase
     const { data: user, error: userError } = await supabase.auth.getUser();
     if (userError || !user?.user) {
-      console.error('Error fetching user:', userError);
-      //alert('You must be logged in to book an appointment.');
       formAction.value.formErrorMessage = 'You must be logged in to book an appointment.';
-      
       return;
     }
 
     const userId = user.user.id;
-
-    // Parse and format the selected time
-    const timeParts = selectedTime.value.split(/[.: ]/); // Split time into components
+    const timeParts = selectedTime.value.split(/[.: ]/);
     let hours = parseInt(timeParts[0], 10);
     const minutes = parseInt(timeParts[1], 10);
     const period = timeParts[2];
 
-    // Convert to 24-hour format
-    if (period === 'P' && hours !== 12) {
-      hours += 12;
-    } else if (period === 'A' && hours === 12) {
-      hours = 0;
-    }
+    if (period === 'P' && hours !== 12) hours += 12;
+    else if (period === 'A' && hours === 12) hours = 0;
 
-    // Create a valid Date object
     const localDateTime = new Date(selectedDate.value);
     localDateTime.setHours(hours, minutes, 0, 0);
-
-    // Convert to UTC for storage
     const utcDateTime = new Date(localDateTime.getTime() - localDateTime.getTimezoneOffset() * 60000).toISOString();
 
-    // Insert appointment into the Supabase database
     const { error } = await supabase.from('appointments').insert([
       {
         laptop_name: laptop.value,
@@ -154,24 +147,14 @@ const submitForm = async () => {
     ]);
 
     if (error) {
-      console.error('Supabase insert error:', error);
-      //alert('Error booking appointment. Please try again.');
       formAction.value.formErrorMessage = 'Error booking appointment. Please try again.';
-
       return;
     }
 
-    // Display success message and clear the form
-    //alert('Your appointment has been successfully booked with LaptopLynx! Thank you for choosing us.');
     formAction.value.formSuccessMessage = 'Your appointment has been successfully booked with LaptopLynx! Thank you for choosing us.';
-
     clearForm();
   } catch (error) {
-    // Handle unexpected errors
-    //console.error('Unexpected error:', error);
-    //alert('Something went wrong. Please try again.');
     formAction.value.formErrorMessage = 'Something went wrong. Please try again.';
-
   }
 };
 </script>
@@ -269,7 +252,7 @@ const submitForm = async () => {
             style="color: white;"
           ></v-text-field>
         </v-col>
-        <v-col cols="12" sm="6">
+<v-col cols="12" sm="6">
           <v-select
             v-model="selectedTime"
             :items="timeOptions"
@@ -278,7 +261,8 @@ const submitForm = async () => {
             color="#C5C6C7"
             style="color: white;"
           ></v-select>
-        </v-col> 
+        </v-col>
+        
       </v-row>
 
       <!-- Rental and Laptop Details -->
@@ -298,7 +282,7 @@ const submitForm = async () => {
           <v-select
             v-model="laptop"
             :items="laptopModels"
-            label="Laptop Model"
+            label="Laptop Model (Price)"
             outlined
             color="#C5C6C7"
             style="color: white;"

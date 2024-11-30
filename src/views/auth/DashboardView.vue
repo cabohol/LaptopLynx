@@ -2,6 +2,8 @@
 import { supabase } from '@/utils/supabase';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import AlertNotification from '@/components/common/AlertNotification.vue';
+
 
 // State management
 const drawer = ref(false); // Drawer toggle
@@ -115,7 +117,9 @@ const deleteAppointment = async (appointment) => {
 
     if (notificationsError) {
       console.error('Error deleting notifications:', notificationsError);
-      alert(`Failed to delete related notifications: ${notificationsError.message}`);
+      //alert(`Failed to delete related notifications: ${notificationsError.message}`);
+      formAction.value.formErrorMessage = 'Failed to delete related notifications: ${notificationsError.message';
+
       return;
     }
 
@@ -126,15 +130,19 @@ const deleteAppointment = async (appointment) => {
 
     if (appointmentError) {
       console.error('Error deleting appointment:', appointmentError);
-      alert(`Failed to delete appointment: ${appointmentError.message}`);
+      //alert(`Failed to delete appointment: ${appointmentError.message}`);
+      formAction.value.formErrorMessage = `Failed to delete appointment: ${appointmentError.message}`;
       return;
     }
 
     appointments.value = appointments.value.filter(a => a.id !== appointment.id);
-    alert('Appointment and related notifications successfully deleted.');
+    //alert('Appointment and related notifications successfully deleted.');
+    formAction.value.formSuccessMessage = 'Appointment and related notifications successfully deleted.'
   } catch (err) {
     console.error('Unexpected error deleting appointment:', err);
-    alert('An unexpected error occurred while deleting the appointment.');
+    //alert('An unexpected error occurred while deleting the appointment.');
+
+    formAction.value.formErrorMessage = 'An unexpected error occurred while deleting the appointment.';
   }
 };
 
@@ -148,17 +156,20 @@ const acceptAppointment = async (appointment) => {
 
     if (error) {
       console.error('Error accepting appointment:', error);
-      alert('Failed to accept the appointment.');
+      //alert('Failed to accept the appointment.');
+      formAction.value.formErrorMessage = 'Failed to accept the appointment.';
       return;
     }
 
     appointment.status = 'Accepted';
     const successMessage = `Successfully accepted the appointment for ${appointment.laptop_name}.`;
     await addNotification('Accepted', successMessage, appointment.id);
-    alert('Appointment accepted successfully.');
+    //alert('Appointment accepted successfully.');
+    formAction.value.formSuccessMessage = 'Appointment accepted successfully.';
   } catch (err) {
     console.error('Unexpected error accepting appointment:', err);
-    alert('An unexpected error occurred while accepting the appointment.');
+    //alert('An unexpected error occurred while accepting the appointment.');
+    formAction.value.formErrorMessage = 'An unexpected error occurred while accepting the appointment.';
   }
 };
 
@@ -253,6 +264,14 @@ onMounted(() => {
         </v-card-text>
       </v-card>
 
+    
+                            <AlertNotification
+                           :form-success-message="formAction.formSuccessMessage" 
+                           :form-error-message="formAction.formErrorMessage"
+                            >
+                          </AlertNotification>
+                        
+
       <!-- Appointments Section -->
       <v-container fluid>
         <v-row class="mt-12" justify="center">
@@ -303,6 +322,8 @@ onMounted(() => {
                     <div class="mb-4">
                       <div><strong style="color: #66FCF1; font-size: 15px;">Renter: </strong>{{ `${appointment.firstname} ${appointment.lastname}` }}</div>
                       <div><strong style="color: #66FCF1; font-size: 15px;">Laptop Model: </strong>{{ appointment.laptop_name }}</div>
+                      <div><strong style="color: #66FCF1; font-size: 15px;">Rental days: </strong>{{ appointment.rental_days }}</div>
+
                       <div><strong style="color: #66FCF1; font-size: 15px;">Meet-up: </strong>Hiraya Hall - CSU</div>
                       <div v-if="appointmentNotification(appointment)">
                         <div><strong style="color: #66FCF1; font-size: 15px;">Notification Type: </strong>{{ appointmentNotification(appointment).type }}</div>
