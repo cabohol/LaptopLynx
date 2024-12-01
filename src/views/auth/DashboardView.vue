@@ -11,7 +11,7 @@ const router = useRouter();
 const admin = ref({
   fullname: '',
   email: '',
-  avatar: localStorage.getItem('admin-avatar') || '/src/images/Default_pfp.svg.png',
+  avatar: localStorage.getItem('admin-avatar') || 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png',
 });
 const formAction = ref({});
 const appointments = ref([]);
@@ -30,7 +30,7 @@ const getAdminData = async () => {
     admin.value.email = user.email;
     const metadata = user.user_metadata;
     admin.value.fullname = `${metadata?.firstname || ''} ${metadata?.lastname || ''}`.trim();
-    admin.value.avatar = metadata?.avatar || admin.value.avatar;
+    admin.value.avatar = metadata?.avatar || 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png';
   }
 };
 

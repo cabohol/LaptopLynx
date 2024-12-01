@@ -10,7 +10,7 @@ const renter = ref({
   firstname: '',
   lastname: '',
   email: '',
-  avatar: localStorage.getItem('customer-avatar') || '/src/images/Default_pfp.svg.png',
+  avatar: localStorage.getItem('customer-avatar') || 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png',
 });
 
 const formAction = ref({
@@ -90,7 +90,7 @@ const getRenterData = async () => {
     const metadata = user.user_metadata;
     renter.value.firstname = metadata?.firstname || '';
     renter.value.lastname = metadata?.lastname || '';
-    renter.value.avatar = metadata?.avatar || renter.value.avatar;
+    renter.value.avatar = metadata?.avatar || 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png';
   }
 };
 

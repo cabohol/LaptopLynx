@@ -11,7 +11,7 @@ const admin = ref({
   fullname: '',
   email: '',
   phone_number: '',
-  avatar: localStorage.getItem('user-avatar') || '/src/images/Default_pfp.svg.png',
+  avatar: localStorage.getItem('user-avatar') || 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png',
 });
 
 const formAction = ref({
@@ -36,7 +36,7 @@ const getAdminData = async () => {
     admin.value.phone_number = metadata?.phone_number || 'Not Provided';
 
     // Retrieve and set avatar
-    admin.value.avatar = metadata?.avatar || '/src/images/Default_pfp.svg.png'; // Set default image here
+    admin.value.avatar = metadata?.avatar || 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png'; // Set default image here
   }
 };
 

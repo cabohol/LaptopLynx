@@ -14,7 +14,7 @@ const drawer = ref(false);
 const renter = ref({
   fullname: '',
   email: '',
-  avatar: localStorage.getItem('user-avatar') || '/src/images/Default_pfp.svg.png', // Default avatar
+  avatar: localStorage.getItem('user-avatar') || 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png', // Default avatar
 });
 
 // Form action state
@@ -35,7 +35,7 @@ const getRenterData = async () => {
     renter.value.email = user.email;
     const metadata = user.user_metadata;
     renter.value.fullname = `${metadata?.firstname || ''} ${metadata?.lastname || ''}`.trim();
-    renter.value.avatar = metadata?.avatar || renter.value.avatar; // Use metadata avatar if available
+    renter.value.avatar = metadata?.avatar || 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png'; // Use metadata avatar if available
   }
 };
 
