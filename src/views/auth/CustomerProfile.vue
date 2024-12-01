@@ -30,7 +30,8 @@ const getRenterData = async () => {
     const metadata = user.user_metadata;
     renter.value.fullname = `${metadata?.firstname || ''} ${metadata?.lastname || ''}`.trim();
     renter.value.phone_number = metadata?.phone_number || 'Not Provided';
-    renter.value.avatar = metadata?.avatar || '/src/images/Default_pfp.svg.png'; // Set default image here
+    renter.value.avatar = metadata?.avatar || '/src/images/Default_pfp.svg.png';
+  
   }
 };
 
