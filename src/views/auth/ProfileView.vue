@@ -11,7 +11,7 @@ const admin = ref({
   fullname: '',
   email: '',
   phone_number: '',
-  avatar: '',
+  avatar: localStorage.getItem('user-avatar') || '/src/images/Default_pfp.svg.png',
 });
 
 const formAction = ref({
