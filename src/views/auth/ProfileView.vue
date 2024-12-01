@@ -11,7 +11,7 @@ const admin = ref({
   fullname: '',
   email: '',
   phone_number: '',
-  avatar: '',
+  avatar: localStorage.getItem('user-avatar') || '/src/images/Default_pfp.svg.png',
 });
 
 const formAction = ref({
@@ -36,7 +36,7 @@ const getAdminData = async () => {
     admin.value.phone_number = metadata?.phone_number || 'Not Provided';
 
     // Retrieve and set avatar
-    admin.value.avatar = metadata?.avatar || ''; // Default to empty if not found
+    admin.value.avatar = metadata?.avatar || '/src/images/Default_pfp.svg.png'; // Set default image here
   }
 };
 
