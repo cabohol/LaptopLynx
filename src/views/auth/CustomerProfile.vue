@@ -10,7 +10,7 @@ const renter = ref({
   fullname: '',
   email: '',
   phone_number: '',
-  avatar: '',
+  avatar: localStorage.getItem('admin-avatar') || '/src/images/Default_pfp.svg.png',
 });
 
 const formAction = ref({
@@ -30,7 +30,8 @@ const getRenterData = async () => {
     const metadata = user.user_metadata;
     renter.value.fullname = `${metadata?.firstname || ''} ${metadata?.lastname || ''}`.trim();
     renter.value.phone_number = metadata?.phone_number || 'Not Provided';
-    renter.value.avatar = metadata?.avatar || '';
+    renter.value.avatar = metadata?.avatar || '/src/images/Default_pfp.svg.png';
+  
   }
 };
 

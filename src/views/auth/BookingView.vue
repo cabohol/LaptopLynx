@@ -50,6 +50,186 @@ const timeOptions = [
   '1:00 P.M', '2:00 P.M', '3:00 P.M', '4:00 P.M', '5:00 P.M',
 ];
 
+// Laptops list
+const laptops = ref([
+  { id: 1, name: 'Dell XPS 13', price: '₱180/day', booked: false },
+  { id: 2, name: 'Asus ROG Zephyrus G14', price: '₱200/day', booked: false },
+  { id: 3, name: 'MacBook Pro 16', price: '₱200/day', booked: false },
+  { id: 4, name: 'HP Spectre x360', price: '₱190/day', booked: false },
+  { id: 5, name: 'Lenovo ThinkPad X1', price: '₱170/day', booked: false },
+  { id: 6, name: 'MSI GS66 Stealth', price: '₱200/day', booked: false },
+  { id: 7, name: 'Razer Blade 15', price: '₱190/day', booked: false },
+  { id: 8, name: 'Huawei MateBook D15', price: '₱150/day', booked: false },
+  { id: 9, name: 'Acer Aspire 5', price: '₱160/day', booked: false },
+  { id: 10, name: 'Acer Nitro 5', price: '₱200/day', booked: false },
+  { id: 11, name: 'Lenovo V15 Gen 5', price: '₱170/day', booked: false },
+  { id: 12, name: 'Acer Predator Helios', price: '₱230/day', booked: false },
+]);
+
+const availableLaptops = ref([]);
+
+// Fetch available laptops considering the booking state stored in localStorage
+const fetchAvailableLaptops = () => {
+  const bookedLaptopIds = JSON.parse(localStorage.getItem('bookedLaptops')) || [];
+  availableLaptops.value = laptops.value
+    .filter((laptop) => !bookedLaptopIds.includes(laptop.id))
+    .map((laptop) => `${laptop.name} (${laptop.price})`);
+};
+
+// Retrieve renter data
+const getRenterData = async () => {
+  const { data, error } = await supabase.auth.getUser();
+  if (error) {
+    console.error('Error fetching user data:', error);
+    return;
+  }
+
+  const user = data?.user;
+  if (user) {
+    renter.value.email = user.email;
+    const metadata = user.user_metadata;
+    renter.value.firstname = metadata?.firstname || '';
+    renter.value.lastname = metadata?.lastname || '';
+    renter.value.avatar = metadata?.avatar || renter.value.avatar;
+  }
+};
+
+onMounted(() => {
+  getRenterData();
+  fetchAvailableLaptops();
+});
+
+// Clear form inputs
+const clearForm = () => {
+  laptop.value = null;
+  selectedDate.value = null;
+  selectedTime.value = null;
+  rentalDays.value = '';
+};
+
+// Submit the form and update booking state
+const submitForm = async () => {
+  if (!laptop.value || !selectedDate.value || !selectedTime.value || !rentalDays.value) {
+    formAction.value.formErrorMessage = 'Please fill in all the required fields.';
+    return;
+  }
+
+  try {
+    const { data: user, error: userError } = await supabase.auth.getUser();
+    if (userError || !user?.user) {
+      formAction.value.formErrorMessage = 'You must be logged in to book an appointment.';
+      return;
+    }
+
+    const userId = user.user.id;
+    const timeParts = selectedTime.value.split(/[.: ]/);
+    let hours = parseInt(timeParts[0], 10);
+    const minutes = parseInt(timeParts[1], 10);
+    const period = timeParts[2];
+
+    if (period === 'P' && hours !== 12) hours += 12;
+    else if (period === 'A' && hours === 12) hours = 0;
+
+    const localDateTime = new Date(selectedDate.value);
+    localDateTime.setHours(hours, minutes, 0, 0);
+    const utcDateTime = new Date(localDateTime.getTime() - localDateTime.getTimezoneOffset() * 60000).toISOString();
+
+    const { error } = await supabase.from('appointments').insert([
+      {
+        laptop_name: laptop.value,
+        date_and_time: utcDateTime,
+        rental_days: parseInt(rentalDays.value, 10),
+        user_id: userId,
+        created_at: new Date().toISOString(),
+        firstname: renter.value.firstname,
+        lastname: renter.value.lastname,
+      },
+    ]);
+
+    if (error) {
+      formAction.value.formErrorMessage = 'Error booking appointment. Please try again.';
+      return;
+    }
+
+    // Update booked laptops in localStorage
+    const bookedLaptop = laptops.value.find((item) => `${item.name} (${item.price})` === laptop.value);
+    if (bookedLaptop) {
+      const bookedLaptopIds = JSON.parse(localStorage.getItem('bookedLaptops')) || [];
+      bookedLaptopIds.push(bookedLaptop.id);
+      localStorage.setItem('bookedLaptops', JSON.stringify(bookedLaptopIds));
+    }
+
+    fetchAvailableLaptops();
+
+    formAction.value.formSuccessMessage = 'Your appointment has been successfully booked with LaptopLynx! Thank you for choosing us.';
+    clearForm();
+  } catch (error) {
+    formAction.value.formErrorMessage = 'Something went wrong. Please try again.';
+  }
+};
+</script>
+
+
+
+
+
+
+
+
+
+
+<!-- <script setup>
+import { ref, onMounted } from 'vue';
+import { formActionDefault, supabase } from '@/utils/supabase';
+import { useRouter } from 'vue-router';
+import AlertNotification from '@/components/common/AlertNotification.vue';
+
+const router = useRouter();
+
+const renter = ref({
+  firstname: '',
+  lastname: '',
+  email: '',
+  avatar: localStorage.getItem('customer-avatar') || '/src/images/Default_pfp.svg.png',
+});
+
+const formAction = ref({
+  ...formActionDefault,
+});
+
+const onLogout = async () => {
+  formAction.value = { ...formActionDefault };
+  formAction.value.formProcess = true;
+
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    console.error('Error during logout:', error);
+    formAction.value.formProcess = false;
+    return;
+  }
+
+  formAction.value.formProcess = false;
+  router.replace('/LoginView');
+};
+
+const drawer = ref(false);
+
+const laptop = ref(null);
+const selectedDate = ref(null);
+const selectedTime = ref(null);
+const rentalDays = ref('');
+const meetupPlace = ref('CSU (Hiraya Hall)');
+const today = new Date().toISOString().substr(0, 10);
+
+const handleDateChange = () => {
+  console.log('Selected date:', selectedDate.value);
+};
+
+const timeOptions = [
+  '08:00 A.M', '09:00 A.M', '10:00 A.M', '11:00 A.M', '12:00 NN',
+  '1:00 P.M', '2:00 P.M', '3:00 P.M', '4:00 P.M', '5:00 P.M',
+];
+
 const laptops = ref([
   { id: 1, name: 'Dell XPS 13', price: '₱180/day', booked: false },
   { id: 2, name: 'Asus ROG Zephyrus G14', price: '₱200/day', booked: false },
@@ -158,7 +338,7 @@ const submitForm = async () => {
     formAction.value.formErrorMessage = 'Something went wrong. Please try again.';
   }
 };
-</script>
+</script> -->
 
 
 
