@@ -54,7 +54,7 @@ const onSubmit = async () => {
         lastname: formData.value.lastname,
         phone_number: formData.value.phone_number,
         role: formData.value.role,
-        is_admin: false//formData.value.role === 'admin' // Set admin status based on role
+        is_admin: true//formData.value.role === 'admin' // Set admin status based on role
       }
     }
   });
