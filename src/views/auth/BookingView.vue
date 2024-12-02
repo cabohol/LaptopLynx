@@ -52,18 +52,18 @@ const timeOptions = [
 
 // Laptops list
 const laptops = ref([
-  { id: 1, name: 'Dell XPS 13', price: '₱180/day', booked: false },
-  { id: 2, name: 'Asus ROG Zephyrus G14', price: '₱200/day', booked: false },
-  { id: 3, name: 'MacBook Pro 16', price: '₱200/day', booked: false },
-  { id: 4, name: 'HP Spectre x360', price: '₱190/day', booked: false },
-  { id: 5, name: 'Lenovo ThinkPad X1', price: '₱170/day', booked: false },
-  { id: 6, name: 'MSI GS66 Stealth', price: '₱200/day', booked: false },
-  { id: 7, name: 'Razer Blade 15', price: '₱190/day', booked: false },
-  { id: 8, name: 'Huawei MateBook D15', price: '₱150/day', booked: false },
-  { id: 9, name: 'Acer Aspire 5', price: '₱160/day', booked: false },
-  { id: 10, name: 'Acer Nitro 5', price: '₱200/day', booked: false },
-  { id: 11, name: 'Lenovo V15 Gen 5', price: '₱170/day', booked: false },
-  { id: 12, name: 'Acer Predator Helios', price: '₱230/day', booked: false },
+{ id: 1, name: 'Dell XPS 13', price: '₱180/day', booked: false, category: 'Gaming' },
+  { id: 2, name: 'Asus ROG Zephyrus G14', price: '₱200/day', booked: false,  category: 'Gaming' },
+  { id: 3, name: 'MacBook Pro 16', price: '₱200/day', booked: false,  category: 'Projects'},
+  { id: 4, name: 'HP Spectre x360', price: '₱190/day', booked: false,  category: 'Coding' },
+  { id: 5, name: 'Lenovo ThinkPad X1', price: '₱170/day', booked: false,  category: 'Coding' },
+  { id: 6, name: 'MSI GS66 Stealth', price: '₱200/day', booked: false,  category: 'Gaming'},
+  { id: 7, name: 'Razer Blade 15', price: '₱190/day', booked: false,  category: 'Gaming'},
+  { id: 8, name: 'Huawei MateBook D15', price: '₱150/day', booked: false,  category: 'Projects'},
+  { id: 9, name: 'Acer Aspire 5', price: '₱160/day', booked: false,  category: 'Projects'},
+  { id: 10, name: 'Acer Nitro 5', price: '₱200/day', booked: false,  category: 'Gaming'},
+  { id: 11, name: 'Lenovo V15 Gen 5', price: '₱170/day', booked: false,  category: 'Projects'},
+  { id: 12, name: 'Acer Predator Helios', price: '₱230/day', booked: false,  category: 'Gaming' },
 ]);
 
 const availableLaptops = ref([]);
@@ -73,7 +73,10 @@ const fetchAvailableLaptops = () => {
   const bookedLaptopIds = JSON.parse(localStorage.getItem('bookedLaptops')) || [];
   availableLaptops.value = laptops.value
     .filter((laptop) => !bookedLaptopIds.includes(laptop.id))
-    .map((laptop) => `${laptop.name} (${laptop.price})`);
+    .map((laptop) => {
+      // If laptop has a category (e.g., Gaming), include it in the displayed name
+      return laptop.category ? `${laptop.name} (${laptop.price}) - ${laptop.category}` : `${laptop.name} (${laptop.price})`;
+    });
 };
 
 // Retrieve renter data
@@ -168,15 +171,6 @@ const submitForm = async () => {
   }
 };
 </script>
-
-
-
-
-
-
-
-
-
 
 <!-- <script setup>
 import { ref, onMounted } from 'vue';
@@ -339,9 +333,6 @@ const submitForm = async () => {
   }
 };
 </script> -->
-
-
-
 
 
 
