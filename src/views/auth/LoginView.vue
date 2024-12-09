@@ -107,74 +107,78 @@ const onSubmit = async () => {
                 <!-- Login Window -->
                 <v-window-item :value="1">
                   <v-row>
-                    <v-col cols="12" md="6" class="left-panel">
-                      <br />
-                      <br />
-                      <br />
-                      <v-card-text class="text-center">
-                        <h4 class="form-title">Log in to LaptopLynx</h4>
-                        <p class="form-description">Access your account and continue exploring our services.</p>
-                        
+                  <v-col cols="12" md="6" class="left-panel">
+                    <br />
+                    <br />
+                    <br />
+                    <v-card-text class="text-center">
+                      <h4 class="form-title">Log in to LaptopLynx</h4>
+                      <p class="form-description">Access your account and continue exploring our services.</p>
+                      <br>
+                      <AlertNotification
+                        :form-success-message="formAction.formSuccessMessage" 
+                        :form-error-message="formAction.formErrorMessage"
+                      >
+                      </AlertNotification>
+                      <br>
+                      <v-form ref="refVForm" @submit.prevent="onFormSubmit">
+                        <v-text-field
+                          v-model="formData.email"
+                          hide-details="auto"
+                          label="Email"
+                          clearable
+                          outlined
+                          dense
+                          class="custom-input mt-4"
+                          prepend-inner-icon="mdi-email"
+                          :rules="[requiredValidator, emailValidator]"
+                        ></v-text-field>
+                        <v-text-field
+                          v-model="formData.password"
+                          hint="Enter your password to access this website"
+                          hide-details="auto"
+                          label="Password"
+                          clearable
+                          outlined
+                          dense
+                          :type="isPasswordVisible ? 'text' : 'password'" 
+                          class="custom-input"
+                          prepend-inner-icon="mdi-lock"
+                          :append-icon="isPasswordVisible ? 'mdi-eye' : 'mdi-eye-off'" 
+                          @click:append="isPasswordVisible = !isPasswordVisible" 
+                          :rules="[requiredValidator]"
+                          append-icon-class="white--text" 
+                        />
                         <br>
-                          <AlertNotification
-                           :form-success-message="formAction.formSuccessMessage" 
-                           :form-error-message="formAction.formErrorMessage"
-                            >
-                          </AlertNotification>
-                           <br>
-                        
-                        <v-form ref="refVForm" @submit.prevent="onFormSubmit">
-                          <v-text-field
-                            v-model="formData.email"
-                            hide-details="auto"
-                            label="Email"
-                            clearable
-                            outlined
-                            dense
-                            class="custom-input mt-4"
-                            prepend-inner-icon="mdi-email"
-                            :rules="[requiredValidator, emailValidator]"
-                          ></v-text-field>
-                          <v-text-field
-                            v-model="formData.password"
-                            hint="Enter your password to access this website"
-                            hide-details="auto"
-                            label="Password"
-                            clearable
-                            outlined
-                            dense
-                            :type="isPasswordVisible ? 'text' : 'password'" 
-                            class="custom-input"
-                            prepend-inner-icon="mdi-lock"
-                            :append-icon="isPasswordVisible ? 'mdi-eye' : 'mdi-eye-off'" 
-                            @click:append="isPasswordVisible = !isPasswordVisible" 
-                            :rules="[requiredValidator]"
-                            append-icon-class="white--text" 
-                          />
-                        
-                          <br>
-                          <v-btn class="login-btn" type="submit" block
+                        <v-btn class="login-btn" type="submit" block
                           :disabled="formAction.formProcess"
                           :loading="formAction.formProcess">
-                            <v-icon left>mdi-login</v-icon> Log In
-                          </v-btn>
-                        </v-form>
-                      </v-card-text>
-                    </v-col>
-                    
-                    <v-col cols="12" md="6" class="right-panel d-flex flex-column align-center">
-                      <img src="/src/images/logolynx.png" alt="Your Logo" class="logo" style="margin: 10px 0; max-width: 100%;" />
-                      
-                      <br>
-                      <br>
-                      <br>
-                      <v-btn class="signup-btn mt-4" to="/RegisterView">
-                        New Here? <span class="no-underline">Create an Account</span>
-                      </v-btn>
-                    </v-col>
+                          <v-icon left>mdi-login</v-icon> Log In
+                        </v-btn>
+                        <div class="divider-with-text">
+                          <hr />
+                          <span>or</span>
+                          <hr />
+                        </div>
+                        <v-btn class="login-btn mt-3" block outlined @click="loginWithGoogle">
+                          <img src="https://www.transparentpng.com/download/google-logo/colorful-google-logo-transparent-clipart-download-u3DWLj.png" alt="Google Logo" style="height: 25px; margin-right: 5px;" />
+                          Log in with Google
+                        </v-btn>
+                      </v-form>
+                    </v-card-text>
+                  </v-col>
+                  
+                  <v-col cols="12" md="6" class="right-panel d-flex flex-column align-center">
+                    <img src="/src/images/logolynx.png" alt="Your Logo" class="logo" style="margin: 10px 0; max-width: 100%;" />
+                    <br>
+                    <br>
+                    <br>
+                    <v-btn class="signup-btn mt-4" to="/RegisterView">
+                      New Here? <span class="no-underline">Create an Account</span>
+                    </v-btn>
+                  </v-col>
+                </v-row>
 
-
-                  </v-row>
                 </v-window-item>
               </v-window>
             </v-card>
@@ -196,6 +200,25 @@ const onSubmit = async () => {
 
 
 <style scoped>
+.divider-with-text {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+  color: #FFFFFF; 
+  font-weight: bold;
+}
+
+.divider-with-text hr {
+  flex: 1;
+  border: none;
+  border-top: 1px solid #66FCF1; 
+  margin: 0 10px;
+}
+
+.divider-with-text span {
+  white-space: nowrap;
+}
+
 .main-container {
   background: linear-gradient(135deg, #0B0C10, #1F2833, #45A29E, #66FCF1, #C5C6C7);
   background-size: 300% 300%; 
