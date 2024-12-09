@@ -1,23 +1,22 @@
 <script setup>
 import { supabase } from '@/utils/supabase';
-import { requiredValidator, emailValidator } from '@/utils/validators';
-import { ref } from 'vue'
-import AlertNotification from '@/components/common/AlertNotification.vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import AlertNotification from '@/components/common/AlertNotification.vue';
 
-const router = useRouter()
+const router = useRouter();
 
 const formDataDefault = {
   email: '',
   password: '',
-}
+};
 
 const formActionDefault = {
   formProcess: false,
   formErrorMessage: '',
   formSuccessMessage: '',
   formStatus: 200,
-}
+};
 
 const formData = ref({ ...formDataDefault });
 const formAction = ref({ ...formActionDefault });
@@ -29,34 +28,7 @@ const onFormSubmit = () => {
   if (refVForm.value?.validate()) {
     onSubmit();
   }
-}
-
-// const onSubmit = async () => {
-//   formAction.value = { ...formActionDefault };
-//   formAction.value.formProcess = true;
-
-//   const { data, error } = await supabase.auth.signInWithPassword({
-//     email: formData.value.email,
-//     password: formData.value.password
-//   });
-
-//   if (error) {
-//     console.error(error);
-//     formAction.value.formErrorMessage = error.message;
-//     formAction.value.formStatus = error.status;
-//   } else if (data) {
-//     console.log(data);
-//     formAction.value.formSuccessMessage = 'Successfully Logged Account!';
-//     // Navigate to a different page, e.g., dashboard
-//     router.replace('/customerdashboard'); // Change this to your desired route
-    
-//   }
-//   //reset form
-// refVForm.value?.reset();
-//   formAction.value.formProcess = false;
-// };
-
-
+};
 
 const onSubmit = async () => {
   formAction.value = { ...formActionDefault };
@@ -71,7 +43,7 @@ const onSubmit = async () => {
     console.error(error);
     formAction.value.formErrorMessage = error.message;
     formAction.value.formStatus = error.status;
-  } else if (data?.user) {  // Check if login succeeded
+  } else if (data?.user) {
     formAction.value.formSuccessMessage = 'Successfully Logged In!';
 
     // Access the role directly from user metadata
@@ -92,9 +64,46 @@ const onSubmit = async () => {
   formAction.value.formProcess = false;
 };
 
+// Google login
+const loginWithGoogle = async () => {
+  try {
+    await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `https://inzwbgojihcvbjxqntug.supabase.co/auth/v1/callback`,  // Use your actual redirect URL
+      },
+    });
+  } catch (error) {
+    console.error("Error logging in with Google:", error);
+    formAction.value.formErrorMessage = error.message;
+  }
+};
+
+
+
+// Add this function for Facebook login
+const loginWithFacebook = async () => {
+  try {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'facebook',
+      options: {
+        redirectTo: 'https://inzwbgojihcvbjxqntug.supabase.co/auth/v1/callback',
+      },
+    });
+
+    if (error) {
+      console.error('Error logging in with Facebook:', error);
+      formAction.value.formErrorMessage = error.message;
+    } else if (data.url) {
+      window.location.href = data.url; // Redirect user to Facebook login page
+    }
+  } catch (error) {
+    console.error('Unexpected error:', error);
+    formAction.value.formErrorMessage = error.message;
+  }
+};
 
 </script>
-
 
 <template>
   <v-app>
@@ -107,84 +116,94 @@ const onSubmit = async () => {
                 <!-- Login Window -->
                 <v-window-item :value="1">
                   <v-row>
-                  <v-col cols="12" md="6" class="left-panel">
-                    <br />
-                    <br />
-                    <br />
-                    <v-card-text class="text-center">
-                      <h4 class="form-title">Log in to LaptopLynx</h4>
-                      <p class="form-description">Access your account and continue exploring our services.</p>
-                      <br>
-                      <AlertNotification
-                        :form-success-message="formAction.formSuccessMessage" 
-                        :form-error-message="formAction.formErrorMessage"
-                      >
-                      </AlertNotification>
-                      <br>
-                      <v-form ref="refVForm" @submit.prevent="onFormSubmit">
-                        <v-text-field
-                          v-model="formData.email"
-                          hide-details="auto"
-                          label="Email"
-                          clearable
-                          outlined
-                          dense
-                          class="custom-input mt-4"
-                          prepend-inner-icon="mdi-email"
-                          :rules="[requiredValidator, emailValidator]"
-                        ></v-text-field>
-                        <v-text-field
-                          v-model="formData.password"
-                          hint="Enter your password to access this website"
-                          hide-details="auto"
-                          label="Password"
-                          clearable
-                          outlined
-                          dense
-                          :type="isPasswordVisible ? 'text' : 'password'" 
-                          class="custom-input"
-                          prepend-inner-icon="mdi-lock"
-                          :append-icon="isPasswordVisible ? 'mdi-eye' : 'mdi-eye-off'" 
-                          @click:append="isPasswordVisible = !isPasswordVisible" 
-                          :rules="[requiredValidator]"
-                          append-icon-class="white--text" 
-                        />
+                    <v-col cols="12" md="6" class="left-panel">
+                      <br />
+                      <br />
+                      <br />
+                      <v-card-text class="text-center">
+                        <h4 class="form-title">Log in to LaptopLynx</h4>
+                        <p class="form-description">Access your account and continue exploring our services.</p>
                         <br>
-                        <v-btn class="login-btn" type="submit" block
-                          :disabled="formAction.formProcess"
-                          :loading="formAction.formProcess">
-                          <v-icon left>mdi-login</v-icon> Log In
-                        </v-btn>
-                        <div class="divider-with-text">
-                          <hr />
-                          <span>or</span>
-                          <hr />
-                        </div>
-                        <v-btn class="login-btn mt-3" block outlined @click="loginWithGoogle">
-                          <img src="https://www.transparentpng.com/download/google-logo/colorful-google-logo-transparent-clipart-download-u3DWLj.png" alt="Google Logo" style="height: 25px; margin-right: 5px;" />
-                          Log in with Google
-                        </v-btn>
-                      </v-form>
-                    </v-card-text>
-                  </v-col>
-                  
-                  <v-col cols="12" md="6" class="right-panel d-flex flex-column align-center">
-                    <img src="/src/images/logolynx.png" alt="Your Logo" class="logo" style="margin: 10px 0; max-width: 100%;" />
-                    <br>
-                    <br>
-                    <br>
-                    <v-btn class="signup-btn mt-4" to="/RegisterView">
-                      New Here? <span class="no-underline">Create an Account</span>
-                    </v-btn>
-                  </v-col>
-                </v-row>
+                        <AlertNotification
+                          :form-success-message="formAction.formSuccessMessage"
+                          :form-error-message="formAction.formErrorMessage"
+                        >
+                        </AlertNotification>
+                        <br>
+                        <v-form ref="refVForm" @submit.prevent="onFormSubmit">
+                          <v-text-field
+                            v-model="formData.email"
+                            hide-details="auto"
+                            label="Email"
+                            clearable
+                            outlined
+                            dense
+                            class="custom-input mt-4"
+                            prepend-inner-icon="mdi-email"
+                            :rules="[requiredValidator, emailValidator]"
+                          ></v-text-field>
+                          <v-text-field
+                            v-model="formData.password"
+                            hint="Enter your password to access this website"
+                            hide-details="auto"
+                            label="Password"
+                            clearable
+                            outlined
+                            dense
+                            :type="isPasswordVisible ? 'text' : 'password'"
+                            class="custom-input"
+                            prepend-inner-icon="mdi-lock"
+                            :append-icon="isPasswordVisible ? 'mdi-eye' : 'mdi-eye-off'"
+                            @click:append="isPasswordVisible = !isPasswordVisible"
+                            :rules="[requiredValidator]"
+                            append-icon-class="white--text"
+                          />
+                          <br>
+                          <v-btn class="login-btn" type="submit" block
+                            :disabled="formAction.formProcess"
+                            :loading="formAction.formProcess">
+                            <v-icon left>mdi-login</v-icon> Log In
+                          </v-btn>
+                          <div class="divider-with-text">
+                            <hr />
+                            <span>or</span>
+                            <hr />
+                          </div>
+                          <v-btn class="login-btn mt-3" block outlined @click="loginWithGoogle">
+                            <img src="https://www.transparentpng.com/download/google-logo/colorful-google-logo-transparent-clipart-download-u3DWLj.png" alt="Google Logo" style="height: 25px; margin-right: 5px;" />
+                            Log in with Google
+                          </v-btn>
 
+                          <v-btn class="login-btn mt-3" block outlined @click="loginWithFacebook">
+  <img
+    src="https://www.transparentpng.com/download/facebook-logo/facebook-logo-png-transparent-image-pngpix-22.png"
+    alt="Facebook Logo"
+    style="height: 25px; margin-right: 5px;"
+  />
+  Log in with Facebook
+</v-btn>
+
+                        </v-form>
+                      </v-card-text>
+                    </v-col>
+
+                    <v-col cols="12" md="6" class="right-panel d-flex flex-column align-center">
+                      <img src="/src/images/logolynx.png" alt="Your Logo" class="logo" style="margin: 10px 0; max-width: 100%;" />
+                      <br>
+                      <br>
+                      <br>
+                      <v-btn class="signup-btn mt-4" to="/RegisterView">
+                        New Here? <span class="no-underline">Create an Account</span>
+                      </v-btn>
+                    </v-col>
+                  </v-row>
                 </v-window-item>
               </v-window>
             </v-card>
           </v-col>
         </v-row>
       </v-container>
+
       <!-- Footer -->
       <footer class="footer">
         <div class="footer-content">
@@ -195,6 +214,7 @@ const onSubmit = async () => {
     </v-main>
   </v-app>
 </template>
+
 
 
 

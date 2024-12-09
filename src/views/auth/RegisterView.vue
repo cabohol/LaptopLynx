@@ -118,6 +118,11 @@ const onSubmit = async () => {
   refVForm.value?.reset();
   formAction.value.formProcess = false;
 };
+watch(() => formData.value.role, (newRole) => {
+  console.log("Role updated:", newRole); // Log role updates for debugging
+});
+
+
 
 </script>
 
