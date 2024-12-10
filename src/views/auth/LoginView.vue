@@ -175,13 +175,13 @@ const loginWithFacebook = async () => {
                           </v-btn>
 
                           <v-btn class="login-btn mt-3" block outlined @click="loginWithFacebook">
-  <img
-    src="https://www.transparentpng.com/download/facebook-logo/facebook-logo-png-transparent-image-pngpix-22.png"
-    alt="Facebook Logo"
-    style="height: 25px; margin-right: 5px;"
-  />
-  Log in with Facebook
-</v-btn>
+                            <img
+                              src="https://www.logo.wine/a/logo/Facebook/Facebook-f_Logo-Blue-Logo.wine.svg"
+                              alt="Fb Logo"
+                              style="height: 25px; margin-right: -5px;"
+                            />
+                            Log in with Facebook
+                          </v-btn>
 
                         </v-form>
                       </v-card-text>
